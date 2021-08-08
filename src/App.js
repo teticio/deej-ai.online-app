@@ -1,11 +1,10 @@
 // TODO
+// menu & screens (login, create, explore, settings, ...)
 // press button twice
 // search "" => zero results
-// bootstrap theme
-// formatting
-// faiss in backend
+// backend with faiss
+// re-write backend in fastapi to handle ws & routes?
 // highlight "waypoints"
-// screens (create, explore, settings, ...)
 // rate playlists
 // top / recent playlists
 // spotify login (existing react compoent?)
@@ -50,7 +49,7 @@ function App() {
         </Card.Body>
       </Card>
 
-      <Card style={{ width: '30rem' }}>
+      <Card>
         <Card.Body>
           <Playlist {...generatedPlaylist} />
         </Card.Body>
