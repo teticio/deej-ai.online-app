@@ -8,8 +8,8 @@ export default function AddTrack({ onAdd = f => f }) {
     <div className="d-flex flex-row align-items-center">
       <TrackSelector onSelect={(id) => { currentId = id }}>
       </TrackSelector>
-      <div style={{width: '10px'}} />
-      <FaPlus onClick={() => { if (currentId) { onAdd(currentId); }; }}/>
+      <div style={{ width: '10px' }} />
+      <FaPlus onClick={() => { if (currentId) { onAdd(currentId); }; }} />
     </div>
   );
 }

@@ -16,7 +16,7 @@ export default async function GeneratePlaylist(tracks) {
     let text = await response.text();
     let ids = text.split(' ');
     ids.pop();
-    let playlist = { 'tracks': ids.map((id) => { return {'id': id} }) };
+    let playlist = { 'tracks': ids.map((id) => { return { 'id': id } }) };
     return playlist;
   } catch (error) {
     console.error('Error:', error);

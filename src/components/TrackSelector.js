@@ -6,7 +6,7 @@ import "./TrackSelector.css";
 export default function TrackSelector({ onSelect = f => f }) {
   const [searchString, setSearchString] = useState("");
   const [searchResults, setSearchResults] = useState([]);
- 
+
   useDebouncedEffect(() => {
     async function fetchSearchResults() {
       if (searchString !== "") {
@@ -22,7 +22,7 @@ export default function TrackSelector({ onSelect = f => f }) {
           });
           let json = await response.json();
           setSearchResults(json);
-          onSelect((json.length > 0)? json[0].id: null);
+          onSelect((json.length > 0) ? json[0].id : null);
         } catch (error) {
           console.error('Error:', error);
         };
@@ -38,7 +38,7 @@ export default function TrackSelector({ onSelect = f => f }) {
         placeholder="Search..."
         onChange={event => setSearchString(event.target.value)}
       />
-      <div style={{marginTop: '10px'}} />
+      <div style={{ marginTop: '10px' }} />
       <select onChange={event => onSelect(event.target.value)}>\
         size="1"
         {searchResults.map(({ id, track }, index) => (

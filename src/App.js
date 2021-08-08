@@ -42,8 +42,8 @@ function App() {
           <hr />
 
           <div className="d-flex align-items-center justify-content-between">
-            <FaPlay onClick={() => GeneratePlaylist(playlist).then(playlist => setGeneratedPlaylist(playlist)) } />
-            <FaCog onClick={() => GeneratePlaylist(playlist).then(playlist => setGeneratedPlaylist(playlist)) } />
+            <FaPlay onClick={() => GeneratePlaylist(playlist).then(playlist => setGeneratedPlaylist(playlist))} />
+            <FaCog onClick={() => GeneratePlaylist(playlist).then(playlist => setGeneratedPlaylist(playlist))} />
           </div>
 
         </Card.Body>
