@@ -11,13 +11,13 @@ export default function TrackSelector({ onSelect = f => f }) {
     async function fetchSearchResults() {
       if (searchString !== "") {
         try {
-          let response = await fetch('http://localhost:5050/spotify_server', {
+          let response = await fetch('http://localhost:8000/search', {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json'
             },
             body: JSON.stringify({
-              'search_string': searchString
+              'string': searchString
             })
           });
           let json = await response.json();

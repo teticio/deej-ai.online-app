@@ -1,0 +1,17 @@
+[[source]]
+url = "https://pypi.org/simple"
+verify_ssl = true
+name = "pypi"
+
+[packages]
+fastapi = "*"
+tensorflow = "*"
+faiss-cpu = "*"
+yapf = "*"
+uvicorn = "*"
+pytest = "*"
+
+[dev-packages]
+
+[requires]
+python_version = "3.8"

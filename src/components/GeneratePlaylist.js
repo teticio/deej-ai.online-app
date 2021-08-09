@@ -1,21 +1,18 @@
 export default async function GeneratePlaylist(tracks) {
   try {
-    let response = await fetch('http://localhost:5050/spotify_server', {
+    let response = await fetch('http://localhost:8000/playlist', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
       },
       body: JSON.stringify({
-        'replace': true,
+        'tracks': tracks.tracks.map((track) => track.id),
         'size': 10,
-        'noise': 0,
         'creativity': 0.5,
-        'tracks': tracks.tracks.map((track) => track.id)
+        'noise': 0
       })
     });
-    let text = await response.text();
-    let ids = text.split(' ');
-    ids.pop();
+    let ids = await response.json();
     let playlist = { 'tracks': ids.map((id) => { return { 'id': id } }) };
     return playlist;
   } catch (error) {
