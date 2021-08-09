@@ -7,28 +7,29 @@
 
 import re
 import random
-from deejai import DeejAI
-from typing import Optional
-from fastapi import FastAPI
-from pydantic import BaseModel
+from . import models
+from . import schemas
+from .deejai import DeejAI
+from sqlalchemy.orm import Session
+from fastapi import Depends, FastAPI
+from .database import SessionLocal, engine
 from fastapi.middleware.cors import CORSMiddleware
 
-
-class Search(BaseModel):
-    string: str
-    max_items: Optional[int] = 100
-
-
-class Playlist(BaseModel):
-    tracks: list
-    size: Optional[int] = 10
-    creativity: Optional[float] = 0.5
-    noise: Optional[float] = 0
-    seed: Optional[int] = None
-
+# create tables if necessary
+models.Base.metadata.create_all(bind=engine)
 
 deejai = DeejAI()
 app = FastAPI()
+
+
+# Dependency
+def get_db():
+    db = SessionLocal()
+    try:
+        yield db
+    finally:
+        db.close()
+
 
 origins = [
     "http://deej-ai.online",
@@ -47,7 +48,7 @@ app.add_middleware(
 
 
 @app.post("/search")
-async def search_tracks(search: Search):
+async def search_tracks(search: schemas.Search):
     search_string = re.sub(r'([^\s\w]|_)+', '', search.string.lower()).split()
     ids = sorted([
         track for track in deejai.tracks if all(
@@ -62,7 +63,7 @@ async def search_tracks(search: Search):
 
 
 @app.post("/playlist")
-async def create_playlist(playlist: Playlist):
+async def create_playlist(playlist: schemas.NewPlaylist):
     if len(playlist.tracks) == 0:
         playlist.tracks = [random.choice(deejai.track_ids)]
     if len(playlist.tracks) > 1:
@@ -77,3 +78,13 @@ async def create_playlist(playlist: Playlist):
             playlist.tracks,
             size=playlist.size,
             noise=playlist.noise)
+
+
+@app.post("/save_playlist")
+async def save_playlist(playlist: schemas.Playlist,
+                        db: Session = Depends(get_db)):
+    db_item = models.Playlist(**playlist.dict())
+    db.add(db_item)
+    db.commit()
+    db.refresh(db_item)
+    return db_item

@@ -24,11 +24,10 @@ yarn-error.log*
 
 .vscode
 __pycache__
-<<<<<<< Updated upstream
-=======
 .pytest_cache
->>>>>>> Stashed changes
+.ipynb_checkpoints
 spotifytovec.p
 tracktovec.p
 spotify_tracks.p
 speccy_model
+deejai.db

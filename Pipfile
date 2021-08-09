@@ -4,6 +4,12 @@ verify_ssl = true
 name = "pypi"
 
 [packages]
+fastapi = "*"
+tensorflow = "*"
+yapf = "*"
+uvicorn = "*"
+pytest = "*"
+sqlalchemy = "*"
 
 [dev-packages]
 

@@ -4,6 +4,7 @@ import Card from 'react-bootstrap/Card';
 import AddTrack from './AddTrack';
 import RemovablePlaylist from './RemovablePlaylist';
 import GeneratePlaylist from './GeneratePlaylist';
+import SavePlaylist from './SavePlaylist';
 
 export default function CreatePlaylist({ onCreate = f => f }) {
   const [playlist, setPlaylist] = useState({ tracks: [] });
@@ -20,7 +21,9 @@ export default function CreatePlaylist({ onCreate = f => f }) {
         }} />
         <hr />
         <div className="d-flex align-items-center justify-content-between">
-          <FaForward onClick={() => GeneratePlaylist(playlist).then(playlist => onCreate(playlist))} />
+          <FaForward onClick={() => GeneratePlaylist(playlist)
+            .then(playlist => { SavePlaylist(playlist); return playlist; })
+            .then(playlist => onCreate(playlist))} />
           <FaCog onClick={() => GeneratePlaylist(playlist).then(playlist => onCreate(playlist))} />
         </div>
       </Card.Body>

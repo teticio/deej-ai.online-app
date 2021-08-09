@@ -1,11 +1,12 @@
 import pytest
 import asyncio
-from main import search_tracks, Search
-from main import create_playlist, Playlist
+from . import schemas
+from .main import search_tracks
+from .main import create_playlist
 
 
 def test_playlist_1():
-    playlist = Playlist(
+    playlist = schemas.NewPlaylist(
         tracks=["1O0xeZrBDbq7HPREdmYUYK", "1b7LMtXCXGc2EwOIplI35z"])
     assert asyncio.run(create_playlist(playlist)) == [
         "1O0xeZrBDbq7HPREdmYUYK", "6Y0ed41KYLRnJJyYGGaDgY",
@@ -18,9 +19,9 @@ def test_playlist_1():
 
 
 def test_playlist_2():
-    playlist = Playlist(tracks=["7dEYcnW1YSBpiKofefCFCf"],
-                        size=20,
-                        creativity=0.1)
+    playlist = schemas.NewPlaylist(tracks=["7dEYcnW1YSBpiKofefCFCf"],
+                                   size=20,
+                                   creativity=0.1)
     assert asyncio.run(create_playlist(playlist)) == [
         "7dEYcnW1YSBpiKofefCFCf", "7u9szLn7CWcWtiYcRLy0Ab",
         "34QkdRnLmpTp3GemmSXPkz", "0sQ9MCD0ichtBCSi8Khn3h",
@@ -36,7 +37,7 @@ def test_playlist_2():
 
 
 def test_search():
-    search = Search(string='hello', max_items=3)
+    search = schemas.Search(string='hello', max_items=3)
     assert asyncio.run(search_tracks(search)) == [{
         'id': '6BbTfV6NXacNelIcVLXu9t',
         'track': '1takejay - Hello'
