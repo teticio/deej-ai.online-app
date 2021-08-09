@@ -1,12 +1,12 @@
 # pytest
 # re-factor join_the_dots and make_playlist
-# faiss
 # set seed in noise
 # bug in join the dots?
 # get_similar
 # ci/cd
 
 import re
+import random
 from deejai import DeejAI
 from typing import Optional
 from fastapi import FastAPI
@@ -63,6 +63,8 @@ async def search_tracks(search: Search):
 
 @app.post("/playlist")
 async def create_playlist(playlist: Playlist):
+    if len(playlist.tracks) == 0:
+        playlist.tracks = [random.choice(deejai.track_ids)]
     if len(playlist.tracks) > 1:
         return deejai.join_the_dots(
             [playlist.creativity, 1 - playlist.creativity],
