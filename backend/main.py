@@ -46,7 +46,7 @@ app.add_middleware(
 
 
 @app.post("/search")
-async def search_string(search: Search):
+async def search_tracks(search: Search):
     search_string = re.sub(r'([^\s\w]|_)+', '', search.string.lower()).split()
     ids = sorted([
         track for track in deejai.tracks if all(
