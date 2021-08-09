@@ -11,7 +11,7 @@
 // spotify login (existing react compoent?)
 
 import { useState } from "react";
-import { FaPlay, FaCog } from "react-icons/fa";
+import { FaForward, FaCog } from "react-icons/fa";
 import Container from 'react-bootstrap/Container';
 import Card from 'react-bootstrap/Card';
 import Banner from './components/Banner';
@@ -42,7 +42,7 @@ function App() {
           <hr />
 
           <div className="d-flex align-items-center justify-content-between">
-            <FaPlay onClick={() => GeneratePlaylist(playlist).then(playlist => setGeneratedPlaylist(playlist))} />
+            <FaForward onClick={() => GeneratePlaylist(playlist).then(playlist => setGeneratedPlaylist(playlist))} />
             <FaCog onClick={() => GeneratePlaylist(playlist).then(playlist => setGeneratedPlaylist(playlist))} />
           </div>
 
