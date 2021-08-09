@@ -1,4 +1,3 @@
-// import { v4 } from "uuid";
 import RemovableTrack from "./RemovableTrack";
 
 export default function RemovablePlaylist({ tracks = [], onRemove = f => f }) {

@@ -19,10 +19,9 @@ import AddTrack from './components/AddTrack';
 import Playlist from './components/Playlist';
 import RemovablePlaylist from './components/RemovablePlaylist';
 import GeneratePlaylist from './components/GeneratePlaylist';
-import playlists from "./data/playlists.json";
 
 function App() {
-  const [playlist, setPlaylist] = useState(playlists[0]);
+  const [playlist, setPlaylist] = useState({ tracks: [] });
   const [generatedPlaylist, setGeneratedPlaylist] = useState([]);
 
   return (
