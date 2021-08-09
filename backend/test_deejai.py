@@ -6,25 +6,32 @@ from main import create_playlist, Playlist
 
 def test_playlist_1():
     playlist = Playlist(
-        tracks=["21QIUV4JxFRym3XDhUxO52", "0rTkE0FmT4zT2xL6GXwosU"])
+        tracks=["1O0xeZrBDbq7HPREdmYUYK", "1b7LMtXCXGc2EwOIplI35z"])
     assert asyncio.run(create_playlist(playlist)) == [
-        "21QIUV4JxFRym3XDhUxO52", "3pqRRxH5x9oVPwh9i9UFZA",
-        "62GSnbTt2ZpLCNbmtq1NLN", "1XOPuXMpoo2gQ3LNRr4IJq",
-        "5e30YC94NPxaxNunhAsQZp", "3ZClafX6fRAkQjo8Pldq37",
-        "3UD4sghkq8dHUwvKxln1nB", "2hEwjc5DZVPcC4cVVBuMr5",
-        "61w1Ry5X8UUsbNoPG7zRP1", "1INWPr855fwWdAOeecbu0W",
-        "6yqThFsiJG2jUEA6jdhruE", "0rTkE0FmT4zT2xL6GXwosU"
+        "1O0xeZrBDbq7HPREdmYUYK", "6Y0ed41KYLRnJJyYGGaDgY",
+        "5yrsBzgHkfu2idkl2ILQis", "4oW1lGOw5Q5OLvoJv92qoE",
+        "1DKyFVzIh1oa1fFnEmTkIl", "6yXcmVKGjFofPWvW9ustQX",
+        "5qRJD1yaLJ5s0J3JpbgnwA", "6b8hjwuGl1H9o5ZbrHJcpJ",
+        "4lrQv8z3qq1Rl8bsc0Qy0y", "6kotXaSQaGYxE62hVpdHWu",
+        "3PPDUkGHUJx2bxct6A3PBy", "1b7LMtXCXGc2EwOIplI35z"
     ]
 
 
 def test_playlist_2():
-    playlist = Playlist(tracks=["21QIUV4JxFRym3XDhUxO52"])
+    playlist = Playlist(tracks=["7dEYcnW1YSBpiKofefCFCf"],
+                        size=20,
+                        creativity=0.1)
     assert asyncio.run(create_playlist(playlist)) == [
-        "21QIUV4JxFRym3XDhUxO52", "4ZaaR70axeHwTnZ90BEmQy",
-        "62GSnbTt2ZpLCNbmtq1NLN", "5WO4u8XmvXocAsK9rIMTwJ",
-        "4QyTAToGczngpDZBhlU7AJ", "6SApDiUzGpwgsWsdEvIKnS",
-        "6ywkWCLbtW0dNw1IfVCW8F", "3JnCoJcz2aWFuGMDxWYG5d",
-        "5igni06exn4vGL8zVvT5yk", "3agKh63j5o6i4kq8zNEGLg"
+        "7dEYcnW1YSBpiKofefCFCf", "7u9szLn7CWcWtiYcRLy0Ab",
+        "34QkdRnLmpTp3GemmSXPkz", "0sQ9MCD0ichtBCSi8Khn3h",
+        "0hwEeMnAgwEvClAXOl3Sgh", "63Iv8NhccFc2qXgIsrDo4Q",
+        "1gMDcG1YDw5Ib1BS8Op9S3", "2hq28hLmCPFxg2FamW6KA3",
+        "6K6rqLZ7PBDx3PNA4snQzK", "6ODS67X5qVcK29FnNoFdDh",
+        "0SzvtL65Itcs1wZrQI7hf6", "0drokAUhKfiMnu20UKQnFZ",
+        "7uoRp3NMtZORvxOI16Vr4u", "4x8vLLF0UI953H5Z0p2Rwo",
+        "0ZRroF8QnXbmEb1VRcqZnR", "3HdrN4xHTPhxQGdTSo2spQ",
+        "0jikR0eJKtOF504fKD2tyi", "41QEnBlGuGnos5no5qGKBy",
+        "4tXRVDlgAhxuEmsxuW4oiQ", "4fGz81hlNLXwzO3L8GGaop"
     ]
 
 

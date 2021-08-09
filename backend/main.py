@@ -1,6 +1,7 @@
 # pytest
 # re-factor join_the_dots and make_playlist
 # faiss
+# set seed in noise
 # bug in join the dots?
 # get_similar
 # ci/cd
