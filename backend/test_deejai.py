@@ -19,8 +19,8 @@ def test_playlist_1():
 
 
 def test_playlist_2():
-    assert deejai.join_the_dots(
-        weights=[0.5, 0.5], ids=["21QIUV4JxFRym3XDhUxO52"], n=10) == [
+    assert deejai.make_playlist(
+        weights=[0.5, 0.5], playlist=["21QIUV4JxFRym3XDhUxO52"], size=10) == [
             "21QIUV4JxFRym3XDhUxO52", "4ZaaR70axeHwTnZ90BEmQy",
             "62GSnbTt2ZpLCNbmtq1NLN", "5WO4u8XmvXocAsK9rIMTwJ",
             "4QyTAToGczngpDZBhlU7AJ", "6SApDiUzGpwgsWsdEvIKnS",

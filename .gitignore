@@ -23,6 +23,11 @@ yarn-debug.log*
 yarn-error.log*
 
 .vscode
+__pycache__
+<<<<<<< Updated upstream
+=======
+.pytest_cache
+>>>>>>> Stashed changes
 spotifytovec.p
 tracktovec.p
 spotify_tracks.p
