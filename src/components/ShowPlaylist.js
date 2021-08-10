@@ -5,7 +5,7 @@ import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Playlist from './Playlist';
 import { UpdatePlaylistName, UpdatePlaylistRating } from "./SavePlaylist";
-import { RateStars, StarRating } from "./StarRating";
+import { RateStars } from "./StarRating";
 
 export default function ShowPlaylist({ playlist, onClose = f => f }) {
   const [editing, setEditing] = useState(false);

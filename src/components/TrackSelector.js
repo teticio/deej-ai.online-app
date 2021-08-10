@@ -11,7 +11,7 @@ export default function TrackSelector({ onSelect = f => f }) {
     async function fetchSearchResults() {
       if (searchString !== "") {
         try {
-          let response = await fetch('http://localhost:8000/search', {
+          let response = await fetch('/search', {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json'

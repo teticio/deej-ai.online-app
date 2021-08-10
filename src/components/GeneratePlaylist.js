@@ -1,6 +1,6 @@
 export default async function GeneratePlaylist(playlist) {
   try {
-    let response = await fetch('http://localhost:8000/playlist', {
+    let response = await fetch('/playlist', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'

@@ -2,7 +2,7 @@ export default async function SavePlaylist(playlist) {
   let now = new Date();
 
   try {
-    let response = await fetch('http://localhost:8000/create_playlist', {
+    let response = await fetch('/create_playlist', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
@@ -21,7 +21,7 @@ export default async function SavePlaylist(playlist) {
 
 export async function UpdatePlaylistName(id, name) {
   try {
-    fetch('http://localhost:8000/update_playlist_name', {
+    fetch('/update_playlist_name', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
@@ -38,7 +38,7 @@ export async function UpdatePlaylistName(id, name) {
 
 export async function UpdatePlaylistRating(id, av_rating, num_ratings) {
   try {
-    fetch('http://localhost:8000/update_playlist_rating', {
+    fetch('/update_playlist_rating', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
