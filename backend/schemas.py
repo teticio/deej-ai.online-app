@@ -37,3 +37,12 @@ class PlaylistName(BaseModel):
 
     class Config:
         orm_mode = True
+
+
+class PlaylistRating(BaseModel):
+    id: int
+    av_rating: float
+    num_ratings: int
+
+    class Config:
+        orm_mode = True

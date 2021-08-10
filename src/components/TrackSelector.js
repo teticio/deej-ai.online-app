@@ -1,6 +1,6 @@
 import { useState } from "react";
 import Col from 'react-bootstrap/Col';
-import { useDebouncedEffect } from "./useDebouncedEffect";
+import { useDebouncedEffect } from "../lib";
 import "./TrackSelector.css";
 
 export default function TrackSelector({ onSelect = f => f }) {

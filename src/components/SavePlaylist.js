@@ -35,3 +35,21 @@ export async function UpdatePlaylistName(id, name) {
     console.error('Error:', error);
   };
 }
+
+export async function UpdatePlaylistRating(id, av_rating, num_ratings) {
+  try {
+    fetch('http://localhost:8000/update_playlist_rating', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        'id': id,
+        'av_rating': av_rating,
+        'num_ratings': num_ratings
+      })
+    });
+  } catch (error) {
+    console.error('Error:', error);
+  };
+}

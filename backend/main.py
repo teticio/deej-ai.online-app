@@ -89,10 +89,13 @@ def create_playlist(playlist: schemas.Playlist, db: Session = Depends(get_db)):
     return db_item
 
 
-@app.post("/update_playlist_name")
-def update_playlist_name(playlist: schemas.PlaylistName,
-                         db: Session = Depends(get_db)):
+@app.post("/update_playlist_rating")
+def update_playlist_rating(playlist: schemas.PlaylistRating,
+                           db: Session = Depends(get_db)):
     db_item = db.query(
         models.Playlist).filter(models.Playlist.id == playlist.id)
-    db_item.update({'name': playlist.name})
+    db_item.update({
+        'av_rating': playlist.av_rating,
+        'num_ratings': playlist.num_ratings
+    })
     db.commit()

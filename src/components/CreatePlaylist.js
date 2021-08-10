@@ -17,7 +17,6 @@ export default function CreatePlaylist({ onCreate = f => f }) {
         <Card.Title>
           Choose the waypoints in your musical journey
         </Card.Title>
-        <hr />
         <AddTrack onAdd={(id) => {
           setPlaylist({ 'tracks': playlist.tracks.concat({ 'id': id }) });
         }} />
