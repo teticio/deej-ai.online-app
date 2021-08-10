@@ -22,7 +22,13 @@ function App() {
 
   return (
     <Container className="App">
-      <Banner />
+      <Banner onSelect={(action) => {
+        if (action === 'create_playlist') {
+          setScreen('create_playlist');
+        } else {
+          console.log(action);
+        }
+      }} />
       {(screen === 'create_playlist') ?
         <CreatePlaylist onCreate={(playlist) => { setPlaylist(playlist); setScreen('show_playlist'); }} /> :
         (screen === 'show_playlist') ?

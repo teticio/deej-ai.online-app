@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import Star from "./Star";
 import { createArray } from "../lib";
 
