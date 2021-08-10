@@ -24,13 +24,13 @@ class DeejAI:
                                    for _ in self.mp3tovecs])
         del self.tracktovecs
 
-    def most_similar(self,
-                     mp3tovecs,
-                     weights,
-                     positive=[],
-                     negative=[],
-                     noise=0,
-                     vecs=None):
+    async def most_similar(self,
+                           mp3tovecs,
+                           weights,
+                           positive=[],
+                           negative=[],
+                           noise=0,
+                           vecs=None):
         mp3_vecs_i = np.array([
             weights[j] *
             np.sum([mp3tovecs[i, j]
@@ -53,12 +53,12 @@ class DeejAI:
             del result[result.index(i)]
         return result
 
-    def most_similar_by_vec(self,
-                            mp3tovecs,
-                            weights,
-                            positives=[],
-                            negatives=[],
-                            noise=0):
+    async def most_similar_by_vec(self,
+                                  mp3tovecs,
+                                  weights,
+                                  positives=[],
+                                  negatives=[],
+                                  noise=0):
         mp3_vecs_i = np.array([
             weights[j] * np.sum(positives[j] if positives else [] +
                                 -negatives[j] if negatives else [],
@@ -73,7 +73,7 @@ class DeejAI:
                 -np.tensordot(mp3tovecs, mp3_vecs_i, axes=((1, 2), (0, 1)))))
         return result
 
-    def join_the_dots(self, weights, ids, n=5, noise=0):
+    async def join_the_dots(self, weights, ids, n=5, noise=0):
         playlist = []
         playlist_tracks = [self.tracks[_] for _ in ids]
         end = start = ids[0]
@@ -82,7 +82,7 @@ class DeejAI:
             end_vec = self.mp3tovecs[self.track_indices[end]]
             playlist.append(start)
             for i in range(n):
-                candidates = self.most_similar_by_vec(
+                candidates = await self.most_similar_by_vec(
                     self.mp3tovecs,
                     weights, [[(n - i + 1) / n * start_vec[k] +
                                (i + 1) / n * end_vec[k]]
@@ -103,11 +103,16 @@ class DeejAI:
         playlist.append(end)
         return playlist
 
-    def make_playlist(self, weights, playlist, size=10, lookback=3, noise=0):
+    async def make_playlist(self,
+                            weights,
+                            playlist,
+                            size=10,
+                            lookback=3,
+                            noise=0):
         playlist_tracks = [self.tracks[_] for _ in playlist]
         playlist_indices = [self.track_indices[_] for _ in playlist]
         for i in range(len(playlist), size):
-            candidates = self.most_similar(
+            candidates = await self.most_similar(
                 self.mp3tovecs,
                 weights,
                 positive=playlist_indices[-lookback:],

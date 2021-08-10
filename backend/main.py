@@ -67,13 +67,13 @@ async def playlist(playlist: schemas.NewPlaylist):
     if len(playlist.tracks) == 0:
         playlist.tracks = [random.choice(deejai.track_ids)]
     if len(playlist.tracks) > 1:
-        return deejai.join_the_dots(
+        return await deejai.join_the_dots(
             [playlist.creativity, 1 - playlist.creativity],
             playlist.tracks,
             n=playlist.size,
             noise=playlist.noise)
     else:
-        return deejai.make_playlist(
+        return await deejai.make_playlist(
             [playlist.creativity, 1 - playlist.creativity],
             playlist.tracks,
             size=playlist.size,
@@ -81,8 +81,7 @@ async def playlist(playlist: schemas.NewPlaylist):
 
 
 @app.post("/create_playlist")
-async def create_playlist(playlist: schemas.Playlist,
-                          db: Session = Depends(get_db)):
+def create_playlist(playlist: schemas.Playlist, db: Session = Depends(get_db)):
     db_item = models.Playlist(**playlist.dict())
     db.add(db_item)
     db.commit()
@@ -91,8 +90,8 @@ async def create_playlist(playlist: schemas.Playlist,
 
 
 @app.post("/update_playlist_name")
-async def update_playlist_name(playlist: schemas.PlaylistName,
-                               db: Session = Depends(get_db)):
+def update_playlist_name(playlist: schemas.PlaylistName,
+                         db: Session = Depends(get_db)):
     db_item = db.query(
         models.Playlist).filter(models.Playlist.id == playlist.id)
     db_item.update({'name': playlist.name})
