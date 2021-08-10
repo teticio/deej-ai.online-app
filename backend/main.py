@@ -6,13 +6,19 @@
 # ci/cd
 
 import re
+import base64
 import random
+import urllib
+import aiohttp
+import asyncio
 from . import models
 from . import schemas
+from . import credentials
 from .deejai import DeejAI
 from sqlalchemy.orm import Session
 from fastapi import Depends, FastAPI
 from .database import SessionLocal, engine
+from starlette.responses import RedirectResponse
 from fastapi.middleware.cors import CORSMiddleware
 
 # create tables if necessary
@@ -45,6 +51,42 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
+
+@app.get("/login")
+async def spotify_login():
+    scope = "playlist-modify-public user-read-currently-playing"
+    url = "https://accounts.spotify.com/authorize?" + urllib.parse.urlencode(
+        {
+            'response_type': 'code',
+            'client_id': credentials.client_id,
+            'scope': scope,
+            'redirect_uri': credentials.redirect_uri,
+            # state: state
+        })
+    return RedirectResponse(url=url)
+
+
+# cookies
+@app.get("/callback")
+async def spotify_callback(code: str):
+    data = {
+        'code': code,
+        'redirect_uri': credentials.redirect_uri,
+        'grant_type': 'authorization_code'
+    }
+    headers = {
+        'Authorization':
+        'Basic ' +
+        base64.b64encode(f'{credentials.client_id}:{credentials.client_secret}'
+                         .encode('utf-8')).decode('utf-8')
+    }
+    async with aiohttp.ClientSession() as session:
+        async with session.post('https://accounts.spotify.com/api/token',
+                                data=data,
+                                headers=headers) as response:
+            json = await response.json()  #####################
+    return json
 
 
 @app.post("/search")
