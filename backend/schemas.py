@@ -18,14 +18,22 @@ class NewPlaylist(BaseModel):
     class Config:
         orm_mode = True
 
+
 class Playlist(BaseModel):
-    name: Optional[str] = "Deej-A.I."
     created: datetime
     spotify_user: Optional[str] = None
     spotify_id: Optional[str] = None
     av_rating: Optional[float] = 0
     num_ratings: Optional[int] = 0
     tracks: str
+
+    class Config:
+        orm_mode = True
+
+
+class PlaylistName(BaseModel):
+    id: int
+    name: Optional[str] = 'Deej-A.I.'
 
     class Config:
         orm_mode = True

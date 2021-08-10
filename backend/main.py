@@ -63,7 +63,7 @@ async def search_tracks(search: schemas.Search):
 
 
 @app.post("/playlist")
-async def create_playlist(playlist: schemas.NewPlaylist):
+async def playlist(playlist: schemas.NewPlaylist):
     if len(playlist.tracks) == 0:
         playlist.tracks = [random.choice(deejai.track_ids)]
     if len(playlist.tracks) > 1:
@@ -80,11 +80,20 @@ async def create_playlist(playlist: schemas.NewPlaylist):
             noise=playlist.noise)
 
 
-@app.post("/save_playlist")
-async def save_playlist(playlist: schemas.Playlist,
-                        db: Session = Depends(get_db)):
+@app.post("/create_playlist")
+async def create_playlist(playlist: schemas.Playlist,
+                          db: Session = Depends(get_db)):
     db_item = models.Playlist(**playlist.dict())
     db.add(db_item)
     db.commit()
     db.refresh(db_item)
     return db_item
+
+
+@app.post("/update_playlist_name")
+async def update_playlist_name(playlist: schemas.PlaylistName,
+                               db: Session = Depends(get_db)):
+    db_item = db.query(
+        models.Playlist).filter(models.Playlist.id == playlist.id)
+    db_item.update({'name': playlist.name})
+    db.commit()

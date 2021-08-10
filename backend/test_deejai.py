@@ -1,14 +1,14 @@
 import pytest
 import asyncio
 from . import schemas
+from .main import playlist
 from .main import search_tracks
-from .main import create_playlist
 
 
 def test_playlist_1():
-    playlist = schemas.NewPlaylist(
+    new_playlist = schemas.NewPlaylist(
         tracks=["1O0xeZrBDbq7HPREdmYUYK", "1b7LMtXCXGc2EwOIplI35z"])
-    assert asyncio.run(create_playlist(playlist)) == [
+    assert asyncio.run(playlist(new_playlist)) == [
         "1O0xeZrBDbq7HPREdmYUYK", "6Y0ed41KYLRnJJyYGGaDgY",
         "5yrsBzgHkfu2idkl2ILQis", "4oW1lGOw5Q5OLvoJv92qoE",
         "1DKyFVzIh1oa1fFnEmTkIl", "6yXcmVKGjFofPWvW9ustQX",
@@ -19,10 +19,10 @@ def test_playlist_1():
 
 
 def test_playlist_2():
-    playlist = schemas.NewPlaylist(tracks=["7dEYcnW1YSBpiKofefCFCf"],
-                                   size=20,
-                                   creativity=0.1)
-    assert asyncio.run(create_playlist(playlist)) == [
+    new_playlist = schemas.NewPlaylist(tracks=["7dEYcnW1YSBpiKofefCFCf"],
+                                       size=20,
+                                       creativity=0.1)
+    assert asyncio.run(playlist(new_playlist)) == [
         "7dEYcnW1YSBpiKofefCFCf", "7u9szLn7CWcWtiYcRLy0Ab",
         "34QkdRnLmpTp3GemmSXPkz", "0sQ9MCD0ichtBCSi8Khn3h",
         "0hwEeMnAgwEvClAXOl3Sgh", "63Iv8NhccFc2qXgIsrDo4Q",

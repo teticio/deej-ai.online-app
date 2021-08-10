@@ -13,7 +13,10 @@ export default async function GeneratePlaylist(playlist) {
       })
     });
     let ids = await response.json();
-    let new_playlist = { 'tracks': ids.map((id) => { return { 'id': id } }) };
+    let new_playlist = {
+      'name': 'Deej-A.I.',
+      'tracks': ids.map((id) => { return { 'id': id } })
+    };
     return new_playlist;
   } catch (error) {
     console.error('Error:', error);

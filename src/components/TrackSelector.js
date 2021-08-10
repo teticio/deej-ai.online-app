@@ -30,7 +30,7 @@ export default function TrackSelector({ onSelect = f => f }) {
     }
 
     fetchSearchResults();
-  }, [searchString], 1000);
+  }, [searchString], 500);
 
   return (
     <Col>

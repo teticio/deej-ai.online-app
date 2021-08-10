@@ -12,6 +12,10 @@ export default function CreatePlaylist({ onCreate = f => f }) {
   return (
     <Card>
       <Card.Body>
+        <Card.Title>
+          Choose the waypoints in your musical journey
+        </Card.Title>
+        <hr />
         <AddTrack onAdd={(id) => {
           setPlaylist({ 'tracks': playlist.tracks.concat({ 'id': id }) });
         }} />
@@ -19,10 +23,15 @@ export default function CreatePlaylist({ onCreate = f => f }) {
         <RemovablePlaylist {...playlist} onRemove={(id) => {
           setPlaylist({ 'tracks': playlist.tracks.filter((element, index) => index !== id) });
         }} />
-        <hr />
+        {playlist.tracks.length > 0?
+          <hr />:
+          <div />}
         <div className="d-flex align-items-center justify-content-between">
           <FaForward onClick={() => GeneratePlaylist(playlist)
-            .then(playlist => { SavePlaylist(playlist); return playlist; })
+            .then(playlist => {
+              SavePlaylist(playlist).then(id => playlist.id = id);
+              return playlist;
+            })
             .then(playlist => onCreate(playlist))} />
           <FaCog onClick={() => GeneratePlaylist(playlist).then(playlist => onCreate(playlist))} />
         </div>
