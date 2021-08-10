@@ -4,10 +4,10 @@ export default function Star({ value = 0, unrated = false, onSelect = f => f }) 
   return (
     <>
       {unrated ?
-        <MdStarBorder color={(value === 0) ? "grey" : "red"} onClick={onSelect} /> :
+        <MdStarBorder className={(value === 0) ? "text-muted" : "text-success"} onClick={onSelect} /> :
         (value > 0 && value < 1) ?
-          <MdStarHalf color="red" /> :
-          <MdStar color={(value === 0) ? "grey" : "red"} />
+          <MdStarHalf className="text-success" /> :
+          <MdStar className={(value === 0) ? "text-muted" : "text-success"} />
       }
     </>)
 }
