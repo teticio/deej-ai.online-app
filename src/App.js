@@ -42,7 +42,11 @@ function App() {
       {(screen === 'create_playlist') ?
         <CreatePlaylist onCreate={(playlist) => { setPlaylist(playlist); setScreen('show_playlist'); }} /> :
         (screen === 'show_playlist') ?
-          <ShowPlaylist playlist={playlist} onClose={() => { setScreen('create_playlist'); }} /> : <div />}
+          <ShowPlaylist
+            playlist={playlist}
+            onClose={() => { setScreen('create_playlist'); }}
+            accessToken={accessToken}
+          /> : <></>}
     </Container>
   );
 }

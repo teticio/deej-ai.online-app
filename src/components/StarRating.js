@@ -15,7 +15,7 @@ export default function StarRating({ rating }) {
         <Star
           key={0}
           value={0.5}
-        /> : <div />
+        /> : <></>
       }
     </>
   );

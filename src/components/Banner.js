@@ -28,7 +28,7 @@ export default function Banner({ loggedIn = false, onSelect = f => f }) {
             <Nav className="me-auto">
               {!loggedIn ?
                 <Nav.Link href="#link" onClick={() => { setExpanded(false); onSelect('login_spotify'); }}>Login to Spotify</Nav.Link> :
-                <div />
+                <></>
               }
               <Nav.Link href="#link" onClick={() => { setExpanded(false); onSelect('create_playlist'); }}>Create playlist</Nav.Link>
               <Nav.Link href="#link" onClick={() => { setExpanded(false); onSelect('popular_playlists'); }}>Popular playlists</Nav.Link>
