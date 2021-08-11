@@ -1,32 +1,46 @@
 // TODO
-// save playlist in database
 // error in inspector for unique key in RemovablePlaylist
-// menu & screens (login, create, explore, settings, ...)
-// press button twice
+// error combining h2 and a in Banner
 // search "" => zero results
-// re-write backend in fastapi to handle ws & routes?
+// auto refresh token wrapper class
+// use cookies to store spotify tokens
 // highlight "waypoints"
 // rate playlists
 // top / recent playlists
-// spotify login (existing react compoent?)
 
 import { useState } from "react";
 import Container from 'react-bootstrap/Container';
 import Banner from './components/Banner';
+import { getHashParams } from "./components/Spotify";
 import CreatePlaylist from './components/CreatePlaylist';
 import ShowPlaylist from './components/ShowPlaylist';
 
 function App() {
   const [screen, setScreen] = useState('create_playlist');
   const [playlist, setPlaylist] = useState({ tracks: [] });
+  const [accessToken, setAccessToken] = useState(null);
+  const params = getHashParams();
+
+  if (!accessToken && params.access_token) {
+    setAccessToken(params.access_token);
+  }
 
   return (
     <Container className="App">
-      <Banner onSelect={(action) => {
-        if (action === 'create_playlist') {
-          setScreen('create_playlist');
-        } else {
-          console.log(action);
+      <Banner loggedIn={accessToken !== null} onSelect={(action) => {
+        switch (action) {
+          case 'create_playlist':
+            setScreen('create_playlist');
+            break;
+          case 'login_spotify':
+<<<<<<< Updated upstream
+            console.log(process.env.REACT_APP_API_URL);
+=======
+>>>>>>> Stashed changes
+            window.location.href = process.env.REACT_APP_API_URL + '/login';
+            break;
+          default:
+            console.log(action);
         }
       }} />
       {(screen === 'create_playlist') ?

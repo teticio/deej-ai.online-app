@@ -1,16 +1,15 @@
-# pytest
 # re-factor join_the_dots and make_playlist
+# handle exceptions from spotify
 # set seed in noise
 # bug in join the dots?
 # get_similar
-# ci/cd
 
+import os
 import re
 import base64
 import random
 import urllib
 import aiohttp
-import asyncio
 from . import models
 from . import schemas
 from . import credentials
@@ -67,7 +66,6 @@ async def spotify_login():
     return RedirectResponse(url=url)
 
 
-# cookies
 @app.get("/callback")
 async def spotify_callback(code: str):
     data = {
@@ -85,7 +83,31 @@ async def spotify_callback(code: str):
         async with session.post('https://accounts.spotify.com/api/token',
                                 data=data,
                                 headers=headers) as response:
-            json = await response.json()  #####################
+            json = await response.json()
+    url = os.environ.get('URL', '') + "/#" + urllib.parse.urlencode({
+        'access_token': json['access_token'],
+        'refresh_token': json['refresh_token']
+    })
+    return RedirectResponse(url=url)
+
+
+@app.get("/refresh_token")
+async def spotify_callback(refresh_token: str):
+    data = {
+        'refresh_token': refresh_token,
+        'grant_type': 'refresh_token'
+    }
+    headers = {
+        'Authorization':
+        'Basic ' +
+        base64.b64encode(f'{credentials.client_id}:{credentials.client_secret}'
+                         .encode('utf-8')).decode('utf-8')
+    }
+    async with aiohttp.ClientSession() as session:
+        async with session.post('https://accounts.spotify.com/api/token',
+                                data=data,
+                                headers=headers) as response:
+            json = await response.json()
     return json
 
 
