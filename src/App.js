@@ -11,23 +11,18 @@
 import { useState } from "react";
 import Container from 'react-bootstrap/Container';
 import Banner from './components/Banner';
-import { getHashParams } from "./components/Spotify";
+import Spotify from "./components/Spotify";
 import CreatePlaylist from './components/CreatePlaylist';
 import ShowPlaylist from './components/ShowPlaylist';
 
 function App() {
   const [screen, setScreen] = useState('create_playlist');
   const [playlist, setPlaylist] = useState({ tracks: [] });
-  const [accessToken, setAccessToken] = useState(null);
-  const params = getHashParams();
-
-  if (!accessToken && params.access_token) {
-    setAccessToken(params.access_token);
-  }
+  const spotify = new Spotify();
 
   return (
     <Container className="App">
-      <Banner loggedIn={accessToken !== null} onSelect={(action) => {
+      <Banner loggedIn={spotify.loggedIn()} onSelect={(action) => {
         switch (action) {
           case 'create_playlist':
             setScreen('create_playlist');
@@ -45,8 +40,9 @@ function App() {
           <ShowPlaylist
             playlist={playlist}
             onClose={() => { setScreen('create_playlist'); }}
-            accessToken={accessToken}
-          /> : <></>}
+            spotify={spotify}
+          /> : <></>
+      }
     </Container>
   );
 }

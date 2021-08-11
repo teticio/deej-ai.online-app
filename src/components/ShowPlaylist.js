@@ -7,7 +7,7 @@ import Playlist from './Playlist';
 import { UpdatePlaylistName, UpdatePlaylistRating } from "./SavePlaylist";
 import { RateStars } from "./StarRating";
 
-export default function ShowPlaylist({ playlist, onClose = f => f, accessToken = null }) {
+export default function ShowPlaylist({ playlist, onClose = f => f, spotify = null }) {
   const [editing, setEditing] = useState(false);
   const [playlistName, setPlaylistName] = useState(playlist.name);
 
@@ -18,11 +18,14 @@ export default function ShowPlaylist({ playlist, onClose = f => f, accessToken =
           <Row>
             <Col>
               <div className="d-flex align-items-center">
-                {(accessToken !== null) ?
+                {spotify.loggedIn() ?
                   <>
-                    <FaSpotify className="text-success" onClick={() => console.log("spotify")} />
+                    <FaSpotify className="text-success" onClick={
+                      () => { spotify.createNewPlayist(playlistName, playlist.tracks); }
+                    } />
                     <div style={{ width: '10px' }} />
-                  </> : <></>}
+                  </> : <></>
+                }
                 <span onClick={() => setEditing(true)}>
                   {editing ?
                     <input
@@ -35,7 +38,8 @@ export default function ShowPlaylist({ playlist, onClose = f => f, accessToken =
                         }
                       }}
                     /> :
-                    <span>{playlistName}</span>}
+                    <span>{playlistName}</span>
+                  }
                 </span>
               </div>
             </Col>

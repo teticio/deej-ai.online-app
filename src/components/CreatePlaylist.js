@@ -26,7 +26,8 @@ export default function CreatePlaylist({ onCreate = f => f }) {
         }} />
         {playlist.tracks.length > 0 ?
           <hr /> :
-          <></>}
+          <></>
+        }
         {spinner ?
           <Spinner animation="border" /> :
           <div className="d-flex align-items-center justify-content-between">
