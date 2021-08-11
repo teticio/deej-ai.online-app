@@ -1,6 +1,6 @@
 export default async function GeneratePlaylist(playlist) {
   try {
-    let response = await fetch('/playlist', {
+    const response = await fetch('/playlist', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
@@ -12,8 +12,8 @@ export default async function GeneratePlaylist(playlist) {
         'noise': 0
       })
     });
-    let ids = await response.json();
-    let new_playlist = {
+    const ids = await response.json();
+    const new_playlist = {
       'name': 'Deej-A.I.',
       'tracks': ids.map((id) => { return { 'id': id } })
     };

@@ -5,9 +5,9 @@ import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
 import './Banner.css'
 
-export default function Banner({ onSelect = f => f }) {
+export default function Banner({ loggedIn = false, onSelect = f => f }) {
   const [expanded, setExpanded] = useState(false);
-  
+
   return (
     <>
       <Navbar bg="dark" variant="dark" expand="no" expanded={expanded}>
@@ -26,7 +26,10 @@ export default function Banner({ onSelect = f => f }) {
           <Navbar.Toggle aria-controls="basic-navbar-nav" onClick={() => setExpanded(expanded ? false : "expanded")} />
           <Navbar.Collapse id="basic-navbar-nav">
             <Nav className="me-auto">
-              <Nav.Link href="#link" onClick={() => { setExpanded(false); onSelect('login_spotify'); }}>Login to Spotify</Nav.Link>
+              {!loggedIn ?
+                <Nav.Link href="#link" onClick={() => { setExpanded(false); onSelect('login_spotify'); }}>Login to Spotify</Nav.Link> :
+                <div />
+              }
               <Nav.Link href="#link" onClick={() => { setExpanded(false); onSelect('create_playlist'); }}>Create playlist</Nav.Link>
               <Nav.Link href="#link" onClick={() => { setExpanded(false); onSelect('popular_playlists'); }}>Popular playlists</Nav.Link>
               <Nav.Link href="#link" onClick={() => { setExpanded(false); onSelect('latest_playlists'); }}>Latest playlists</Nav.Link>
