@@ -33,10 +33,6 @@ function App() {
             setScreen('create_playlist');
             break;
           case 'login_spotify':
-<<<<<<< Updated upstream
-            console.log(process.env.REACT_APP_API_URL);
-=======
->>>>>>> Stashed changes
             window.location.href = process.env.REACT_APP_API_URL + '/login';
             break;
           default:
