@@ -84,19 +84,17 @@ async def spotify_callback(code: str):
                                 data=data,
                                 headers=headers) as response:
             json = await response.json()
-    url = os.environ.get('URL', '') + "/#" + urllib.parse.urlencode({
-        'access_token': json['access_token'],
-        'refresh_token': json['refresh_token']
-    })
+    url = os.environ.get('URL', '') + "/#" + urllib.parse.urlencode(
+        {
+            'access_token': json['access_token'],
+            'refresh_token': json['refresh_token']
+        })
     return RedirectResponse(url=url)
 
 
 @app.get("/refresh_token")
 async def spotify_callback(refresh_token: str):
-    data = {
-        'refresh_token': refresh_token,
-        'grant_type': 'refresh_token'
-    }
+    data = {'refresh_token': refresh_token, 'grant_type': 'refresh_token'}
     headers = {
         'Authorization':
         'Basic ' +
@@ -151,6 +149,15 @@ def create_playlist(playlist: schemas.Playlist, db: Session = Depends(get_db)):
     db.commit()
     db.refresh(db_item)
     return db_item
+
+
+@app.post("/update_playlist_name")
+def update_playlist_name(playlist: schemas.PlaylistName,
+                         db: Session = Depends(get_db)):
+    db_item = db.query(
+        models.Playlist).filter(models.Playlist.id == playlist.id)
+    db_item.update({'name': playlist.name})
+    db.commit()
 
 
 @app.post("/update_playlist_rating")

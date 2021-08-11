@@ -16,25 +16,27 @@ export default function ShowPlaylist({ playlist, onClose = f => f, accessToken =
       <Card.Body>
         <Card.Title>
           <Row>
-            <Col onClick={() => setEditing(true)}>
+            <Col>
               <div className="d-flex align-items-center">
                 {(accessToken !== null) ?
                   <>
                     <FaSpotify className="text-success" onClick={() => console.log("spotify")} />
                     <div style={{ width: '10px' }} />
                   </> : <></>}
-                {editing ?
-                  <input
-                    value={playlistName}
-                    onChange={(event) => setPlaylistName(event.target.value)}
-                    onKeyUp={(event) => {
-                      if (event.keyCode === 13) {
-                        setEditing(false);
-                        UpdatePlaylistName(playlist.id, playlistName);
-                      }
-                    }}
-                  /> :
-                  <span>{playlistName}</span>}
+                <span onClick={() => setEditing(true)}>
+                  {editing ?
+                    <input
+                      value={playlistName}
+                      onChange={(event) => setPlaylistName(event.target.value)}
+                      onKeyUp={(event) => {
+                        if (event.keyCode === 13) {
+                          setEditing(false);
+                          UpdatePlaylistName(playlist.id, playlistName);
+                        }
+                      }}
+                    /> :
+                    <span>{playlistName}</span>}
+                </span>
               </div>
             </Col>
             <Col>
