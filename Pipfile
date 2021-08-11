@@ -11,6 +11,7 @@ uvicorn = "*"
 pytest = "*"
 sqlalchemy = "*"
 aiohttp = "*"
+aiofiles = "*"
 
 [dev-packages]
 

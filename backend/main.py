@@ -1,9 +1,3 @@
-# re-factor join_the_dots and make_playlist
-# handle exceptions from spotify
-# set seed in noise
-# bug in join the dots?
-# get_similar
-
 import os
 import re
 import base64
@@ -14,9 +8,11 @@ from . import models
 from . import schemas
 from . import credentials
 from .deejai import DeejAI
+from sqlalchemy import desc
 from sqlalchemy.orm import Session
 from fastapi import Depends, FastAPI
 from .database import SessionLocal, engine
+from fastapi.staticfiles import StaticFiles
 from starlette.responses import RedirectResponse
 from fastapi.middleware.cors import CORSMiddleware
 
@@ -93,7 +89,7 @@ async def spotify_callback(code: str):
 
 
 @app.get("/refresh_token")
-async def spotify_callback(refresh_token: str):
+async def spotify_refresh_token(refresh_token: str):
     data = {'refresh_token': refresh_token, 'grant_type': 'refresh_token'}
     headers = {
         'Authorization':
@@ -151,6 +147,13 @@ def create_playlist(playlist: schemas.Playlist, db: Session = Depends(get_db)):
     return db_item
 
 
+@app.get("/read_playlist")
+def get_playlist(id: int, db: Session = Depends(get_db)):
+    db_item = db.query(
+        models.Playlist).filter(models.Playlist.id == id).first()
+    return db_item
+
+
 @app.post("/update_playlist_name")
 def update_playlist_name(playlist: schemas.PlaylistName,
                          db: Session = Depends(get_db)):
@@ -170,3 +173,21 @@ def update_playlist_rating(playlist: schemas.PlaylistRating,
         'num_ratings': playlist.num_ratings
     })
     db.commit()
+
+
+@app.get("/latest_playlists")
+def get_latest_playlists(top_n: int, db: Session = Depends(get_db)):
+    db_items = db.query(models.Playlist).order_by(desc(
+        models.Playlist.created)).limit(top_n).all()
+    return db_items
+
+
+@app.get("/top_playlists")
+def get_top_playlists(top_n: int, db: Session = Depends(get_db)):
+    db_items = db.query(models.Playlist).order_by(
+        desc(models.Playlist.av_rating)).limit(top_n).all()
+    return db_items
+
+
+# must be last
+app.mount("/", StaticFiles(directory="build", html = True), name="app")

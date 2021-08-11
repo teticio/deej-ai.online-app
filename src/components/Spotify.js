@@ -18,7 +18,8 @@ export default class Spotify extends SpotifyWebApi {
     this.refreshToken = null;
     if (params.access_token) {
       this.setAccessToken(params.access_token);
-      this.refreshToken = params.refresh_token;    }
+      this.refreshToken = params.refresh_token;
+    }
   }
 
   loggedIn() {
@@ -26,14 +27,18 @@ export default class Spotify extends SpotifyWebApi {
   }
 
   async getCurrentUser() {
-    const reponse = await fetch('https://api.spotify.com/v1/me', {
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': 'Bearer ' + this.getAccessToken()
-      }
-    });
-    const json = reponse.json();
-    return json;
+    try {
+      const reponse = await fetch('https://api.spotify.com/v1/me', {
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': 'Bearer ' + this.getAccessToken()
+        }
+      });
+      const json = reponse.json();
+      return json;
+    } catch (error) {
+      console.error('Error:', error);
+    };
   }
 
   async createNewPlayist(name, tracks) {

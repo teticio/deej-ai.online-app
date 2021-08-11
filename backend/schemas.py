@@ -15,8 +15,16 @@ class NewPlaylist(BaseModel):
     noise: Optional[float] = 0
     seed: Optional[int] = None
 
-    class Config:
-        orm_mode = True
+
+class PlaylistName(BaseModel):
+    id: int
+    name: Optional[str] = 'Deej-A.I.'
+
+
+class PlaylistRating(BaseModel):
+    id: int
+    av_rating: float
+    num_ratings: int
 
 
 class Playlist(BaseModel):
@@ -26,23 +34,3 @@ class Playlist(BaseModel):
     av_rating: Optional[float] = 0
     num_ratings: Optional[int] = 0
     tracks: str
-
-    class Config:
-        orm_mode = True
-
-
-class PlaylistName(BaseModel):
-    id: int
-    name: Optional[str] = 'Deej-A.I.'
-
-    class Config:
-        orm_mode = True
-
-
-class PlaylistRating(BaseModel):
-    id: int
-    av_rating: float
-    num_ratings: int
-
-    class Config:
-        orm_mode = True
