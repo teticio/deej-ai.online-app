@@ -38,8 +38,28 @@ export default class Spotify extends SpotifyWebApi {
 
   async createNewPlayist(name, tracks) {
     const user = await this.getCurrentUser();
-    console.log(user);
-    const playlists = await this.getUserPlaylists(user.id, { limit: 20, offset: 0 });
-    console.log(playlists);
+    let offset = 0;
+    let playlists = [];
+
+    while (true) {
+      const response = await this.getUserPlaylists(user.id, { offset: offset });
+      playlists.push(...response.items);
+      if (playlists.length === response.total) {
+        break;
+      }
+      offset = playlists.length;
+    }
+    const index = playlists.map(playlist => playlist.name).indexOf(name);
+    let playlist = null;
+    if (index >= 0) {
+      playlist = playlists[index];
+    } else {
+      playlist = await this.createPlaylist(user.id, {
+        name: name,
+        description: 'Created by Deej-A.I. http://deej-ai.online'
+      });
+    }
+    await this.replaceTracksInPlaylist(playlist.id, tracks.map((track) => `spotify:track:${track.id}`));
+    return playlist;
   }
 }

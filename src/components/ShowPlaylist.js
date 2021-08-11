@@ -10,6 +10,7 @@ import { RateStars } from "./StarRating";
 export default function ShowPlaylist({ playlist, onClose = f => f, spotify = null }) {
   const [editing, setEditing] = useState(false);
   const [playlistName, setPlaylistName] = useState(playlist.name);
+  const [playlistUrl, setPlaylistUrl] = useState(null);
 
   return (
     <Card>
@@ -20,27 +21,34 @@ export default function ShowPlaylist({ playlist, onClose = f => f, spotify = nul
               <div className="d-flex align-items-center">
                 {spotify.loggedIn() ?
                   <>
-                    <FaSpotify className="text-success" onClick={
-                      () => { spotify.createNewPlayist(playlistName, playlist.tracks); }
-                    } />
+                    <FaSpotify className="text-success" onClick={() => {
+                      spotify.createNewPlayist(playlistName, playlist.tracks)
+                        .then((playlist) => {
+                          setEditing(false);
+                          setPlaylistUrl(playlist.external_urls.spotify);
+                        });
+                    }} />
                     <div style={{ width: '10px' }} />
                   </> : <></>
                 }
-                <span onClick={() => setEditing(true)}>
-                  {editing ?
-                    <input
-                      value={playlistName}
-                      onChange={(event) => setPlaylistName(event.target.value)}
-                      onKeyUp={(event) => {
-                        if (event.keyCode === 13) {
-                          setEditing(false);
-                          UpdatePlaylistName(playlist.id, playlistName);
-                        }
-                      }}
-                    /> :
-                    <span>{playlistName}</span>
-                  }
-                </span>
+                {(playlistUrl) ?
+                  <a href={playlistUrl} target="_blank" rel="noreferrer">{playlistName}</a> :
+                  <span onClick={() => setEditing(true)}>
+                    {editing ?
+                      <input
+                        value={playlistName}
+                        onChange={(event) => setPlaylistName(event.target.value)}
+                        onKeyUp={(event) => {
+                          if (event.keyCode === 13) {
+                            setEditing(false);
+                            UpdatePlaylistName(playlist.id, playlistName);
+                          }
+                        }}
+                      /> :
+                      <span>{playlistName}</span>
+                    }
+                  </span>
+                }
               </div>
             </Col>
             <Col>
