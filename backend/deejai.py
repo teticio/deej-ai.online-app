@@ -4,25 +4,28 @@ import numpy as np
 
 class DeejAI:
     def __init__(self):
-        self.mp3tovecs = pickle.load(open('spotifytovec.p', 'rb'))
-        self.mp3tovecs = dict(
-            zip(self.mp3tovecs.keys(), [
-                self.mp3tovecs[_] / np.linalg.norm(self.mp3tovecs[_])
-                for _ in self.mp3tovecs
+        mp3tovecs = pickle.load(open('spotifytovec.p', 'rb'))
+        mp3tovecs = dict(
+            zip(mp3tovecs.keys(), [
+                mp3tovecs[_] / np.linalg.norm(mp3tovecs[_])
+                for _ in mp3tovecs
             ]))
-        self.tracktovecs = pickle.load(open('tracktovec.p', 'rb'))
-        self.tracktovecs = dict(
-            zip(self.tracktovecs.keys(), [
-                self.tracktovecs[_] / np.linalg.norm(self.tracktovecs[_])
-                for _ in self.tracktovecs
+        tracktovecs = pickle.load(open('tracktovec.p', 'rb'))
+        tracktovecs = dict(
+            zip(tracktovecs.keys(), [
+                tracktovecs[_] / np.linalg.norm(tracktovecs[_])
+                for _ in tracktovecs
             ]))
         self.tracks = pickle.load(open('spotify_tracks.p', 'rb'))
-        self.track_ids = [_ for _ in self.mp3tovecs]
+        self.track_ids = [_ for _ in mp3tovecs]
         self.track_indices = dict(
-            map(lambda x: (x[1], x[0]), enumerate(self.mp3tovecs)))
-        self.mp3tovecs = np.array([[self.mp3tovecs[_], self.tracktovecs[_]]
-                                   for _ in self.mp3tovecs])
-        del self.tracktovecs
+            map(lambda x: (x[1], x[0]), enumerate(mp3tovecs)))
+        self.mp3tovecs = np.array([[mp3tovecs[_], tracktovecs[_]]
+                                   for _ in mp3tovecs])
+        del mp3tovecs, tracktovecs
+
+    def get_tracks(self):
+        return self.tracks
 
     async def most_similar(self,
                            mp3tovecs,

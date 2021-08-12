@@ -1,18 +1,21 @@
 // TODO
 //
 // frontend:
+// refactor showplaylist and showplaylists
+// random / search playlists
+// remember state (e.g. on login)
 // settings
-// add tests for database (need to be able to delete playlist first)
 // fix warnings for unique key
 // fix warning about combining h2 and a in Banner
-// search "" => zero results
 // auto refresh token wrapper class
 // use cookies to store spotify tokens
 // highlight "waypoints"
 // add spotify icons to top / latest playlists - refactor?
 // be able to load more playlists
+// kubernetes
 //
 // backend:
+// move search into class
 // re-factor join_the_dots and make_playlist
 // handle exceptions from spotify
 // set seed in noise

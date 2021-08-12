@@ -80,7 +80,7 @@ async def spotify_callback(code: str):
                                 data=data,
                                 headers=headers) as response:
             json = await response.json()
-    url = os.environ.get('URL', '') + "/#" + urllib.parse.urlencode(
+    url = os.environ.get('APP_URL', '') + "/#" + urllib.parse.urlencode(
         {
             'access_token': json['access_token'],
             'refresh_token': json['refresh_token']
@@ -107,16 +107,17 @@ async def spotify_refresh_token(refresh_token: str):
 
 @app.post("/search")
 async def search_tracks(search: schemas.Search):
+    tracks = deejai.get_tracks()
     search_string = re.sub(r'([^\s\w]|_)+', '', search.string.lower()).split()
     ids = sorted([
-        track for track in deejai.tracks if all(
-            word in re.sub(r'([^\s\w]|_)+', '', deejai.tracks[track].lower())
-            for word in search_string)
+        track for track in tracks
+        if all(word in re.sub(r'([^\s\w]|_)+', '', tracks[track].lower())
+               for word in search_string)
     ],
-                 key=lambda x: deejai.tracks[x])[:search.max_items]
+                 key=lambda x: tracks[x])[:search.max_items]
     response = []
     for id in ids:
-        response.append({'track': deejai.tracks[id], 'id': id})
+        response.append({'track': tracks[id], 'id': id})
     return response
 
 
@@ -190,4 +191,4 @@ def get_top_playlists(top_n: int, db: Session = Depends(get_db)):
 
 
 # must be last
-app.mount("/", StaticFiles(directory="build", html = True), name="app")
+app.mount("/", StaticFiles(directory="build", html=True), name="app")

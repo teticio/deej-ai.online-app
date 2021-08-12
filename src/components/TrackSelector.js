@@ -26,9 +26,11 @@ export default function TrackSelector({ onSelect = f => f }) {
         } catch (error) {
           console.error('Error:', error);
         };
+      } else {
+        setSearchResults([]);
+        onSelect(null);
       }
     }
-
     fetchSearchResults();
   }, [searchString], 500);
 

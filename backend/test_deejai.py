@@ -1,8 +1,11 @@
+import json
 import pytest
 import asyncio
+from .main import *
 from . import schemas
-from .main import playlist
-from .main import search_tracks
+from datetime import datetime
+
+db = SessionLocal()
 
 
 def test_playlist_1():
@@ -52,3 +55,34 @@ def test_search():
         'track':
         'A Day To Remember - You Had Me @ Hello'
     }]
+
+
+def test_add_playlist():
+    new_playlist = schemas.NewPlaylist(tracks=["7dEYcnW1YSBpiKofefCFCf"],
+                                       size=10,
+                                       creativity=0.)
+    new_playlist = asyncio.run(playlist(new_playlist))
+    new_playlist = schemas.Playlist(created=datetime.now(),
+                                    tracks=json.dumps(new_playlist))
+    create_playlist(new_playlist, db)
+    assert (get_latest_playlists(1, db)[0].tracks == json.dumps([
+        "7dEYcnW1YSBpiKofefCFCf", "66LPSGwq2MKuFLSjAnclmg",
+        "1Ulk1RYwszH5PliccyN5pF", "3ayr466SicYLcMRSCuiOSL",
+        "6ijkogEt87TOoFEUdTpYxD", "2hq28hLmCPFxg2FamW6KA3",
+        "4ClVhgWezpuyGhACLGBkEA", "0SzvtL65Itcs1wZrQI7hf6",
+        "5bPjleBV2VtjRnc0ogJ5ib", "4tXRVDlgAhxuEmsxuW4oiQ"
+    ]))
+
+
+# assumes test_add_playlist has already been run
+def test_update_playlist():
+    id = get_latest_playlists(1, db)[0].id
+    playlist_name = schemas.PlaylistName(id=id, name="Test")
+    update_playlist_name(playlist_name, db)
+    playlist_rating = schemas.PlaylistRating(id=id,
+                                             av_rating=4.5,
+                                             num_ratings=1)
+    update_playlist_rating(playlist_rating, db)
+    playlist = get_playlist(id, db)
+    assert (playlist.name == "Test" and playlist.av_rating == 4.5
+            and playlist.num_ratings == 1)
