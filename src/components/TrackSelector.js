@@ -3,7 +3,7 @@ import Col from 'react-bootstrap/Col';
 import { useDebouncedEffect } from "../lib";
 import "./TrackSelector.css";
 
-export default function TrackSelector({ onSelect = f => f }) {
+export default function TrackSelector({ onSelect = f => f, onSearch = f => f, onSearchEnd = f => f }) {
   const [searchString, setSearchString] = useState("");
   const [searchResults, setSearchResults] = useState([]);
 
@@ -30,7 +30,9 @@ export default function TrackSelector({ onSelect = f => f }) {
         setSearchResults([]);
         onSelect(null);
       }
+      onSearchEnd();
     }
+    onSearch();
     fetchSearchResults();
   }, [searchString], 500);
 

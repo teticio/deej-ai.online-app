@@ -7,7 +7,7 @@ export default function RemovablePlaylist({ tracks = [], onRemove = f => f }) {
         <div className="d-flex flex-row align-items-center">
           <RemovableTrack
             key={i}
-            {...track}
+            track={track}
             uuid={i}
             onRemove={(uuid) => onRemove(uuid)}
           />

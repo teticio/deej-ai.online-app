@@ -34,3 +34,4 @@ class Playlist(BaseModel):
     av_rating: Optional[float] = 0
     num_ratings: Optional[int] = 0
     tracks: str
+    waypoints: Optional[str] = None

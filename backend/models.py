@@ -13,3 +13,4 @@ class Playlist(Base):
     av_rating = Column(Float, default=0)
     num_ratings = Column(Integer, default=0)
     tracks = Column(String)
+    waypoints = Column(String, default="")

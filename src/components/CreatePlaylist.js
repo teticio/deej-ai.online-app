@@ -18,7 +18,7 @@ export default function CreatePlaylist({ onCreate = f => f }) {
           Choose the waypoints in your musical journey
         </Card.Title>
         <AddTrack onAdd={(id) => {
-          setPlaylist({ 'tracks': playlist.tracks.concat({ 'id': id }) });
+          setPlaylist({ 'tracks': playlist.tracks.concat(id) });
         }} />
         <hr />
         <RemovablePlaylist {...playlist} onRemove={(id) => {
@@ -29,7 +29,7 @@ export default function CreatePlaylist({ onCreate = f => f }) {
           <></>
         }
         {spinner ?
-          <Spinner animation="border" /> :
+          <Spinner animation="border" size="sm" /> :
           <div className="d-flex align-items-center justify-content-between">
             <FaForward onClick={() => {
               setSpinner(true);

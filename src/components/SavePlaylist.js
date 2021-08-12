@@ -9,7 +9,8 @@ export default async function SavePlaylist(playlist) {
       },
       body: JSON.stringify({
         'created': now.toISOString(),
-        'tracks': JSON.stringify(playlist.tracks.map((track) => track.id))
+        'tracks': JSON.stringify(playlist.tracks),
+        'waypoints': JSON.stringify(playlist.waypoints)
       })
     });
     const db_item = await response.json();

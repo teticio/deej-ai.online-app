@@ -56,9 +56,8 @@ export async function GetLatestPlaylists(top_n) {
     const response = await fetch('/latest_playlists?top_n=' + top_n);
     const playlists = await response.json();
     playlists.forEach((playlist, i) => {
-      playlists[i].tracks = JSON.parse(playlist.tracks).map((track) => {
-        return { 'id': track };
-      });
+      playlists[i].tracks = JSON.parse(playlist.tracks)
+      playlists[i].waypoints = JSON.parse(playlist.waypoints)
     });
     return playlists;
   } catch (error) {
@@ -71,9 +70,8 @@ export async function GetTopPlaylists(top_n) {
     const response = await fetch('/top_playlists?top_n=' + top_n);
     const playlists = await response.json();
     playlists.forEach((playlist, i) => {
-      playlists[i].tracks = JSON.parse(playlist.tracks).map((track) => {
-        return { 'id': track };
-      });
+      playlists[i].tracks = JSON.parse(playlist.tracks)
+      playlists[i].waypoints = JSON.parse(playlist.waypoints)
     });
     return playlists;
   } catch (error) {
