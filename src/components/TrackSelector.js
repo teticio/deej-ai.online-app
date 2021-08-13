@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import Col from 'react-bootstrap/Col';
-import { useDebouncedEffect, debounceFunction } from "../lib";
+import { debounceFunction } from "../lib";
 import "./TrackSelector.css";
 
 export default function TrackSelector({ onSelect = f => f, onSearch = f => f, onSearchEnd = f => f }) {
@@ -34,6 +34,7 @@ export default function TrackSelector({ onSelect = f => f, onSearch = f => f, on
       }
     }
     fetchSearchResults().then(() => onSearchEnd());
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, 1000), [searchString]);
 
   return (
