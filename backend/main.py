@@ -15,6 +15,7 @@ from .database import SessionLocal, engine
 from fastapi.staticfiles import StaticFiles
 from starlette.responses import RedirectResponse
 from fastapi.middleware.cors import CORSMiddleware
+from starlette.concurrency import run_in_threadpool
 
 # create tables if necessary
 models.Base.metadata.create_all(bind=engine)
@@ -107,18 +108,7 @@ async def spotify_refresh_token(refresh_token: str):
 
 @app.post("/search")
 async def search_tracks(search: schemas.Search):
-    tracks = deejai.get_tracks()
-    search_string = re.sub(r'([^\s\w]|_)+', '', search.string.lower()).split()
-    ids = sorted([
-        track for track in tracks
-        if all(word in re.sub(r'([^\s\w]|_)+', '', tracks[track].lower())
-               for word in search_string)
-    ],
-                 key=lambda x: tracks[x])[:search.max_items]
-    response = []
-    for id in ids:
-        response.append({'track': tracks[id], 'id': id})
-    return response
+    return await run_in_threadpool(deejai.search, search.string, search.max_items)
 
 
 @app.post("/playlist")

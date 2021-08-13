@@ -1,14 +1,15 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Col from 'react-bootstrap/Col';
-import { useDebouncedEffect } from "../lib";
+import { useDebouncedEffect, debounceFunction } from "../lib";
 import "./TrackSelector.css";
 
 export default function TrackSelector({ onSelect = f => f, onSearch = f => f, onSearchEnd = f => f }) {
   const [searchString, setSearchString] = useState("");
   const [searchResults, setSearchResults] = useState([]);
 
-  useDebouncedEffect(() => {
+  useEffect(() => debounceFunction(() => {
     async function fetchSearchResults() {
+      console.log("search: " + searchString);
       onSearch();
       if (searchString !== "") {
         try {
@@ -33,7 +34,7 @@ export default function TrackSelector({ onSelect = f => f, onSearch = f => f, on
       }
     }
     fetchSearchResults().then(() => onSearchEnd());
-  }, [searchString], 1000);
+  }, 1000), [searchString]);
 
   return (
     <Col>
@@ -46,8 +47,8 @@ export default function TrackSelector({ onSelect = f => f, onSearch = f => f, on
       <div style={{ marginTop: '10px' }} />
       <select onChange={event => onSelect(event.target.value)}>\
         size="1"
-        {searchResults.map(({ id, track }, index) => (
-          <option key={index} value={id}>
+        {searchResults.map(({ id, track }, i) => (
+          <option key={i} value={id}>
             {track}
           </option>
         ))}

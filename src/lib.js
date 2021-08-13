@@ -1,12 +1,13 @@
 import { useEffect } from "react";
+
 export const createArray = length => [...Array(length)];
 
-// https://stackoverflow.com/questions/54666401/how-to-use-throttle-or-debounce-with-react-hook
-export const useDebouncedEffect = (effect, deps, delay) => {
-  useEffect(() => {
-    const handler = setTimeout(() => effect(), delay);
+var timerId;
 
-    return () => clearTimeout(handler);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [...deps || [], delay]);
+export const debounceFunction = function (func, delay) {
+  // Cancels the setTimeout method execution
+  clearTimeout(timerId)
+
+  // Executes the func after delay time.
+  timerId = setTimeout(func, delay)
 }

@@ -5,12 +5,13 @@ import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Playlist from './Playlist';
 import { UpdatePlaylistName, UpdatePlaylistRating } from "./SavePlaylist";
-import { RateStars } from "./StarRating";
+import StarRating, { RateStars } from "./StarRating";
 
-export default function ShowPlaylist({ playlist, onClose = f => f, spotify = null }) {
+export default function ShowPlaylist({ playlist, onClose = f => f, spotify = null, userPlaylist = true }) {
   const [editing, setEditing] = useState(false);
   const [playlistName, setPlaylistName] = useState(playlist.name);
   const [playlistUrl, setPlaylistUrl] = useState(null);
+  const [rateIt, setRateIt] = useState(playlist.av_rating === 0);
 
   return (
     <Card>
@@ -19,7 +20,7 @@ export default function ShowPlaylist({ playlist, onClose = f => f, spotify = nul
           <Row>
             <Col>
               <div className="d-flex align-items-center">
-                {spotify.loggedIn() ?
+                {(spotify && spotify.loggedIn()) ?
                   <>
                     <FaSpotify className="text-success" onClick={() => {
                       spotify.createNewPlayist(playlistName, playlist.tracks)
@@ -33,7 +34,7 @@ export default function ShowPlaylist({ playlist, onClose = f => f, spotify = nul
                 }
                 {playlistUrl ?
                   <a href={playlistUrl} target="_blank" rel="noreferrer">{playlistName}</a> :
-                  <span onClick={() => setEditing(true)}>
+                  <span onClick={() => { if (userPlaylist) setEditing(true); }}>
                     {editing ?
                       <input
                         value={playlistName}
@@ -53,16 +54,31 @@ export default function ShowPlaylist({ playlist, onClose = f => f, spotify = nul
             </Col>
             <Col>
               <div className="d-flex justify-content-end">
-                <RateStars onSelect={(rating) => UpdatePlaylistRating(playlist.id, rating, 1)} />
+                {rateIt ?
+                  <span><RateStars totalStars={5} onSelect={(rating) => {
+                    UpdatePlaylistRating(
+                      playlist.id,
+                      (rating + playlist.av_rating) / (playlist.num_ratings + 1),
+                      playlist.num_ratings + 1
+                    );
+                  }} /></span> :
+                  <span onClick={() => setRateIt(true)}>
+                    <StarRating rating={playlist.av_rating} />
+                  </span>
+                }
               </div>
             </Col>
           </Row>
         </Card.Title>
         <Playlist {...playlist} />
-        <hr />
-        <div className="d-flex align-items-center justify-content-between">
-          <FaBackward onClick={() => onClose()} />
-        </div>
+        {userPlaylist ?
+          <>
+            <hr />
+            <div className="d-flex align-items-center justify-content-between">
+              <FaBackward onClick={() => onClose()} />
+            </div>
+          </> : <></>
+        }
       </Card.Body>
     </Card>
   );

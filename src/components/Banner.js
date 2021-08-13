@@ -15,24 +15,60 @@ export default function Banner({ loggedIn = false, onSelect = f => f }) {
           <Navbar.Brand href="#home">
             <div className="row align-items-center">
               <Col sm="auto">
-                <h2><a href="https://deej-ai.online" style={{ textDecoration: 'none', color: 'inherit' }}>Deej-A.I.</a></h2>
+                <h2><a
+                  href="https://deej-ai.online"
+                  style={{
+                    textDecoration: 'none',
+                    color: 'inherit'
+                  }}
+                >Deej-A.I.</a></h2>
               </Col>
               <Col sm="auto">
-                <h6>by <a href="https://www.linkedin.com/in/attentioncoach/" target="_blank" rel="noreferrer">Robert Smith</a>
-                </h6>
+                <h6>by <a
+                  href="https://www.linkedin.com/in/attentioncoach/"
+                  target="_blank"
+                  rel="noreferrer"
+                >Robert Smith</a></h6>
               </Col>
             </div>
           </Navbar.Brand>
-          <Navbar.Toggle aria-controls="basic-navbar-nav" onClick={() => setExpanded(expanded ? false : "expanded")} />
+          <Navbar.Toggle
+            aria-controls="basic-navbar-nav"
+            onClick={() => setExpanded(expanded ? false : "expanded")}
+          />
           <Navbar.Collapse id="basic-navbar-nav">
             <Nav className="me-auto">
               {!loggedIn ?
-                <Nav.Link href="#link" onClick={() => { setExpanded(false); onSelect('login_spotify'); }}>Login to Spotify</Nav.Link> :
+                <Nav.Link
+                  href="#"
+                  onClick={() => {
+                    setExpanded(false);
+                    onSelect('login_spotify');
+                  }}
+                >Login to Spotify</Nav.Link> :
                 <></>
               }
-              <Nav.Link href="#link" onClick={() => { setExpanded(false); onSelect('create_playlist'); }}>Create playlist</Nav.Link>
-              <Nav.Link href="#link" onClick={() => { setExpanded(false); onSelect('top_playlists'); }}>Top rated playlists</Nav.Link>
-              <Nav.Link href="#link" onClick={() => { setExpanded(false); onSelect('latest_playlists'); }}>Latest playlists</Nav.Link>
+              <Nav.Link
+                href="#"
+                onClick={() => {
+                  setExpanded(false);
+                  onSelect('create_playlist');
+                }}
+              >Create playlist</Nav.Link>
+              <Nav.Link
+                href="#"
+                onClick={() => {
+                  setExpanded(false);
+                  onSelect('top_playlists');
+                }}
+              >Top rated playlists</Nav.Link>
+              <Nav.Link
+                href="#"
+                onClick={() => {
+                  setExpanded(false);
+                  onSelect('latest_playlists');
+                }}
+              >Latest playlists</Nav.Link>
             </Nav>
           </Navbar.Collapse>
         </Container>

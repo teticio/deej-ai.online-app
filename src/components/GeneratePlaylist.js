@@ -17,7 +17,9 @@ export default async function GeneratePlaylist(playlist) {
     const new_playlist = {
       'name': 'Deej-A.I.',
       'tracks': tracks,
-      'waypoints': waypoints
+      'waypoints': waypoints,
+      'av_rating': 0,
+      'num_ratings': 0
     };
     return new_playlist;
   } catch (error) {

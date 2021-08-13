@@ -1,21 +1,18 @@
 // TODO
 //
 // frontend:
-// refactor showplaylist and showplaylists
 // random / search playlists
-// remember state (e.g. on login)
 // settings
 // fix warnings for unique key
 // fix warning about combining h2 and a in Banner
 // auto refresh token wrapper class
 // use cookies to store spotify tokens
-// highlight "waypoints"
-// add spotify icons to top / latest playlists - refactor?
 // be able to load more playlists
+// remember state (e.g. on login)
+// incremental search
 // kubernetes
 //
 // backend:
-// move search into class
 // re-factor join_the_dots and make_playlist
 // handle exceptions from spotify
 // set seed in noise
@@ -71,18 +68,22 @@ function App() {
             playlist={playlist}
             onClose={() => { setScreen('create_playlist'); }}
             spotify={spotify}
-          /> : (screen === 'latest_playlists') ?
+          /> :
+          (screen === 'latest_playlists') ?
             <>
               <div style={{ marginTop: '10px' }} />
               <h3 style={{ textAlign: "center" }}>Latest playlists</h3>
               <ShowPlaylists
                 playlists={playlists}
-              /></> : (screen === 'top_playlists') ?
+                spotify={spotify}
+              /></> :
+            (screen === 'top_playlists') ?
               <>
                 <div style={{ marginTop: '10px' }} />
                 <h3 style={{ textAlign: "center" }}>Top rated playlists</h3>
                 <ShowPlaylists
                   playlists={playlists}
+                  spotify={spotify}
                 /></> :
               <></>
       }

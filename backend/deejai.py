@@ -1,3 +1,4 @@
+import re
 import pickle
 import numpy as np
 
@@ -7,8 +8,7 @@ class DeejAI:
         mp3tovecs = pickle.load(open('spotifytovec.p', 'rb'))
         mp3tovecs = dict(
             zip(mp3tovecs.keys(), [
-                mp3tovecs[_] / np.linalg.norm(mp3tovecs[_])
-                for _ in mp3tovecs
+                mp3tovecs[_] / np.linalg.norm(mp3tovecs[_]) for _ in mp3tovecs
             ]))
         tracktovecs = pickle.load(open('tracktovec.p', 'rb'))
         tracktovecs = dict(
@@ -24,8 +24,16 @@ class DeejAI:
                                    for _ in mp3tovecs])
         del mp3tovecs, tracktovecs
 
-    def get_tracks(self):
-        return self.tracks
+    def search(self, string, max_items=100):
+        tracks = self.tracks
+        search_string = re.sub(r'([^\s\w]|_)+', '', string.lower()).split()
+        ids = sorted([
+            track for track in tracks if all(
+                word in re.sub(r'([^\s\w]|_)+', '', tracks[track].lower())
+                for word in search_string)
+        ],
+                     key=lambda x: tracks[x])[:max_items]
+        return [{'track': tracks[id], 'id': id} for id in ids]
 
     async def most_similar(self,
                            mp3tovecs,
