@@ -28,6 +28,7 @@ class PlaylistRating(BaseModel):
 
 
 class Playlist(BaseModel):
+    name: Optional[str] = "Deej-A.I."
     created: datetime
     spotify_user: Optional[str] = None
     spotify_id: Optional[str] = None
