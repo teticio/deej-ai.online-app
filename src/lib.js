@@ -1,5 +1,3 @@
-import { useEffect } from "react";
-
 export const createArray = length => [...Array(length)];
 
 var timerId;

@@ -13,8 +13,8 @@ export default function AddTrack({ onAdd = f => f }) {
     <div className="d-flex flex-row align-items-center">
       <TrackSelector
         onSelect={(id) => setCurrentId(id)}
-        onSearch={() => { searches++; if (searches != 0) setSpinner(true); }}
-        onSearchEnd={() => { searches--; if (searches == 0) setSpinner(false); }}
+        onSearch={() => { searches++; if (searches !== 0) setSpinner(true); }}
+        onSearchEnd={() => { searches--; if (searches === 0) setSpinner(false); }}
       ></TrackSelector>
       <div style={{ width: '10px' }} />
       {spinner ?
