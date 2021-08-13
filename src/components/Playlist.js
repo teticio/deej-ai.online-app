@@ -1,11 +1,11 @@
 import Track from "./Track";
 
-export default function Playlist({ tracks = [], waypoints = [] }) {
+export default function Playlist({ track_ids = [], waypoints = [] }) {
   return (
     <>
-      {tracks.map((track, i) => (
+      {track_ids.map((track_id, i) => (
         <div className="d-flex flex-row align-items-center">
-          <Track key={i} track={track} highlight={ waypoints.indexOf(track) >= 0 } />
+          <Track key={i} track_id={track_id} highlight={ waypoints.indexOf(track_id) >= 0 } />
         </div>
       ))}
     </>

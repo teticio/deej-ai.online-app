@@ -10,8 +10,8 @@ db = SessionLocal()
 
 def test_playlist_1():
     new_playlist = schemas.NewPlaylist(
-        tracks=["1O0xeZrBDbq7HPREdmYUYK", "1b7LMtXCXGc2EwOIplI35z"])
-    assert asyncio.run(playlist(new_playlist)) == [
+        track_ids=["1O0xeZrBDbq7HPREdmYUYK", "1b7LMtXCXGc2EwOIplI35z"])
+    assert asyncio.run(playlist(new_playlist))['track_ids'] == [
         "1O0xeZrBDbq7HPREdmYUYK", "6Y0ed41KYLRnJJyYGGaDgY",
         "5yrsBzgHkfu2idkl2ILQis", "4oW1lGOw5Q5OLvoJv92qoE",
         "1DKyFVzIh1oa1fFnEmTkIl", "6yXcmVKGjFofPWvW9ustQX",
@@ -22,10 +22,10 @@ def test_playlist_1():
 
 
 def test_playlist_2():
-    new_playlist = schemas.NewPlaylist(tracks=["7dEYcnW1YSBpiKofefCFCf"],
+    new_playlist = schemas.NewPlaylist(track_ids=["7dEYcnW1YSBpiKofefCFCf"],
                                        size=20,
                                        creativity=0.1)
-    assert asyncio.run(playlist(new_playlist)) == [
+    assert asyncio.run(playlist(new_playlist))['track_ids'] == [
         "7dEYcnW1YSBpiKofefCFCf", "7u9szLn7CWcWtiYcRLy0Ab",
         "34QkdRnLmpTp3GemmSXPkz", "0sQ9MCD0ichtBCSi8Khn3h",
         "0hwEeMnAgwEvClAXOl3Sgh", "63Iv8NhccFc2qXgIsrDo4Q",
@@ -42,15 +42,15 @@ def test_playlist_2():
 def test_search():
     search = schemas.Search(string='hello', max_items=3)
     assert asyncio.run(search_tracks(search)) == [{
-        'id': '6BbTfV6NXacNelIcVLXu9t',
+        'track_id': '6BbTfV6NXacNelIcVLXu9t',
         'track': '1takejay - Hello'
     }, {
-        'id':
+        'track_id':
         '4EtaPmMHMtjcx3FJhKzbZv',
         'track':
         '86 - Peng Ting Hello'
     }, {
-        'id':
+        'track_id':
         '6g0v0NzLaCtvqDSwWny6CV',
         'track':
         'A Day To Remember - You Had Me @ Hello'
@@ -58,14 +58,15 @@ def test_search():
 
 
 def test_add_playlist():
-    new_playlist = schemas.NewPlaylist(tracks=["7dEYcnW1YSBpiKofefCFCf"],
+    new_playlist = schemas.NewPlaylist(track_ids=["7dEYcnW1YSBpiKofefCFCf"],
                                        size=10,
                                        creativity=0.)
     new_playlist = asyncio.run(playlist(new_playlist))
     new_playlist = schemas.Playlist(created=datetime.now(),
-                                    tracks=json.dumps(new_playlist))
+                                    track_ids=json.dumps(
+                                        new_playlist['track_ids']))
     create_playlist(new_playlist, db)
-    assert (get_latest_playlists(1, db)[0].tracks == json.dumps([
+    assert (get_latest_playlists(1, db)[0].track_ids == json.dumps([
         "7dEYcnW1YSBpiKofefCFCf", "66LPSGwq2MKuFLSjAnclmg",
         "1Ulk1RYwszH5PliccyN5pF", "3ayr466SicYLcMRSCuiOSL",
         "6ijkogEt87TOoFEUdTpYxD", "2hq28hLmCPFxg2FamW6KA3",

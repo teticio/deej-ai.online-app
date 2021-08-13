@@ -41,7 +41,7 @@ export default class Spotify extends SpotifyWebApi {
     };
   }
 
-  async createNewPlayist(name, tracks) {
+  async createNewPlayist(name, track_ids) {
     const user = await this.getCurrentUser();
     let offset = 0;
     let playlists = [];
@@ -64,7 +64,7 @@ export default class Spotify extends SpotifyWebApi {
         description: 'Created by Deej-A.I. http://deej-ai.online'
       });
     }
-    await this.replaceTracksInPlaylist(playlist.id, tracks.map((track) => `spotify:track:${track}`));
+    await this.replaceTracksInPlaylist(playlist.id, track_ids.map((track_id) => `spotify:track:${track_id}`));
     return playlist;
   }
 }

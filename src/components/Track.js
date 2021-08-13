@@ -1,11 +1,11 @@
 import './Track.css';
 
-export default function Track({ track, highlight = false }) {
+export default function Track({ track_id, highlight = false }) {
   return (
     <iframe
       className={highlight ? "highlight" : ""}
-      title={track}
-      src={"https://open.spotify.com/embed/track/" + track}
+      title={track_id}
+      src={"https://open.spotify.com/embed/track/" + track_id}
       width="100%"
       height="80"
       frameBorder="0"

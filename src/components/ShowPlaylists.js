@@ -27,6 +27,7 @@ export async function GetLatestPlaylists(top_n) {
     const response = await fetch(process.env.REACT_APP_API_URL + '/latest_playlists?top_n=' + top_n);
     const playlists = await response.json();
     playlists.forEach((playlist, i) => {
+      playlists[i].track_ids = JSON.parse(playlist.track_ids)
       playlists[i].tracks = JSON.parse(playlist.tracks)
       playlists[i].waypoints = JSON.parse(playlist.waypoints)
     });
@@ -41,6 +42,7 @@ export async function GetTopPlaylists(top_n) {
     const response = await fetch(process.env.REACT_APP_API_URL + '/top_playlists?top_n=' + top_n);
     const playlists = await response.json();
     playlists.forEach((playlist, i) => {
+      playlists[i].track_ids = JSON.parse(playlist.track_ids)
       playlists[i].tracks = JSON.parse(playlist.tracks)
       playlists[i].waypoints = JSON.parse(playlist.waypoints)
     });

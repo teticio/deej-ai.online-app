@@ -1,7 +1,5 @@
 import os
-import re
 import base64
-import random
 import urllib
 import aiohttp
 from . import models
@@ -108,25 +106,19 @@ async def spotify_refresh_token(refresh_token: str):
 
 @app.post("/search")
 async def search_tracks(search: schemas.Search):
-    return await run_in_threadpool(deejai.search, search.string, search.max_items)
+    ids = await run_in_threadpool(deejai.search, search.string,
+                                  search.max_items)
+    return [{'track_id': id, 'track': deejai.get_tracks()[id]} for id in ids]
 
 
 @app.post("/playlist")
 async def playlist(playlist: schemas.NewPlaylist):
-    if len(playlist.tracks) == 0:
-        playlist.tracks = [random.choice(deejai.track_ids)]
-    if len(playlist.tracks) > 1:
-        return await deejai.join_the_dots(
-            [playlist.creativity, 1 - playlist.creativity],
-            playlist.tracks,
-            n=playlist.size,
-            noise=playlist.noise)
-    else:
-        return await deejai.make_playlist(
-            [playlist.creativity, 1 - playlist.creativity],
-            playlist.tracks,
-            size=playlist.size,
-            noise=playlist.noise)
+    ids = await deejai.playlist(playlist.track_ids, playlist.size,
+                                playlist.creativity, playlist.noise)
+    return {
+        'track_ids': ids,
+        'tracks': [deejai.get_tracks()[id] for id in ids]
+    }
 
 
 @app.post("/create_playlist")

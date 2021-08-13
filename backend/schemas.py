@@ -9,7 +9,7 @@ class Search(BaseModel):
 
 
 class NewPlaylist(BaseModel):
-    tracks: list
+    track_ids: list
     size: Optional[int] = 10
     creativity: Optional[float] = 0.5
     noise: Optional[float] = 0
@@ -30,9 +30,10 @@ class PlaylistRating(BaseModel):
 class Playlist(BaseModel):
     name: Optional[str] = "Deej-A.I."
     created: datetime
-    spotify_user: Optional[str] = None
-    spotify_id: Optional[str] = None
+    user_id: Optional[str] = None
+    playlist_id: Optional[str] = None
     av_rating: Optional[float] = 0
     num_ratings: Optional[int] = 0
-    tracks: str
+    track_ids: str
+    tracks: Optional[str] = None
     waypoints: Optional[str] = None

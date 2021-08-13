@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { FaBackward, FaSpotify } from "react-icons/fa";
+import { FaBackward, FaSave } from "react-icons/fa";
 import Card from 'react-bootstrap/Card';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
@@ -22,8 +22,8 @@ export default function ShowPlaylist({ playlist, onClose = f => f, spotify = nul
               <div className="d-flex align-items-center">
                 {(spotify && spotify.loggedIn()) ?
                   <>
-                    <FaSpotify className="text-success" onClick={() => {
-                      spotify.createNewPlayist(playlistName, playlist.tracks)
+                    <FaSave className="text-success" onClick={() => {
+                      spotify.createNewPlayist(playlistName, playlist.track_ids)
                         .then((playlist) => {
                           setEditing(false);
                           setPlaylistUrl(playlist.external_urls.spotify);
@@ -39,6 +39,10 @@ export default function ShowPlaylist({ playlist, onClose = f => f, spotify = nul
                       <input
                         value={playlistName}
                         onChange={(event) => setPlaylistName(event.target.value)}
+                        onBlur={() => {
+                          setEditing(false);
+                          UpdatePlaylistName(playlist.id, playlistName);
+                        }}
                         onKeyUp={(event) => {
                           if (event.keyCode === 13) {
                             setEditing(false);
@@ -75,7 +79,7 @@ export default function ShowPlaylist({ playlist, onClose = f => f, spotify = nul
           <>
             <hr />
             <div className="d-flex align-items-center justify-content-between">
-              <FaBackward onClick={() => onClose()} />
+              <FaBackward className="text-success" onClick={() => onClose()} />
             </div>
           </> : <></>
         }

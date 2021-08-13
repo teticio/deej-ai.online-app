@@ -8,7 +8,7 @@ import GeneratePlaylist from './GeneratePlaylist';
 import SavePlaylist from './SavePlaylist';
 
 export default function CreatePlaylist({ onCreate = f => f }) {
-  const [playlist, setPlaylist] = useState({ tracks: [] });
+  const [playlist, setPlaylist] = useState({ track_ids: [] });
   const [spinner, setSpinner] = useState(false);
 
   return (
@@ -18,20 +18,20 @@ export default function CreatePlaylist({ onCreate = f => f }) {
           Choose the waypoints in your musical journey
         </Card.Title>
         <AddTrack onAdd={(id) => {
-          setPlaylist({ 'tracks': playlist.tracks.concat(id) });
+          setPlaylist({ 'track_ids': playlist.track_ids.concat(id) });
         }} />
         <hr />
         <RemovablePlaylist {...playlist} onRemove={(id) => {
-          setPlaylist({ 'tracks': playlist.tracks.filter((element, index) => index !== id) });
+          setPlaylist({ 'track_ids': playlist.track_ids.filter((element, index) => index !== id) });
         }} />
-        {playlist.tracks.length > 0 ?
+        {playlist.track_ids.length > 0 ?
           <hr /> :
           <></>
         }
         {spinner ?
           <Spinner animation="border" size="sm" /> :
           <div className="d-flex align-items-center justify-content-between">
-            <FaForward onClick={() => {
+            <FaForward className="text-success" onClick={() => {
               setSpinner(true);
               GeneratePlaylist(playlist)
                 .then(playlist => {
@@ -40,10 +40,9 @@ export default function CreatePlaylist({ onCreate = f => f }) {
                 })
                 .then(playlist => onCreate(playlist))
             }} />
-            <FaCog onClick={() => { console.log('settings'); }} />
+            <FaCog className="text-success" onClick={() => { console.log('settings'); }} />
           </div>}
       </Card.Body>
     </Card>
   );
 }
-

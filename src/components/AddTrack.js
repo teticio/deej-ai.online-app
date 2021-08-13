@@ -23,7 +23,7 @@ export default function AddTrack({ onAdd = f => f }) {
           onClick={() => { if (currentId) { onAdd(currentId); }; }}
         /> :
         <FaPlus
-          color={currentId ? 'white' : 'gray'}
+          className={currentId ? "text-success" : "text-muted"}
           onClick={() => { if (currentId) { onAdd(currentId); }; }}
         />
       }

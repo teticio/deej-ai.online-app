@@ -9,6 +9,7 @@ export default async function SavePlaylist(playlist) {
       },
       body: JSON.stringify({
         'created': now.toISOString(),
+        'track_ids': JSON.stringify(playlist.track_ids),
         'tracks': JSON.stringify(playlist.tracks),
         'waypoints': JSON.stringify(playlist.waypoints)
       })

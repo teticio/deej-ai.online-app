@@ -1,5 +1,6 @@
 import re
 import pickle
+import random
 import numpy as np
 
 
@@ -24,16 +25,33 @@ class DeejAI:
                                    for _ in mp3tovecs])
         del mp3tovecs, tracktovecs
 
+    def get_tracks(self):
+      return self.tracks
+
     def search(self, string, max_items=100):
         tracks = self.tracks
         search_string = re.sub(r'([^\s\w]|_)+', '', string.lower()).split()
         ids = sorted([
-            track for track in tracks if all(
-                word in re.sub(r'([^\s\w]|_)+', '', tracks[track].lower())
-                for word in search_string)
+            track for track in tracks
+            if all(word in re.sub(r'([^\s\w]|_)+', '', tracks[track].lower())
+                   for word in search_string)
         ],
                      key=lambda x: tracks[x])[:max_items]
-        return [{'track': tracks[id], 'id': id} for id in ids]
+        return ids
+
+    async def playlist(self, track_ids, size, creativity, noise):
+        if len(track_ids) == 0:
+            track_ids = [random.choice(self.track_ids)]
+        if len(track_ids) > 1:
+            return await self.join_the_dots([creativity, 1 - creativity],
+                                            track_ids,
+                                            n=size,
+                                            noise=noise)
+        else:
+            return await self.make_playlist([creativity, 1 - creativity],
+                                            track_ids,
+                                            size=size,
+                                            noise=noise)
 
     async def most_similar(self,
                            mp3tovecs,

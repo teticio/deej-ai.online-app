@@ -1,7 +1,8 @@
 // TODO
 //
 // frontend:
-// random / search playlists
+// store user and playlist ids in db
+// search playlists
 // settings
 // fix warnings for unique key
 // fix warning about combining h2 and a in Banner
@@ -29,7 +30,7 @@ import ShowPlaylists, { GetLatestPlaylists, GetTopPlaylists } from "./components
 
 function App() {
   const [screen, setScreen] = useState('create_playlist');
-  const [playlist, setPlaylist] = useState({ tracks: [] });
+  const [playlist, setPlaylist] = useState({ track_ids: [] });
   const [playlists, setPlaylists] = useState([]);
   const spotify = new Spotify();
 

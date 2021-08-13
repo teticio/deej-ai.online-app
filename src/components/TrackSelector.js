@@ -47,8 +47,8 @@ export default function TrackSelector({ onSelect = f => f, onSearch = f => f, on
       <div style={{ marginTop: '10px' }} />
       <select onChange={event => onSelect(event.target.value)}>\
         size="1"
-        {searchResults.map(({ id, track }, i) => (
-          <option key={i} value={id}>
+        {searchResults.map(({ track_id, track }, i) => (
+          <option key={i} value={track_id}>
             {track}
           </option>
         ))}
