@@ -1,6 +1,7 @@
 // TODO
 //
 // frontend:
+// grid layout for showplaylists
 // store user and playlist ids in db
 // search playlists
 // settings
@@ -63,7 +64,10 @@ function App() {
         }
       }} />
       {(screen === 'create_playlist') ?
-        <CreatePlaylist onCreate={(playlist) => { setPlaylist(playlist); setScreen('show_playlist'); }} /> :
+        <CreatePlaylist onCreate={(playlist) => {
+          setPlaylist(playlist);
+          setScreen('show_playlist');
+        }} /> :
         (screen === 'show_playlist') ?
           <ShowPlaylist
             playlist={playlist}

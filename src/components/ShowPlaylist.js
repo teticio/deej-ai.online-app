@@ -3,6 +3,7 @@ import { FaBackward, FaSave } from "react-icons/fa";
 import Card from 'react-bootstrap/Card';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
+import Spinner from 'react-bootstrap/Spinner';
 import Playlist from './Playlist';
 import { UpdatePlaylistName, UpdatePlaylistRating } from "./SavePlaylist";
 import StarRating, { RateStars } from "./StarRating";
@@ -12,6 +13,7 @@ export default function ShowPlaylist({ playlist, onClose = f => f, spotify = nul
   const [playlistName, setPlaylistName] = useState(playlist.name);
   const [playlistUrl, setPlaylistUrl] = useState(null);
   const [rateIt, setRateIt] = useState(playlist.av_rating === 0);
+  const [spinner, setSpinner] = useState(false);
 
   return (
     <Card>
@@ -22,18 +24,26 @@ export default function ShowPlaylist({ playlist, onClose = f => f, spotify = nul
               <div className="d-flex align-items-center">
                 {(spotify && spotify.loggedIn()) ?
                   <>
-                    <FaSave className="text-success" onClick={() => {
-                      spotify.createNewPlayist(playlistName, playlist.track_ids)
-                        .then((playlist) => {
-                          setEditing(false);
-                          setPlaylistUrl(playlist.external_urls.spotify);
-                        });
-                    }} />
+                    {spinner ?
+                      <Spinner animation="border" size="sm" /> :
+                      <FaSave className="text-success" onClick={() => {
+                        setSpinner(true);
+                        spotify.createNewPlayist(playlistName, playlist.track_ids)
+                          .then((playlist) => {
+                            setSpinner(false);
+                            setEditing(false);
+                            setPlaylistUrl(playlist.external_urls.spotify);
+                          });
+                      }} />}
                     <div style={{ width: '10px' }} />
                   </> : <></>
                 }
                 {playlistUrl ?
-                  <a href={playlistUrl} target="_blank" rel="noreferrer">{playlistName}</a> :
+                  <a
+                    href={playlistUrl}
+                    target="_blank"
+                    rel="noreferrer"
+                  >{playlistName}</a> :
                   <span onClick={() => { if (userPlaylist) setEditing(true); }}>
                     {editing ?
                       <input

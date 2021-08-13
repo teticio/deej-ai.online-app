@@ -64,7 +64,10 @@ export default class Spotify extends SpotifyWebApi {
         description: 'Created by Deej-A.I. http://deej-ai.online'
       });
     }
-    await this.replaceTracksInPlaylist(playlist.id, track_ids.map((track_id) => `spotify:track:${track_id}`));
+    await this.replaceTracksInPlaylist(
+      playlist.id,
+      track_ids.map((track_id) => `spotify:track:${track_id}`)
+    );
     return playlist;
   }
 }
