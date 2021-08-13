@@ -9,6 +9,7 @@ export default function TrackSelector({ onSelect = f => f, onSearch = f => f, on
 
   useDebouncedEffect(() => {
     async function fetchSearchResults() {
+      onSearch();
       if (searchString !== "") {
         try {
           let response = await fetch('/search', {
@@ -30,17 +31,17 @@ export default function TrackSelector({ onSelect = f => f, onSearch = f => f, on
         setSearchResults([]);
         onSelect(null);
       }
-      onSearchEnd();
     }
-    onSearch();
-    fetchSearchResults();
-  }, [searchString], 500);
+    fetchSearchResults().then(() => onSearchEnd());
+  }, [searchString], 1000);
 
   return (
     <Col>
       <input
         placeholder="Search..."
-        onChange={event => setSearchString(event.target.value)}
+        onChange={event => {
+          setSearchString(event.target.value);
+        }}
       />
       <div style={{ marginTop: '10px' }} />
       <select onChange={event => onSelect(event.target.value)}>\
