@@ -24,7 +24,7 @@ export default function ShowPlaylists({ playlists, spotify = null }) {
 
 export async function GetLatestPlaylists(top_n) {
   try {
-    const response = await fetch('/latest_playlists?top_n=' + top_n);
+    const response = await fetch(process.env.REACT_APP_API_URL + '/latest_playlists?top_n=' + top_n);
     const playlists = await response.json();
     playlists.forEach((playlist, i) => {
       playlists[i].tracks = JSON.parse(playlist.tracks)
@@ -38,7 +38,7 @@ export async function GetLatestPlaylists(top_n) {
 
 export async function GetTopPlaylists(top_n) {
   try {
-    const response = await fetch('/top_playlists?top_n=' + top_n);
+    const response = await fetch(process.env.REACT_APP_API_URL + '/top_playlists?top_n=' + top_n);
     const playlists = await response.json();
     playlists.forEach((playlist, i) => {
       playlists[i].tracks = JSON.parse(playlist.tracks)

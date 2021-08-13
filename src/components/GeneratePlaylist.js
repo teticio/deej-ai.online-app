@@ -1,7 +1,7 @@
 export default async function GeneratePlaylist(playlist) {
   try {
     const waypoints = playlist.tracks
-    const response = await fetch('/playlist', {
+    const response = await fetch(process.env.REACT_APP_API_URL + '/playlist', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'

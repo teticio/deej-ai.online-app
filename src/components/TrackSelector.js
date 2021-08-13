@@ -9,11 +9,10 @@ export default function TrackSelector({ onSelect = f => f, onSearch = f => f, on
 
   useEffect(() => debounceFunction(() => {
     async function fetchSearchResults() {
-      console.log("search: " + searchString);
       onSearch();
       if (searchString !== "") {
         try {
-          let response = await fetch('/search', {
+          let response = await fetch(process.env.REACT_APP_API_URL + '/search', {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json'
