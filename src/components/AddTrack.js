@@ -5,7 +5,7 @@ import Spinner from 'react-bootstrap/Spinner';
 
 var searches = 0;
 
-export default function AddTrack({ onAdd = f => f }) {
+export default function AddTrack({ numTracks = 0, onAdd = f => f }) {
   const [currentId, setCurrentId] = useState(null);
   const [spinner, setSpinner] = useState(0);
 
@@ -20,12 +20,20 @@ export default function AddTrack({ onAdd = f => f }) {
       {spinner ?
         <Spinner
           animation="grow" size="md"
-          onClick={() => { if (currentId) { onAdd(currentId); }; }}
+          onClick={() => {
+            if (currentId && numTracks < 5) {
+              onAdd(currentId);
+            };
+          }}
         /> :
         <FaPlus
           size="25"
-          className={currentId ? "text-success" : "text-muted"}
-          onClick={() => { if (currentId) { onAdd(currentId); }; }}
+          className={(currentId && numTracks < 5) ? "text-success" : "text-muted"}
+          onClick={() => {
+            if (currentId && numTracks < 5) {
+              onAdd(currentId);
+            };
+          }}
         />
       }
     </div>

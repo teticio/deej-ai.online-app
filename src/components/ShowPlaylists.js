@@ -1,22 +1,32 @@
+import Row from 'react-bootstrap/Row'
+import Col from 'react-bootstrap/Col'
 import Card from 'react-bootstrap/Card';
+import { createArray } from '../lib';
 import ShowPlaylist from './ShowPlaylist';
 import Footer from './Footer';
 
 export default function ShowPlaylists({ playlists, spotify = null }) {
   return (
     <>
-      {playlists.map((playlist, i) => (
+      {createArray(playlists.length / 2).map((x, i) => (
         <>
-          <div style={{ marginTop: '10px' }} />
-          <Card key={i} >
-            <Card.Body>
-              <ShowPlaylist
-                playlist={playlist}
-                spotify={spotify}
-                userPlaylist={false}
-              />
-            </Card.Body>
-          </Card>
+          <Row>
+            {createArray(2).map((x, j) => (
+              (2 * i + j < playlists.length) ?
+                <Col lg="6">
+                  <div style={{ marginTop: '10px' }} />
+                  <Card key={2 * i + j} >
+                    <Card.Body>
+                      <ShowPlaylist
+                        playlist={playlists[2 * i + j]}
+                        spotify={spotify}
+                        userPlaylist={false}
+                      />
+                    </Card.Body>
+                  </Card>
+                </Col> : <></>
+            ))}
+          </Row>
         </>
       ))}
       <Footer />

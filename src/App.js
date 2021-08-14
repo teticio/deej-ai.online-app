@@ -1,8 +1,6 @@
 // TODO
 //
 // frontend:
-// gray out add button with max 5 tracks
-// grid layout for showplaylists
 // store user and playlist ids in db
 // search playlists
 // fix warnings for unique key

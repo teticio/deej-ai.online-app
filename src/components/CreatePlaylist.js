@@ -17,7 +17,7 @@ export default function CreatePlaylist({ waypoints = { track_ids: [] }, size = 1
         <Card.Title>
           Choose the waypoints in your musical journey
         </Card.Title>
-        <AddTrack onAdd={(id) => {
+        <AddTrack numTracks={ _waypoints.track_ids.length } onAdd={(id) => {
           setWaypoints({ 'track_ids': _waypoints.track_ids.concat(id) });
         }} />
         <hr />
