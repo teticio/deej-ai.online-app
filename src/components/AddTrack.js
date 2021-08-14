@@ -19,10 +19,11 @@ export default function AddTrack({ onAdd = f => f }) {
       <div style={{ width: '10px' }} />
       {spinner ?
         <Spinner
-          animation="grow" size="sm"
+          animation="grow" size="md"
           onClick={() => { if (currentId) { onAdd(currentId); }; }}
         /> :
         <FaPlus
+          size="25"
           className={currentId ? "text-success" : "text-muted"}
           onClick={() => { if (currentId) { onAdd(currentId); }; }}
         />

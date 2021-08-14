@@ -24,6 +24,7 @@ export default function TrackSelector({ onSelect = f => f, onSearch = f => f, on
           let json = await response.json();
           setSearchResults(json);
           onSelect((json.length > 0) ? json[0].id : null);
+          return json;
         } catch (error) {
           console.error('Error:', error);
         };
@@ -31,8 +32,14 @@ export default function TrackSelector({ onSelect = f => f, onSearch = f => f, on
         setSearchResults([]);
         onSelect(null);
       }
+      return [];
     }
-    fetchSearchResults().then(() => onSearchEnd());
+    fetchSearchResults().then((results) => {
+      if (results.length > 0) {
+        onSelect(results[0].track_id);
+      }
+      onSearchEnd();
+    });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, 1000), [searchString]);
 

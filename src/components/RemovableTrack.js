@@ -7,7 +7,11 @@ export default function RemovableTrack({ track_id, uuid, onRemove = f => f }) {
       <Track track_id={track_id}>
       </Track>
       <div style={{ width: '10px' }} />
-      <FaTimes onClick={() => onRemove(uuid)} />
+      <FaTimes
+        size="25"
+        className="text-success"
+        onClick={() => onRemove(uuid)}
+      />
     </>
   );
 }

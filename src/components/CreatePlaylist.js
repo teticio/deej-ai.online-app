@@ -29,18 +29,26 @@ export default function CreatePlaylist({ onCreate = f => f }) {
           <></>
         }
         {spinner ?
-          <Spinner animation="border" size="sm" /> :
+          <Spinner animation="border" size="md" /> :
           <div className="d-flex align-items-center justify-content-between">
-            <FaForward className="text-success" onClick={() => {
-              setSpinner(true);
-              GeneratePlaylist(playlist)
-                .then(playlist => {
-                  SavePlaylist(playlist).then(id => playlist.id = id);
-                  return playlist;
-                })
-                .then(playlist => onCreate(playlist))
-            }} />
-            <FaCog className="text-success" onClick={() => { console.log('settings'); }} />
+            <FaForward
+              size="25"
+              className="text-success"
+              onClick={() => {
+                setSpinner(true);
+                GeneratePlaylist(playlist)
+                  .then(playlist => {
+                    SavePlaylist(playlist).then(id => playlist.id = id);
+                    return playlist;
+                  })
+                  .then(playlist => onCreate(playlist))
+              }}
+            />
+            <FaCog
+              size="25"
+              className="text-success"
+              onClick={() => { console.log('settings'); }}
+            />
           </div>}
       </Card.Body>
     </Card>

@@ -1,5 +1,6 @@
 import Card from 'react-bootstrap/Card';
 import ShowPlaylist from './ShowPlaylist';
+import Footer from './Footer';
 
 export default function ShowPlaylists({ playlists, spotify = null }) {
   return (
@@ -18,6 +19,7 @@ export default function ShowPlaylists({ playlists, spotify = null }) {
           </Card>
         </>
       ))}
+      <Footer />
     </>
   );
 }
