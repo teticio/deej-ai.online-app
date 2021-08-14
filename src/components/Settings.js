@@ -23,7 +23,7 @@ export default function Settings({ size, creativity, noise, onChange = f => f, o
             min="1"
             max="100"
             value={_size}
-            onChange={(event) => {
+            onChange={event => {
               if (event.target.value !== "") {
                 setValidSize(event.target.value);
                 update();
@@ -31,7 +31,7 @@ export default function Settings({ size, creativity, noise, onChange = f => f, o
                 setSize("");
               }
             }}
-            onBlur={(event) => {
+            onBlur={event => {
               setValidSize(event.target.value);
               update();
             }}
@@ -46,7 +46,7 @@ export default function Settings({ size, creativity, noise, onChange = f => f, o
             max="1"
             step="0.01"
             value={_creativity}
-            onChange={(event) => { setCreativity(event.target.value); update(); }}
+            onChange={event => { setCreativity(event.target.value); update(); }}
           />
           <hr />
           <Form.Label>Noise</Form.Label>
@@ -57,7 +57,7 @@ export default function Settings({ size, creativity, noise, onChange = f => f, o
             max="1"
             step="0.01"
             value={_noise}
-            onChange={(event) => { setNoise(event.target.value); update(); }}
+            onChange={event => { setNoise(event.target.value); update(); }}
           />
           <hr />
           <div className="d-flex align-items-center justify-content-between">

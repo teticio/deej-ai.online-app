@@ -26,6 +26,7 @@ import CreatePlaylist from './components/CreatePlaylist';
 import ShowPlaylist from './components/ShowPlaylist';
 import Settings from "./components/Settings";
 import ShowPlaylists, { GetLatestPlaylists, GetTopPlaylists } from "./components/ShowPlaylists";
+import SearchScreen from "./components/SearchScreen";
 import Footer from './components/Footer';
 
 function App() {
@@ -62,6 +63,9 @@ function App() {
                   setPlaylists(playlists);
                   setScreen('top-playlists');
                 });
+              break;
+            case 'search-playlists':
+              setScreen('search-playlists');
               break;
             default:
               console.log(action);
@@ -117,7 +121,9 @@ function App() {
                       playlists={playlists}
                       spotify={spotify}
                     /></> :
-                  <></>
+                  (screen === 'search-playlists') ?
+                    <SearchScreen spotify={spotify}/> :
+                    <></>
         }
       </Container>
       <Footer />

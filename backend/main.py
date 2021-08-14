@@ -1,4 +1,5 @@
 import os
+import re
 import base64
 import urllib
 import aiohttp
@@ -181,6 +182,22 @@ def get_latest_playlists(top_n: int, db: Session = Depends(get_db)):
 def get_top_playlists(top_n: int, db: Session = Depends(get_db)):
     db_items = db.query(models.Playlist).order_by(
         desc(models.Playlist.av_rating)).limit(top_n).all()
+    return db_items
+
+
+@app.post("/search_playlists")
+def search_playlists(search: schemas.SearchPlaylists,
+                     db: Session = Depends(get_db)):
+    db_items = []
+    search_string = re.sub(r'([^\s\w]|_)+', '', search.string.lower()).split()
+    for db_item in db.query(models.Playlist).all():
+        if all(word in re.sub(r'([^\s\w]|_)+', '', db_item.name.lower())
+               for word in search_string) or all(
+                   word in re.sub(r'([^\s\w]|_)+', '', db_item.tracks.lower())
+                   for word in search_string):
+            db_items += [db_item]
+            if len(db_items) >= search.max_items:
+                break
     return db_items
 
 

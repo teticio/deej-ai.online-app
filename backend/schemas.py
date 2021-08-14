@@ -43,3 +43,8 @@ class Playlist(BaseModel):
     track_ids: str
     tracks: Optional[str] = None
     waypoints: Optional[str] = None
+
+
+class SearchPlaylists(BaseModel):
+    string: str
+    max_items: Optional[int] = 10

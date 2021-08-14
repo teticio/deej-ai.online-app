@@ -56,12 +56,12 @@ export default function ShowPlaylist({ playlist, onClose = f => f, spotify = nul
                       {editing ?
                         <input
                           value={playlistName}
-                          onChange={(event) => setPlaylistName(event.target.value)}
+                          onChange={event => setPlaylistName(event.target.value)}
                           onBlur={() => {
                             setEditing(false);
                             UpdatePlaylistName(playlist.id, playlistName);
                           }}
-                          onKeyUp={(event) => {
+                          onKeyUp={event => {
                             if (event.keyCode === 13) {
                               setEditing(false);
                               UpdatePlaylistName(playlist.id, playlistName);
