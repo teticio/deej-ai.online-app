@@ -12,7 +12,7 @@ export default function Banner({ loggedIn = false, onSelect = f => f }) {
     <>
       <Navbar bg="dark" variant="dark" expand="no" expanded={expanded}>
         <Container className="banner">
-          <Navbar.Brand href="#home">
+          <Navbar.Brand href="#">
             <div className="row align-items-center">
               <Col sm="auto">
                 <h2><a

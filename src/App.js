@@ -3,10 +3,7 @@
 // frontend:
 // fix warnings for unique key
 // fix warning about combining h2 and a in Banner
-// auto refresh token wrapper class
-// use cookies to store spotify tokens
 // be able to load more playlists
-// remember state (e.g. on login)
 // incremental search
 // kubernetes
 //
@@ -17,8 +14,8 @@
 // bug in join the dots?
 // get_similar
 
-import { useState } from "react";
 import Container from 'react-bootstrap/Container';
+import { usePersistedState } from "./lib";
 import Banner from './components/Banner';
 import Spotify from "./components/Spotify";
 import CreatePlaylist from './components/CreatePlaylist';
@@ -29,13 +26,13 @@ import SearchScreen from "./components/SearchScreen";
 import Footer from './components/Footer';
 
 function App() {
-  const [screen, setScreen] = useState('create-playlist');
-  const [waypoints, setWaypoints] = useState({ track_ids: [] });
-  const [playlist, setPlaylist] = useState({ track_ids: [] });
-  const [playlists, setPlaylists] = useState([]);
-  const [size, setSize] = useState(10);
-  const [creativity, setCreativity] = useState(0.5);
-  const [noise, setNoise] = useState(0);
+  const [screen, setScreen] = usePersistedState('screen', 'create-playlist');
+  const [waypoints, setWaypoints] = usePersistedState('waypoints', { track_ids: [] });
+  const [playlist, setPlaylist] = usePersistedState('playlist', { track_ids: [] });
+  const [playlists, setPlaylists] = usePersistedState('playlists', []);
+  const [size, setSize] = usePersistedState('size', 10);
+  const [creativity, setCreativity] = usePersistedState('creativity', 0.5);
+  const [noise, setNoise] = usePersistedState('noise', 0);
   const spotify = new Spotify();
 
   return (

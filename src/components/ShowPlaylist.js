@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { usePersistedState } from "../lib";
 import { FaBackward, FaSave } from "react-icons/fa";
 import Card from 'react-bootstrap/Card';
 import Row from 'react-bootstrap/Row';
@@ -32,7 +33,7 @@ export default function ShowPlaylist({ playlist, onClose = f => f, spotify = nul
                           className="text-success"
                           onClick={() => {
                             setSpinner(true);
-                            spotify.createNewPlayist(playlistName, playlist.track_ids)
+                            spotify.autoRefresh(() => spotify.createNewPlayist(playlistName, playlist.track_ids))
                               .then((spotify_playlist) => {
                                 setSpinner(false);
                                 setEditing(false);
