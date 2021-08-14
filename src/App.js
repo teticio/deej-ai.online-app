@@ -1,7 +1,6 @@
 // TODO
 //
 // frontend:
-// search playlists
 // fix warnings for unique key
 // fix warning about combining h2 and a in Banner
 // auto refresh token wrapper class
