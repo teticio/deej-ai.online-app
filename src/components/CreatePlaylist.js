@@ -7,8 +7,8 @@ import RemovablePlaylist from './RemovablePlaylist';
 import GeneratePlaylist from './GeneratePlaylist';
 import SavePlaylist from './SavePlaylist';
 
-export default function CreatePlaylist({ size = 10, creativity = 0.5, noise = 0, onCreate = f => f, onSettings = f => f }) {
-  const [playlist, setPlaylist] = useState({ track_ids: [] });
+export default function CreatePlaylist({ waypoints = { track_ids: [] }, size = 10, creativity = 0.5, noise = 0, onCreate = f => f, onSettings = f => f }) {
+  const [_waypoints, setWaypoints] = useState(waypoints);
   const [spinner, setSpinner] = useState(false);
 
   return (
@@ -18,13 +18,13 @@ export default function CreatePlaylist({ size = 10, creativity = 0.5, noise = 0,
           Choose the waypoints in your musical journey
         </Card.Title>
         <AddTrack onAdd={(id) => {
-          setPlaylist({ 'track_ids': playlist.track_ids.concat(id) });
+          setWaypoints({ 'track_ids': _waypoints.track_ids.concat(id) });
         }} />
         <hr />
-        <RemovablePlaylist {...playlist} onRemove={(id) => {
-          setPlaylist({ 'track_ids': playlist.track_ids.filter((element, index) => index !== id) });
+        <RemovablePlaylist {..._waypoints} onRemove={(id) => {
+          setWaypoints({ 'track_ids': _waypoints.track_ids.filter((element, index) => index !== id) });
         }} />
-        {playlist.track_ids.length > 0 ?
+        {_waypoints.track_ids.length > 0 ?
           <hr /> :
           <></>
         }
@@ -36,18 +36,18 @@ export default function CreatePlaylist({ size = 10, creativity = 0.5, noise = 0,
               className="text-success"
               onClick={() => {
                 setSpinner(true);
-                GeneratePlaylist(playlist, size, creativity, noise)
+                GeneratePlaylist(_waypoints, size, creativity, noise)
                   .then(playlist => {
                     SavePlaylist(playlist).then(id => playlist.id = id);
                     return playlist;
                   })
-                  .then(playlist => onCreate(playlist))
+                  .then(playlist => onCreate(playlist, _waypoints))
               }}
             />
             <FaCog
               size="25"
               className="text-success"
-              onClick={() => onSettings()}
+              onClick={() => onSettings(_waypoints)}
             />
           </div>}
       </Card.Body>

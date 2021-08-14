@@ -1,7 +1,6 @@
 // TODO
 //
 // frontend:
-// remember state of search and added tracks (e.g. after settings)
 // gray out add button with max 5 tracks
 // grid layout for showplaylists
 // store user and playlist ids in db
@@ -34,6 +33,7 @@ import Footer from './components/Footer';
 
 function App() {
   const [screen, setScreen] = useState('create-playlist');
+  const [waypoints, setWaypoints] = useState({ track_ids: [] });
   const [playlist, setPlaylist] = useState({ track_ids: [] });
   const [playlists, setPlaylists] = useState([]);
   const [size, setSize] = useState(10);
@@ -72,14 +72,17 @@ function App() {
         }} />
         {(screen === 'create-playlist') ?
           <CreatePlaylist
+            waypoints={waypoints}
             size={size}
             creativity={creativity}
             noise={noise}
-            onCreate={(playlist) => {
+            onCreate={(playlist, waypoints) => {
+              setWaypoints(waypoints);
               setPlaylist(playlist);
               setScreen('show-playlist');
             }}
-            onSettings={() => {
+            onSettings={(waypoints) => {
+              setWaypoints(waypoints);
               setScreen('show-settings');
             }}
           /> :
