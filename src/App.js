@@ -1,7 +1,6 @@
 // TODO
 //
 // frontend:
-// store user and playlist ids in db
 // search playlists
 // fix warnings for unique key
 // fix warning about combining h2 and a in Banner

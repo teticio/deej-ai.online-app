@@ -27,6 +27,12 @@ class PlaylistRating(BaseModel):
     num_ratings: int
 
 
+class PlaylistId(BaseModel):
+    id: int
+    user_id: Optional[str] = None
+    playlist_id: Optional[str] = None
+
+
 class Playlist(BaseModel):
     name: Optional[str] = "Deej-A.I."
     created: datetime

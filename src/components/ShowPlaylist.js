@@ -5,7 +5,7 @@ import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Spinner from 'react-bootstrap/Spinner';
 import Playlist from './Playlist';
-import { UpdatePlaylistName, UpdatePlaylistRating } from "./SavePlaylist";
+import { UpdatePlaylistName, UpdatePlaylistRating, UpdatePlaylistId } from "./SavePlaylist";
 import StarRating, { RateStars } from "./StarRating";
 import Footer from './Footer';
 
@@ -33,10 +33,13 @@ export default function ShowPlaylist({ playlist, onClose = f => f, spotify = nul
                           onClick={() => {
                             setSpinner(true);
                             spotify.createNewPlayist(playlistName, playlist.track_ids)
-                              .then((playlist) => {
+                              .then((spotify_playlist) => {
                                 setSpinner(false);
                                 setEditing(false);
-                                setPlaylistUrl(playlist.external_urls.spotify);
+                                setPlaylistUrl(spotify_playlist.external_urls.spotify);
+                                if (userPlaylist) {
+                                  UpdatePlaylistId(playlist.id, spotify_playlist.owner.id, spotify_playlist.id);
+                                }
                               });
                           }}
                         />}

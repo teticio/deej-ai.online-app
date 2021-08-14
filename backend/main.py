@@ -158,6 +158,18 @@ def update_playlist_rating(playlist: schemas.PlaylistRating,
     db.commit()
 
 
+@app.post("/update_playlist_id")
+def update_playlist_id(playlist: schemas.PlaylistId,
+                       db: Session = Depends(get_db)):
+    db_item = db.query(
+        models.Playlist).filter(models.Playlist.id == playlist.id)
+    db_item.update({
+        'user_id': playlist.user_id,
+        'playlist_id': playlist.playlist_id
+    })
+    db.commit()
+
+
 @app.get("/latest_playlists")
 def get_latest_playlists(top_n: int, db: Session = Depends(get_db)):
     db_items = db.query(models.Playlist).order_by(desc(

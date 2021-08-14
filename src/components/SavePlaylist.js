@@ -55,3 +55,21 @@ export async function UpdatePlaylistRating(id, av_rating, num_ratings) {
     console.error('Error:', error);
   };
 }
+
+export async function UpdatePlaylistId(id, user_id, playlist_id) {
+  try {
+    fetch(process.env.REACT_APP_API_URL + '/update_playlist_id', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        'id': id,
+        'user_id': user_id,
+        'playlist_id': playlist_id
+      })
+    });
+  } catch (error) {
+    console.error('Error:', error);
+  };
+}
