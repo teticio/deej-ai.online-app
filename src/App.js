@@ -1,10 +1,11 @@
 // TODO
 //
 // frontend:
+// remember state of search and added tracks (e.g. after settings)
+// gray out add button with max 5 tracks
 // grid layout for showplaylists
 // store user and playlist ids in db
 // search playlists
-// settings
 // fix warnings for unique key
 // fix warning about combining h2 and a in Banner
 // auto refresh token wrapper class
@@ -24,16 +25,20 @@
 import { useState } from "react";
 import Container from 'react-bootstrap/Container';
 import Banner from './components/Banner';
-import Footer from './components/Footer';
 import Spotify from "./components/Spotify";
 import CreatePlaylist from './components/CreatePlaylist';
 import ShowPlaylist from './components/ShowPlaylist';
+import Settings from "./components/Settings";
 import ShowPlaylists, { GetLatestPlaylists, GetTopPlaylists } from "./components/ShowPlaylists";
+import Footer from './components/Footer';
 
 function App() {
-  const [screen, setScreen] = useState('create_playlist');
+  const [screen, setScreen] = useState('create-playlist');
   const [playlist, setPlaylist] = useState({ track_ids: [] });
   const [playlists, setPlaylists] = useState([]);
+  const [size, setSize] = useState(10);
+  const [creativity, setCreativity] = useState(0.5);
+  const [noise, setNoise] = useState(0);
   const spotify = new Spotify();
 
   return (
@@ -41,58 +46,78 @@ function App() {
       <Container className="App">
         <Banner loggedIn={spotify.loggedIn()} onSelect={(action) => {
           switch (action) {
-            case 'create_playlist':
-              setScreen('create_playlist');
+            case 'create-playlist':
+              setScreen('create-playlist');
               break;
-            case 'login_spotify':
+            case 'login-spotify':
               window.location.href = process.env.REACT_APP_API_URL + '/login';
               break;
-            case 'latest_playlists':
+            case 'latest-playlists':
               GetLatestPlaylists(8)
                 .then((playlists) => {
                   setPlaylists(playlists);
-                  setScreen('latest_playlists');
+                  setScreen('latest-playlists');
                 });
               break;
-            case 'top_playlists':
+            case 'top-playlists':
               GetTopPlaylists(8)
                 .then((playlists) => {
                   setPlaylists(playlists);
-                  setScreen('top_playlists');
+                  setScreen('top-playlists');
                 });
               break;
             default:
               console.log(action);
           }
         }} />
-        {(screen === 'create_playlist') ?
-          <CreatePlaylist onCreate={(playlist) => {
-            setPlaylist(playlist);
-            setScreen('show_playlist');
-          }} /> :
-          (screen === 'show_playlist') ?
+        {(screen === 'create-playlist') ?
+          <CreatePlaylist
+            size={size}
+            creativity={creativity}
+            noise={noise}
+            onCreate={(playlist) => {
+              setPlaylist(playlist);
+              setScreen('show-playlist');
+            }}
+            onSettings={() => {
+              setScreen('show-settings');
+            }}
+          /> :
+          (screen === 'show-playlist') ?
             <ShowPlaylist
               playlist={playlist}
-              onClose={() => { setScreen('create_playlist'); }}
+              onClose={() => { setScreen('create-playlist'); }}
               spotify={spotify}
             /> :
-            (screen === 'latest_playlists') ?
-              <>
-                <div style={{ marginTop: '10px' }} />
-                <h3 style={{ textAlign: "center" }}>Latest playlists</h3>
-                <ShowPlaylists
-                  playlists={playlists}
-                  spotify={spotify}
-                /></> :
-              (screen === 'top_playlists') ?
+            (screen === 'show-settings') ?
+              <Settings
+                size={size}
+                creativity={creativity}
+                noise={noise}
+                onChange={(size, creativity, noise) => {
+                  setSize(size);
+                  setCreativity(creativity);
+                  setNoise(noise);
+                }}
+                onClose={() => { setScreen('create-playlist'); }}
+              /> :
+              (screen === 'latest-playlists') ?
                 <>
                   <div style={{ marginTop: '10px' }} />
-                  <h3 style={{ textAlign: "center" }}>Top rated playlists</h3>
+                  <h3 style={{ textAlign: "center" }}>Latest playlists</h3>
                   <ShowPlaylists
                     playlists={playlists}
                     spotify={spotify}
                   /></> :
-                <></>
+                (screen === 'top-playlists') ?
+                  <>
+                    <div style={{ marginTop: '10px' }} />
+                    <h3 style={{ textAlign: "center" }}>Top rated playlists</h3>
+                    <ShowPlaylists
+                      playlists={playlists}
+                      spotify={spotify}
+                    /></> :
+                  <></>
         }
       </Container>
       <Footer />

@@ -1,4 +1,4 @@
-export default async function GeneratePlaylist(playlist) {
+export default async function GeneratePlaylist(playlist, size = 10, creativity = 0.5, noise = 0) {
   try {
     const waypoints = playlist.track_ids
     const response = await fetch(process.env.REACT_APP_API_URL + '/playlist', {
@@ -8,9 +8,9 @@ export default async function GeneratePlaylist(playlist) {
       },
       body: JSON.stringify({
         'track_ids': waypoints,
-        'size': 10,
-        'creativity': 0.5,
-        'noise': 0
+        'size': size,
+        'creativity': creativity,
+        'noise': noise
       })
     });
     const json = await response.json();

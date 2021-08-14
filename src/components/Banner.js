@@ -52,21 +52,21 @@ export default function Banner({ loggedIn = false, onSelect = f => f }) {
                 href="#"
                 onClick={() => {
                   setExpanded(false);
-                  onSelect('create_playlist');
+                  onSelect('create-playlist');
                 }}
               >Create playlist</Nav.Link>
               <Nav.Link
                 href="#"
                 onClick={() => {
                   setExpanded(false);
-                  onSelect('top_playlists');
+                  onSelect('top-playlists');
                 }}
               >Top rated playlists</Nav.Link>
               <Nav.Link
                 href="#"
                 onClick={() => {
                   setExpanded(false);
-                  onSelect('latest_playlists');
+                  onSelect('latest-playlists');
                 }}
               >Latest playlists</Nav.Link>
             </Nav>

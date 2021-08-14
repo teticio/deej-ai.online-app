@@ -7,7 +7,7 @@ import RemovablePlaylist from './RemovablePlaylist';
 import GeneratePlaylist from './GeneratePlaylist';
 import SavePlaylist from './SavePlaylist';
 
-export default function CreatePlaylist({ onCreate = f => f }) {
+export default function CreatePlaylist({ size = 10, creativity = 0.5, noise = 0, onCreate = f => f, onSettings = f => f }) {
   const [playlist, setPlaylist] = useState({ track_ids: [] });
   const [spinner, setSpinner] = useState(false);
 
@@ -36,7 +36,7 @@ export default function CreatePlaylist({ onCreate = f => f }) {
               className="text-success"
               onClick={() => {
                 setSpinner(true);
-                GeneratePlaylist(playlist)
+                GeneratePlaylist(playlist, size, creativity, noise)
                   .then(playlist => {
                     SavePlaylist(playlist).then(id => playlist.id = id);
                     return playlist;
@@ -47,7 +47,7 @@ export default function CreatePlaylist({ onCreate = f => f }) {
             <FaCog
               size="25"
               className="text-success"
-              onClick={() => { console.log('settings'); }}
+              onClick={() => onSettings()}
             />
           </div>}
       </Card.Body>
