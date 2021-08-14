@@ -8,6 +8,7 @@ export default function Settings({ size, creativity, noise, onChange = f => f, o
   const [_size, setSize] = useState(size);
   const [_creativity, setCreativity] = useState(creativity);
   const [_noise, setNoise] = useState(noise);
+  const setValidSize = (size) => setSize(Math.max(Math.min(size, 100), 1))
   const update = () => onChange(_size, _creativity, _noise);
 
   return (
@@ -23,7 +24,15 @@ export default function Settings({ size, creativity, noise, onChange = f => f, o
             max="100"
             value={_size}
             onChange={(event) => {
-              setSize(Math.max(Math.min(event.target.value, 100), 1));
+              if (event.target.value !== "") {
+                setValidSize(event.target.value);
+                update();
+              } else {
+                setSize("");
+              }
+            }}
+            onBlur={(event) => {
+              setValidSize(event.target.value);
               update();
             }}
           />
