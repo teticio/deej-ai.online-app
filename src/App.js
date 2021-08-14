@@ -1,14 +1,17 @@
 // TODO
 //
 // frontend:
+// show value of sliders in settings
+// about page
 // fix warnings for unique key
 // fix warning about combining h2 and a in Banner
+// similar to current track playing
 // be able to load more playlists
 // incremental search
-// kubernetes
+// pipenv lock
+// docker, kubernetes
 //
 // backend:
-// re-factor join_the_dots and make_playlist
 // handle exceptions from spotify
 // set seed in noise
 // bug in join the dots?
