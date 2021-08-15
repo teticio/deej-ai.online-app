@@ -46,8 +46,13 @@ export default function Banner({ loggedIn = false, onSelect = f => f }) {
                     onSelect('login-spotify');
                   }}
                 >Login to Spotify</Nav.Link> :
-                <></>
-              }
+                <Nav.Link
+                  href="#"
+                  onClick={() => {
+                    setExpanded(false);
+                    onSelect('logout-spotify');
+                  }}
+                >Logout from Spotify</Nav.Link>              }
               <Nav.Link
                 href="#"
                 onClick={() => {

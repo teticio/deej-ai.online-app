@@ -2,6 +2,7 @@
 //
 // frontend:
 // show value of sliders in settings
+// playlist widget?
 // about page
 // fix warnings for unique key
 // fix warning about combining h2 and a in Banner
@@ -17,6 +18,7 @@
 // bug in join the dots?
 // get_similar
 
+import { useState } from 'react';
 import Container from 'react-bootstrap/Container';
 import { usePersistedState } from "./lib";
 import Banner from './components/Banner';
@@ -37,17 +39,23 @@ function App() {
   const [creativity, setCreativity] = usePersistedState('creativity', 0.5);
   const [noise, setNoise] = usePersistedState('noise', 0);
   const spotify = new Spotify();
+  const [loggedIn, setLoggedIn] = useState(spotify.loggedIn());
 
   return (
     <>
       <Container className="App">
-        <Banner loggedIn={spotify.loggedIn()} onSelect={(action) => {
+        <Banner loggedIn={loggedIn} onSelect={(action) => {
           switch (action) {
             case 'create-playlist':
               setScreen('create-playlist');
               break;
+            case 'logout-spotify':
+              spotify.logOut();
+              setLoggedIn(false);
+              break;
             case 'login-spotify':
               window.location.href = process.env.REACT_APP_API_URL + '/login';
+              setLoggedIn(spotify.loggedIn());
               break;
             case 'latest-playlists':
               GetLatestPlaylists(8)
@@ -121,7 +129,7 @@ function App() {
                       spotify={spotify}
                     /></> :
                   (screen === 'search-playlists') ?
-                    <SearchScreen spotify={spotify}/> :
+                    <SearchScreen spotify={spotify} /> :
                     <></>
         }
       </Container>

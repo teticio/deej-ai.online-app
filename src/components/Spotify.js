@@ -19,6 +19,12 @@ export default class Spotify extends SpotifyWebApi {
     if (params.access_token) {
       this.setAccessToken(params.access_token);
       this.refreshToken = params.refresh_token;
+      localStorage.setItem('accessToken', params.access_token);
+      localStorage.setItem('refreshToken', params.refresh_token);
+      window.location.hash = '';
+    } else {
+      this.setAccessToken(localStorage.getItem('accessToken'));
+      this.refreshToken = localStorage.getItem('refreshToken');
     }
   }
 
@@ -26,11 +32,15 @@ export default class Spotify extends SpotifyWebApi {
     return this.getAccessToken() !== null;
   }
 
-  // http://localhost:3000/#access_token=BQDfl_xhCOuq-Kslzs7giLVds3uLlX5Sub5IhrFQWtnM2mC3KdNUvP2r4ozgkvlFrrDg10PHKAd82z-Xhqvt9dA6T1ow1iP7yoDymxoKX7-nFzamSP9u1Tv_OgRsvrr9bs-Dek-cr9tNaZgYxc9_DQUh_EigVI32BMNQUBpm2u5koQzR&refresh_token=AQDn0qVlL6MitTT_Bwh1555ntTTf8fQvmm5JAFU5OC9hyXGH0gs-iffRRMH0ZOrzbu1WlUWeyg9pNl7uq3bjLbT7jJCGFTPjQvIfAFUocQh9c8wP0xNKI_FoUX3ZfVSPrUE
-  // json.error.message === "The access token expired"
+  logOut() {
+    this.setAccessToken(null);
+    this.refreshToken = null;
+    localStorage.removeItem('accessToken');
+    localStorage.removeItem('refreshToken');
+  }
 
   async autoRefresh(f, ...params) {
-    let response = await f(); 
+    let response = await f();
     if ('error' in response && response.error.message === "The access token expired") {
       response = await fetch(process.env.REACT_APP_API_URL + '/refresh_token?refresh_token=' + this.refreshToken);
       const json = await response.json();
