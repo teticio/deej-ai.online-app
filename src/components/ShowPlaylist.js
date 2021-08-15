@@ -38,9 +38,10 @@ export default function ShowPlaylist({ playlist, onClose = f => f, spotify = nul
                                 setEditing(false);
                                 setPlaylistUrl(spotify_playlist.external_urls.spotify);
                                 if (userPlaylist) {
-                                  UpdatePlaylistId(playlist.id, spotify_playlist.owner.id, spotify_playlist.id);
+                                  UpdatePlaylistId(playlist.id, spotify_playlist.owner.id, spotify_playlist.id)
+                                  .catch(error => console.error('Error:', error));
                                 }
-                              });
+                              }).catch(error => console.error('Error:', error));
                           }}
                         />}
                       <div style={{ width: '10px' }} />
@@ -59,12 +60,14 @@ export default function ShowPlaylist({ playlist, onClose = f => f, spotify = nul
                           onChange={event => setPlaylistName(event.target.value)}
                           onBlur={() => {
                             setEditing(false);
-                            UpdatePlaylistName(playlist.id, playlistName);
+                            UpdatePlaylistName(playlist.id, playlistName)
+                            .catch(error => console.error('Error:', error));
                           }}
                           onKeyUp={event => {
                             if (event.keyCode === 13) {
                               setEditing(false);
-                              UpdatePlaylistName(playlist.id, playlistName);
+                              UpdatePlaylistName(playlist.id, playlistName)
+                              .catch(error => console.error('Error:', error));
                             }
                           }}
                         /> :
@@ -86,7 +89,7 @@ export default function ShowPlaylist({ playlist, onClose = f => f, spotify = nul
                         playlist.id,
                         (rating + playlist.av_rating) / (playlist.num_ratings + 1),
                         playlist.num_ratings + 1
-                      );
+                      ).catch(error => console.error('Error:', error));
                     }} /></span> :
                     <span onClick={() => setRateIt(true)}>
                       <StarRating rating={playlist.av_rating} />

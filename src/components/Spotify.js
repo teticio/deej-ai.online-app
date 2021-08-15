@@ -41,7 +41,7 @@ export default class Spotify extends SpotifyWebApi {
 
   async autoRefresh(f, ...params) {
     let response = await f();
-    if ('error' in response && response.error.message === "The access token expired") {
+    if (response.error && response.error.message === "The access token expired") {
       response = await fetch(process.env.REACT_APP_API_URL + '/refresh_token?refresh_token=' + this.refreshToken);
       const json = await response.json();
       this.setAccessToken(json.access_token);
@@ -51,18 +51,14 @@ export default class Spotify extends SpotifyWebApi {
   }
 
   async getCurrentUser() {
-    try {
-      const reponse = await fetch('https://api.spotify.com/v1/me', {
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': 'Bearer ' + this.getAccessToken()
-        }
-      });
-      const json = reponse.json();
-      return json;
-    } catch (error) {
-      console.error('Error:', error);
-    };
+    const reponse = await fetch('https://api.spotify.com/v1/me', {
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer ' + this.getAccessToken()
+      }
+    });
+    const json = reponse.json();
+    return json;
   }
 
   async createNewPlayist(name, track_ids) {

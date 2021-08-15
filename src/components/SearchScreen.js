@@ -24,7 +24,7 @@ export default function SearchScreen({ spotify }) {
               SearchPlaylists(searchString, 8)
                 .then((playlists) => {
                   setPlaylists(playlists);
-                })
+                }).catch(error => console.error('Error:', error));
             }}
             onKeyUp={event => {
               if (event.keyCode === 13) {
@@ -32,7 +32,7 @@ export default function SearchScreen({ spotify }) {
                 SearchPlaylists(searchString, 8)
                   .then((playlists) => {
                     setPlaylists(playlists);
-                  })
+                  }).catch(error => console.error('Error:', error));
               }
             }}
           /> :

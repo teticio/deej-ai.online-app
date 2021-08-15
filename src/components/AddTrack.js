@@ -1,17 +1,18 @@
 import { useState } from "react";
-import TrackSelector from "./TrackSelector";
 import { FaPlus } from "react-icons/fa";
 import Spinner from 'react-bootstrap/Spinner';
+import TrackSelector from "./TrackSelector";
 
 var searches = 0;
 
-export default function AddTrack({ numTracks = 0, onAdd = f => f }) {
+export default function AddTrack({ numTracks = 0, spotify = null, onAdd = f => f }) {
   const [currentId, setCurrentId] = useState(null);
   const [spinner, setSpinner] = useState(0);
 
   return (
     <div className="d-flex flex-row align-items-center">
       <TrackSelector
+        spotify={spotify}
         onSelect={(id) => setCurrentId(id)}
         onSearch={() => { searches++; if (searches !== 0) setSpinner(true); }}
         onSearchEnd={() => { searches--; if (searches === 0) setSpinner(false); }}

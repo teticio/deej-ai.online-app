@@ -63,14 +63,14 @@ function App() {
                 .then((playlists) => {
                   setPlaylists(playlists);
                   setScreen('latest-playlists');
-                });
+                }).catch(error => console.error('Error:', error));
               break;
             case 'top-playlists':
               GetTopPlaylists(8)
                 .then((playlists) => {
                   setPlaylists(playlists);
                   setScreen('top-playlists');
-                });
+                }).catch(error => console.error('Error:', error));
               break;
             case 'search-playlists':
               setScreen('search-playlists');
@@ -85,6 +85,7 @@ function App() {
             size={size}
             creativity={creativity}
             noise={noise}
+            spotify={spotify}
             onCreate={(playlist, waypoints) => {
               setWaypoints(waypoints);
               setPlaylist(playlist);
