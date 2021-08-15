@@ -10,7 +10,7 @@ export default function AddTrack({ numTracks = 0, spotify = null, onAdd = f => f
   const [spinner, setSpinner] = useState(0);
 
   return (
-    <div className="d-flex flex-row align-items-center">
+    <div className="d-flex align-items-center">
       <TrackSelector
         spotify={spotify}
         onSelect={(id) => setCurrentId(id)}

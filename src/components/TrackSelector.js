@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { FaSpotify } from "react-icons/fa"
 import Col from 'react-bootstrap/Col';
 import { debounceFunction } from "../lib";
 import "./TrackSelector.css";
@@ -14,7 +15,11 @@ export default function TrackSelector({ spotify = null, onSelect = f => f, onSea
         spotify.autoRefresh(() => spotify.getMyCurrentPlayingTrack())
           .then((response) => {
             console.log(response);
-            setCurrentTrack(response.item ? response.item.name : null);
+            setCurrentTrack(response.item ? {
+              'track':
+                `${response.item.artists[0].name} - ${response.item.name}`,
+              'track_id': response.item.id
+            } : null);
           }).catch(error => console.error('Error:', error));
       } else {
         setCurrentTrack(null);
@@ -68,7 +73,13 @@ export default function TrackSelector({ spotify = null, onSelect = f => f, onSea
       {currentTrack ?
         <>
           <div style={{ marginTop: '10px' }} />
-          <span>{currentTrack}</span>
+          <div className="d-flex align-items-center" onClick={() => {
+            ////////////////////////////////////////// setSearchResults
+          }}>
+            <FaSpotify size="15" className="text-success" />
+            <div style={{ width: '10px' }} />
+            <h6 className="text-success">{currentTrack.track}</h6>
+          </div>
         </> : <></>
       }
       <select onChange={event => onSelect(event.target.value)}>\
