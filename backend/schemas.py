@@ -36,13 +36,13 @@ class PlaylistId(BaseModel):
 class Playlist(BaseModel):
     name: Optional[str] = "Deej-A.I."
     created: datetime
-    user_id: Optional[str] = None
-    playlist_id: Optional[str] = None
+    user_id: Optional[str] = ""
+    playlist_id: Optional[str] = ""
     av_rating: Optional[float] = 0
     num_ratings: Optional[int] = 0
     track_ids: str
-    tracks: Optional[str] = None
-    waypoints: Optional[str] = None
+    tracks: Optional[str] = ""
+    waypoints: Optional[str] = ""
 
 
 class SearchPlaylists(BaseModel):

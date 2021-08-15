@@ -9,6 +9,7 @@
 // similar to current track playing
 // be able to load more playlists
 // incremental search
+// selenium (pipenv install dev)
 // pipenv lock
 // docker, kubernetes
 //

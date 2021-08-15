@@ -125,9 +125,21 @@ async def playlist(playlist: schemas.NewPlaylist):
 @app.post("/create_playlist")
 def create_playlist(playlist: schemas.Playlist, db: Session = Depends(get_db)):
     db_item = models.Playlist(**playlist.dict())
-    db.add(db_item)
-    db.commit()
-    db.refresh(db_item)
+    try:
+        db.add(db_item)
+        db.commit()
+        db.refresh(db_item)
+    except:  # duplicate
+        db.rollback()
+        db_item = db.query(models.Playlist).filter(
+            models.Playlist.name == playlist.name,
+            models.Playlist.user_id == playlist.user_id,
+            models.Playlist.playlist_id == playlist.playlist_id,
+            models.Playlist.av_rating == playlist.av_rating,
+            models.Playlist.num_ratings == playlist.num_ratings,
+            models.Playlist.track_ids == playlist.track_ids,
+            models.Playlist.tracks == playlist.tracks,
+            models.Playlist.waypoints == playlist.waypoints).first()
     return db_item
 
 
