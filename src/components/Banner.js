@@ -10,7 +10,8 @@ export default function Banner({ loggedIn = false, onSelect = f => f }) {
 
   return (
     <>
-      <Navbar bg="dark" variant="dark" expand="no" expanded={expanded}>
+      <div style={{ marginTop: '120px' }} />
+      <Navbar fixed="top" bg="dark" variant="dark" expand="no" expanded={expanded}>
         <Container className="banner">
           <Navbar.Brand href="#">
             <div className="row align-items-center">
@@ -52,7 +53,7 @@ export default function Banner({ loggedIn = false, onSelect = f => f }) {
                     setExpanded(false);
                     onSelect('logout-spotify');
                   }}
-                >Logout from Spotify</Nav.Link>              }
+                >Logout from Spotify</Nav.Link>}
               <Nav.Link
                 href="#"
                 onClick={() => {

@@ -1,0 +1,8 @@
+fastapi
+tensorflow
+yapf
+uvicorn
+pytest
+sqlalchemy
+aiohttp
+aiofiles

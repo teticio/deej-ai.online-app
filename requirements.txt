@@ -1,0 +1,6 @@
+fastapi
+tensorflow
+uvicorn
+sqlalchemy
+aiohttp
+aiofiles

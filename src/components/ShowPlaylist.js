@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { FaBackward, FaSave } from "react-icons/fa";
+import { FaBackward, FaSave, FaPen } from "react-icons/fa";
 import Card from 'react-bootstrap/Card';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
@@ -68,7 +68,11 @@ export default function ShowPlaylist({ playlist, onClose = f => f, spotify = nul
                             }
                           }}
                         /> :
-                        <span>{playlistName}</span>
+                        <div className="d-flex">
+                          {playlistName}
+                          <div style={{ width: '10px' }} />
+                          <FaPen size="15" className="text-success" />
+                        </div>
                       }
                     </span>
                   }
