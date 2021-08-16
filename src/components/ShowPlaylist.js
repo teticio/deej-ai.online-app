@@ -12,6 +12,8 @@ import Footer from './Footer';
 export default function ShowPlaylist({ playlist, onClose = f => f, spotify = null, userPlaylist = false }) {
   const [editing, setEditing] = useState(false);
   const [playlistName, setPlaylistName] = useState(playlist.name);
+  const [playlistUserId, setPlaylistUserId] = useState(playlist.user_id);
+  const [playlistId, setPlaylistId] = useState(playlist.playlist_id);
   const [playlistUrl, setPlaylistUrl] = useState(null);
   const [rateIt, setRateIt] = useState(playlist.av_rating === 0);
   const [spinner, setSpinner] = useState(false);
@@ -38,7 +40,9 @@ export default function ShowPlaylist({ playlist, onClose = f => f, spotify = nul
                                 setEditing(false);
                                 setPlaylistUrl(spotify_playlist.external_urls.spotify);
                                 if (userPlaylist) {
-                                  UpdatePlaylistId(playlist.id, spotify_playlist.owner.id, spotify_playlist.id)
+                                  setPlaylistUserId(spotify_playlist.owner.id);
+                                  setPlaylistId(spotify_playlist.id);
+                                  UpdatePlaylistId(playlist.id, playlistUserId, playlistId)
                                     .catch(error => console.error('Error:', error));
                                 }
                               }).catch(error => console.error('Error:', error));
@@ -104,7 +108,18 @@ export default function ShowPlaylist({ playlist, onClose = f => f, spotify = nul
               </Col>
             </Row>
           </Card.Title>
-          <Playlist {...playlist} />
+          {playlistId ?
+            <iframe
+              title={playlistId}
+              src={"https://open.spotify.com/embed/playlist/" + playlistId}
+              width="100%"
+              height={80 + 50 * playlist.track_ids.length}
+              frameBorder="0"
+              allowtransparency="true"
+              allow="encrypted-media"
+            /> :
+            <Playlist {...playlist} />
+          }
           {userPlaylist ?
             <>
               <hr />

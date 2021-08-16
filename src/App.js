@@ -2,7 +2,6 @@
 //
 // frontend:
 // show value of sliders in settings
-// playlist widget?
 // about page
 // fix warnings for unique key
 // fix warning about combining h2 and a in Banner
