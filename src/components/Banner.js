@@ -82,6 +82,13 @@ export default function Banner({ loggedIn = false, onSelect = f => f }) {
                   onSelect('search-playlists');
                 }}
               >Search playlists</Nav.Link>
+              <Nav.Link
+                href="#"
+                onClick={() => {
+                  setExpanded(false);
+                  onSelect('about');
+                }}
+              >About</Nav.Link>
             </Nav>
           </Navbar.Collapse>
         </Container>

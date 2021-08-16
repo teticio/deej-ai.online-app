@@ -2,7 +2,6 @@
 //
 // frontend:
 // show value of sliders in settings
-// about page
 // fix warnings for unique key
 // fix warning about combining h2 and a in Banner
 // be able to load more playlists
@@ -27,6 +26,7 @@ import Settings from "./components/Settings";
 import ShowPlaylists, { GetLatestPlaylists, GetTopPlaylists } from "./components/ShowPlaylists";
 import SearchScreen from "./components/SearchScreen";
 import Footer from './components/Footer';
+import About from './components/About';
 
 function App() {
   const [screen, setScreen] = usePersistedState('screen', 'create-playlist');
@@ -71,6 +71,9 @@ function App() {
               break;
             case 'search-playlists':
               setScreen('search-playlists');
+              break;
+            case 'about':
+              setScreen('about');
               break;
             default:
               console.log(action);
@@ -130,7 +133,9 @@ function App() {
                     /></> :
                   (screen === 'search-playlists') ?
                     <SearchScreen spotify={spotify} /> :
-                    <></>
+                    (screen === 'about') ?
+                      <About /> :
+                      <></>
         }
       </Container>
       <Footer />
