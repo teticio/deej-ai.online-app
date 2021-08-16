@@ -1,5 +1,5 @@
 .banner {
-  background-image: url("https://deej-ai.online/records.jpg");
+  background-image: url('../images/record.jpg');
   background-size: cover;
   background-repeat: no-repeat;
   background-attachment: fixed;
