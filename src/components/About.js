@@ -18,6 +18,10 @@ export default function About() {
           Pressing <FaForward /> will then generate playlist that smoothly "<i>joins the dots</i>" between
           them. This is a great way to create playlists that start off with chill out, for example, and build
           up to dance music as the party picks up!
+          </h5>
+        <div style={{ marginTop: '10px' }} />
+        <h5>
+          Don't forget to rate your playlists! This will help other people find the best ones.
         </h5>
         <div style={{ marginTop: '10px' }} />
         <h5>
