@@ -14,10 +14,9 @@
 // docker, kubernetes
 //
 // backend:
-// handle exceptions from spotify
+// disable docs in prod
 // set seed in noise
 // bug in join the dots?
-// get_similar
 
 import { useState } from 'react';
 import Container from 'react-bootstrap/Container';

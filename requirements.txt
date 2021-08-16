@@ -4,3 +4,4 @@ uvicorn
 sqlalchemy
 aiohttp
 aiofiles
+librosa

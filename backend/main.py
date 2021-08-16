@@ -9,12 +9,11 @@ from . import credentials
 from .deejai import DeejAI
 from sqlalchemy import desc
 from sqlalchemy.orm import Session
-from fastapi import Depends, FastAPI
 from .database import SessionLocal, engine
 from fastapi.staticfiles import StaticFiles
 from starlette.responses import RedirectResponse
 from fastapi.middleware.cors import CORSMiddleware
-from starlette.concurrency import run_in_threadpool
+from fastapi import Depends, FastAPI, HTTPException
 
 # create tables if necessary
 models.Base.metadata.create_all(bind=engine)
@@ -76,10 +75,16 @@ async def spotify_callback(code: str):
                          .encode('utf-8')).decode('utf-8')
     }
     async with aiohttp.ClientSession() as session:
-        async with session.post('https://accounts.spotify.com/api/token',
-                                data=data,
-                                headers=headers) as response:
-            json = await response.json()
+        try:
+            async with session.post('https://accounts.spotify.com/api/token',
+                                    data=data,
+                                    headers=headers) as response:
+                if response.status != 200:
+                    raise HTTPException(status_code=response.status,
+                                        detail=response.reason)
+                json = await response.json()
+        except aiohttp.ClientError as error:
+            raise HTTPException(status_code=400, detail=str(error))
     url = os.environ.get('APP_URL', '') + "/#" + urllib.parse.urlencode(
         {
             'access_token': json['access_token'],
@@ -98,17 +103,28 @@ async def spotify_refresh_token(refresh_token: str):
                          .encode('utf-8')).decode('utf-8')
     }
     async with aiohttp.ClientSession() as session:
-        async with session.post('https://accounts.spotify.com/api/token',
-                                data=data,
-                                headers=headers) as response:
-            json = await response.json()
+        try:
+            async with session.post('https://accounts.spotify.com/api/token',
+                                    data=data,
+                                    headers=headers) as response:
+                if response.status != 200:
+                    raise HTTPException(status_code=response.status,
+                                        detail=response.reason)
+                json = await response.json()
+        except aiohttp.ClientError as error:
+            raise HTTPException(status_code=400, detail=str(error))
     return json
 
 
 @app.post("/search")
 async def search_tracks(search: schemas.Search):
-    ids = await run_in_threadpool(deejai.search, search.string,
-                                  search.max_items)
+    ids = await deejai.search(search.string, search.max_items)
+    return [{'track_id': id, 'track': deejai.get_tracks()[id]} for id in ids]
+
+
+@app.post("/search_similar")
+async def search_similar_tracks(search: schemas.SearchSimilar):
+    ids = await deejai.get_similar_vec(search.url, search.max_items)
     return [{'track_id': id, 'track': deejai.get_tracks()[id]} for id in ids]
 
 

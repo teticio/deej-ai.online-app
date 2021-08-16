@@ -11,8 +11,8 @@ export default function Banner({ loggedIn = false, onSelect = f => f }) {
   return (
     <>
       <div style={{ marginTop: '120px' }} />
-      <Navbar fixed="top" bg="dark" variant="dark" expand="no" expanded={expanded}>
-        <Container className="banner">
+      <Navbar className="banner shadow-lg" fixed="top" bg="dark" variant="dark" expand="no" expanded={expanded}>
+        <Container>
           <Navbar.Brand href="#">
             <div className="row align-items-center">
               <Col sm="auto">

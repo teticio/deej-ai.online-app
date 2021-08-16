@@ -8,6 +8,11 @@ class Search(BaseModel):
     max_items: Optional[int] = 100
 
 
+class SearchSimilar(BaseModel):
+    url: str
+    max_items: Optional[int] = 10
+
+
 class NewPlaylist(BaseModel):
     track_ids: list
     size: Optional[int] = 10

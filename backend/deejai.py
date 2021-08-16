@@ -1,7 +1,17 @@
+import os
 import re
+import uuid
 import pickle
 import random
+import shutil
+import librosa
+import requests
 import numpy as np
+from io import BytesIO
+import tensorflow as tf
+from keras.models import load_model
+from starlette.concurrency import run_in_threadpool
+from tensorflow.compat.v1.keras.losses import cosine_proximity
 
 
 class DeejAI:
@@ -24,20 +34,26 @@ class DeejAI:
         self.mp3tovecs = np.array([[mp3tovecs[_], tracktovecs[_]]
                                    for _ in mp3tovecs])
         del mp3tovecs, tracktovecs
+        self.model = load_model(
+            'speccy_model',
+            custom_objects={'cosine_proximity': cosine_proximity})
 
     def get_tracks(self):
-      return self.tracks
+        return self.tracks
 
-    def search(self, string, max_items=100):
-        tracks = self.tracks
-        search_string = re.sub(r'([^\s\w]|_)+', '', string.lower()).split()
-        ids = sorted([
-            track for track in tracks
-            if all(word in re.sub(r'([^\s\w]|_)+', '', tracks[track].lower())
-                   for word in search_string)
-        ],
-                     key=lambda x: tracks[x])[:max_items]
-        return ids
+    async def search(self, string, max_items=100):
+        def _search():
+            tracks = self.tracks
+            search_string = re.sub(r'([^\s\w]|_)+', '', string.lower()).split()
+            ids = sorted([
+                track for track in tracks
+                if all(word in re.sub(r'([^\s\w]|_)+', '', tracks[track].lower())
+                      for word in search_string)
+            ],
+                        key=lambda x: tracks[x])[:max_items]
+            return ids
+
+        return await run_in_threadpool(_search)
 
     async def playlist(self, track_ids, size, creativity, noise):
         if len(track_ids) == 0:
@@ -54,12 +70,12 @@ class DeejAI:
                                             noise=noise)
 
     async def most_similar(self,
-                           mp3tovecs,
-                           weights,
-                           positive=[],
-                           negative=[],
-                           noise=0,
-                           vecs=None):
+                     mp3tovecs,
+                     weights,
+                     positive=[],
+                     negative=[],
+                     noise=0,
+                     vecs=None):
         mp3_vecs_i = np.array([
             weights[j] *
             np.sum([mp3tovecs[i, j]
@@ -83,11 +99,11 @@ class DeejAI:
         return result
 
     async def most_similar_by_vec(self,
-                                  mp3tovecs,
-                                  weights,
-                                  positives=[],
-                                  negatives=[],
-                                  noise=0):
+                            mp3tovecs,
+                            weights,
+                            positives=[],
+                            negatives=[],
+                            noise=0):
         mp3_vecs_i = np.array([
             weights[j] * np.sum(positives[j] if positives else [] +
                                 -negatives[j] if negatives else [],
@@ -159,3 +175,61 @@ class DeejAI:
             playlist_tracks.append(self.tracks[track_id])
             playlist_indices.append(candidate)
         return playlist
+
+    async def get_similar_vec(self, track_url, max_items=10):
+        def _get_similar_vec():
+            y, sr = librosa.load(f'{playlist_id}.{extension}', mono=True)
+            os.remove(f'{playlist_id}.{extension}')
+            S = librosa.feature.melspectrogram(y=y,
+                                               sr=sr,
+                                               n_fft=n_fft,
+                                               hop_length=hop_length,
+                                               n_mels=n_mels,
+                                               fmax=sr / 2)
+            # hack because Spotify samples are a shade under 30s
+            x = np.ndarray(shape=(S.shape[1] // slice_size + 1, n_mels,
+                                  slice_size, 1),
+                           dtype=float)
+            for slice in range(S.shape[1] // slice_size):
+                log_S = librosa.power_to_db(
+                    S[:, slice * slice_size:(slice + 1) * slice_size],
+                    ref=np.max)
+                if np.max(log_S) - np.min(log_S) != 0:
+                    log_S = (log_S - np.min(log_S)) / (np.max(log_S) -
+                                                       np.min(log_S))
+                x[slice, :, :, 0] = log_S
+            # hack because Spotify samples are a shade under 30s
+            log_S = librosa.power_to_db(S[:, -slice_size:], ref=np.max)
+            if np.max(log_S) - np.min(log_S) != 0:
+                log_S = (log_S - np.min(log_S)) / (np.max(log_S) -
+                                                   np.min(log_S))
+            x[-1, :, :, 0] = log_S
+            return self.model.predict(x)
+
+        playlist_id = str(uuid.uuid4())
+        n_fft = 2048
+        hop_length = 512
+        n_mels = self.model.layers[0].input_shape[0][1]
+        slice_size = self.model.layers[0].input_shape[0][2]
+
+        try:
+            r = requests.get(track_url, allow_redirects=True)
+            if r.status_code != 200:
+                return []
+            extension = 'wav' if 'wav' in r.headers['Content-Type'] else 'mp3'
+            with open(f'{playlist_id}.{extension}',
+                      'wb') as file:  # this is really annoying!
+                shutil.copyfileobj(BytesIO(r.content), file, length=131072)
+            vecs = await run_in_threadpool(_get_similar_vec)
+            candidates = await self.most_similar_by_vec(
+                self.mp3tovecs[:, np.newaxis, 0, :], [1], [vecs])
+            ids = [
+                self.track_ids[candidate]
+                for candidate in candidates[0:max_items]
+            ]
+            return ids
+        except Exception as e:
+            print(e)
+            if os.path.exists(f'./{playlist_id}.mp3'):
+                os.remove(f'./{playlist_id}.mp3')
+            return []

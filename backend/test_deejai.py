@@ -87,3 +87,61 @@ def test_update_playlist():
     playlist = get_playlist(id, db)
     assert (playlist.name == "Test" and playlist.av_rating == 4.5
             and playlist.num_ratings == 1)
+
+
+def test_search_similar():
+    search = schemas.SearchSimilar(
+        url=
+        'https://p.scdn.co/mp3-preview/04b28b12174a4c4448486070962dae74494c0f70?cid=194086cb37be48ebb45b9ba4ce4c5936'
+    )
+    assert asyncio.run(search_similar_tracks(search)) == [{
+        "track_id":
+        "1a9SiOELQS7YsBQwdEPMuq",
+        "track":
+        "Luis Fonsi - Despacito"
+    }, {
+        "track_id":
+        "6rPO02ozF3bM7NnOV4h6s2",
+        "track":
+        "Luis Fonsi - Despacito - Remix"
+    }, {
+        "track_id":
+        "5AgTL2WmiCvoObA8fpncKs",
+        "track":
+        "Luis Fonsi - Despacito"
+    }, {
+        "track_id":
+        "7dx0Funwrd0LRvquDFQ8fv",
+        "track":
+        "Cali Y El Dandee - Lumbra"
+    }, {
+        "track_id":
+        "7CUYHcu0RnbOnMz4RuN07w",
+        "track":
+        "Luis Fonsi - Despacito (Featuring Daddy Yankee)"
+    }, {
+        "track_id":
+        "2YFOm3hznEzQsIMmEwGyUg",
+        "track":
+        "Leon - Legalna"
+    }, {
+        "track_id":
+        "1tJw60G9KHl7fYVdQ2JDgo",
+        "track":
+        "J Balvin - Ginza - Remix"
+    }, {
+        "track_id":
+        "1v3fyyGJRlblbobabiXxIs",
+        "track":
+        "Latifah - On My Way"
+    }, {
+        "track_id":
+        "3jWfGOOUffq51fWGQdPV68",
+        "track":
+        "Achille Lauro - Non sei come me"
+    }, {
+        "track_id":
+        "2HR9Ih2IjpGEQ3YZl7aRUQ",
+        "track":
+        "Jeano - Abow"
+    }]
