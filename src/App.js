@@ -6,7 +6,6 @@
 // about page
 // fix warnings for unique key
 // fix warning about combining h2 and a in Banner
-// similar to current track playing
 // be able to load more playlists
 // incremental search
 // selenium (pipenv install dev)

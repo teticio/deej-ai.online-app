@@ -20,49 +20,49 @@ export default function CreatePlaylist({
   const [spinner, setSpinner] = useState(false);
 
   return (
-    <Card>
-      <Card.Body>
-        <Card.Title>
-          Choose the waypoints in your musical journey
-        </Card.Title>
-        <AddTrack
-          numTracks={_waypoints.track_ids.length}
-          spotify={spotify}
-          onAdd={(id) => {
-            setWaypoints({ 'track_ids': _waypoints.track_ids.concat(id) });
-          }} />
-        <hr />
-        <RemovablePlaylist {..._waypoints} onRemove={(id) => {
-          setWaypoints({ 'track_ids': _waypoints.track_ids.filter((element, index) => index !== id) });
+    <>
+      <h3 style={{ textAlign: "center" }}>Choose the waypoints for your musical journey</h3>
+      <AddTrack
+        numTracks={_waypoints.track_ids.length}
+        spotify={spotify}
+        onAdd={(id) => {
+          setWaypoints({ 'track_ids': _waypoints.track_ids.concat(id) });
         }} />
-        {_waypoints.track_ids.length > 0 ?
-          <hr /> :
-          <></>
-        }
-        {spinner ?
-          <Spinner animation="border" size="md" /> :
-          <div className="d-flex align-items-center justify-content-between">
-            <FaForward
-              size="25"
-              className="text-success"
-              onClick={() => {
-                setSpinner(true);
-                GeneratePlaylist(_waypoints, size, creativity, noise)
-                  .then(playlist => {
-                    SavePlaylist(playlist).then(id => playlist.id = id);
-                    return playlist;
-                  })
-                  .then(playlist => onCreate(playlist, _waypoints))
-                  .catch(error => console.error('Error:', error));
-              }}
-            />
-            <FaCog
-              size="25"
-              className="text-success"
-              onClick={() => onSettings(_waypoints)}
-            />
-          </div>}
-      </Card.Body>
-    </Card>
+      <div style={{ marginTop: '10px' }} />
+      <Card>
+        <Card.Body>
+          <RemovablePlaylist {..._waypoints} onRemove={(id) => {
+            setWaypoints({ 'track_ids': _waypoints.track_ids.filter((element, index) => index !== id) });
+          }} />
+          {_waypoints.track_ids.length > 0 ?
+            <hr /> :
+            <></>
+          }
+          {spinner ?
+            <Spinner animation="border" size="md" /> :
+            <div className="d-flex align-items-center justify-content-between">
+              <FaForward
+                size="25"
+                className="text-success"
+                onClick={() => {
+                  setSpinner(true);
+                  GeneratePlaylist(_waypoints, size, creativity, noise)
+                    .then(playlist => {
+                      SavePlaylist(playlist).then(id => playlist.id = id);
+                      return playlist;
+                    })
+                    .then(playlist => onCreate(playlist, _waypoints))
+                    .catch(error => console.error('Error:', error));
+                }}
+              />
+              <FaCog
+                size="25"
+                className="text-success"
+                onClick={() => onSettings(_waypoints)}
+              />
+            </div>}
+        </Card.Body>
+      </Card>
+    </>
   );
 }

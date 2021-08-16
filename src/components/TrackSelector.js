@@ -1,7 +1,8 @@
 import { useState, useEffect } from "react";
 import { FaSpotify } from "react-icons/fa"
-import Col from 'react-bootstrap/Col';
+import Container from 'react-bootstrap/Container';
 import { debounceFunction } from "../lib";
+import Search, { SearchSimilar } from "./Search";
 import "./TrackSelector.css";
 
 export default function TrackSelector({ spotify = null, onSelect = f => f, onSearch = f => f, onSearchEnd = f => f }) {
@@ -14,11 +15,10 @@ export default function TrackSelector({ spotify = null, onSelect = f => f, onSea
       if (spotify && spotify.loggedIn()) {
         spotify.autoRefresh(() => spotify.getMyCurrentPlayingTrack())
           .then((response) => {
-            console.log(response);
             setCurrentTrack(response.item ? {
               'track':
                 `${response.item.artists[0].name} - ${response.item.name}`,
-              'track_id': response.item.id
+              'url': response.item.preview_url
             } : null);
           }).catch(error => console.error('Error:', error));
       } else {
@@ -33,19 +33,10 @@ export default function TrackSelector({ spotify = null, onSelect = f => f, onSea
     async function fetchSearchResults() {
       onSearch();
       if (searchString !== "") {
-        let response = await fetch(process.env.REACT_APP_API_URL + '/search', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json'
-          },
-          body: JSON.stringify({
-            'string': searchString
-          })
-        });
-        let json = await response.json();
-        setSearchResults(json);
-        onSelect((json.length > 0) ? json[0].id : null);
-        return json;
+        const tracks = await Search(searchString);
+        setSearchResults(tracks);
+        onSelect((tracks.length > 0) ? tracks[0].id : null);
+        return tracks;
       } else {
         setSearchResults([]);
         onSelect(null);
@@ -57,24 +48,29 @@ export default function TrackSelector({ spotify = null, onSelect = f => f, onSea
         onSelect(results[0].track_id);
       }
       onSearchEnd();
-    }).catch(error => console.error('Error:', error));
+    }).catch(error => {
+      onSearchEnd();
+      console.error('Error:', error);
+    });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, 1000), [searchString]);
 
   return (
-    <Col>
-      <input
-        placeholder="Search..."
-        onChange={event => {
-          setSearchString(event.target.value);
-        }}
-      />
-      <div style={{ marginTop: '10px' }} />
+    <Container>
       {currentTrack ?
         <>
           <div style={{ marginTop: '10px' }} />
           <div className="d-flex align-items-center" onClick={() => {
-            ////////////////////////////////////////// setSearchResults
+            onSearch();
+            SearchSimilar(currentTrack.url)
+              .then(tracks => {
+                onSearchEnd();
+                setSearchResults(tracks);
+              })
+              .catch(error => {
+                onSearchEnd();
+                console.error('Error:', error);
+              });
           }}>
             <FaSpotify size="15" className="text-success" />
             <div style={{ width: '10px' }} />
@@ -82,6 +78,13 @@ export default function TrackSelector({ spotify = null, onSelect = f => f, onSea
           </div>
         </> : <></>
       }
+      <input
+        placeholder="Search..."
+        onChange={event => {
+          setSearchString(event.target.value);
+        }}
+      />
+      <div style={{ marginTop: '10px' }} />
       <select onChange={event => onSelect(event.target.value)}>\
         size="1"
         {searchResults.map(({ track_id, track }, i) => (
@@ -90,6 +93,6 @@ export default function TrackSelector({ spotify = null, onSelect = f => f, onSea
           </option>
         ))}
       </select>
-    </Col>
+    </Container >
   );
 }
