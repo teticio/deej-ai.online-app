@@ -9,7 +9,7 @@ import { UpdatePlaylistName, UpdatePlaylistRating, UpdatePlaylistId } from "./Sa
 import StarRating, { RateStars } from "./StarRating";
 import Footer from './Footer';
 
-export default function ShowPlaylist({ playlist, onClose = f => f, spotify = null, userPlaylist = true }) {
+export default function ShowPlaylist({ playlist, onClose = f => f, spotify = null, userPlaylist = false }) {
   const [editing, setEditing] = useState(false);
   const [playlistName, setPlaylistName] = useState(playlist.name);
   const [playlistUrl, setPlaylistUrl] = useState(null);
@@ -39,7 +39,7 @@ export default function ShowPlaylist({ playlist, onClose = f => f, spotify = nul
                                 setPlaylistUrl(spotify_playlist.external_urls.spotify);
                                 if (userPlaylist) {
                                   UpdatePlaylistId(playlist.id, spotify_playlist.owner.id, spotify_playlist.id)
-                                  .catch(error => console.error('Error:', error));
+                                    .catch(error => console.error('Error:', error));
                                 }
                               }).catch(error => console.error('Error:', error));
                           }}
@@ -61,20 +61,25 @@ export default function ShowPlaylist({ playlist, onClose = f => f, spotify = nul
                           onBlur={() => {
                             setEditing(false);
                             UpdatePlaylistName(playlist.id, playlistName)
-                            .catch(error => console.error('Error:', error));
+                              .catch(error => console.error('Error:', error));
                           }}
                           onKeyUp={event => {
-                            if (event.keyCode === 13) {
+                            if (event.key === 'Enter') {
                               setEditing(false);
                               UpdatePlaylistName(playlist.id, playlistName)
-                              .catch(error => console.error('Error:', error));
+                                .catch(error => console.error('Error:', error));
                             }
                           }}
                         /> :
                         <div className="d-flex">
                           {playlistName}
-                          <div style={{ width: '10px' }} />
-                          <FaPen size="15" className="text-success" />
+                          {userPlaylist ?
+                            <>
+                              <div style={{ width: '10px' }} />
+                              <FaPen size="15" className="text-success" />
+                            </> :
+                            <></>
+                          }
                         </div>
                       }
                     </span>

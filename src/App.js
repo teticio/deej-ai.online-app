@@ -99,6 +99,7 @@ function App() {
               playlist={playlist}
               onClose={() => { setScreen('create-playlist'); }}
               spotify={spotify}
+              userPlaylist={true}
             /> :
             (screen === 'show-settings') ?
               <Settings

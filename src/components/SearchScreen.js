@@ -30,7 +30,7 @@ export default function SearchScreen({ spotify }) {
                     }).catch(error => console.error('Error:', error));
                 }}
                 onKeyUp={event => {
-                  if (event.keyCode === 13) {
+                  if (event.key === 'Enter') {
                     setEditing(false);
                     SearchPlaylists(searchString, 8)
                       .then((playlists) => {
@@ -44,6 +44,7 @@ export default function SearchScreen({ spotify }) {
           </div>
         </Card.Body>
       </Card>
+      <div style={{ marginTop: '10px' }} />
       <ShowPlaylists
         playlists={playlists}
         spotify={spotify}
