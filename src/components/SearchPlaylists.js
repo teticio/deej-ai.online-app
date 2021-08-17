@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect, useReducer } from "react";
 import { FaSearch } from "react-icons/fa";
 import Container from 'react-bootstrap/Container';
 import Card from 'react-bootstrap/Card';
@@ -25,16 +25,32 @@ export async function searchPlaylists(string, max_items) {
 }
 
 export default function SearchPlaylists({ spotify }) {
+  const [topN, loadMore] = useReducer(n => n + 8, 8);
   const [playlists, setPlaylists] = useState([]);
   const [editing, setEditing] = useState(true);
   const [searchString, setSearchString] = useState("");
+  const [actualSearchString, setActualSearchString] = useState("");
+
+  useEffect(() => {
+    if (actualSearchString === "") {
+      setPlaylists([]);
+    } else {
+      searchPlaylists(actualSearchString, topN)
+        .then((playlists) => {
+          setPlaylists(playlists);
+        }).catch(error => console.error('Error:', error));
+    }
+  }, [actualSearchString, topN]);
 
   return (
     <Container>
       <h3 style={{ textAlign: "center" }}>Search playlists</h3>
       <Card>
         <Card.Body>
-          <div className="d-flex flex-row align-items-center" onClick={() => { setEditing(true); }}>
+          <div
+            className="d-flex flex-row align-items-center"
+            onClick={() => setEditing(true)}
+          >
             <FaSearch />
             <div style={{ width: '10px' }} />
             {editing ?
@@ -42,20 +58,14 @@ export default function SearchPlaylists({ spotify }) {
                 placeholder="Search..."
                 value={searchString}
                 onChange={event => setSearchString(event.target.value)}
-                onBlur={() => {
+                onBlur={event => {
+                  setActualSearchString(searchString);
                   setEditing(false);
-                  searchPlaylists(searchString, 8)
-                    .then((playlists) => {
-                      setPlaylists(playlists);
-                    }).catch(error => console.error('Error:', error));
                 }}
                 onKeyUp={event => {
                   if (event.key === 'Enter') {
+                    setActualSearchString(searchString);
                     setEditing(false);
-                    searchPlaylists(searchString, 8)
-                      .then((playlists) => {
-                        setPlaylists(playlists);
-                      }).catch(error => console.error('Error:', error));
                   }
                 }}
               /> :
@@ -69,6 +79,11 @@ export default function SearchPlaylists({ spotify }) {
         playlists={playlists}
         spotify={spotify}
       />
+      {actualSearchString !== "" ?
+        <span onClick={loadMore}>
+          <h6 className="text-success" style={{ textAlign: "center" }}>Load more...</h6>
+        </span> : <></>
+      }
     </Container>
   );
 }

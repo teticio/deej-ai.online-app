@@ -4,7 +4,6 @@
 // show value of sliders in settings
 // fix warnings for unique key
 // fix warning about combining h2 and a in Banner
-// be able to load more playlists
 // incremental search
 // selenium (pipenv install dev)
 // pipenv lock
@@ -45,7 +44,11 @@ function App() {
         <Banner loggedIn={loggedIn} onSelect={(action) => {
           switch (action) {
             case 'create-playlist':
-              setScreen('create-playlist');
+            case 'latest-playlists':
+            case 'top-playlists':
+            case 'search-playlists':
+            case 'about':
+              setScreen(action);
               break;
             case 'logout-spotify':
               spotify.logOut();
@@ -54,18 +57,6 @@ function App() {
             case 'login-spotify':
               window.location.href = process.env.REACT_APP_API_URL + '/login';
               setLoggedIn(spotify.loggedIn());
-              break;
-            case 'latest-playlists':
-              setScreen('latest-playlists');
-              break;
-            case 'top-playlists':
-              setScreen('top-playlists');
-              break;
-            case 'search-playlists':
-              setScreen('search-playlists');
-              break;
-            case 'about':
-              setScreen('about');
               break;
             default:
               console.log(action);

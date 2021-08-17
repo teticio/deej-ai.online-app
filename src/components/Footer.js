@@ -6,7 +6,7 @@ import './Footer.css'
 export default function Footer() {
   return (
     <>
-      <div style={{ marginTop: '25px' }} />
+      <div style={{ marginTop: '35px' }} />
       <Row className="footer align-items-center bg-secondary">
         <Col size="sm-3">
         </Col>

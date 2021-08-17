@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useReducer } from "react";
 import Container from 'react-bootstrap/Container';
 import ShowPlaylists from "./ShowPlaylists";
 
@@ -14,7 +14,7 @@ export async function getTopPlaylists(top_n) {
 }
 
 export default function TopPlaylists({ spotify }) {
-  const [topN,] = useState(() => 8);
+  const [topN, loadMore] = useReducer(n => n + 8, 8);
   const [playlists, setPlaylists] = useState([]);
 
   useEffect(() => {
@@ -32,6 +32,9 @@ export default function TopPlaylists({ spotify }) {
         playlists={playlists}
         spotify={spotify}
       />
+      <span onClick={loadMore}>
+        <h6 className="text-success" style={{ textAlign: "center" }}>Load more...</h6>
+      </span>
     </Container >
   );
 }
