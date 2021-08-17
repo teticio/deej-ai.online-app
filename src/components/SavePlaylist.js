@@ -1,4 +1,4 @@
-export default async function SavePlaylist(playlist) {
+export default async function savePlaylist(playlist) {
   const now = new Date();
 
   const response = await fetch(process.env.REACT_APP_API_URL + '/create_playlist', {
@@ -17,7 +17,7 @@ export default async function SavePlaylist(playlist) {
   return db_item.id;
 }
 
-export async function UpdatePlaylistName(id, name) {
+export async function updatePlaylistName(id, name) {
   fetch(process.env.REACT_APP_API_URL + '/update_playlist_name', {
     method: 'POST',
     headers: {
@@ -30,7 +30,7 @@ export async function UpdatePlaylistName(id, name) {
   });
 }
 
-export async function UpdatePlaylistRating(id, av_rating, num_ratings) {
+export async function updatePlaylistRating(id, av_rating, num_ratings) {
   fetch(process.env.REACT_APP_API_URL + '/update_playlist_rating', {
     method: 'POST',
     headers: {
@@ -44,7 +44,7 @@ export async function UpdatePlaylistRating(id, av_rating, num_ratings) {
   });
 }
 
-export async function UpdatePlaylistId(id, user_id, playlist_id) {
+export async function updatePlaylistId(id, user_id, playlist_id) {
   fetch(process.env.REACT_APP_API_URL + '/update_playlist_id', {
     method: 'POST',
     headers: {

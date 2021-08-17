@@ -2,9 +2,29 @@ import { useState } from "react";
 import { FaSearch } from "react-icons/fa";
 import Container from 'react-bootstrap/Container';
 import Card from 'react-bootstrap/Card';
-import ShowPlaylists, { SearchPlaylists } from "./ShowPlaylists";
+import ShowPlaylists from "./ShowPlaylists";
 
-export default function SearchScreen({ spotify }) {
+export async function searchPlaylists(string, max_items) {
+  const response = await fetch(process.env.REACT_APP_API_URL + '/search_playlists', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+      'string': string,
+      'max_items': max_items
+    })
+  });
+  const playlists = await response.json();
+  playlists.forEach((playlist, i) => {
+    playlists[i].track_ids = JSON.parse(playlist.track_ids)
+    playlists[i].tracks = JSON.parse(playlist.tracks)
+    playlists[i].waypoints = JSON.parse(playlist.waypoints)
+  });
+  return playlists;
+}
+
+export default function SearchPlaylists({ spotify }) {
   const [playlists, setPlaylists] = useState([]);
   const [editing, setEditing] = useState(true);
   const [searchString, setSearchString] = useState("");
@@ -24,7 +44,7 @@ export default function SearchScreen({ spotify }) {
                 onChange={event => setSearchString(event.target.value)}
                 onBlur={() => {
                   setEditing(false);
-                  SearchPlaylists(searchString, 8)
+                  searchPlaylists(searchString, 8)
                     .then((playlists) => {
                       setPlaylists(playlists);
                     }).catch(error => console.error('Error:', error));
@@ -32,7 +52,7 @@ export default function SearchScreen({ spotify }) {
                 onKeyUp={event => {
                   if (event.key === 'Enter') {
                     setEditing(false);
-                    SearchPlaylists(searchString, 8)
+                    searchPlaylists(searchString, 8)
                       .then((playlists) => {
                         setPlaylists(playlists);
                       }).catch(error => console.error('Error:', error));

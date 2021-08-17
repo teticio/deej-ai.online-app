@@ -1,4 +1,4 @@
-export default async function Search(searchString, maxItems=100) {
+export default async function search(searchString, maxItems=100) {
   const response = await fetch(process.env.REACT_APP_API_URL + '/search', {
     method: 'POST',
     headers: {
@@ -13,7 +13,7 @@ export default async function Search(searchString, maxItems=100) {
   return tracks;
 }
 
-export async function SearchSimilar(url, maxItems=10) {
+export async function searchSimilar(url, maxItems=10) {
   const response = await fetch(process.env.REACT_APP_API_URL + '/search_similar', {
     method: 'POST',
     headers: {

@@ -5,7 +5,7 @@ import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Spinner from 'react-bootstrap/Spinner';
 import Playlist from './Playlist';
-import { UpdatePlaylistName, UpdatePlaylistRating, UpdatePlaylistId } from "./SavePlaylist";
+import { updatePlaylistName, updatePlaylistRating, updatePlaylistId } from "./SavePlaylist";
 import StarRating, { RateStars } from "./StarRating";
 import Footer from './Footer';
 
@@ -42,7 +42,7 @@ export default function ShowPlaylist({ playlist, onClose = f => f, spotify = nul
                                 if (userPlaylist) {
                                   setPlaylistUserId(spotify_playlist.owner.id);
                                   setPlaylistId(spotify_playlist.id);
-                                  UpdatePlaylistId(playlist.id, playlistUserId, playlistId)
+                                  updatePlaylistId(playlist.id, playlistUserId, playlistId)
                                     .catch(error => console.error('Error:', error));
                                 }
                               }).catch(error => console.error('Error:', error));
@@ -64,13 +64,13 @@ export default function ShowPlaylist({ playlist, onClose = f => f, spotify = nul
                           onChange={event => setPlaylistName(event.target.value)}
                           onBlur={() => {
                             setEditing(false);
-                            UpdatePlaylistName(playlist.id, playlistName)
+                            updatePlaylistName(playlist.id, playlistName)
                               .catch(error => console.error('Error:', error));
                           }}
                           onKeyUp={event => {
                             if (event.key === 'Enter') {
                               setEditing(false);
-                              UpdatePlaylistName(playlist.id, playlistName)
+                              updatePlaylistName(playlist.id, playlistName)
                                 .catch(error => console.error('Error:', error));
                             }
                           }}
@@ -94,7 +94,7 @@ export default function ShowPlaylist({ playlist, onClose = f => f, spotify = nul
                 <div className="d-flex justify-content-end">
                   {rateIt ?
                     <span><RateStars totalStars={5} onSelect={(rating) => {
-                      UpdatePlaylistRating(
+                      updatePlaylistRating(
                         playlist.id,
                         (rating + playlist.av_rating) / (playlist.num_ratings + 1),
                         playlist.num_ratings + 1

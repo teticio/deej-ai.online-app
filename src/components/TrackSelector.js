@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { FaSpotify } from "react-icons/fa"
 import Container from 'react-bootstrap/Container';
 import { debounceFunction } from "../lib";
-import Search, { SearchSimilar } from "./Search";
+import Search, { searchSimilar } from "./Search";
 import "./TrackSelector.css";
 
 export default function TrackSelector({ spotify = null, onSelect = f => f, onSearch = f => f, onSearchEnd = f => f }) {
@@ -62,7 +62,7 @@ export default function TrackSelector({ spotify = null, onSelect = f => f, onSea
           <div style={{ marginTop: '10px' }} />
           <div className="d-flex align-items-center" onClick={() => {
             onSearch();
-            SearchSimilar(currentTrack.url)
+            searchSimilar(currentTrack.url)
               .then(tracks => {
                 onSearchEnd();
                 setSearchResults(tracks);

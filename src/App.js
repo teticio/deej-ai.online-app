@@ -23,8 +23,9 @@ import Spotify from "./components/Spotify";
 import CreatePlaylist from './components/CreatePlaylist';
 import ShowPlaylist from './components/ShowPlaylist';
 import Settings from "./components/Settings";
-import ShowPlaylists, { GetLatestPlaylists, GetTopPlaylists } from "./components/ShowPlaylists";
-import SearchScreen from "./components/SearchScreen";
+import LatestPlaylists from './components/LatestPlaylists';
+import TopPlaylists from './components/TopPlaylists';
+import SearchPlaylists from "./components/SearchPlaylists";
 import Footer from './components/Footer';
 import About from './components/About';
 
@@ -32,7 +33,6 @@ function App() {
   const [screen, setScreen] = usePersistedState('screen', 'create-playlist');
   const [waypoints, setWaypoints] = usePersistedState('waypoints', { track_ids: [] });
   const [playlist, setPlaylist] = usePersistedState('playlist', { track_ids: [] });
-  const [playlists, setPlaylists] = usePersistedState('playlists', []);
   const [size, setSize] = usePersistedState('size', 10);
   const [creativity, setCreativity] = usePersistedState('creativity', 0.5);
   const [noise, setNoise] = usePersistedState('noise', 0);
@@ -56,18 +56,10 @@ function App() {
               setLoggedIn(spotify.loggedIn());
               break;
             case 'latest-playlists':
-              GetLatestPlaylists(8)
-                .then((playlists) => {
-                  setPlaylists(playlists);
-                  setScreen('latest-playlists');
-                }).catch(error => console.error('Error:', error));
+              setScreen('latest-playlists');
               break;
             case 'top-playlists':
-              GetTopPlaylists(8)
-                .then((playlists) => {
-                  setPlaylists(playlists);
-                  setScreen('top-playlists');
-                }).catch(error => console.error('Error:', error));
+              setScreen('top-playlists');
               break;
             case 'search-playlists':
               setScreen('search-playlists');
@@ -116,23 +108,11 @@ function App() {
                 onClose={() => { setScreen('create-playlist'); }}
               /> :
               (screen === 'latest-playlists') ?
-                <>
-                  <div style={{ marginTop: '10px' }} />
-                  <h3 style={{ textAlign: "center" }}>Latest playlists</h3>
-                  <ShowPlaylists
-                    playlists={playlists}
-                    spotify={spotify}
-                  /></> :
+                <LatestPlaylists spotify={spotify} /> :
                 (screen === 'top-playlists') ?
-                  <>
-                    <div style={{ marginTop: '10px' }} />
-                    <h3 style={{ textAlign: "center" }}>Top rated playlists</h3>
-                    <ShowPlaylists
-                      playlists={playlists}
-                      spotify={spotify}
-                    /></> :
+                  <TopPlaylists spotify={spotify} /> :
                   (screen === 'search-playlists') ?
-                    <SearchScreen spotify={spotify} /> :
+                    <SearchPlaylists spotify={spotify} /> :
                     (screen === 'about') ?
                       <About /> :
                       <></>
