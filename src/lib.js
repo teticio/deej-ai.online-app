@@ -14,10 +14,10 @@ export const debounceFunction = function (func, delay) {
 
 export const usePersistedState = (key, defaultValue) => {
   const [state, setState] = useState(
-    () => JSON.parse(sessionStorage.getItem(key)) || defaultValue
+    () => JSON.parse(localStorage.getItem(key)) || defaultValue
   );
   useEffect(() => {
-    sessionStorage.setItem(key, JSON.stringify(state));
+    localStorage.setItem(key, JSON.stringify(state));
   }, [key, state]);
   return [state, setState];
 }
