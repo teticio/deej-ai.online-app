@@ -16,13 +16,16 @@ export default function Banner({ loggedIn = false, onSelect = f => f }) {
           <Navbar.Brand href="#">
             <div className="row align-items-center">
               <Col sm="auto">
-                <h2><a
-                  href="https://deej-ai.online"
-                  style={{
-                    textDecoration: 'none',
-                    color: 'inherit'
-                  }}
-                >Deej-A.I.</a></h2>
+                <span onClick={() => {
+                  const accessToken = localStorage.accessToken;
+                  const refreshToken = localStorage.refreshToken;
+                  localStorage.clear();
+                  localStorage.accessToken = accessToken;
+                  localStorage.refreshToken = refreshToken;
+                  window.location = '';
+                }} >
+                  <h2>Deej-A.I.</h2>
+                </span>
               </Col>
               <Col sm="auto">
                 <h6>by <a
