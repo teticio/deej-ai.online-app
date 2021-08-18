@@ -11,8 +11,6 @@ sqlalchemy = "*"
 aiohttp = "*"
 aiofiles = "*"
 librosa = "*"
-yapf = "*"
-pytest = "*"
 
 [dev-packages]
 yapf = "*"
