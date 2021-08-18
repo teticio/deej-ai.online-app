@@ -19,7 +19,8 @@ from fastapi import Depends, FastAPI, HTTPException
 models.Base.metadata.create_all(bind=engine)
 
 deejai = DeejAI()
-app = FastAPI()
+app = FastAPI(docs_url=os.environ.get('DOCS_URL', None),
+              redoc_url=os.environ.get('REDOC_URL', None))
 
 
 # Dependency
