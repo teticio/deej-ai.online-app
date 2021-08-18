@@ -39,9 +39,9 @@ export default function ShowPlaylist({ playlist, onClose = f => f, spotify = nul
                                 setSpinner(false);
                                 setEditing(false);
                                 setPlaylistUrl(spotify_playlist.external_urls.spotify);
+                                setPlaylistId(spotify_playlist.id);
                                 if (userPlaylist) {
                                   setPlaylistUserId(spotify_playlist.owner.id);
-                                  setPlaylistId(spotify_playlist.id);
                                   updatePlaylistId(playlist.id, playlistUserId, playlistId)
                                     .catch(error => console.error('Error:', error));
                                 }
@@ -108,7 +108,7 @@ export default function ShowPlaylist({ playlist, onClose = f => f, spotify = nul
               </Col>
             </Row>
           </Card.Title>
-          {(userPlaylist && playlistId) ?
+          {playlistId ?
             <iframe
               title={playlistId}
               src={"https://open.spotify.com/embed/playlist/" + playlistId}
