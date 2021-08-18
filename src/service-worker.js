@@ -41,7 +41,7 @@ registerRoute(
       return false;
     }
 
-    if (url.pathname.startsWith('/api')) {
+    if (url.pathname.startsWith('/api') || url.pathname.startsWith('/playlist')) {
       return false;
     } // Return true to signal that we want to use the handler.
 
