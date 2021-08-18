@@ -41,7 +41,7 @@ registerRoute(
       return false;
     }
 
-    if (url.pathname.startsWith('/api') || url.pathname.startsWith('/embed/playlist')) {
+    if (url.pathname.startsWith('/api')) {
       return false;
     } // Return true to signal that we want to use the handler.
 
