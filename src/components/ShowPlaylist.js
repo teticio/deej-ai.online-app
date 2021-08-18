@@ -108,7 +108,7 @@ export default function ShowPlaylist({ playlist, onClose = f => f, spotify = nul
               </Col>
             </Row>
           </Card.Title>
-          {playlistId ?
+          {playlistUrl ?
             <iframe
               title={playlistId}
               src={"https://open.spotify.com/embed/playlist/" + playlistId}
