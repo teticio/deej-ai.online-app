@@ -3,6 +3,7 @@ import { FaBackward } from "react-icons/fa";
 import Card from 'react-bootstrap/Card';
 import Form from 'react-bootstrap/Form';
 import Footer from './Footer';
+import '../App.css'
 
 export default function Settings({ size, creativity, noise, onChange = f => f, onClose = f => f }) {
   const [_size, setSize] = useState(size);
@@ -63,7 +64,7 @@ export default function Settings({ size, creativity, noise, onChange = f => f, o
           <div className="d-flex align-items-center justify-content-between">
             <FaBackward
               size="25"
-              className="text-success"
+              className="link"
               onClick={() => { update(); onClose(); }}
             />
           </div>

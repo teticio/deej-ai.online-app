@@ -6,6 +6,7 @@ import AddTrack from './AddTrack';
 import RemovablePlaylist from './RemovablePlaylist';
 import GeneratePlaylist from './GeneratePlaylist';
 import SavePlaylist from './SavePlaylist';
+import '../App.css'
 
 export default function CreatePlaylist({
   waypoints = { track_ids: [] },
@@ -43,7 +44,7 @@ export default function CreatePlaylist({
             <div className="d-flex align-items-center justify-content-between">
               <FaForward
                 size="25"
-                className="text-success"
+                className="link"
                 onClick={() => {
                   setSpinner(true);
                   GeneratePlaylist(_waypoints, size, creativity, noise)
@@ -57,7 +58,7 @@ export default function CreatePlaylist({
               />
               <FaCog
                 size="25"
-                className="text-success"
+                className="link"
                 onClick={() => onSettings(_waypoints)}
               />
             </div>}

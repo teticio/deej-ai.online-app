@@ -3,6 +3,7 @@ import { FaPlus } from "react-icons/fa";
 import Card from 'react-bootstrap/Card';
 import Spinner from 'react-bootstrap/Spinner';
 import TrackSelector from "./TrackSelector";
+import '../App.css'
 
 var searches = 0;
 
@@ -32,7 +33,7 @@ export default function AddTrack({ numTracks = 0, spotify = null, onAdd = f => f
             /> :
             <FaPlus
               size="25"
-              className={(currentId && numTracks < 5) ? "text-success" : "text-muted"}
+              className={(currentId && numTracks < 5) ? "link" : "text-muted"}
               onClick={() => {
                 if (currentId && numTracks < 5) {
                   onAdd(currentId);

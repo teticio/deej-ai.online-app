@@ -1,5 +1,6 @@
 import { FaTimes } from "react-icons/fa";
 import Track from "./Track";
+import '../App.css'
 
 export default function RemovableTrack({ track_id, uuid, onRemove = f => f }) {
   return (
@@ -9,7 +10,7 @@ export default function RemovableTrack({ track_id, uuid, onRemove = f => f }) {
       <div style={{ width: '10px' }} />
       <FaTimes
         size="25"
-        className="text-success"
+        className="link"
         onClick={() => onRemove(uuid)}
       />
     </>

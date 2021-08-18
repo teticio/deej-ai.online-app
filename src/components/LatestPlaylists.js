@@ -1,6 +1,7 @@
 import { useState, useEffect, useReducer } from "react";
 import Container from 'react-bootstrap/Container';
 import ShowPlaylists from "./ShowPlaylists";
+import '../App.css'
 
 export async function getLatestPlaylists(top_n) {
   const response = await fetch(process.env.REACT_APP_API_URL + '/latest_playlists?top_n=' + top_n);
@@ -33,7 +34,7 @@ export default function LatestPlaylists({ spotify }) {
         spotify={spotify}
       />
       <span onClick={loadMore}>
-        <h6 className="text-success" style={{ textAlign: "center" }}>Load more...</h6>
+        <h6 className="link" style={{ textAlign: "center" }}>Load more...</h6>
       </span>
     </Container >
   );

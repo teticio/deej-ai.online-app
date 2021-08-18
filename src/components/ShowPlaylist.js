@@ -8,6 +8,7 @@ import Playlist from './Playlist';
 import { updatePlaylistName, updatePlaylistRating, updatePlaylistId } from "./SavePlaylist";
 import StarRating, { RateStars } from "./StarRating";
 import Footer from './Footer';
+import '../App.css'
 
 export default function ShowPlaylist({ playlist, onClose = f => f, spotify = null, userPlaylist = false }) {
   const [editing, setEditing] = useState(false);
@@ -31,7 +32,7 @@ export default function ShowPlaylist({ playlist, onClose = f => f, spotify = nul
                       {spinner ?
                         <Spinner animation="border" size="md" /> :
                         <FaSave size="25"
-                          className="text-success"
+                          className="link"
                           onClick={() => {
                             setSpinner(true);
                             spotify.autoRefresh(() => spotify.createNewPlayist(playlistName, playlist.track_ids))
@@ -80,7 +81,7 @@ export default function ShowPlaylist({ playlist, onClose = f => f, spotify = nul
                           {userPlaylist ?
                             <>
                               <div style={{ width: '10px' }} />
-                              <FaPen size="15" className="text-success" />
+                              <FaPen size="15" className="link" />
                             </> :
                             <></>
                           }
@@ -126,7 +127,7 @@ export default function ShowPlaylist({ playlist, onClose = f => f, spotify = nul
               <div className="d-flex align-items-center justify-content-between">
                 <FaBackward
                   size="25"
-                  className="text-success"
+                  className="link"
                   onClick={() => onClose()}
                 />
               </div>

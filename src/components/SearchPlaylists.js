@@ -3,6 +3,7 @@ import { FaSearch } from "react-icons/fa";
 import Container from 'react-bootstrap/Container';
 import Card from 'react-bootstrap/Card';
 import ShowPlaylists from "./ShowPlaylists";
+import '../App.css'
 
 export async function searchPlaylists(string, max_items) {
   const response = await fetch(process.env.REACT_APP_API_URL + '/search_playlists', {
@@ -81,7 +82,7 @@ export default function SearchPlaylists({ spotify }) {
       />
       {actualSearchString !== "" ?
         <span onClick={loadMore}>
-          <h6 className="text-success" style={{ textAlign: "center" }}>Load more...</h6>
+          <h6 className="link" style={{ textAlign: "center" }}>Load more...</h6>
         </span> : <></>
       }
     </Container>

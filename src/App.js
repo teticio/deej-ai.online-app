@@ -42,24 +42,14 @@ function App() {
     <>
       <Container className="App">
         <Banner loggedIn={loggedIn} onSelect={(action) => {
-          switch (action) {
-            case 'create-playlist':
-            case 'latest-playlists':
-            case 'top-playlists':
-            case 'search-playlists':
-            case 'about':
-              setScreen(action);
-              break;
-            case 'logout-spotify':
-              spotify.logOut();
-              setLoggedIn(false);
-              break;
-            case 'login-spotify':
-              window.location.href = process.env.REACT_APP_API_URL + '/login';
-              setLoggedIn(spotify.loggedIn());
-              break;
-            default:
-              console.log(action);
+          if (action === 'login-spotify') {
+            window.location.href = process.env.REACT_APP_API_URL + '/login';
+            setLoggedIn(spotify.loggedIn());
+          } else if (action === 'logout-spotify') {
+            spotify.logOut();
+            setLoggedIn(false);
+          } else {
+            setScreen(action);
           }
         }} />
         {(screen === 'create-playlist') ?

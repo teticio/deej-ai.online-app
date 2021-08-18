@@ -3,6 +3,7 @@ import { FaSpotify } from "react-icons/fa"
 import Container from 'react-bootstrap/Container';
 import { debounceFunction } from "../lib";
 import Search, { searchSimilar } from "./Search";
+import '../App.css'
 import "./TrackSelector.css";
 
 export default function TrackSelector({ spotify = null, onSelect = f => f, onSearch = f => f, onSearchEnd = f => f }) {
@@ -72,9 +73,9 @@ export default function TrackSelector({ spotify = null, onSelect = f => f, onSea
                 console.error('Error:', error);
               });
           }}>
-            <FaSpotify size="15" className="text-success" />
+            <FaSpotify size="15" className="link" />
             <div style={{ width: '10px' }} />
-            <h6 className="text-success">{currentTrack.track}</h6>
+            <h6 className="link">{currentTrack.track}</h6>
           </div>
         </> : <></>
       }
