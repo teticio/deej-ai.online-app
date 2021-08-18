@@ -3,7 +3,6 @@ import { FaPlus } from "react-icons/fa";
 import Card from 'react-bootstrap/Card';
 import Spinner from 'react-bootstrap/Spinner';
 import TrackSelector from "./TrackSelector";
-import '../App.css'
 
 var searches = 0;
 

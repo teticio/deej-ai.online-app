@@ -1,7 +1,6 @@
 import { useState, useEffect, useReducer } from "react";
 import Container from 'react-bootstrap/Container';
 import ShowPlaylists from "./ShowPlaylists";
-import '../App.css'
 
 export async function getLatestPlaylists(top_n) {
   const response = await fetch(process.env.REACT_APP_API_URL + '/latest_playlists?top_n=' + top_n);

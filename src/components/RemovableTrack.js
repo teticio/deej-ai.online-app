@@ -1,6 +1,5 @@
 import { FaTimes } from "react-icons/fa";
 import Track from "./Track";
-import '../App.css'
 
 export default function RemovableTrack({ track_id, uuid, onRemove = f => f }) {
   return (

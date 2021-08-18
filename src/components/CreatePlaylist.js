@@ -6,7 +6,6 @@ import AddTrack from './AddTrack';
 import RemovablePlaylist from './RemovablePlaylist';
 import GeneratePlaylist from './GeneratePlaylist';
 import SavePlaylist from './SavePlaylist';
-import '../App.css'
 
 export default function CreatePlaylist({
   waypoints = { track_ids: [] },

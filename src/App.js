@@ -27,6 +27,7 @@ import TopPlaylists from './components/TopPlaylists';
 import SearchPlaylists from "./components/SearchPlaylists";
 import Footer from './components/Footer';
 import About from './components/About';
+import './App.css'
 
 function App() {
   const [screen, setScreen] = usePersistedState('screen', 'create-playlist');

@@ -1,7 +1,6 @@
 import { FaLinkedin, FaFacebook, FaTwitter, FaReddit, FaMedium, FaGithub } from "react-icons/fa";
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
-import '../App.css'
 import './Footer.css'
 
 export default function Footer() {

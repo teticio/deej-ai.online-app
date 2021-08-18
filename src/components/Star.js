@@ -1,5 +1,4 @@
 import { MdStar, MdStarHalf, MdStarBorder } from "react-icons/md";
-import '../App.css'
 
 export default function Star({ value = 0, unrated = false, onSelect = f => f }) {
   return (

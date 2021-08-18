@@ -3,7 +3,6 @@ import { FaSearch } from "react-icons/fa";
 import Container from 'react-bootstrap/Container';
 import Card from 'react-bootstrap/Card';
 import ShowPlaylists from "./ShowPlaylists";
-import '../App.css'
 
 export async function searchPlaylists(string, max_items) {
   const response = await fetch(process.env.REACT_APP_API_URL + '/search_playlists', {

@@ -8,7 +8,6 @@ import Playlist from './Playlist';
 import { updatePlaylistName, updatePlaylistRating, updatePlaylistId } from "./SavePlaylist";
 import StarRating, { RateStars } from "./StarRating";
 import Footer from './Footer';
-import '../App.css'
 
 export default function ShowPlaylist({ playlist, onClose = f => f, spotify = null, userPlaylist = false }) {
   const [editing, setEditing] = useState(false);

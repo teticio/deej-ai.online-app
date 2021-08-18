@@ -3,7 +3,6 @@ import { FaSpotify } from "react-icons/fa"
 import Container from 'react-bootstrap/Container';
 import { debounceFunction } from "../lib";
 import Search, { searchSimilar } from "./Search";
-import '../App.css'
 import "./TrackSelector.css";
 
 export default function TrackSelector({ spotify = null, onSelect = f => f, onSearch = f => f, onSearchEnd = f => f }) {
