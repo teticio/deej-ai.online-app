@@ -62,7 +62,7 @@ async def spotify_login():
     return RedirectResponse(url=url)
 
 
-@app.get("/callback")
+@app.get("/api/v1/callback")
 async def spotify_callback(code: str):
     data = {
         'code': code,

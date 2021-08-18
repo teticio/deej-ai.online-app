@@ -7,7 +7,7 @@ In order to run this, you wil need to create a `credentials.py` file in the `bac
 ```
 client_id = '<Your client ID>'
 client_secret = '<Your secret>'
-redirect_uri = '<Your external webpage URL>/callback'
+redirect_uri = '<Your external webpage URL>/api/v1/callback'
 ```
 
 You will also need to download the following files to the root directory:
