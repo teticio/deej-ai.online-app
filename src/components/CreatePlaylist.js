@@ -4,7 +4,7 @@ import Card from 'react-bootstrap/Card';
 import Spinner from 'react-bootstrap/Spinner';
 import AddTrack from './AddTrack';
 import RemovablePlaylist from './RemovablePlaylist';
-import GeneratePlaylist from './GeneratePlaylist';
+import generatePlaylist from './GeneratePlaylist';
 import SavePlaylist from './SavePlaylist';
 
 export default function CreatePlaylist({
@@ -46,7 +46,7 @@ export default function CreatePlaylist({
                 className="link"
                 onClick={() => {
                   setSpinner(true);
-                  GeneratePlaylist(_waypoints, size, creativity, noise)
+                  generatePlaylist(_waypoints, size, creativity, noise)
                     .then(playlist => {
                       SavePlaylist(playlist).then(id => playlist.id = id);
                       return playlist;
