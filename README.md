@@ -17,7 +17,7 @@ You will also need to download the following files to the root directory:
 * https://drive.google.com/file/d/16JKjDGW2BMP-0KKJLFvwRvJdKhwukBeB/view?usp=sharing
 * https://drive.google.com/file/d/1LM1WW1GCGKeFD1AAHS8ijNwahqH4r4xV/view?usp=sharing
 
-You should also set `REACT_APP_API_URL` to `'<Your external webpage URL>'` in `.env.production` to point to the external URL where you are hosting the web app.
+You should also set `REACT_APP_API_URL` to `'<Your external webpage URL>/api/v1'` in `.env.production`s.
 
 If you have `pipenv` and `yarn` already installed you can then type
 

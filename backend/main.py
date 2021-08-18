@@ -48,7 +48,7 @@ app.add_middleware(
 )
 
 
-@app.get("/login")
+@app.get("/api/v1/login")
 async def spotify_login():
     scope = "playlist-modify-public user-read-currently-playing"
     url = "https://accounts.spotify.com/authorize?" + urllib.parse.urlencode(
@@ -94,7 +94,7 @@ async def spotify_callback(code: str):
     return RedirectResponse(url=url)
 
 
-@app.get("/refresh_token")
+@app.get("/api/v1/refresh_token")
 async def spotify_refresh_token(refresh_token: str):
     data = {'refresh_token': refresh_token, 'grant_type': 'refresh_token'}
     headers = {
@@ -117,19 +117,19 @@ async def spotify_refresh_token(refresh_token: str):
     return json
 
 
-@app.post("/search")
+@app.post("/api/v1/search")
 async def search_tracks(search: schemas.Search):
     ids = await deejai.search(search.string, search.max_items)
     return [{'track_id': id, 'track': deejai.get_tracks()[id]} for id in ids]
 
 
-@app.post("/search_similar")
+@app.post("/api/v1/search_similar")
 async def search_similar_tracks(search: schemas.SearchSimilar):
     ids = await deejai.get_similar_vec(search.url, search.max_items)
     return [{'track_id': id, 'track': deejai.get_tracks()[id]} for id in ids]
 
 
-@app.post("/playlist")
+@app.post("/api/v1/playlist")
 async def playlist(playlist: schemas.NewPlaylist):
     ids = await deejai.playlist(playlist.track_ids, playlist.size,
                                 playlist.creativity, playlist.noise)
@@ -139,7 +139,7 @@ async def playlist(playlist: schemas.NewPlaylist):
     }
 
 
-@app.post("/create_playlist")
+@app.post("/api/v1/create_playlist")
 def create_playlist(playlist: schemas.Playlist, db: Session = Depends(get_db)):
     db_item = models.Playlist(**playlist.dict())
     try:
@@ -160,14 +160,14 @@ def create_playlist(playlist: schemas.Playlist, db: Session = Depends(get_db)):
     return db_item
 
 
-@app.get("/read_playlist")
+@app.get("/api/v1/read_playlist")
 def get_playlist(id: int, db: Session = Depends(get_db)):
     db_item = db.query(
         models.Playlist).filter(models.Playlist.id == id).first()
     return db_item
 
 
-@app.post("/update_playlist_name")
+@app.post("/api/v1/update_playlist_name")
 def update_playlist_name(playlist: schemas.PlaylistName,
                          db: Session = Depends(get_db)):
     db_item = db.query(
@@ -176,7 +176,7 @@ def update_playlist_name(playlist: schemas.PlaylistName,
     db.commit()
 
 
-@app.post("/update_playlist_rating")
+@app.post("/api/v1/update_playlist_rating")
 def update_playlist_rating(playlist: schemas.PlaylistRating,
                            db: Session = Depends(get_db)):
     db_item = db.query(
@@ -188,7 +188,7 @@ def update_playlist_rating(playlist: schemas.PlaylistRating,
     db.commit()
 
 
-@app.post("/update_playlist_id")
+@app.post("/api/v1/update_playlist_id")
 def update_playlist_id(playlist: schemas.PlaylistId,
                        db: Session = Depends(get_db)):
     db_item = db.query(
@@ -200,21 +200,21 @@ def update_playlist_id(playlist: schemas.PlaylistId,
     db.commit()
 
 
-@app.get("/latest_playlists")
+@app.get("/api/v1/latest_playlists")
 def get_latest_playlists(top_n: int, db: Session = Depends(get_db)):
     db_items = db.query(models.Playlist).order_by(desc(
         models.Playlist.created)).limit(top_n).all()
     return db_items
 
 
-@app.get("/top_playlists")
+@app.get("/api/v1/top_playlists")
 def get_top_playlists(top_n: int, db: Session = Depends(get_db)):
     db_items = db.query(models.Playlist).order_by(
         desc(models.Playlist.av_rating)).limit(top_n).all()
     return db_items
 
 
-@app.post("/search_playlists")
+@app.post("/api/v1/search_playlists")
 def search_playlists(search: schemas.SearchPlaylists,
                      db: Session = Depends(get_db)):
     db_items = []
