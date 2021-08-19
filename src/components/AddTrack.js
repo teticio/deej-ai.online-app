@@ -4,11 +4,11 @@ import Card from 'react-bootstrap/Card';
 import Spinner from 'react-bootstrap/Spinner';
 import TrackSelector from "./TrackSelector";
 
-var searches = 0;
-
 export default function AddTrack({ numTracks = 0, spotify = null, onAdd = f => f }) {
   const [currentId, setCurrentId] = useState(null);
   const [spinner, setSpinner] = useState(0);
+  // eslint-disable-next-line
+  const [searches, setSearches] = useState(0);
 
   return (
     <Card>
@@ -17,8 +17,18 @@ export default function AddTrack({ numTracks = 0, spotify = null, onAdd = f => f
           <TrackSelector
             spotify={spotify}
             onSelect={(id) => setCurrentId(id)}
-            onSearch={() => { searches++; if (searches !== 0) setSpinner(true); }}
-            onSearchEnd={() => { searches--; if (searches === 0) setSpinner(false); }}
+            onSearch={() => {
+              setSearches(searches => {
+                if (searches + 1 !== 0) setSpinner(true);
+                return searches + 1;
+              });
+            }}
+            onSearchEnd={() => {
+              setSearches(searches => {
+                if (searches - 1 === 0) setSpinner(false);
+                return searches - 1;
+              });
+            }}
           ></TrackSelector>
           <div style={{ width: '10px' }} />
           {spinner ?

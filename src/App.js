@@ -1,6 +1,8 @@
 // TODO
 //
 // frontend:
+// unit tests
+// router with 404 page
 // banner image and ico file
 // show value of sliders in settings
 // fix warnings for unique key
