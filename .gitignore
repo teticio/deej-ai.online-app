@@ -33,3 +33,4 @@ speccy_model
 deejai.db
 deejai-test.db
 credentials.py
+server.log
