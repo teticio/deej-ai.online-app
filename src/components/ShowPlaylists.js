@@ -1,9 +1,8 @@
 import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
 import Card from 'react-bootstrap/Card';
-import { createArray } from '../lib';
+import { createArray, VerticalSpacer } from '../lib';
 import ShowPlaylist from './ShowPlaylist';
-import Footer from './Footer';
 
 export default function ShowPlaylists({ playlists, spotify = null }) {
   return (
@@ -24,7 +23,7 @@ export default function ShowPlaylists({ playlists, spotify = null }) {
               {createArray(2).map((x, j) => (
                 (2 * i + j < playlists.length) ?
                   <Col lg="6">
-                    <div style={{ marginTop: '10px' }} />
+                    <VerticalSpacer px={10} />
                     <Card key={2 * i + j} >
                       <Card.Body>
                         <ShowPlaylist
@@ -39,7 +38,6 @@ export default function ShowPlaylists({ playlists, spotify = null }) {
             </Row>
           </>
         ))}
-      <Footer />
     </>
   );
 }

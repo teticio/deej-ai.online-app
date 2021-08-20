@@ -1,5 +1,5 @@
 export default async function search(searchString, maxItems=100) {
-  const response = await fetch(process.env.REACT_APP_API_URL + '/search', {
+  const response = await fetch(`${process.env.REACT_APP_API_URL}/search`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json'
@@ -14,7 +14,7 @@ export default async function search(searchString, maxItems=100) {
 }
 
 export async function searchSimilar(url, maxItems=10) {
-  const response = await fetch(process.env.REACT_APP_API_URL + '/search_similar', {
+  const response = await fetch(`${process.env.REACT_APP_API_URL}/search_similar`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json'

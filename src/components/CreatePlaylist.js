@@ -6,6 +6,7 @@ import AddTrack from './AddTrack';
 import RemovablePlaylist from './RemovablePlaylist';
 import generatePlaylist from './GeneratePlaylist';
 import SavePlaylist from './SavePlaylist';
+import { VerticalSpacer } from "../lib";
 
 export default function CreatePlaylist({
   waypoints = { track_ids: [] },
@@ -28,7 +29,7 @@ export default function CreatePlaylist({
         onAdd={(id) => {
           setWaypoints({ 'track_ids': _waypoints.track_ids.concat(id) });
         }} />
-      <div style={{ marginTop: '10px' }} />
+      <VerticalSpacer px={10} />
       <Card>
         <Card.Body>
           <RemovablePlaylist {..._waypoints} onRemove={(id) => {

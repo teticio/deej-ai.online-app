@@ -7,6 +7,7 @@ from . import models
 from . import schemas
 from . import credentials
 from .deejai import DeejAI
+from typing import Optional
 from sqlalchemy import desc
 from sqlalchemy.orm import Session
 from .database import SessionLocal, engine
@@ -49,21 +50,23 @@ app.add_middleware(
 
 
 @app.get("/api/v1/login")
-async def spotify_login():
+async def spotify_login(state: Optional[str] = None):
     scope = "playlist-modify-public user-read-currently-playing"
+    body = {
+        'response_type': 'code',
+        'client_id': credentials.client_id,
+        'scope': scope,
+        'redirect_uri': credentials.redirect_uri,
+    }
+    if state:
+        body['state'] = state
     url = "https://accounts.spotify.com/authorize?" + urllib.parse.urlencode(
-        {
-            'response_type': 'code',
-            'client_id': credentials.client_id,
-            'scope': scope,
-            'redirect_uri': credentials.redirect_uri,
-            # state: state
-        })
+        body)
     return RedirectResponse(url=url)
 
 
 @app.get("/api/v1/callback")
-async def spotify_callback(code: str):
+async def spotify_callback(code: str, state: Optional[str] = '/'):
     data = {
         'code': code,
         'redirect_uri': credentials.redirect_uri,
@@ -86,11 +89,12 @@ async def spotify_callback(code: str):
                 json = await response.json()
         except aiohttp.ClientError as error:
             raise HTTPException(status_code=400, detail=str(error))
-    url = os.environ.get('APP_URL', '') + "/#" + urllib.parse.urlencode(
-        {
-            'access_token': json['access_token'],
-            'refresh_token': json['refresh_token']
-        })
+    body = {
+        'access_token': json['access_token'],
+        'refresh_token': json['refresh_token'],
+    }
+    url = os.environ.get('APP_URL',
+                         '') + state + "#" + urllib.parse.urlencode(body)
     return RedirectResponse(url=url)
 
 

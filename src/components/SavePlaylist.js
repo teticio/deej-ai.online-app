@@ -1,7 +1,7 @@
 export default async function savePlaylist(playlist) {
   const now = new Date();
 
-  const response = await fetch(process.env.REACT_APP_API_URL + '/create_playlist', {
+  const response = await fetch(`${process.env.REACT_APP_API_URL}/create_playlist`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json'
@@ -18,7 +18,7 @@ export default async function savePlaylist(playlist) {
 }
 
 export async function updatePlaylistName(id, name) {
-  fetch(process.env.REACT_APP_API_URL + '/update_playlist_name', {
+  fetch(`${process.env.REACT_APP_API_URL}/update_playlist_name`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json'
@@ -31,7 +31,7 @@ export async function updatePlaylistName(id, name) {
 }
 
 export async function updatePlaylistRating(id, av_rating, num_ratings) {
-  fetch(process.env.REACT_APP_API_URL + '/update_playlist_rating', {
+  fetch(`${process.env.REACT_APP_API_URL}/update_playlist_rating`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json'
@@ -45,7 +45,7 @@ export async function updatePlaylistRating(id, av_rating, num_ratings) {
 }
 
 export async function updatePlaylistId(id, user_id, playlist_id) {
-  fetch(process.env.REACT_APP_API_URL + '/update_playlist_id', {
+  fetch(`${process.env.REACT_APP_API_URL}/update_playlist_id`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json'

@@ -2,7 +2,6 @@ import { useState } from "react";
 import { FaBackward } from "react-icons/fa";
 import Card from 'react-bootstrap/Card';
 import Form from 'react-bootstrap/Form';
-import Footer from './Footer';
 
 export default function Settings({ size, creativity, noise, onChange = f => f, onClose = f => f }) {
   const [_size, setSize] = useState(size);
@@ -69,7 +68,6 @@ export default function Settings({ size, creativity, noise, onChange = f => f, o
           </div>
         </Card.Body>
       </Card>
-      <Footer />
     </>
   );
 }

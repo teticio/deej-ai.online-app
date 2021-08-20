@@ -7,7 +7,7 @@ import Spinner from 'react-bootstrap/Spinner';
 import Playlist from './Playlist';
 import { updatePlaylistName, updatePlaylistRating, updatePlaylistId } from "./SavePlaylist";
 import StarRating, { RateStars } from "./StarRating";
-import Footer from './Footer';
+import { HorizontalSpacer } from "../lib";
 
 export default function ShowPlaylist({ playlist, onClose = f => f, spotify = null, userPlaylist = false }) {
   const [editing, setEditing] = useState(false);
@@ -48,7 +48,7 @@ export default function ShowPlaylist({ playlist, onClose = f => f, spotify = nul
                               }).catch(error => console.error('Error:', error));
                           }}
                         />}
-                      <div style={{ width: '10px' }} />
+                      <HorizontalSpacer px={10} />
                     </> : <></>
                   }
                   {playlistUrl ?
@@ -79,7 +79,7 @@ export default function ShowPlaylist({ playlist, onClose = f => f, spotify = nul
                           {playlistName}
                           {userPlaylist ?
                             <>
-                              <div style={{ width: '10px' }} />
+                              <HorizontalSpacer px={10} />
                               <FaPen size="15" className="link" />
                             </> :
                             <></>
@@ -108,7 +108,7 @@ export default function ShowPlaylist({ playlist, onClose = f => f, spotify = nul
               </Col>
             </Row>
           </Card.Title>
-{/*
+          {/*
           {playlistUrl ?
             <iframe
               title={playlistId}
@@ -120,8 +120,8 @@ export default function ShowPlaylist({ playlist, onClose = f => f, spotify = nul
               allow="encrypted-media"
             /> :
 */}
-            <Playlist {...playlist} />
-{/*
+          <Playlist {...playlist} />
+          {/*
           }
 */}
           {userPlaylist ?
@@ -138,7 +138,6 @@ export default function ShowPlaylist({ playlist, onClose = f => f, spotify = nul
           }
         </Card.Body>
       </Card>
-      <Footer />
     </>
   );
 }

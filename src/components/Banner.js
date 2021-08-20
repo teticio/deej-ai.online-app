@@ -4,13 +4,14 @@ import Navbar from 'react-bootstrap/Navbar';
 import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
 import './Banner.css'
+import { VerticalSpacer } from "../lib";
 
 export default function Banner({ loggedIn = false, onSelect = f => f }) {
   const [expanded, setExpanded] = useState(false);
 
   return (
     <>
-      <div style={{ marginTop: '120px' }} />
+      <VerticalSpacer px={120} />
       <Navbar className="banner shadow-lg" fixed="top" bg="dark" variant="dark" expand="no" expanded={expanded}>
         <Container>
           <Navbar.Brand href="#">
@@ -22,7 +23,8 @@ export default function Banner({ loggedIn = false, onSelect = f => f }) {
                   localStorage.clear();
                   localStorage.accessToken = accessToken;
                   localStorage.refreshToken = refreshToken;
-                  window.location = '';
+                  setExpanded(false);
+                  onSelect('/');
                 }} >
                   <h2>Deej-A.I.</h2>
                 </span>
@@ -47,49 +49,49 @@ export default function Banner({ loggedIn = false, onSelect = f => f }) {
                   href="#"
                   onClick={() => {
                     setExpanded(false);
-                    onSelect('login-spotify');
+                    onSelect('/login');
                   }}
                 >Login to Spotify</Nav.Link> :
                 <Nav.Link
                   href="#"
                   onClick={() => {
                     setExpanded(false);
-                    onSelect('logout-spotify');
+                    onSelect('/logout');
                   }}
                 >Logout from Spotify</Nav.Link>}
               <Nav.Link
                 href="#"
                 onClick={() => {
                   setExpanded(false);
-                  onSelect('create-playlist');
+                  onSelect('/');
                 }}
               >Create playlist</Nav.Link>
               <Nav.Link
                 href="#"
                 onClick={() => {
                   setExpanded(false);
-                  onSelect('top-playlists');
+                  onSelect('/top');
                 }}
               >Top rated playlists</Nav.Link>
               <Nav.Link
                 href="#"
                 onClick={() => {
                   setExpanded(false);
-                  onSelect('latest-playlists');
+                  onSelect('/latest');
                 }}
               >Latest playlists</Nav.Link>
               <Nav.Link
                 href="#"
                 onClick={() => {
                   setExpanded(false);
-                  onSelect('search-playlists');
+                  onSelect('/search');
                 }}
               >Search playlists</Nav.Link>
               <Nav.Link
                 href="#"
                 onClick={() => {
                   setExpanded(false);
-                  onSelect('about');
+                  onSelect('/about');
                 }}
               >About</Nav.Link>
             </Nav>

@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { FaSpotify } from "react-icons/fa"
 import Container from 'react-bootstrap/Container';
-import { debounceFunction } from "../lib";
+import { debounceFunction, HorizontalSpacer, VerticalSpacer } from "../lib";
 import Search, { searchSimilar } from "./Search";
 import "./TrackSelector.css";
 
@@ -59,7 +59,7 @@ export default function TrackSelector({ spotify = null, onSelect = f => f, onSea
     <Container>
       {currentTrack ?
         <>
-          <div style={{ marginTop: '10px' }} />
+          <VerticalSpacer px={10} />
           <div className="d-flex align-items-center" onClick={() => {
             onSearch();
             searchSimilar(currentTrack.url)
@@ -73,7 +73,7 @@ export default function TrackSelector({ spotify = null, onSelect = f => f, onSea
               });
           }}>
             <FaSpotify size="15" className="link" />
-            <div style={{ width: '10px' }} />
+            <HorizontalSpacer px={10} />
             <h6 className="link">{currentTrack.track}</h6>
           </div>
         </> : <></>
@@ -84,7 +84,7 @@ export default function TrackSelector({ spotify = null, onSelect = f => f, onSea
           setSearchString(event.target.value);
         }}
       />
-      <div style={{ marginTop: '10px' }} />
+      <VerticalSpacer px={10} />
       <select onChange={event => onSelect(event.target.value)}>\
         size="1"
         {searchResults.map(({ track_id, track }, i) => (

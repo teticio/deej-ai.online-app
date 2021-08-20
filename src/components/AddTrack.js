@@ -3,6 +3,7 @@ import { FaPlus } from "react-icons/fa";
 import Card from 'react-bootstrap/Card';
 import Spinner from 'react-bootstrap/Spinner';
 import TrackSelector from "./TrackSelector";
+import { HorizontalSpacer } from "../lib";
 
 export default function AddTrack({ numTracks = 0, spotify = null, onAdd = f => f }) {
   const [currentId, setCurrentId] = useState(null);
@@ -30,7 +31,7 @@ export default function AddTrack({ numTracks = 0, spotify = null, onAdd = f => f
               });
             }}
           ></TrackSelector>
-          <div style={{ width: '10px' }} />
+          <HorizontalSpacer px={10} />
           {spinner ?
             <Spinner
               animation="grow" size="md"

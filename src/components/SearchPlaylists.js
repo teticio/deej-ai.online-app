@@ -3,9 +3,10 @@ import { FaSearch } from "react-icons/fa";
 import Container from 'react-bootstrap/Container';
 import Card from 'react-bootstrap/Card';
 import ShowPlaylists from "./ShowPlaylists";
+import { HorizontalSpacer, VerticalSpacer } from "../lib";
 
 export async function searchPlaylists(string, max_items) {
-  const response = await fetch(process.env.REACT_APP_API_URL + '/search_playlists', {
+  const response = await fetch(`${process.env.REACT_APP_API_URL}/search_playlists`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json'
@@ -52,7 +53,7 @@ export default function SearchPlaylists({ spotify }) {
             onClick={() => setEditing(true)}
           >
             <FaSearch />
-            <div style={{ width: '10px' }} />
+            <HorizontalSpacer px={10} />
             {editing ?
               <input
                 placeholder="Search..."
@@ -74,7 +75,7 @@ export default function SearchPlaylists({ spotify }) {
           </div>
         </Card.Body>
       </Card>
-      <div style={{ marginTop: '10px' }} />
+      <VerticalSpacer px={10} />
       <ShowPlaylists
         playlists={playlists}
         spotify={spotify}

@@ -2,7 +2,6 @@
 //
 // frontend:
 // unit tests
-// router with 404 page
 // banner image and ico file
 // show value of sliders in settings
 // fix warnings for unique key
@@ -18,6 +17,7 @@
 // bug in join the dots?
 
 import { useState } from 'react';
+import { Routes, Route, useNavigate } from "react-router-dom";
 import Container from 'react-bootstrap/Container';
 import { usePersistedState } from "./lib";
 import Banner from './components/Banner';
@@ -30,10 +30,10 @@ import TopPlaylists from './components/TopPlaylists';
 import SearchPlaylists from "./components/SearchPlaylists";
 import Footer from './components/Footer';
 import About from './components/About';
+import NotFound from './components/NotFound';
 import './App.css'
 
 function App() {
-  const [screen, setScreen] = usePersistedState('screen', 'create-playlist');
   const [waypoints, setWaypoints] = usePersistedState('waypoints', { track_ids: [] });
   const [playlist, setPlaylist] = usePersistedState('playlist', { track_ids: [] });
   const [size, setSize] = usePersistedState('size', 10);
@@ -41,46 +41,58 @@ function App() {
   const [noise, setNoise] = usePersistedState('noise', 0);
   const spotify = new Spotify();
   const [loggedIn, setLoggedIn] = useState(spotify.loggedIn());
+  const navigate = useNavigate();
 
   return (
     <>
       <Container className="App">
-        <Banner loggedIn={loggedIn} onSelect={(action) => {
-          if (action === 'login-spotify') {
-            window.location.href = process.env.REACT_APP_API_URL + '/login';
+        <Banner loggedIn={loggedIn} onSelect={route => {
+          if (route === '/login') {
+            window.location.href = `${process.env.REACT_APP_API_URL}/login?state=${window.location.pathname}`;
             setLoggedIn(spotify.loggedIn());
-          } else if (action === 'logout-spotify') {
+          } else if (route === '/logout') {
             spotify.logOut();
             setLoggedIn(false);
           } else {
-            setScreen(action);
+            navigate(route);
           }
         }} />
-        {(screen === 'create-playlist') ?
-          <CreatePlaylist
-            waypoints={waypoints}
-            size={size}
-            creativity={creativity}
-            noise={noise}
-            spotify={spotify}
-            onCreate={(playlist, waypoints) => {
-              setWaypoints(waypoints);
-              setPlaylist(playlist);
-              setScreen('show-playlist');
-            }}
-            onSettings={(waypoints) => {
-              setWaypoints(waypoints);
-              setScreen('show-settings');
-            }}
-          /> :
-          (screen === 'show-playlist') ?
-            <ShowPlaylist
-              playlist={playlist}
-              onClose={() => { setScreen('create-playlist'); }}
-              spotify={spotify}
-              userPlaylist={true}
-            /> :
-            (screen === 'show-settings') ?
+        <Routes>
+          <Route
+            path="/"
+            element={
+              <CreatePlaylist
+                waypoints={waypoints}
+                size={size}
+                creativity={creativity}
+                noise={noise}
+                spotify={spotify}
+                onCreate={(playlist, waypoints) => {
+                  setWaypoints(waypoints);
+                  setPlaylist(playlist);
+                  navigate('/playlist');
+                }}
+                onSettings={(waypoints) => {
+                  setWaypoints(waypoints);
+                  navigate('/settings');
+                }}
+              />
+            }
+          />
+          <Route
+            path="/playlist"
+            element={
+              <ShowPlaylist
+                playlist={playlist}
+                onClose={() => { navigate('/'); }}
+                spotify={spotify}
+                userPlaylist={true}
+              />
+            }
+          />
+          <Route
+            path="/settings"
+            element={
               <Settings
                 size={size}
                 creativity={creativity}
@@ -90,18 +102,41 @@ function App() {
                   setCreativity(creativity);
                   setNoise(noise);
                 }}
-                onClose={() => { setScreen('create-playlist'); }}
-              /> :
-              (screen === 'latest-playlists') ?
-                <LatestPlaylists spotify={spotify} /> :
-                (screen === 'top-playlists') ?
-                  <TopPlaylists spotify={spotify} /> :
-                  (screen === 'search-playlists') ?
-                    <SearchPlaylists spotify={spotify} /> :
-                    (screen === 'about') ?
-                      <About /> :
-                      <></>
-        }
+                onClose={() => { navigate('/'); }}
+              />
+            }
+          />
+          <Route
+            path="/latest"
+            element={
+              <LatestPlaylists spotify={spotify} />
+            }
+          />
+          <Route
+            path="/top"
+            element={
+              <TopPlaylists spotify={spotify} />
+            }
+          />
+          <Route
+            path="/search"
+            element={
+              <SearchPlaylists spotify={spotify} />
+            }
+          />
+          <Route
+            path="/about"
+            element={
+              <About />
+            }
+          />
+          <Route
+            path="*"
+            element={
+              <NotFound />
+            }
+          />
+        </Routes>
       </Container>
       <Footer />
     </>

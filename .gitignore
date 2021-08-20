@@ -31,4 +31,5 @@ tracktovec.p
 spotify_tracks.p
 speccy_model
 deejai.db
+deejai-test.db
 credentials.py

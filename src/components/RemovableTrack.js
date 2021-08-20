@@ -1,6 +1,7 @@
 
 import { useState } from "react";
 import { FaTimes } from "react-icons/fa";
+import { HorizontalSpacer } from "../lib";
 import Track from "./Track";
 
 export default function RemovableTrack({ track_id, uuid, onRemove = f => f }) {
@@ -13,7 +14,7 @@ export default function RemovableTrack({ track_id, uuid, onRemove = f => f }) {
         onLoad={() => setLoaded(true)}
       >
       </Track>
-      <div style={{ width: '10px' }} />
+      <HorizontalSpacer px={10} />
       {loaded ?
         <FaTimes
           size="25"

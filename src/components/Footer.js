@@ -2,11 +2,12 @@ import { FaLinkedin, FaFacebook, FaTwitter, FaReddit, FaMedium, FaGithub } from 
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import './Footer.css'
+import { VerticalSpacer } from "../lib";
 
 export default function Footer() {
   return (
     <>
-      <div style={{ marginTop: '35px' }} />
+      <VerticalSpacer px={35} />
       <Row className="footer align-items-center bg-secondary">
         <Col size="sm-3">
         </Col>
