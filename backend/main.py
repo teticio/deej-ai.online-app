@@ -244,7 +244,7 @@ async def custom_http_exception_handler(request, exc):
             '/login', '/logout', '/playlist', '/settings', '/latest', '/top',
             '/search', '/about'
     ]:
-        return RedirectResponse(os.environ.get('APP_URL', ''))
+        return RedirectResponse('/')
     else:
         return await http_exception_handler(request, exc)
 
