@@ -2,6 +2,8 @@
 //
 // frontend:
 // unit tests
+// ErrorBoundary
+// Suspense?
 // banner image and ico file
 // show value of sliders in settings
 // fix warnings for unique key
