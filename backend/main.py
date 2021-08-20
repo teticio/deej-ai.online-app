@@ -9,7 +9,9 @@ from . import credentials
 from .deejai import DeejAI
 from typing import Optional
 from sqlalchemy import desc
+from starlette.types import Scope
 from sqlalchemy.orm import Session
+from starlette.responses import Response
 from .database import SessionLocal, engine
 from fastapi.staticfiles import StaticFiles
 from starlette.responses import RedirectResponse
@@ -236,5 +238,26 @@ def search_playlists(search: schemas.SearchPlaylists,
     return db_items
 
 
+@app.exception_handler(StarletteHTTPException)
+async def custom_http_exception_handler(request, exc):
+    if exc.status_code == 404 and request.url.path in [
+            '/login', '/logout', '/playlist', '/settings', '/latest', '/top',
+            '/search', '/about'
+    ]:
+        return RedirectResponse(os.environ.get('APP_URL', ''))
+    else:
+        return await http_exception_handler(request, exc)
+
+
+# hack because starlette StaticFiles returns PlainTextReponse instead of Exception in case of 404
+class _StaticFiles(StaticFiles):
+    async def get_response(self, path: str, scope: Scope) -> Response:
+        response = await super().get_response(path, scope)
+        if response.status_code == 404:
+            raise StarletteHTTPException(404, "Not found")
+        else:
+            return response
+
+
 # must be last
-app.mount("/", StaticFiles(directory="build", html=True), name="app")
+app.mount("/", _StaticFiles(directory="build", html=True), name="app")

@@ -18,7 +18,7 @@
 // set seed in noise
 // bug in join the dots?
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Routes, Route, useNavigate } from "react-router-dom";
 import Container from 'react-bootstrap/Container';
 import { usePersistedState } from "./lib";
@@ -36,6 +36,7 @@ import NotFound from './components/NotFound';
 import './App.css'
 
 function App() {
+  const [route, setRoute] = usePersistedState('route', '/');
   const [waypoints, setWaypoints] = usePersistedState('waypoints', { track_ids: [] });
   const [playlist, setPlaylist] = usePersistedState('playlist', { track_ids: [] });
   const [size, setSize] = usePersistedState('size', 10);
@@ -44,6 +45,10 @@ function App() {
   const spotify = new Spotify();
   const [loggedIn, setLoggedIn] = useState(spotify.loggedIn());
   const navigate = useNavigate();
+
+  useEffect(() => {
+    navigate(route)
+  }, [route]);
 
   return (
     <>
@@ -56,7 +61,7 @@ function App() {
             spotify.logOut();
             setLoggedIn(false);
           } else {
-            navigate(route);
+            setRoute(route);
           }
         }} />
         <Routes>
@@ -72,11 +77,11 @@ function App() {
                 onCreate={(playlist, waypoints) => {
                   setWaypoints(waypoints);
                   setPlaylist(playlist);
-                  navigate('/playlist');
+                  setRoute('/playlist');
                 }}
                 onSettings={(waypoints) => {
                   setWaypoints(waypoints);
-                  navigate('/settings');
+                  setRoute('/settings');
                 }}
               />
             }
@@ -86,7 +91,7 @@ function App() {
             element={
               <ShowPlaylist
                 playlist={playlist}
-                onClose={() => { navigate('/'); }}
+                onClose={() => { setRoute('/'); }}
                 spotify={spotify}
                 userPlaylist={true}
               />
@@ -104,7 +109,7 @@ function App() {
                   setCreativity(creativity);
                   setNoise(noise);
                 }}
-                onClose={() => { navigate('/'); }}
+                onClose={() => { setRoute('/'); }}
               />
             }
           />
