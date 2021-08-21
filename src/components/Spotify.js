@@ -1,27 +1,14 @@
 import SpotifyWebApi from "spotify-web-api-js";
 
 export default class Spotify extends SpotifyWebApi {
-  constructor() {
+  constructor(params) {
     super();
-
-    const getHashParams = () => {
-      var hashParams = {};
-      var e, r = /([^&;=]+)=?([^&;]*)/g,
-        q = window.location.hash.substring(1);
-      while ((e = r.exec(q)) !== null) {
-        hashParams[e[1]] = decodeURIComponent(e[2]);
-      }
-      return hashParams;
-    };
-    const params = getHashParams();
-
     this.refreshToken = null;
     if (params.access_token) {
       this.setAccessToken(params.access_token);
       this.refreshToken = params.refresh_token;
       localStorage.setItem('accessToken', params.access_token);
       localStorage.setItem('refreshToken', params.refresh_token);
-      window.location.hash = '';
     } else {
       this.setAccessToken(localStorage.getItem('accessToken'));
       this.refreshToken = localStorage.getItem('refreshToken');

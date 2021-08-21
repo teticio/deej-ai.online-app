@@ -21,7 +21,7 @@
 import { useState, useEffect } from 'react';
 import { Routes, Route, useNavigate } from "react-router-dom";
 import Container from 'react-bootstrap/Container';
-import { usePersistedState } from "./lib";
+import { getHashParams, usePersistedState } from "./lib";
 import Banner from './components/Banner';
 import Spotify from "./components/Spotify";
 import CreatePlaylist from './components/CreatePlaylist';
@@ -36,19 +36,21 @@ import NotFound from './components/NotFound';
 import './App.css'
 
 function App() {
-  const [route, setRoute] = usePersistedState('route', '/');
+  const hashParams = getHashParams();
+  const spotify = new Spotify(hashParams);
+  const [loggedIn, setLoggedIn] = useState(spotify.loggedIn());
   const [waypoints, setWaypoints] = usePersistedState('waypoints', { track_ids: [] });
   const [playlist, setPlaylist] = usePersistedState('playlist', { track_ids: [] });
   const [size, setSize] = usePersistedState('size', 10);
   const [creativity, setCreativity] = usePersistedState('creativity', 0.5);
   const [noise, setNoise] = usePersistedState('noise', 0);
-  const spotify = new Spotify();
-  const [loggedIn, setLoggedIn] = useState(spotify.loggedIn());
   const navigate = useNavigate();
 
   useEffect(() => {
-    navigate(route)
-  }, [route, navigate]);
+    if ('route' in hashParams) {
+      navigate(hashParams.route);
+    }  
+  }, [hashParams, navigate]);
 
   return (
     <>
@@ -61,7 +63,7 @@ function App() {
             spotify.logOut();
             setLoggedIn(false);
           } else {
-            setRoute(route);
+            navigate(route);
           }
         }} />
         <Routes>
@@ -77,11 +79,11 @@ function App() {
                 onCreate={(playlist, waypoints) => {
                   setWaypoints(waypoints);
                   setPlaylist(playlist);
-                  setRoute('/playlist');
+                  navigate('/playlist');
                 }}
                 onSettings={(waypoints) => {
                   setWaypoints(waypoints);
-                  setRoute('/settings');
+                  navigate('/settings');
                 }}
               />
             }
@@ -91,7 +93,7 @@ function App() {
             element={
               <ShowPlaylist
                 playlist={playlist}
-                onClose={() => { setRoute('/'); }}
+                onClose={() => { navigate('/'); }}
                 spotify={spotify}
                 userPlaylist={true}
               />
@@ -109,7 +111,7 @@ function App() {
                   setCreativity(creativity);
                   setNoise(noise);
                 }}
-                onClose={() => { setRoute('/'); }}
+                onClose={() => { navigate('/'); }}
               />
             }
           />

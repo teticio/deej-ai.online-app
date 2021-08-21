@@ -96,9 +96,9 @@ async def spotify_callback(code: str, state: Optional[str] = '/'):
     body = {
         'access_token': json['access_token'],
         'refresh_token': json['refresh_token'],
+        'route': state
     }
-    url = os.environ.get('APP_URL',
-                         '') + state + "#" + urllib.parse.urlencode(body)
+    url = os.environ.get('APP_URL', '') + "#" + urllib.parse.urlencode(body)
     return RedirectResponse(url=url)
 
 
@@ -240,11 +240,9 @@ def search_playlists(search: schemas.SearchPlaylists,
 
 @app.exception_handler(StarletteHTTPException)
 async def custom_http_exception_handler(request, exc):
-    if exc.status_code == 404 and request.url.path in [
-            '/login', '/logout', '/playlist', '/settings', '/latest', '/top',
-            '/search', '/about'
-    ]:
-        return RedirectResponse('/')
+    if exc.status_code == 404:
+        url = os.environ.get('APP_URL', '') + "/#" + urllib.parse.urlencode({'route': request.url.path})
+        return RedirectResponse(url=url)
     else:
         return await http_exception_handler(request, exc)
 
