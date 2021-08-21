@@ -26,7 +26,7 @@ export async function searchPlaylists(string, max_items) {
 }
 
 export default function SearchPlaylists({ spotify }) {
-  const [topN, loadMore] = useReducer(n => n + 8, 8);
+  const [topN, loadMore] = useReducer(n => n + 4, 4);
   const [playlists, setPlaylists] = useState([]);
   const [editing, setEditing] = useState(true);
   const [searchString, setSearchString] = useState("");

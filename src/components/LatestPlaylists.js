@@ -15,7 +15,7 @@ export async function getLatestPlaylists(top_n) {
 }
 
 export default function LatestPlaylists({ spotify }) {
-  const [topN, loadMore] = useReducer(n => n + 8, 8);
+  const [topN, loadMore] = useReducer(n => n + 4, 4);
   const [playlists, setPlaylists] = useState([]);
 
   useEffect(() => {
