@@ -6,23 +6,26 @@ function SpotifyTrackWidget({ track_id, highlight, loaded, onLoad = f => f }) {
   const ref = useRef();
 
   useEffect(() => {
-    const iframe = ref.current
+    const iframe = ref.current.children[0];
     const listener = () => onLoad();
 
-    iframe.src=`https://open.spotify.com/embed/track/${track_id}`;
     iframe.addEventListener('load', listener);
     return () => iframe.removeEventListener('load', listener);
-  }, [ref, track_id, onLoad]);
+  }, [ref, onLoad]);
 
   return (
-    <iframe
-      className={(loaded && highlight) ? "highlight" : ""}
-      title={track_id}
-      width={loaded ? "100%" : "0%"}
-      height="80"
-      frameBorder="0"
-      allowtransparency="true"
-      allow="encrypted-media"
+    <div dangerouslySetInnerHTML={{
+      __html:
+        `<iframe src="https://open.spotify.com/embed/track/${track_id}"
+          class=${(loaded && highlight) ? "highlight" : ""}
+          title=${track_id}
+          width=${loaded ? "100%" : "0%"}
+          height="80"
+          frameBorder="0"
+          allowtransparency="true"
+          allow="encrypted-media"
+        />`
+      }}
       ref={ref}
     />
   );
