@@ -48,7 +48,7 @@ function App() {
 
   useEffect(() => {
     navigate(route)
-  }, [route]);
+  }, [route, navigate]);
 
   return (
     <>
