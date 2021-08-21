@@ -1,19 +1,29 @@
-import { Suspense, useState } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import Spinner from 'react-bootstrap/Spinner';
 import './Track.css';
 
 function SpotifyTrackWidget({ track_id, highlight, loaded, onLoad = f => f }) {
+  const ref = useRef();
+
+  useEffect(() => {
+    const iframe = ref.current
+    const listener = () => onLoad();
+
+    iframe.src=`https://open.spotify.com/embed/track/${track_id}`;
+    iframe.addEventListener('load', listener);
+    return () => iframe.removeEventListener('load', listener);
+  }, [ref, track_id, onLoad]);
+
   return (
     <iframe
       className={(loaded && highlight) ? "highlight" : ""}
       title={track_id}
-      src={`https://open.spotify.com/embed/track/${track_id}`}
       width={loaded ? "100%" : "0%"}
       height="80"
       frameBorder="0"
       allowtransparency="true"
       allow="encrypted-media"
-      onLoad={() => onLoad()}
+      ref={ref}
     />
   );
 }
@@ -22,13 +32,30 @@ export default function Track({ track_id, highlight = false, onLoad = f => f }) 
   const [loaded, setLoaded] = useState(false);
 
   return (
-    <Suspense fallback={<Spinner animation="border" />} >
-      <SpotifyTrackWidget
-        track_id={track_id}
-        highlight={highlight}
-        loaded={loaded}
-        onLoad={() => { setLoaded(true); onLoad(); }}
-      />
-    </Suspense>
+    <>
+      {!loaded ?
+        <>
+          <Spinner animation="border" />
+          <SpotifyTrackWidget
+            track_id={track_id}
+            highlight={highlight}
+            loaded={loaded}
+            onLoad={() => {
+              setLoaded(true);
+              onLoad();
+            }}
+          />
+        </> :
+        <SpotifyTrackWidget
+          track_id={track_id}
+          highlight={highlight}
+          loaded={loaded}
+          onLoad={() => {
+            setLoaded(true);
+            onLoad();
+          }}
+        />
+      }
+    </>
   );
 }
