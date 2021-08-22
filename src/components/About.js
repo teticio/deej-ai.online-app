@@ -30,10 +30,10 @@ export default function About() {
       <VerticalSpacer px={15} />
       <h5>
         In the settings screen <FaCog />, you can control the number of tracks that are added to the
-        playlists as well as a couple of aspects of how they are generated. If creativity is set to 1,
+        playlists as well as a couple of aspects of how they are generated. If creativity is set to 100%,
         then tracks are chosen with similar sound, energy, mood and instrumentation. It does this by
         simply "listening" and not using any information about the tracks themselves.If <i>creativity</i>
-        is set to 0, then tracks are selected based on similar artists ("spotify users also included in
+        is set to 0%, then tracks are selected based on similar artists ("spotify users also included in
         their playlists..."). You can use the <i>noise</i> setting to add a bit of randomness.
       </h5>
       <VerticalSpacer px={15} />
