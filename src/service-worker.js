@@ -22,7 +22,7 @@ precacheAndRoute(self.__WB_MANIFEST);
 
 registerRoute(
   ({url}) => url.pathname.startsWith('/app/v1/'),
-  new CacheOnly()
+  new NetworkOnly()
 );
 
 registerRoute(
