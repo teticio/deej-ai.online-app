@@ -55,7 +55,7 @@ export default function ShowPlaylist({ playlist, onClose = f => f, spotify = nul
                     <a
                       href={playlistUrl}
                       target="_blank"
-                      rel="noreferrer"
+                      rel="noopener noreferrer"
                     >{playlistName}</a> :
                     <span onClick={() => { if (userPlaylist) setEditing(true); }}>
                       {editing ?

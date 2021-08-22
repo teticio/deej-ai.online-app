@@ -37,15 +37,16 @@ export default function About() {
         their playlists..."). You can use the <i>noise</i> setting to add a bit of randomness.
       </h5>
       <VerticalSpacer px={15} />
-      <h5>This was my Masters in Deep Learning project at <a
-        href="https://www.mbitschool.com/"
-        target="_blank"
-        rel="noreferrer"
-      >MBIT School</a>. If you want to learn about it works, check out this <a
-        href="https://towardsdatascience.com/create-automatic-playlists-by-using-deep-learning-to-listen-to-the-music-b72836c24ce2"
-        target="_blank"
-        rel="noreferrer"
-      >article</a>.
+      <h5>
+        This was my Masters in Deep Learning project at <a
+          href="https://www.mbitschool.com/"
+          target="_blank"
+          rel="noopener noreferrer"
+        >MBIT School</a>. If you want to learn about it works, check out this <a
+          href="https://towardsdatascience.com/create-automatic-playlists-by-using-deep-learning-to-listen-to-the-music-b72836c24ce2"
+          target="_blank"
+          rel="noopener noreferrer"
+        >article</a>.
       </h5>
       <VerticalSpacer px={15} />
       <Row className="align-items-center">
@@ -54,7 +55,7 @@ export default function About() {
             <a
               href='https://play.google.com/store/apps/details?id=online.deejai.www&pcampaignid=MKT-Other-global-all-co-prtnr-py-PartBadge-Mar2515-1'
               target="_blank"
-              rel="noreferrer"
+              rel="noopener noreferrer"
             ><img
                 alt='Get it on Google Play'
                 src='https://play.google.com/intl/en_us/badges/images/generic/en_badge_web_generic.png'
@@ -68,7 +69,7 @@ export default function About() {
             <a
               href="https://apps.apple.com/us/app/deej-a-i/id1529860910?mt=8"
               target="_blank"
-              rel="noreferrer"
+              rel="noopener noreferrer"
             ><img
               alt='Get it on iTunes'
               src="https://linkmaker.itunes.apple.com/en-us/badge-lrg.svg?releaseDate=2020-09-01&kind=iossoftware&bubble=apple_music) no-repeat;width:135px;height:40px;">

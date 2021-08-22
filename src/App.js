@@ -29,6 +29,7 @@ import SearchPlaylists from "./components/SearchPlaylists";
 import Footer from './components/Footer';
 import About from './components/About';
 import NotFound from './components/NotFound';
+import PrivacyPolicy from './components/PrivacyPolicy';
 import './App.css'
 
 function App() {
@@ -134,6 +135,12 @@ function App() {
               path="/about"
               element={
                 <About />
+              }
+            />
+            <Route
+              path="/privacy_policy"
+              element={
+                <PrivacyPolicy />
               }
             />
             <Route

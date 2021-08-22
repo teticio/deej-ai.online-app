@@ -33,7 +33,7 @@ export default function Banner({ loggedIn = false, onSelect = f => f }) {
                 <h6>by <a
                   href="https://www.linkedin.com/in/attentioncoach/"
                   target="_blank"
-                  rel="noreferrer"
+                  rel="noopener noreferrer"
                 >Robert Smith</a></h6>
               </Col>
             </div>
