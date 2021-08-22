@@ -39,6 +39,10 @@ registerRoute(
 
     if (url.pathname.match(fileExtensionRegexp)) {
       return false;
+    } // this is needed for login and callback redirects to work
+
+    if (url.pathname.startsWith('/api')) {
+      return false;
     } // Return true to signal that we want to use the handler.
 
     return true;
