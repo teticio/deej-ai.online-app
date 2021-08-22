@@ -30,14 +30,20 @@ export default function Track({ track_id, highlight = false, onLoad = f => f }) 
             track_id={track_id}
             highlight={highlight}
             loaded={loaded}
-            onLoad={() => { setLoaded(true); onLoad(); }}
+            onLoad={() => {
+              setLoaded(true);
+              onLoad();
+            }}
           />
         </> :
         <SpotifyTrackWidget
           track_id={track_id}
           highlight={highlight}
           loaded={loaded}
-          onLoad={() => { setLoaded(true); onLoad(); }}
+          onLoad={() => {
+            setLoaded(true);
+            onLoad();
+          }}
         />
       }
     </>

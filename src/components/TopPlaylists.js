@@ -1,5 +1,4 @@
 import { useState, useEffect, useReducer } from "react";
-import Container from 'react-bootstrap/Container';
 import { VerticalSpacer } from "../lib";
 import ShowPlaylists from "./ShowPlaylists";
 
@@ -26,7 +25,7 @@ export default function TopPlaylists({ spotify }) {
   }, [topN]);
 
   return (
-    <Container>
+    <>
       <VerticalSpacer px={10} />
       <h3 style={{ textAlign: "center" }}>Top rated playlists</h3>
       <ShowPlaylists
@@ -36,6 +35,6 @@ export default function TopPlaylists({ spotify }) {
       <span onClick={loadMore}>
         <h6 className="link" style={{ textAlign: "center" }}>Load more...</h6>
       </span>
-    </Container >
+    </>
   );
 }

@@ -10,7 +10,7 @@ export const getHashParams = () => {
   return hashParams;
 };
 
-export const createArray = length => [...Array(length)];
+export const createArray = length => (length > 0)? [...Array(length)] : [];
 
 var timerId;
 

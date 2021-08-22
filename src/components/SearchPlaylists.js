@@ -1,6 +1,5 @@
 import { useState, useEffect, useReducer } from "react";
 import { FaSearch } from "react-icons/fa";
-import Container from 'react-bootstrap/Container';
 import Card from 'react-bootstrap/Card';
 import ShowPlaylists from "./ShowPlaylists";
 import { HorizontalSpacer, VerticalSpacer } from "../lib";
@@ -44,7 +43,7 @@ export default function SearchPlaylists({ spotify }) {
   }, [actualSearchString, topN]);
 
   return (
-    <Container>
+    <>
       <h3 style={{ textAlign: "center" }}>Search playlists</h3>
       <Card>
         <Card.Body>
@@ -85,6 +84,6 @@ export default function SearchPlaylists({ spotify }) {
           <h6 className="link" style={{ textAlign: "center" }}>Load more...</h6>
         </span> : <></>
       }
-    </Container>
+    </>
   );
 }

@@ -238,10 +238,12 @@ def search_playlists(search: schemas.SearchPlaylists,
     return db_items
 
 
+# let front end handle 404
 @app.exception_handler(StarletteHTTPException)
 async def custom_http_exception_handler(request, exc):
     if exc.status_code == 404:
-        url = os.environ.get('APP_URL', '') + "/#" + urllib.parse.urlencode({'route': request.url.path})
+        url = os.environ.get('APP_URL', '') + "/#" + urllib.parse.urlencode(
+            {'route': request.url.path})
         return RedirectResponse(url=url)
     else:
         return await http_exception_handler(request, exc)

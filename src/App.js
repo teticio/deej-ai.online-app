@@ -2,19 +2,14 @@
 //
 // frontend:
 // unit tests
-// ErrorBoundary
-// Suspense?
 // banner image and ico file
-// show value of sliders in settings
 // fix warnings for unique key
 // fix warning about combining h2 and a in Banner
 // incremental search
 // selenium (pipenv install dev)
-// pipenv lock
 // docker, kubernetes
 //
 // backend:
-// disable docs in prod
 // set seed in noise
 // bug in join the dots?
 
@@ -24,6 +19,7 @@ import Container from 'react-bootstrap/Container';
 import { getHashParams, usePersistedState } from "./lib";
 import Banner from './components/Banner';
 import Spotify from "./components/Spotify";
+import ErrorBoundary from './components/ErrorBoundary';
 import CreatePlaylist from './components/CreatePlaylist';
 import ShowPlaylist from './components/ShowPlaylist';
 import Settings from "./components/Settings";
@@ -49,7 +45,7 @@ function App() {
   useEffect(() => {
     if ('route' in hashParams) {
       navigate(hashParams.route);
-    }  
+    }
   }, [hashParams, navigate]);
 
   return (
@@ -66,86 +62,88 @@ function App() {
             navigate(route);
           }
         }} />
-        <Routes>
-          <Route
-            path="/"
-            element={
-              <CreatePlaylist
-                waypoints={waypoints}
-                size={size}
-                creativity={creativity}
-                noise={noise}
-                spotify={spotify}
-                onCreate={(playlist, waypoints) => {
-                  setWaypoints(waypoints);
-                  setPlaylist(playlist);
-                  navigate('/playlist');
-                }}
-                onSettings={(waypoints) => {
-                  setWaypoints(waypoints);
-                  navigate('/settings');
-                }}
-              />
-            }
-          />
-          <Route
-            path="/playlist"
-            element={
-              <ShowPlaylist
-                playlist={playlist}
-                onClose={() => { navigate('/'); }}
-                spotify={spotify}
-                userPlaylist={true}
-              />
-            }
-          />
-          <Route
-            path="/settings"
-            element={
-              <Settings
-                size={size}
-                creativity={creativity}
-                noise={noise}
-                onChange={(size, creativity, noise) => {
-                  setSize(size);
-                  setCreativity(creativity);
-                  setNoise(noise);
-                }}
-                onClose={() => { navigate('/'); }}
-              />
-            }
-          />
-          <Route
-            path="/latest"
-            element={
-              <LatestPlaylists spotify={spotify} />
-            }
-          />
-          <Route
-            path="/top"
-            element={
-              <TopPlaylists spotify={spotify} />
-            }
-          />
-          <Route
-            path="/search"
-            element={
-              <SearchPlaylists spotify={spotify} />
-            }
-          />
-          <Route
-            path="/about"
-            element={
-              <About />
-            }
-          />
-          <Route
-            path="*"
-            element={
-              <NotFound />
-            }
-          />
-        </Routes>
+        <ErrorBoundary >
+          <Routes>
+            <Route
+              path="/"
+              element={
+                <CreatePlaylist
+                  waypoints={waypoints}
+                  size={size}
+                  creativity={creativity}
+                  noise={noise}
+                  spotify={spotify}
+                  onCreate={(playlist, waypoints) => {
+                    setWaypoints(waypoints);
+                    setPlaylist(playlist);
+                    navigate('/playlist');
+                  }}
+                  onSettings={(waypoints) => {
+                    setWaypoints(waypoints);
+                    navigate('/settings');
+                  }}
+                />
+              }
+            />
+            <Route
+              path="/playlist"
+              element={
+                <ShowPlaylist
+                  playlist={playlist}
+                  onClose={() => navigate('/')}
+                  spotify={spotify}
+                  userPlaylist={true}
+                />
+              }
+            />
+            <Route
+              path="/settings"
+              element={
+                <Settings
+                  size={size}
+                  creativity={creativity}
+                  noise={noise}
+                  onChange={(size, creativity, noise) => {
+                    setSize(size);
+                    setCreativity(creativity);
+                    setNoise(noise);
+                  }}
+                  onClose={() => navigate('/')}
+                />
+              }
+            />
+            <Route
+              path="/latest"
+              element={
+                <LatestPlaylists spotify={spotify} />
+              }
+            />
+            <Route
+              path="/top"
+              element={
+                <TopPlaylists spotify={spotify} />
+              }
+            />
+            <Route
+              path="/search"
+              element={
+                <SearchPlaylists spotify={spotify} />
+              }
+            />
+            <Route
+              path="/about"
+              element={
+                <About />
+              }
+            />
+            <Route
+              path="*"
+              element={
+                <NotFound />
+              }
+            />
+          </Routes>
+        </ErrorBoundary>
       </Container>
       <Footer />
     </>
