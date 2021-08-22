@@ -35,10 +35,6 @@ registerRoute(
 
     if (url.pathname.startsWith('/_')) {
       return false;
-    } // Exclude API calls for now
-
-    if (url.pathname.startsWith('/api')) {
-      return false;
     } // If this looks like a URL for a resource, because it contains // a file extension, skip.
 
     if (url.pathname.match(fileExtensionRegexp)) {
@@ -54,13 +50,23 @@ registerRoute(
 // precache, in this case same-origin .png requests like those from in public/
 registerRoute(
   // Add in any other file extensions or routing criteria as needed.
-  ({ url }) => url.origin === self.location.origin && url.pathname.endsWith('.png'), // Customize this strategy as needed, e.g., by changing to CacheFirst.
+  ({ url }) => url.pathname.endsWith('.png') || url.pathname.endsWith('.svg') || url.pathname.endsWith('.jpg'), // Customize this strategy as needed, e.g., by changing to CacheFirst.
   new StaleWhileRevalidate({
     cacheName: 'images',
     plugins: [
       // Ensure that once this runtime cache reaches a maximum size the
       // least-recently used images are removed.
       new ExpirationPlugin({ maxEntries: 50 }),
+    ],
+  })
+);
+
+registerRoute(
+  ({ url }) => url.pathname.endsWith('/api/v1/search') || url.pathname.endsWith('/api/v1/search_similar'),
+  new StaleWhileRevalidate({
+    cacheName: 'searches',
+    plugins: [
+      new ExpirationPlugin({ maxEntries: 10, maxAgeSeconds: 10 * 60 }),
     ],
   })
 );

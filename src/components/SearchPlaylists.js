@@ -4,17 +4,10 @@ import Card from 'react-bootstrap/Card';
 import ShowPlaylists from "./ShowPlaylists";
 import { HorizontalSpacer, VerticalSpacer } from "../lib";
 
-export async function searchPlaylists(string, max_items) {
-  const response = await fetch(`${process.env.REACT_APP_API_URL}/search_playlists`, {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json'
-    },
-    body: JSON.stringify({
-      'string': string,
-      'max_items': max_items
-    })
-  });
+export async function searchPlaylists(searchString, maxItems) {
+  const response = await fetch(`${process.env.REACT_APP_API_URL}/search_playlists` +
+    '?string=' + encodeURIComponent(searchString) +
+    '&max_items=' + encodeURIComponent(maxItems));
   const playlists = await response.json();
   playlists.forEach((playlist, i) => {
     playlists[i].track_ids = JSON.parse(playlist.track_ids)

@@ -3,16 +3,6 @@ from datetime import datetime
 from pydantic import BaseModel
 
 
-class Search(BaseModel):
-    string: str
-    max_items: Optional[int] = 100
-
-
-class SearchSimilar(BaseModel):
-    url: str
-    max_items: Optional[int] = 10
-
-
 class NewPlaylist(BaseModel):
     track_ids: list
     size: Optional[int] = 10
@@ -50,8 +40,4 @@ class Playlist(BaseModel):
     waypoints: Optional[str] = ""
     creativity: Optional[float] = 0.5
     noise: Optional[float] = 0
-
-
-class SearchPlaylists(BaseModel):
-    string: str
-    max_items: Optional[int] = 10
+    

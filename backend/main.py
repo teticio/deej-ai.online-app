@@ -125,15 +125,15 @@ async def spotify_refresh_token(refresh_token: str):
     return json
 
 
-@app.post("/api/v1/search")
-async def search_tracks(search: schemas.Search):
-    ids = await deejai.search(search.string, search.max_items)
+@app.get("/api/v1/search")
+async def search_tracks(string: str, max_items: int):
+    ids = await deejai.search(string, max_items)
     return [{'track_id': id, 'track': deejai.get_tracks()[id]} for id in ids]
 
 
-@app.post("/api/v1/search_similar")
-async def search_similar_tracks(search: schemas.SearchSimilar):
-    ids = await deejai.get_similar_vec(search.url, search.max_items)
+@app.get("/api/v1/search_similar")
+async def search_similar_tracks(url: str, max_items: int):
+    ids = await deejai.get_similar_vec(url, max_items)
     return [{'track_id': id, 'track': deejai.get_tracks()[id]} for id in ids]
 
 
@@ -222,18 +222,19 @@ def get_top_playlists(top_n: int, db: Session = Depends(get_db)):
     return db_items
 
 
-@app.post("/api/v1/search_playlists")
-def search_playlists(search: schemas.SearchPlaylists,
+@app.get("/api/v1/search_playlists")
+def search_playlists(string: str,
+                     max_items: int,
                      db: Session = Depends(get_db)):
     db_items = []
-    search_string = re.sub(r'([^\s\w]|_)+', '', search.string.lower()).split()
+    search_string = re.sub(r'([^\s\w]|_)+', '', string.lower()).split()
     for db_item in db.query(models.Playlist).all():
         if all(word in re.sub(r'([^\s\w]|_)+', '', db_item.name.lower())
                for word in search_string) or all(
                    word in re.sub(r'([^\s\w]|_)+', '', db_item.tracks.lower())
                    for word in search_string):
             db_items += [db_item]
-            if len(db_items) >= search.max_items:
+            if len(db_items) >= max_items:
                 break
     return db_items
 
