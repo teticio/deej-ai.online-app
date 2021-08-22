@@ -22,7 +22,7 @@ export default function TrackSelector({ spotify = null, onSelect = f => f, onSea
                 'url': response.item.preview_url
               } : null);
             }
-          }).catch(error => console.error('Error:', error));
+          }).catch(); // ignore error
       } else {
         setCurrentTrack(null);
       }
