@@ -1,4 +1,4 @@
-export default async function savePlaylist(playlist) {
+export default async function savePlaylist(playlist, creativity, noise) {
   const now = new Date();
 
   const response = await fetch(`${process.env.REACT_APP_API_URL}/create_playlist`, {
@@ -10,7 +10,9 @@ export default async function savePlaylist(playlist) {
       'created': now.toISOString(),
       'track_ids': JSON.stringify(playlist.track_ids),
       'tracks': JSON.stringify(playlist.tracks),
-      'waypoints': JSON.stringify(playlist.waypoints)
+      'waypoints': JSON.stringify(playlist.waypoints),
+      'creativity': creativity,
+      'noise': noise
     })
   });
   const db_item = await response.json();

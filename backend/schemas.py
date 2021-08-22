@@ -48,6 +48,8 @@ class Playlist(BaseModel):
     track_ids: str
     tracks: Optional[str] = ""
     waypoints: Optional[str] = ""
+    creativity: Optional[float] = 0.5
+    noise: Optional[float] = 0
 
 
 class SearchPlaylists(BaseModel):

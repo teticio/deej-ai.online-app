@@ -17,3 +17,5 @@ class Playlist(Base):
     track_ids = Column(String)
     tracks = Column(String, default="")
     waypoints = Column(String, default="")
+    creativity = Column(Float, default=0.5)
+    noise = Column(Float, default=0)

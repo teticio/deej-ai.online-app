@@ -49,7 +49,7 @@ export default function CreatePlaylist({
                   setSpinner(true);
                   generatePlaylist(_waypoints, size, creativity, noise)
                     .then(playlist => {
-                      SavePlaylist(playlist).then(id => playlist.id = id);
+                      SavePlaylist(playlist, creativity, noise).then(id => playlist.id = id);
                       return playlist;
                     })
                     .then(playlist => onCreate(playlist, _waypoints))
