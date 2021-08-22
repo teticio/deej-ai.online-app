@@ -15,13 +15,11 @@ export default function TrackSelector({ spotify = null, onSelect = f => f, onSea
       if (spotify && spotify.loggedIn()) {
         spotify.autoRefresh(() => spotify.getMyCurrentPlayingTrack())
           .then((response) => {
-            if (response) {
-              setCurrentTrack(response.item ? {
-                'track':
-                  `${response.item.artists[0].name} - ${response.item.name}`,
-                'url': response.item.preview_url
-              } : null);
-            }
+            setCurrentTrack(response.item ? {
+              'track':
+                `${response.item.artists[0].name} - ${response.item.name}`,
+              'url': response.item.preview_url
+            } : null);
           }).catch(); // ignore error
       } else {
         setCurrentTrack(null);
@@ -45,7 +43,8 @@ export default function TrackSelector({ spotify = null, onSelect = f => f, onSea
       }
       return [];
     }
-    fetchSearchResults().then((results) => {
+
+    fetchSearchResults().then(results => {
       if (results.length > 0) {
         onSelect(results[0].track_id);
       }
@@ -66,6 +65,9 @@ export default function TrackSelector({ spotify = null, onSelect = f => f, onSea
             onSearch();
             searchSimilar(currentTrack.url)
               .then(tracks => {
+                if (tracks.length > 0) {
+                  onSelect(tracks[0].track_id);
+                }
                 onSearchEnd();
                 setSearchResults(tracks);
               })
