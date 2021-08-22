@@ -144,6 +144,12 @@ function App() {
               }
             />
             <Route
+              path="/privacy_policy.html"
+              element={
+                <PrivacyPolicy />
+              }
+            />
+            <Route
               path="*"
               element={
                 <NotFound />
