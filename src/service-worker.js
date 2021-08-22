@@ -8,8 +8,7 @@
 // service worker, and the Workbox build step will be skipped.
 
 import { clientsClaim } from 'workbox-core';
-import { ExpirationPlugin } from 'workbox-expiration';
-import { precacheAndRoute, createHandlerBoundToURL } from 'workbox-precaching';
+import { precacheAndRoute } from 'workbox-precaching';
 import { registerRoute } from 'workbox-routing';
 import { StaleWhileRevalidate } from 'workbox-strategies';
 
@@ -21,30 +20,15 @@ clientsClaim();
 // even if you decide not to use precaching. See https://cra.link/PWA
 precacheAndRoute(self.__WB_MANIFEST);
 
-// Set up App Shell-style routing, so that all navigation requests
-// are fulfilled with your index.html shell. Learn more at
-// https://developers.google.com/web/fundamentals/architecture/app-shell
 registerRoute(
-  // Return false to exempt requests from being fulfilled by index.html.
-  ({ request, url }) => {
-    // don't pre-cache anything
-    return false;
-  },
-  createHandlerBoundToURL(process.env.PUBLIC_URL + '/index.html')
+  ({url}) => url.pathname.startsWith('/app/v1/'),
+  new CacheOnly()
 );
 
-// An example runtime caching route for requests that aren't handled by the
-// precache, in this case same-origin .png requests like those from in public/
 registerRoute(
-  // Add in any other file extensions or routing criteria as needed.
-  ({ url }) => url.origin === self.location.origin, // Customize this strategy as needed, e.g., by changing to CacheFirst.
+  ({ url }) => true,
   new StaleWhileRevalidate({
-    cacheName: 'static',
-    plugins: [
-      // Ensure that once this runtime cache reaches a maximum size the
-      // least-recently used images are removed.
-      new ExpirationPlugin({ maxEntries: 50 }),
-    ],
+    cacheName: 'static'
   })
 );
 
