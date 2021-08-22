@@ -2,6 +2,7 @@
 //
 // frontend:
 // unit tests
+// cache search tracks in service worker
 // banner image and ico file
 // fix warnings for unique key
 // fix warning about combining h2 and a in Banner

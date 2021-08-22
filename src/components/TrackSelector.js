@@ -15,11 +15,13 @@ export default function TrackSelector({ spotify = null, onSelect = f => f, onSea
       if (spotify && spotify.loggedIn()) {
         spotify.autoRefresh(() => spotify.getMyCurrentPlayingTrack())
           .then((response) => {
-            setCurrentTrack(response.item ? {
-              'track':
-                `${response.item.artists[0].name} - ${response.item.name}`,
-              'url': response.item.preview_url
-            } : null);
+            if (response) {
+              setCurrentTrack(response.item ? {
+                'track':
+                  `${response.item.artists[0].name} - ${response.item.name}`,
+                'url': response.item.preview_url
+              } : null);
+            }
           }).catch(error => console.error('Error:', error));
       } else {
         setCurrentTrack(null);
