@@ -11,7 +11,7 @@ import { clientsClaim } from 'workbox-core';
 import { ExpirationPlugin } from 'workbox-expiration';
 import { precacheAndRoute, createHandlerBoundToURL } from 'workbox-precaching';
 import { registerRoute } from 'workbox-routing';
-import { StaleWhileRevalidate } from 'workbox-strategies';
+import { StaleWhileRevalidate, NetworkFirst } from 'workbox-strategies';
 
 clientsClaim();
 
@@ -66,9 +66,25 @@ registerRoute(
 );
 
 registerRoute(
-  ({ url }) => url.pathname.endsWith('/api/v1/search') || url.pathname.endsWith('/api/v1/search_similar'),
+  ({ url }) =>
+    url.pathname.endsWith('/api/v1/search') ||
+    url.pathname.endsWith('/api/v1/search_similar') ||
+    url.pathname.endsWith('/api/v1/widget'),
   new StaleWhileRevalidate({
-    cacheName: 'searches',
+    cacheName: 'api',
+    plugins: [
+      new ExpirationPlugin({ maxEntries: 100, maxAgeSeconds: 10 * 60 }),
+    ],
+  })
+);
+
+registerRoute(
+  ({ url }) =>
+    url.pathname.endsWith('/api/v1/latest_playlists') ||
+    url.pathname.endsWith('/api/v1/top_playlists') ||
+    url.pathname.endsWith('/api/v1/search_playlists'),
+  new NetworkFirst({
+    cacheName: 'api',
     plugins: [
       new ExpirationPlugin({ maxEntries: 10, maxAgeSeconds: 10 * 60 }),
     ],

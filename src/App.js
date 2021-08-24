@@ -1,6 +1,7 @@
 // TODO
 //
 // frontend:
+// robots.txt etc
 // unit tests
 // banner image and ico file
 // fix warnings for unique key

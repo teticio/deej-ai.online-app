@@ -1,6 +1,5 @@
 import os
 import re
-import base64
 import urllib
 import aiohttp
 from . import models
@@ -9,6 +8,7 @@ from . import credentials
 from .deejai import DeejAI
 from typing import Optional
 from sqlalchemy import desc
+from base64 import b64encode
 from starlette.types import Scope
 from sqlalchemy.orm import Session
 from starlette.responses import Response
@@ -79,7 +79,7 @@ async def spotify_callback(code: str, state: Optional[str] = '/'):
     headers = {
         'Authorization':
         'Basic ' +
-        base64.b64encode(f'{credentials.client_id}:{credentials.client_secret}'
+        b64encode(f'{credentials.client_id}:{credentials.client_secret}'
                          .encode('utf-8')).decode('utf-8')
     }
     async with aiohttp.ClientSession() as session:
@@ -108,7 +108,7 @@ async def spotify_refresh_token(refresh_token: str):
     headers = {
         'Authorization':
         'Basic ' +
-        base64.b64encode(f'{credentials.client_id}:{credentials.client_secret}'
+        b64encode(f'{credentials.client_id}:{credentials.client_secret}'
                          .encode('utf-8')).decode('utf-8')
     }
     async with aiohttp.ClientSession() as session:
@@ -123,6 +123,26 @@ async def spotify_refresh_token(refresh_token: str):
         except aiohttp.ClientError as error:
             raise HTTPException(status_code=400, detail=str(error))
     return json
+
+
+@app.get("/api/v1/widget")
+async def widget(track_id: str):
+    headers = {
+        'User-Agent':
+        'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/92.0.4515.159 Safari/537.36'
+    }
+    async with aiohttp.ClientSession() as session:
+        try:
+            async with session.get(
+                    f'https://open.spotify.com/embed/track/{track_id}',
+                    headers=headers) as response:
+                if response.status != 200:
+                    raise HTTPException(status_code=response.status,
+                                        detail=response.reason)
+                text = await response.text()
+        except aiohttp.ClientError as error:
+            raise HTTPException(status_code=400, detail=str(error))
+    return b64encode(text.encode('ascii'))
 
 
 @app.get("/api/v1/search")

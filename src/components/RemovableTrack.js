@@ -15,13 +15,11 @@ export default function RemovableTrack({ track_id, uuid, onRemove = f => f }) {
       >
       </Track>
       <HorizontalSpacer px={10} />
-      {loaded ?
-        <FaTimes
-          size="25"
-          className="link"
-          onClick={() => onRemove(uuid)}
-        /> : <></>
-      }
+      <FaTimes
+        size="25"
+        className="link"
+        onClick={() => onRemove(uuid)}
+      />
     </>
   );
 }
