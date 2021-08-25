@@ -2,13 +2,12 @@
 //
 // frontend:
 // robots.txt etc
+// service
 // unit tests
 // banner image and ico file
 // fix warnings for unique key
 // fix warning about combining h2 and a in Banner
 // incremental search
-// selenium (pipenv install dev)
-// docker, kubernetes
 //
 // backend:
 // set seed in noise
