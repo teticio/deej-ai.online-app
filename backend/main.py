@@ -185,8 +185,10 @@ def create_playlist(playlist: schemas.Playlist, db: Session = Depends(get_db)):
             models.Playlist.num_ratings == playlist.num_ratings,
             models.Playlist.track_ids == playlist.track_ids,
             models.Playlist.tracks == playlist.tracks,
-            models.Playlist.waypoints == playlist.waypoints).first()
-    return db_item
+            models.Playlist.waypoints == playlist.waypoints)
+        db_item.update({'created': playlist.created})
+        db.commit()
+    return db_item.first()
 
 
 @app.get("/api/v1/read_playlist")
