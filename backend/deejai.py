@@ -5,6 +5,7 @@ import pickle
 import random
 import shutil
 import librosa
+import logging
 import requests
 import numpy as np
 from io import BytesIO
@@ -229,7 +230,7 @@ class DeejAI:
             ]
             return ids
         except Exception as e:
-            print(e)
+            logging.error(e)
             if os.path.exists(f'./{playlist_id}.mp3'):
                 os.remove(f'./{playlist_id}.mp3')
             return []

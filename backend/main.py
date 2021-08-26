@@ -42,6 +42,7 @@ origins = [
     "https://deej-ai.online",
     "http://localhost:8000",
     "http://localhost:3000",
+    "http://127.0.0.1:8080",
 ]
 
 app.add_middleware(
@@ -79,8 +80,8 @@ async def spotify_callback(code: str, state: Optional[str] = '/'):
     headers = {
         'Authorization':
         'Basic ' +
-        b64encode(f'{credentials.client_id}:{credentials.client_secret}'
-                         .encode('utf-8')).decode('utf-8')
+        b64encode(f'{credentials.client_id}:{credentials.client_secret}'.
+                  encode('utf-8')).decode('utf-8')
     }
     async with aiohttp.ClientSession() as session:
         try:
@@ -108,8 +109,8 @@ async def spotify_refresh_token(refresh_token: str):
     headers = {
         'Authorization':
         'Basic ' +
-        b64encode(f'{credentials.client_id}:{credentials.client_secret}'
-                         .encode('utf-8')).decode('utf-8')
+        b64encode(f'{credentials.client_id}:{credentials.client_secret}'.
+                  encode('utf-8')).decode('utf-8')
     }
     async with aiohttp.ClientSession() as session:
         try:

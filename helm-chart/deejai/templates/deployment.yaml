@@ -35,17 +35,27 @@ spec:
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           ports:
             - name: http
-              containerPort: 3000
+              containerPort: 80
               protocol: TCP
+          {{- if .Values.deployment.livenessProbe.enabled }}
           livenessProbe:
             httpGet:
-              path: /
-              port: http
-            initialDelaySeconds: 300
+              path: {{ .Values.deployment.livenessProbe.path }}
+              port: {{ .Values.deployment.livenessProbe.port }}
+            initialDelaySeconds: {{ .Values.deployment.livenessProbe.initialDelaySeconds }}
+            periodSeconds: {{ .Values.deployment.livenessProbe.periodSeconds }}
+            timeoutSeconds: {{ .Values.deployment.livenessProbe.timeoutSeconds }}
+            failureThreshold: {{ .Values.deployment.livenessProbe.failureThreshold }}          {{- end }}
+          {{- if .Values.deployment.readinessProbe.enabled }}
           readinessProbe:
             httpGet:
-              path: /
-              port: http
+              path: {{ .Values.deployment.readinessProbe.path }}
+              port: {{ .Values.deployment.readinessProbe.port }}
+            initialDelaySeconds: {{ .Values.deployment.readinessProbe.initialDelaySeconds }}
+            periodSeconds: {{ .Values.deployment.readinessProbe.periodSeconds }}
+            timeoutSeconds: {{ .Values.deployment.readinessProbe.timeoutSeconds }}
+            failureThreshold: {{ .Values.deployment.readinessProbe.failureThreshold }}
+          {{- end }}
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
       {{- with .Values.nodeSelector }}
