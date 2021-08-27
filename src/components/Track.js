@@ -1,3 +1,4 @@
+import { PureComponent } from 'react';
 import { Suspense } from 'react';
 import Spinner from 'react-bootstrap/Spinner';
 import './Track.css';
@@ -14,22 +15,26 @@ function createResource(pending) {
   };
 }
 
-function SpotifyTrackWidget({ track_id, highlight, resource }) {
-  const iframe = (resource) ? resource.read() : null;
+// avoid unncessary re-renders
+class SpotifyTrackWidget extends PureComponent {
+  render() {
+    const { track_id, highlight, resource } = this.props;
+    const iframe = (resource) ? resource.read() : null;
 
-  return (
-    <iframe
-      className={highlight ? "highlight" : ""}
-      title={track_id}
-      //src={`https://open.spotify.com/embed/track/${track_id}`}
-      srcdoc={Buffer.from(iframe.data, 'base64')}
-      width="100%"
-      height="80"
-      frameBorder="0"
-      allowtransparency="true"
-      allow="encrypted-media"
-    />
-  );
+    return (
+      <iframe
+        className={highlight ? "highlight" : ""}
+        title={track_id}
+        //src={`https://open.spotify.com/embed/track/${track_id}`}
+        srcdoc={Buffer.from(iframe.data, 'base64')}
+        width="100%"
+        height="80"
+        frameBorder="0"
+        allowtransparency="true"
+        allow="encrypted-media"
+      />
+    );
+  }
 }
 
 export default function Track({ track_id, highlight = false }) {
