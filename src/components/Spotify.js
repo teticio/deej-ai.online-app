@@ -16,7 +16,7 @@ export default class Spotify extends SpotifyWebApi {
   }
 
   loggedIn() {
-    return this.getAccessToken() !== null;
+    return this.getAccessToken() !== null && this.getAccessToken() !== undefined;
   }
 
   logOut() {
