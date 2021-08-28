@@ -11,6 +11,8 @@ sqlalchemy = "*"
 aiohttp = "*"
 aiofiles = "*"
 librosa = "*"
+sqlalchemy-utils = "*"
+pymysql = "*"
 
 [dev-packages]
 yapf = "*"

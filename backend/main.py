@@ -2,16 +2,18 @@ import os
 import re
 import urllib
 import aiohttp
+import logging
 from . import models
 from . import schemas
 from . import credentials
 from .deejai import DeejAI
 from typing import Optional
-from sqlalchemy import desc
 from base64 import b64encode
 from starlette.types import Scope
 from sqlalchemy.orm import Session
+from sqlalchemy import desc, event
 from starlette.responses import Response
+from sqlalchemy.exc import IntegrityError
 from .database import SessionLocal, engine
 from fastapi.staticfiles import StaticFiles
 from starlette.responses import RedirectResponse
@@ -35,6 +37,16 @@ def get_db():
         yield db
     finally:
         db.close()
+
+
+@event.listens_for(models.Playlist, "before_update")
+def receive_before_update(mapper, connection, target):
+    target.hash = models.Playlist.hash_it(target)
+
+
+@event.listens_for(models.Playlist, "before_insert")
+def receive_before_update(mapper, connection, target):
+    target.hash = models.Playlist.hash_it(target)
 
 
 origins = [
@@ -175,60 +187,60 @@ def create_playlist(playlist: schemas.Playlist, db: Session = Depends(get_db)):
         db.add(db_item)
         db.commit()
         db.refresh(db_item)
-    except:  # duplicate
+    except IntegrityError:  # duplicate
         db.rollback()
         db_item = db.query(models.Playlist).filter(
-            models.Playlist.name == playlist.name,
-            models.Playlist.user_id == playlist.user_id,
-            models.Playlist.playlist_id == playlist.playlist_id,
-            models.Playlist.av_rating == playlist.av_rating,
-            models.Playlist.num_ratings == playlist.num_ratings,
-            models.Playlist.track_ids == playlist.track_ids,
-            models.Playlist.tracks == playlist.tracks,
-            models.Playlist.waypoints == playlist.waypoints)
+            models.Playlist.hash == models.Playlist.hash_it(playlist))
         db_item.update({'created': playlist.created})
-        db.commit()
-    return db_item.first()
+        db.commit()  # doesn't call hook but that's ok
+        db_item = db_item.first()
+    except:
+        logging.error(f"Unable to create playlist {playlist}")
+        db.rollback()
+    return db_item
 
 
 @app.get("/api/v1/read_playlist")
 def get_playlist(id: int, db: Session = Depends(get_db)):
-    db_item = db.query(
-        models.Playlist).filter(models.Playlist.id == id).first()
+    db_item = db.query(models.Playlist).get(id)
     return db_item
 
 
 @app.post("/api/v1/update_playlist_name")
 def update_playlist_name(playlist: schemas.PlaylistName,
                          db: Session = Depends(get_db)):
-    db_item = db.query(
-        models.Playlist).filter(models.Playlist.id == playlist.id)
-    db_item.update({'name': playlist.name})
-    db.commit()
+    db.query(models.Playlist).get(playlist.id).name = playlist.name
+    try:
+        db.commit()
+    except:
+        logging.error(f"Unable to update playlist name {playlist}")
+        db.rollback()
 
 
 @app.post("/api/v1/update_playlist_rating")
 def update_playlist_rating(playlist: schemas.PlaylistRating,
                            db: Session = Depends(get_db)):
-    db_item = db.query(
-        models.Playlist).filter(models.Playlist.id == playlist.id)
-    db_item.update({
-        'av_rating': playlist.av_rating,
-        'num_ratings': playlist.num_ratings
-    })
-    db.commit()
+    db_item = db.query(models.Playlist).get(playlist.id)
+    db_item.av_rating = playlist.av_rating
+    db_item.num_ratings = playlist.num_ratings
+    try:
+        db.commit()
+    except:
+        logging.error(f"Unable to update playlist rating {playlist}")
+        db.rollback()
 
 
 @app.post("/api/v1/update_playlist_id")
 def update_playlist_id(playlist: schemas.PlaylistId,
                        db: Session = Depends(get_db)):
-    db_item = db.query(
-        models.Playlist).filter(models.Playlist.id == playlist.id)
-    db_item.update({
-        'user_id': playlist.user_id,
-        'playlist_id': playlist.playlist_id
-    })
-    db.commit()
+    db_item = db.query(models.Playlist).get(playlist.id)
+    db_item.user_id = playlist.user_id
+    db_item.playlist_id = playlist.playlist_id
+    try:
+        db.commit()
+    except:
+        logging.error(f"Unable to update playlist id {playlist}")
+        db.rollback()
 
 
 @app.get("/api/v1/latest_playlists")

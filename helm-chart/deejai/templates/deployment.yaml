@@ -27,6 +27,14 @@ spec:
       serviceAccountName: {{ include "deejai.serviceAccountName" . }}
       securityContext:
         {{- toYaml .Values.podSecurityContext | nindent 8 }}
+      initContainers:
+        - name: init-deejai
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          command:
+            - /bin/bash
+            - -ec
+            - until python -c "from backend.database import *; engine.execute('SHOW TABLES;')"; do echo sleep 2; done
       containers:
         - name: {{ .Chart.Name }}
           securityContext:

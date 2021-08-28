@@ -1,4 +1,3 @@
 #!/bin/sh
 helm uninstall deejai -n deejai
-kubectl create namespace deejai
-helm install deejai helm-chart/deejai -n deejai --values helm-chart/deejai/values.yaml
+helm upgrade --install deejai helm-chart/deejai --create-namespace -n deejai --values helm-chart/deejai/values.yaml
