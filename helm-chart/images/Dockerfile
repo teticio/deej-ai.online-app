@@ -13,5 +13,5 @@ RUN yarn build
 ENV APP_URL http://localhost:8080
 ENV CUDA_VISIBLE_DEVICES ""
 ENV SQLALCHEMY_DATABASE_URL mysql+pymysql://root:password@mysql:3306/deejai
-CMD ["uvicorn", "backend.main:app", "--reload", "--port=80"]
-EXPOSE 80
+CMD ["uvicorn", "backend.main:app", "--reload", "--host=0.0.0.0"]
+EXPOSE 8000

@@ -66,6 +66,11 @@ app.add_middleware(
 )
 
 
+@app.get("/healthz")
+async def health_check():
+    return {'status': 'pass'}
+
+
 @app.get("/api/v1/login")
 async def spotify_login(state: Optional[str] = None):
     scope = "playlist-modify-public user-read-currently-playing"
