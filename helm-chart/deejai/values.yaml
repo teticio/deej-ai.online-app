@@ -5,12 +5,12 @@
 replicaCount: 1
 
 image:
-  repository: deejai
+  repository: teticio/deejai
   pullPolicy: IfNotPresent
   # Overrides the image tag whose default is the chart appVersion.
   tag: ""
   ports:
-  - containerPort: 8000
+  - containerPort: http
 
 imagePullSecrets: []
 nameOverride: ""
@@ -39,9 +39,8 @@ securityContext: {}
   # runAsUser: 1000
 
 service:
-  type: LoadBalancer
-  port: 80
-  targetPort: 8000
+  type: ClusterIP
+  port: 8080
 
 ingress:
   enabled: false
@@ -87,7 +86,7 @@ affinity: {}
 
 deployment:
   readinessProbe:
-    enabled: false
+    enabled: true
     path: /healthz
     port: http
     initialDelaySeconds: 0
@@ -95,10 +94,10 @@ deployment:
     failureThreshold: 1000  # we rely on the liveness probe to resolve issues if needed
     timeoutSeconds: 3
   livenessProbe:
-    enabled: false
+    enabled: true
     path: /healthz
     port: http
-    initialDelaySeconds: 10
+    initialDelaySeconds: 120
     periodSeconds: 5
     failureThreshold: 3
     timeoutSeconds: 10

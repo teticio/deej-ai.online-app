@@ -66,6 +66,15 @@ app.add_middleware(
 )
 
 
+class EndpointFilter(logging.Filter):
+    def filter(self, record: logging.LogRecord) -> bool:
+        return record.getMessage().find("/healthz") == -1
+
+
+# Filter out /endpoint
+logging.getLogger("uvicorn.access").addFilter(EndpointFilter())
+
+
 @app.get("/healthz")
 async def health_check():
     return {'status': 'pass'}
