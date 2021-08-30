@@ -37,8 +37,8 @@ To build the Docker image, run
 ```
 .\build_docker.sh <Your external webpage URL>
 ```
-You will need to have already created your `credentials.py` in the `backend` directory. The script assume you are running a `minikube`. To install on your `minikube` type
+You will need to have already created your `credentials.py`, as explained above. To install the Helm chart type
 ```
 .\install_helm.sh
 ```
-I have included an example of how to deploy to a cluster on AWS using Kops in `deploy_kops.sh`.
+The scripts assume you are running a `minikube`. I have included an example of how to deploy to a cluster on AWS using Kops in `deploy_kops.sh`.
