@@ -22,11 +22,23 @@ You will also need to download the following files to the root directory:
 You should also set `REACT_APP_API_URL` to `'<Your external webpage URL>/api/v1'` in `.env.production` and `APP_URL` to `<Your external webpage URL>` in `run.sh`.
 
 If you have `pipenv` and `yarn` already installed you can then type
-
-`.\install.sh`
-
+```
+.\install.sh
+```
 and
-
-`.\run.sh`
-
+```
+.\run.sh
+```
 (In Windows, you will either have to run these commands in a Git Bash shell, or adapt the scripts as appropriate). As a final step, you can then set up a reverse proxy to `http://localhost:8000/`.
+
+## Deployment on a Kubernetes cluster with Helm
+
+To build the Docker image, run
+```
+.\build_docker.sh <Your external webpage URL>
+```
+You will need to have already created your `credentials.py` in the `backend` directory. The script assume you are running a `minikube`. To install on your `minikube` type
+```
+.\install_helm.sh
+```
+I have included an example of how to deploy to a cluster on AWS using Kops in `deploy_kops.sh`.
