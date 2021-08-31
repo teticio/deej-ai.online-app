@@ -1,5 +1,5 @@
-export NAME=deejai.teticio.co.uk
-export KOPS_STATE_STORE=s3://clusters.teticio.co.uk
+export NAME=deejai.${1-teticio.co.uk}
+export KOPS_STATE_STORE=s3://clusters.${1-teticio.co.uk}
 kops create cluster \
     --zones=us-east-1a \
     --node-count=2 \
@@ -26,5 +26,5 @@ echo
 echo "kubectl proxy"
 echo "http://localhost:8001/api/v1/namespaces/kubernetes-dashboard/services/https:kubernetes-dashboard:/proxy/#/login#"
 # kops delete cluster --name ${NAME} --yes
-# while true; do curl -X 'GET' 'http://deejai.teticio.co.uk/api/v1/search?string=a&max_items=100' -H 'accept: application/json'; done
-# while true; do curl -X 'GET' 'http://deejai.teticio.co.uk/api/v1/search_similar?url=https%3A%2F%2Fp.scdn.co%2Fmp3-preview%2Fb8879c1f8a68d43439c969069590013ec8447abb%3Fcid%3D1a7897e3c69d4684aa4d8e90d5911594&max_items=10'; done
+# while true; do curl -X 'GET' `http://${NAME}/api/v1/search?string=a&max_items=100` -H 'accept: application/json'; done
+# while true; do curl -X 'GET' `http://${NAME}/api/v1/search_similar?url=https%3A%2F%2Fp.scdn.co%2Fmp3-preview%2Fb8879c1f8a68d43439c969069590013ec8447abb%3Fcid%3D1a7897e3c69d4684aa4d8e90d5911594&max_items=10`; done

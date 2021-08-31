@@ -41,4 +41,8 @@ You will need to have already created your `credentials.py`, as explained above.
 ```
 .\install_helm.sh
 ```
-The scripts assume you are running a `minikube`. I have included an example of how to deploy to a cluster on AWS using Kops in `deploy_kops.sh`.
+The scripts assume you are running a `minikube`. To install on an AWS cluster with Kops
+```
+.\deploy_kops.sh <Your external webpage domain>
+```
+provided your domain is managed by Route 53 and you have configured the [DNS, S3 and IAM settings](https://aws.amazon.com/blogs/compute/kubernetes-clusters-aws-kops/) appropriately to run Kops.
