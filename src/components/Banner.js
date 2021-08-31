@@ -17,7 +17,7 @@ export default function Banner({ loggedIn = false, onSelect = f => f }) {
         fixed="top"
         bg="dark"
         variant="dark"
-        expand="no"
+        expand="lg"
         expanded={expanded}
       >
         <Container>
