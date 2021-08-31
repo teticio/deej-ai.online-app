@@ -28,9 +28,19 @@ spec:
       securityContext:
         {{- toYaml .Values.podSecurityContext | nindent 8 }}
       initContainers:
-        - name: init-deejai
+        - name: init-{{ .Chart.Name }}
+          securityContext:
+            {{- toYaml .Values.securityContext | nindent 12 }}
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
+          env:
+            - name: MYSQL_ROOT_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: mysql
+                  key: mysql-root-password
+            - name: SQLALCHEMY_DATABASE_URL
+              value: mysql+pymysql://root:$(MYSQL_ROOT_PASSWORD)@mysql:3306/deejai
           command:
             - /bin/bash
             - -ec
@@ -41,6 +51,14 @@ spec:
             {{- toYaml .Values.securityContext | nindent 12 }}
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
+          env:
+            - name: MYSQL_ROOT_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: mysql
+                  key: mysql-root-password
+            - name: SQLALCHEMY_DATABASE_URL
+              value: mysql+pymysql://root:$(MYSQL_ROOT_PASSWORD)@mysql:3306/deejai
           ports:
             - name: http
               containerPort: 8000

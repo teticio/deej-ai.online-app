@@ -2,7 +2,6 @@ FROM python:3.8
 ARG APP_URL
 ENV APP_URL $APP_URL
 ENV CUDA_VISIBLE_DEVICES ""
-ENV SQLALCHEMY_DATABASE_URL mysql+pymysql://root:password@mysql:3306/deejai
 COPY . /deej-ai.online-app
 WORKDIR "/deej-ai.online-app"
 RUN sed -i "s|\(http\)[^/]*/[^/]*/[^/]*/|${APP_URL}/|g" .env.production && \

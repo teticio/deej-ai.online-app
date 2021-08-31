@@ -5,4 +5,5 @@ helm upgrade \
   --install deejai helm-chart/deejai \
   --create-namespace \
   --namespace deejai \
-  --values helm-chart/deejai/values.yaml
+  --values helm-chart/deejai/values.yaml \
+  --set mysqlRootPassword=password
