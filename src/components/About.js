@@ -24,15 +24,15 @@ export default function About() {
       <VerticalSpacer px={15} />
       <h5>
         If you have a Spotify <FaSpotify /> account and you log in, you will see the current track if one
-        is playing. By clicking on this, Deej-A.I. will search for similar sounding tracks in its database.
-        You will also be able to save <FaSave /> playlists to your account.
+        is playing when creating a playlist. By clicking on this, Deej-A.I. will search for similar sounding
+        tracks in its database. You will also be able to save <FaSave /> playlists to your account.
       </h5>
       <VerticalSpacer px={15} />
       <h5>
         In the settings screen <FaCog />, you can control the number of tracks that are added to the
-        playlists as well as a couple of aspects of how they are generated. If creativity is set to 100%,
+        playlists as well as a couple of aspects of how they are generated. If <i>creativity</i> is set to 100%,
         then tracks are chosen with similar sound, energy, mood and instrumentation. It does this by
-        simply "listening" and not using any information about the tracks themselves. If <i>creativity</i>
+        simply "listening" and not using any information about the tracks themselves. If creativity
         is set to 0%, then tracks are selected based on similar artists ("Spotify users also included in
         their playlists..."). You can use the <i>noise</i> setting to add a bit of randomness.
       </h5>
