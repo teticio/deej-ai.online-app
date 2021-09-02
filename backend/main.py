@@ -22,6 +22,9 @@ from fastapi import Depends, FastAPI, HTTPException
 from fastapi.exception_handlers import http_exception_handler
 from starlette.exceptions import HTTPException as StarletteHTTPException
 
+credentials.redirect_uri = os.environ.get('SPOTIFY_REDIRECT_URI',
+                                          credentials.redirect_uri)
+
 # create tables if necessary
 models.Base.metadata.create_all(bind=engine)
 

@@ -6,4 +6,5 @@ helm upgrade \
   --create-namespace \
   --namespace deejai \
   --values helm-chart/deejai/values.yaml \
+  --set app.url=http://localhost:8080 \
   --set mysqlRootPassword=password

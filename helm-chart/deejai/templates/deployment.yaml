@@ -59,6 +59,12 @@ spec:
                   key: mysql-root-password
             - name: SQLALCHEMY_DATABASE_URL
               value: mysql+pymysql://root:$(MYSQL_ROOT_PASSWORD)@mysql:3306/deejai
+            - name: APP_URL
+              value: {{ .Values.app.url }}
+            - name: REACT_APP_API_URL
+              value: $(APP_URL)/api/v1
+            - name: SPOTIFY_REDIRECT_URI
+              value: $(REACT_APP_API_URL)/callback
           ports:
             - name: http
               containerPort: 8000

@@ -7,6 +7,7 @@
 // fix warning about combining h2 and a in Banner
 //
 // backend:
+// handle exceptions in db (e.g., no playlists)
 // set seed in noise
 // bug in join the dots?
 

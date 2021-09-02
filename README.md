@@ -35,7 +35,7 @@ and
 
 To build the Docker image, run
 ```
-.\build_docker.sh <Your external webpage URL>
+.\build_docker.sh
 ```
 You will need to have already created your `credentials.py`, as explained above. To install the Helm chart type
 ```

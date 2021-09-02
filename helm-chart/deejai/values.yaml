@@ -4,13 +4,17 @@
 
 replicaCount: 1
 
+app:
+  domain: &domain teticio.co.uk
+  url: &url https://teticio.co.uk
+
 image:
   repository: teticio/deejai
   pullPolicy: IfNotPresent
   # Overrides the image tag whose default is the chart appVersion.
   tag: ""
   ports:
-  - containerPort: http
+    - containerPort: http
 
 imagePullSecrets: []
 nameOverride: ""
@@ -27,10 +31,12 @@ serviceAccount:
 
 podAnnotations: {}
 
-podSecurityContext: {}
+podSecurityContext:
+  {}
   # fsGroup: 2000
 
-securityContext: {}
+securityContext:
+  {}
   # capabilities:
   #   drop:
   #   - ALL
@@ -44,20 +50,21 @@ service:
 
 ingress:
   enabled: false
-  annotations: {}
-    # kubernetes.io/ingress.class: nginx
-    # kubernetes.io/tls-acme: "true"
+  annotations:
+    kubernetes.io/ingress.class: nginx
+    cert-manager.io/cluster-issuer: letsencrypt
+    kubernetes.io/tls-acme: "true"
   hosts:
-    - host: chart-example.local
+    - host: *domain
       paths:
-      - path: /
-        backend:
-          serviceName: chart-example.local
-          servicePort: 80
-  tls: []
-  #  - secretName: chart-example-tls
-  #    hosts:
-  #      - chart-example.local
+        - path: /
+          backend:
+            serviceName: deejai
+            servicePort: 80
+  tls:
+    - secretName: deejai-tls
+      hosts:
+        - *domain
 
 resources:
   # We usually recommend not to specify default resources and to leave this as a conscious
@@ -91,7 +98,7 @@ deployment:
     port: http
     initialDelaySeconds: 0
     periodSeconds: 5
-    failureThreshold: 1000  # we rely on the liveness probe to resolve issues if needed
+    failureThreshold: 1000 # we rely on the liveness probe to resolve issues if needed
     timeoutSeconds: 3
   livenessProbe:
     enabled: true
@@ -101,3 +108,9 @@ deployment:
     periodSeconds: 5
     failureThreshold: 3
     timeoutSeconds: 10
+
+letsencrypt:
+  enabled: false
+  email: hi@there.com
+  dnsNames: 
+    - *domain

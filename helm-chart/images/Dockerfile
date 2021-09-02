@@ -1,11 +1,10 @@
 FROM python:3.8
-ARG APP_URL
-ENV APP_URL $APP_URL
+# ARG APP_URL
+# ENV SPOTIFY_REDIRECT_URI $APP_URL/api/v1/callback
+# ENV REACT_APP_API_URL $APP_URL/api/v1
 ENV CUDA_VISIBLE_DEVICES ""
 COPY . /deej-ai.online-app
 WORKDIR "/deej-ai.online-app"
-RUN sed -i "s|\(http\)[^/]*/[^/]*/[^/]*/|${APP_URL}/|g" .env.production && \
-    sed -i "s|\(http\)[^/]*/[^/]*/[^/]*/|${APP_URL}/|g" backend/credentials.py
 RUN apt update && \
     apt install ffmpeg libsndfile-dev nodejs npm -y
 RUN npm install --global yarn && \
@@ -13,5 +12,5 @@ RUN npm install --global yarn && \
     yarn install && \
     yarn build && \
     pip install -r requirements-lock.txt
-CMD ["uvicorn", "backend.main:app", "--reload", "--host=0.0.0.0"]
+CMD yarn build && uvicorn backend.main:app --host=0.0.0.0
 EXPOSE 8000
