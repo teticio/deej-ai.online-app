@@ -23,7 +23,7 @@ class SpotifyTrackWidget extends PureComponent {
     const iframe = (resource) ? resource.read() : null;
 
     return (
-      <VisibilitySensor offset={{bottom:-80}}>
+      <VisibilitySensor offset={{top: -5 * 80, bottom: -5 * 80}}>
         {({ isVisible }) =>
           <iframe
             className={highlight ? "highlight" : ""}
