@@ -1,6 +1,7 @@
 import { PureComponent } from 'react';
 import { Suspense } from 'react';
 import Spinner from 'react-bootstrap/Spinner';
+import VisibilitySensor from 'react-visibility-sensor';
 import './Track.css';
 
 function createResource(pending) {
@@ -22,17 +23,21 @@ class SpotifyTrackWidget extends PureComponent {
     const iframe = (resource) ? resource.read() : null;
 
     return (
-      <iframe
-        className={highlight ? "highlight" : ""}
-        title={track_id}
-        //src={`https://open.spotify.com/embed/track/${track_id}`}
-        srcdoc={Buffer.from(iframe.data, 'base64')}
-        width="100%"
-        height="80"
-        frameBorder="0"
-        allowtransparency="true"
-        allow="encrypted-media"
-      />
+      <VisibilitySensor offset={{bottom:-80}}>
+        {({ isVisible }) =>
+          <iframe
+            className={highlight ? "highlight" : ""}
+            title={track_id}
+            //src={`https://open.spotify.com/embed/track/${track_id}`}
+            srcdoc={isVisible? Buffer.from(iframe.data, 'base64'): ""}
+            width="100%"
+            height="80"
+            frameBorder="0"
+            allowtransparency="true"
+            allow="encrypted-media"
+          />
+        }
+      </VisibilitySensor>
     );
   }
 }
