@@ -22,7 +22,7 @@ export default function Banner({ loggedIn = false, onSelect = f => f }) {
       >
         <Container>
           <Navbar.Brand href="#">
-            <div className="row align-items-center">
+            <div className="d-flex flex-row align-items-center">
               <Col sm="auto">
                 <span onClick={() => {
                   const accessToken = localStorage.accessToken;
@@ -33,15 +33,14 @@ export default function Banner({ loggedIn = false, onSelect = f => f }) {
                   setExpanded(false);
                   onSelect('/');
                 }} >
-                  <h2>Deej-A.I.</h2>
+                  <h2>Deej-A.I.&nbsp;&nbsp;</h2>
                 </span>
               </Col>
               <Col sm="auto">
-                <h6>by <a
-                  href="https://www.linkedin.com/in/attentioncoach/"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >Robert Smith</a></h6>
+                <h6>by <span
+                  className="link"
+                  onClick={() => window.open("https://www.linkedin.com/in/attentioncoach/")}
+                >Robert Smith</span></h6>
               </Col>
             </div>
           </Navbar.Brand>

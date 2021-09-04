@@ -94,8 +94,11 @@ export default function TrackSelector({ spotify = null, onSelect = f => f, onSea
       <select onChange={event => onSelect(event.target.value)}>\
         size="1"
         {searchResults.map(({ track_id, track }, i) => (
-          <option key={i} value={track_id}>
-            {track}
+          <option
+            data-testid="track"
+            key={i}
+            value={track_id}
+          >{track}
           </option>
         ))}
       </select>

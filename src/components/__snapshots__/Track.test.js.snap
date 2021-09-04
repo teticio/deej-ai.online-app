@@ -1,0 +1,164 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Test track widget 1`] = `
+"<!DOCTYPE html>
+<html dir=\\"ltr\\">
+<head>
+    <meta charset=\\"UTF-8\\">
+    <link rel=\\"icon\\" sizes=\\"32x32\\" type=\\"image/png\\" href=\\"https://open.scdn.co/cdn/images/favicon32.8e66b099.png\\" />
+    <link rel=\\"icon\\" sizes=\\"16x16\\" type=\\"image/png\\" href=\\"https://open.scdn.co/cdn/images/favicon16.c498a969.png\\" />
+    <title>Spotify</title>
+    <meta name=\\"viewport\\" content=\\"width=device-width, initial-scale=1.0, user-scalable=1.0, minimum-scale=1.0, maximum-scale=1.0\\">
+            <link rel=\\"canonical\\" href=\\"https://open.spotify.com/track/3KZMPnlyKTDV4W7oNs7Vbk\\" />
+        <style type=\\"text/css\\">
+        @font-face {
+            font-family: 'spotify-circular';
+            src: url(\\"https://open.scdn.co/cdn/fonts/CircularSpUIv3T-Light.afd9ab26.woff2\\") format('woff2'),
+                url(\\"https://open.scdn.co/cdn/fonts/CircularSpUIv3T-Light.2a78c017.woff\\") format('woff'),
+                url(\\"https://open.scdn.co/cdn/fonts/CircularSpUIv3T-Light.89e4be2e.ttf\\") format('truetype');
+            font-weight: 200;
+            font-style: normal;
+        }
+        @font-face {
+            font-family: 'spotify-circular';
+            src: url(\\"https://open.scdn.co/cdn/fonts/CircularSpUIv3T-Book.3466e0ec.woff2\\") format('woff2'),
+                url(\\"https://open.scdn.co/cdn/fonts/CircularSpUIv3T-Book.ea8d19db.woff\\") format('woff'),
+                url(\\"https://open.scdn.co/cdn/fonts/CircularSpUIv3T-Book.a357677a.ttf\\") format('truetype');
+            font-weight: 400;
+            font-style: normal;
+        }
+        @font-face {
+            font-family: 'spotify-circular';
+            src: url(\\"https://open.scdn.co/cdn/fonts/CircularSpUIv3T-Bold.8d0a45cc.woff2\\") format('woff2'),
+                url(\\"https://open.scdn.co/cdn/fonts/CircularSpUIv3T-Bold.10e93738.woff\\") format('woff'),
+                url(\\"https://open.scdn.co/cdn/fonts/CircularSpUIv3T-Bold.7eb7d0f7.ttf\\") format('truetype');
+            font-weight: 600;
+            font-style: normal;
+        }
+        @font-face {
+            font-family: 'spotify-circular-arabic';
+            src: url(\\"https://open.scdn.co/cdn/fonts/CircularSpUIAraOnly-Light.dde45e52.woff2\\") format('woff2'),
+                url(\\"https://open.scdn.co/cdn/fonts/CircularSpUIAraOnly-Light.5c7ed8d8.woff\\") format('woff'),
+                url(\\"https://open.scdn.co/cdn/fonts/CircularSpUIAraOnly-Light.f0833f3b.otf\\") format('opentype');
+            font-weight: 200;
+            font-style: normal;
+            font-display: swap;
+        }
+        @font-face {
+            font-family: 'spotify-circular-arabic';
+            src: url(\\"https://open.scdn.co/cdn/fonts/CircularSpUIAraOnly-Book.aaab109b.woff2\\") format('woff2'),
+                url(\\"https://open.scdn.co/cdn/fonts/CircularSpUIAraOnly-Book.3ad862e2.woff\\") format('woff'),
+                url(\\"https://open.scdn.co/cdn/fonts/CircularSpUIAraOnly-Book.f0effcd1.otf\\") format('opentype');
+            font-weight: 400;
+            font-style: normal;
+            font-display: swap;
+        }
+        @font-face {
+            font-family: 'spotify-circular-arabic';
+            src: url(\\"https://open.scdn.co/cdn/fonts/CircularSpUIAraOnly-Bold.317e96e5.woff2\\") format('woff2'),
+                url(\\"https://open.scdn.co/cdn/fonts/CircularSpUIAraOnly-Bold.9ddc7126.woff\\") format('woff'),
+                url(\\"https://open.scdn.co/cdn/fonts/CircularSpUIAraOnly-Bold.f97cb921.otf\\") format('opentype');
+            font-weight: 600;
+            font-style: normal;
+            font-display: swap;
+        }
+        @font-face {
+            font-family: 'spotify-circular-hebrew';
+            src: url(\\"https://open.scdn.co/cdn/fonts/CircularSpUIHbrOnly-Light.4884da16.woff2\\") format('woff2'),
+                url(\\"https://open.scdn.co/cdn/fonts/CircularSpUIHbrOnly-Light.2128eeac.woff\\") format('woff'),
+                url(\\"https://open.scdn.co/cdn/fonts/CircularSpUIHbrOnly-Light.2e1df62a.otf\\") format('opentype');
+            font-weight: 200;
+            font-style: normal;
+            font-display: swap;
+        }
+        @font-face {
+            font-family: 'spotify-circular-hebrew';
+            src: url(\\"https://open.scdn.co/cdn/fonts/CircularSpUIHbrOnly-Book.cb36b6ec.woff2\\") format('woff2'),
+                url(\\"https://open.scdn.co/cdn/fonts/CircularSpUIHbrOnly-Book.ad2b13cd.woff\\") format('woff'),
+                url(\\"https://open.scdn.co/cdn/fonts/CircularSpUIHbrOnly-Book.fae4aece.otf\\") format('opentype');
+            font-weight: 400;
+            font-style: normal;
+            font-display: swap;
+        }
+        @font-face {
+            font-family: 'spotify-circular-hebrew';
+            src: url(\\"https://open.scdn.co/cdn/fonts/CircularSpUIHbrOnly-Bold.ef043f44.woff2\\") format('woff2'),
+                url(\\"https://open.scdn.co/cdn/fonts/CircularSpUIHbrOnly-Bold.9f406804.woff\\") format('woff'),
+                url(\\"https://open.scdn.co/cdn/fonts/CircularSpUIHbrOnly-Bold.57b36278.otf\\") format('opentype');
+            font-weight: 600;
+            font-style: normal;
+            font-display: swap;
+        }
+        @font-face {
+            font-family: 'spotify-circular-cyrillic';
+            src: url(\\"https://open.scdn.co/cdn/fonts/CircularSpUICyrOnly-Light.55fa9f4a.woff2\\") format('woff2'),
+                url(\\"https://open.scdn.co/cdn/fonts/CircularSpUICyrOnly-Light.034997d0.woff\\") format('woff'),
+                url(\\"https://open.scdn.co/cdn/fonts/CircularSpUICyrOnly-Light.b10eb959.otf\\") format('opentype');
+            font-weight: 200;
+            font-style: normal;
+            font-display: swap;
+        }
+        @font-face {
+            font-family: 'spotify-circular-cyrillic';
+            src: url(\\"https://open.scdn.co/cdn/fonts/CircularSpUICyrOnly-Book.6a858994.woff2\\") format('woff2'),
+                url(\\"https://open.scdn.co/cdn/fonts/CircularSpUICyrOnly-Book.918c53b8.woff\\") format('woff'),
+                url(\\"https://open.scdn.co/cdn/fonts/CircularSpUICyrOnly-Book.15af6ebe.otf\\") format('opentype');
+            font-weight: 400;
+            font-style: normal;
+            font-display: swap;
+        }
+        @font-face {
+            font-family: 'spotify-circular-cyrillic';
+            src: url(\\"https://open.scdn.co/cdn/fonts/CircularSpUICyrOnly-Bold.30dc9fb2.woff2\\") format('woff2'),
+                url(\\"https://open.scdn.co/cdn/fonts/CircularSpUICyrOnly-Bold.909126fc.woff\\") format('woff'),
+                url(\\"https://open.scdn.co/cdn/fonts/CircularSpUICyrOnly-Bold.67641b90.otf\\") format('opentype');
+            font-weight: 600;
+            font-style: normal;
+            font-display: swap;
+        }
+        body {
+            /* IE scrollbar styles */
+            scrollbar-base-color: #181818;
+            scrollbar-face-color: #404040;
+            scrollbar-3dlight-color: #181818;
+            scrollbar-highlight-color: #404040;
+            scrollbar-track-color: #181818;
+            scrollbar-arrow-color: #404040;
+            scrollbar-shadow-color: #181818;
+            scrollbar-darkshadow-color: #181818;
+        }
+        /* Google Chrome (Windows) scrollbar styles */
+        ::-webkit-scrollbar {
+            width: 20px;
+            background: transparent;
+        }
+        ::-webkit-scrollbar-button {
+            display: none;
+        }
+        ::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        ::-webkit-scrollbar-thumb {
+            border-radius: 100px;
+            background: #aaaaaacc;
+            background-clip: content-box;
+            border: solid 8px transparent;
+        }
+    </style>
+	
+
+
+
+
+
+</head>
+<body>
+    
+    
+
+    
+    
+</body>
+</html>
+"
+`;

@@ -1,13 +1,10 @@
 // TODO
 //
 // frontend:
-// unit tests
 // ico file
-// fix warnings for unique key
-// fix warning about combining h2 and a in Banner
+// fix warnings in test
 //
 // backend:
-// handle exceptions in db (e.g., no playlists)
 // set seed in noise
 // bug in join the dots?
 

@@ -58,6 +58,7 @@ origins = [
     "http://localhost:8000",
     "http://localhost:3000",
     "http://127.0.0.1:8080",
+    "http://localhost",
 ]
 
 app.add_middleware(
@@ -262,15 +263,21 @@ def update_playlist_id(playlist: schemas.PlaylistId,
 
 @app.get("/api/v1/latest_playlists")
 def get_latest_playlists(top_n: int, db: Session = Depends(get_db)):
-    db_items = db.query(models.Playlist).order_by(desc(
-        models.Playlist.created)).limit(top_n).all()
+    try:
+      db_items = db.query(models.Playlist).order_by(desc(
+          models.Playlist.created)).limit(top_n).all()
+    except:
+      return []
     return db_items
 
 
 @app.get("/api/v1/top_playlists")
 def get_top_playlists(top_n: int, db: Session = Depends(get_db)):
-    db_items = db.query(models.Playlist).order_by(
-        desc(models.Playlist.av_rating)).limit(top_n).all()
+    try:
+      db_items = db.query(models.Playlist).order_by(
+          desc(models.Playlist.av_rating)).limit(top_n).all()
+    except:
+      return []
     return db_items
 
 

@@ -71,7 +71,7 @@ export default class Spotify extends SpotifyWebApi {
     } else {
       playlist = await this.createPlaylist(user.id, {
         name: name,
-        description: 'Created by Deej-A.I. http://deej-ai.online'
+        description: 'Created by Deej-A.I. https://deej-ai.online'
       });
     }
     await this.replaceTracksInPlaylist(

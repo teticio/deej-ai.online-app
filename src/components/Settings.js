@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { FaBackward } from "react-icons/fa";
 import { HorizontalSpacer } from "../lib";
 import Card from 'react-bootstrap/Card';
@@ -11,13 +11,16 @@ export default function Settings({ size, creativity, noise, onChange = f => f, o
   const setValidSize = (size) => setSize(Math.max(Math.min(size, 100), 1))
   const update = () => onChange(_size, _creativity, _noise);
 
+  useEffect(() => () => update());
+
   return (
     <>
       <Card>
         <Card.Body>
-          <Form.Label>Size</Form.Label>
+          <Form.Label htmlFor="size">Size</Form.Label>
           <h6 className="text-muted">Controls the number of tracks in the playlist, or the number to be generated between waypoints.</h6>
           <Form.Control
+            id="size"
             className="text-light"
             type="number"
             min="1"
@@ -37,13 +40,14 @@ export default function Settings({ size, creativity, noise, onChange = f => f, o
             }}
           />
           <hr />
-          <Form.Label>Creativity</Form.Label>
+          <Form.Label htmlFor="creativity">Creativity</Form.Label>
           <h6 className="text-muted">A value of 0% will select tracks based on how likely they are to appear together in a Spotify user's
             playlist. A value of 100% will select tracks based purely on how they sound.</h6>
           <div className="d-flex flex-row align-items-center" >
             <h6><small>{Math.round(_creativity * 100)}%</small></h6>
             <HorizontalSpacer />
             <Form.Range
+              id="creativity"
               type="number"
               min="0"
               max="1"
@@ -56,12 +60,13 @@ export default function Settings({ size, creativity, noise, onChange = f => f, o
             />
           </div>
           <hr />
-          <Form.Label>Noise</Form.Label>
+          <Form.Label htmlFor="noise">Noise</Form.Label>
           <h6 className="text-muted">Controls the amount of randomness to apply.</h6>
           <div className="d-flex flex-row align-items-center" >
             <h6><small>{Math.round(_noise * 100)}%</small></h6>
             <HorizontalSpacer />
             <Form.Range
+              id="noise"
               type="number"
               min="0"
               max="1"
@@ -76,6 +81,7 @@ export default function Settings({ size, creativity, noise, onChange = f => f, o
           <hr />
           <div className="d-flex align-items-center justify-content-between">
             <FaBackward
+              data-testid="close"
               size="25"
               className="link"
               onClick={() => {

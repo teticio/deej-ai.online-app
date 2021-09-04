@@ -6,7 +6,7 @@ import { VerticalSpacer } from "../lib";
 export default function About() {
   return (
     <>
-      <h5>
+      <h5 data-testid="blurb">
         <b>Deej-A.I.</b> uses artificial intelligence to automatically generate playlists of tracks that go well
         together. It was trained using hundreds of thousands of Spotify tracks and user playlists.
       </h5>
@@ -65,7 +65,7 @@ export default function About() {
           </div>
         </Col>
         <Col>
-          <div class="text-center">
+          <div className="text-center">
             <a
               href="https://apps.apple.com/us/app/deej-a-i/id1529860910?mt=8"
               target="_blank"

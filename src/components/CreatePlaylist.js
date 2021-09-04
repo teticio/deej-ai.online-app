@@ -15,7 +15,8 @@ export default function CreatePlaylist({
   noise = 0,
   onCreate = f => f,
   onSettings = f => f,
-  spotify = null
+  spotify = null,
+  savePlaylist = true
 }) {
   const [_waypoints, setWaypoints] = useState(waypoints);
   const [spinner, setSpinner] = useState(false);
@@ -43,14 +44,17 @@ export default function CreatePlaylist({
             <Spinner animation="border" size="md" /> :
             <div className="d-flex align-items-center justify-content-between">
               <FaForward
+                data-testid="create-playlist"
                 size="25"
                 className="link"
                 onClick={() => {
                   setSpinner(true);
                   generatePlaylist(_waypoints, size, creativity, noise)
                     .then(playlist => {
-                      SavePlaylist(playlist, creativity, noise)
-                        .then(id => playlist.id = id);
+                      if (savePlaylist) {
+                        SavePlaylist(playlist, creativity, noise)
+                          .then(id => playlist.id = id);
+                      }
                       return playlist;
                     })
                     .then(playlist => onCreate(playlist, _waypoints))
@@ -58,6 +62,7 @@ export default function CreatePlaylist({
                 }}
               />
               <FaCog
+                data-testid="settings"
                 size="25"
                 className="link"
                 onClick={() => onSettings(_waypoints)}

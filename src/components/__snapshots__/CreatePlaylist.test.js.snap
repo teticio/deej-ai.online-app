@@ -1,0 +1,59 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Test playlist creation 1`] = `
+[MockFunction] {
+  "calls": Array [
+    Array [
+      Object {
+        "av_rating": 0,
+        "name": "Deej-A.I.",
+        "num_ratings": 0,
+        "track_ids": Array [
+          "1O0xeZrBDbq7HPREdmYUYK",
+          "6Y0ed41KYLRnJJyYGGaDgY",
+          "5yrsBzgHkfu2idkl2ILQis",
+          "4oW1lGOw5Q5OLvoJv92qoE",
+          "1DKyFVzIh1oa1fFnEmTkIl",
+          "6yXcmVKGjFofPWvW9ustQX",
+          "5qRJD1yaLJ5s0J3JpbgnwA",
+          "6b8hjwuGl1H9o5ZbrHJcpJ",
+          "4lrQv8z3qq1Rl8bsc0Qy0y",
+          "6kotXaSQaGYxE62hVpdHWu",
+          "3PPDUkGHUJx2bxct6A3PBy",
+          "1b7LMtXCXGc2EwOIplI35z",
+        ],
+        "tracks": Array [
+          "Jim Croce - Bad, Bad Leroy Brown",
+          "The Animals - We've Gotta Get Out of This Place",
+          "Jim Croce - You Don't Mess Around with Jim",
+          "Billy Swan - I Can Help",
+          "Them - Gloria - Stereo Version",
+          "Redbone - The Witch Queen of New Orleans",
+          "Electric Light Orchestra - Evil Woman",
+          "Yusuf / Cat Stevens - Hard Headed Woman",
+          "Electric Light Orchestra - Mr. Blue Sky",
+          "Warren Zevon - Werewolves Of London - 2007 Remastered Version",
+          "Norman Greenbaum - Spirit In The Sky",
+          "Stealers Wheel - Stuck In The Middle With You",
+        ],
+        "waypoints": Array [
+          "1O0xeZrBDbq7HPREdmYUYK",
+          "1b7LMtXCXGc2EwOIplI35z",
+        ],
+      },
+      Object {
+        "track_ids": Array [
+          "1O0xeZrBDbq7HPREdmYUYK",
+          "1b7LMtXCXGc2EwOIplI35z",
+        ],
+      },
+    ],
+  ],
+  "results": Array [
+    Object {
+      "type": "return",
+      "value": undefined,
+    },
+  ],
+}
+`;

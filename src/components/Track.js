@@ -19,17 +19,17 @@ function createResource(pending) {
 // avoid unncessary re-renders
 class SpotifyTrackWidget extends PureComponent {
   render() {
-    const { track_id, highlight, resource } = this.props;
+    const { track_id, highlight, resource, testing } = this.props;
     const iframe = (resource) ? resource.read() : null;
 
     return (
-      <VisibilitySensor offset={{top: -5 * 80, bottom: -5 * 80}}>
+      <VisibilitySensor offset={{ top: -5 * 80, bottom: -5 * 80 }}>
         {({ isVisible }) =>
           <iframe
             className={highlight ? "highlight" : ""}
             title={track_id}
-            //src={`https://open.spotify.com/embed/track/${track_id}`}
-            srcdoc={isVisible? Buffer.from(iframe.data, 'base64'): ""}
+            // src={`https://open.spotify.com/embed/track/${track_id}`}
+            srcdoc={(isVisible || testing) ? Buffer.from(iframe.data, 'base64') : ""}
             width="100%"
             height="80"
             frameBorder="0"
@@ -42,7 +42,11 @@ class SpotifyTrackWidget extends PureComponent {
   }
 }
 
-export default function Track({ track_id, highlight = false }) {
+export default function Track({
+  track_id,
+  highlight = false,
+  testing = false
+}) {
   if (typeof Track.cache == 'undefined') {
     Track.cache = {};
   }
@@ -69,6 +73,7 @@ export default function Track({ track_id, highlight = false }) {
         track_id={track_id}
         highlight={highlight}
         resource={resource}
+        testing={testing}
       />
     </Suspense>
   );
