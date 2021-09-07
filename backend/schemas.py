@@ -8,7 +8,6 @@ class NewPlaylist(BaseModel):
     size: Optional[int] = 10
     creativity: Optional[float] = 0.5
     noise: Optional[float] = 0
-    seed: Optional[int] = None
 
 
 class PlaylistName(BaseModel):

@@ -1,13 +1,3 @@
-// TODO
-//
-// frontend:
-// ico file
-// fix warnings in test
-//
-// backend:
-// set seed in noise
-// bug in join the dots?
-
 import { useState, useEffect } from 'react';
 import { Routes, Route, useNavigate } from "react-router-dom";
 import Container from 'react-bootstrap/Container';

@@ -130,8 +130,8 @@ class DeejAI:
             for i in range(n):
                 candidates = await self.most_similar_by_vec(
                     self.mp3tovecs,
-                    weights, [[(n - i + 1) / n * start_vec[k] +
-                               (i + 1) / n * end_vec[k]]
+                    weights, [[(n - i) / (n + 1) * start_vec[k] +
+                               (i + 1) / (n + 1) * end_vec[k]]
                               for k in range(len(weights))],
                     noise=noise)
                 for candidate in candidates:
