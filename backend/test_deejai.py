@@ -19,10 +19,10 @@ def test_playlist_1():
         track_ids=["1O0xeZrBDbq7HPREdmYUYK", "1b7LMtXCXGc2EwOIplI35z"])
     assert asyncio.run(playlist(new_playlist))['track_ids'] == [
         "1O0xeZrBDbq7HPREdmYUYK", "6Y0ed41KYLRnJJyYGGaDgY",
-        "5yrsBzgHkfu2idkl2ILQis", "4oW1lGOw5Q5OLvoJv92qoE",
-        "1DKyFVzIh1oa1fFnEmTkIl", "6yXcmVKGjFofPWvW9ustQX",
-        "5qRJD1yaLJ5s0J3JpbgnwA", "6b8hjwuGl1H9o5ZbrHJcpJ",
-        "4lrQv8z3qq1Rl8bsc0Qy0y", "6kotXaSQaGYxE62hVpdHWu",
+        "5yrsBzgHkfu2idkl2ILQis", "6yXcmVKGjFofPWvW9ustQX",
+        "1DKyFVzIh1oa1fFnEmTkIl", "6b8hjwuGl1H9o5ZbrHJcpJ",
+        "5qRJD1yaLJ5s0J3JpbgnwA", "6kotXaSQaGYxE62hVpdHWu",
+        "4lrQv8z3qq1Rl8bsc0Qy0y", "2nmaEzFZrSm2aMLtfJDzyG",
         "3PPDUkGHUJx2bxct6A3PBy", "1b7LMtXCXGc2EwOIplI35z"
     ]
 

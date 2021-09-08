@@ -25,3 +25,7 @@ class Playlist(Base):
                 target.av_rating, target.num_ratings, target.track_ids,
                 target.waypoints)
         return sha256(pickle.dumps(blob)).hexdigest()
+
+    def __repr__(self):
+        return "<Playlist(id='%d', name='%s', hash='%s')>" % (
+            self.id, self.name, self.hash)
