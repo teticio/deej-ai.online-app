@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Test track search 1`] = `
+exports[`track search 1`] = `
 Array [
   <option
     data-testid="track"

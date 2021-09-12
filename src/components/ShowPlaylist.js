@@ -1,13 +1,13 @@
-import { useState } from "react";
-import { FaBackward, FaSave, FaPen } from "react-icons/fa";
+import { useState } from 'react';
+import { FaBackward, FaSave, FaPen } from 'react-icons/fa';
 import Card from 'react-bootstrap/Card';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Spinner from 'react-bootstrap/Spinner';
 import Playlist from './Playlist';
-import { updatePlaylistName, updatePlaylistRating, updatePlaylistId } from "./SavePlaylist";
-import StarRating, { RateStars } from "./StarRating";
-import { HorizontalSpacer } from "../lib";
+import { updatePlaylistName, updatePlaylistRating, updatePlaylistId } from './SavePlaylist';
+import StarRating, { RateStars } from './StarRating';
+import { HorizontalSpacer } from '../lib';
 
 export default function ShowPlaylist({ playlist, onClose = f => f, spotify = null, userPlaylist = false }) {
   const [editing, setEditing] = useState(false);
@@ -25,13 +25,13 @@ export default function ShowPlaylist({ playlist, onClose = f => f, spotify = nul
           <Card.Title>
             <Row>
               <Col>
-                <div className="d-flex align-items-center">
+                <div className='d-flex align-items-center'>
                   {(spotify && spotify.loggedIn()) ?
                     <>
                       {spinner ?
-                        <Spinner animation="border" size="md" /> :
-                        <FaSave size="25"
-                          className="link"
+                        <Spinner animation='border' size='md' /> :
+                        <FaSave size='25'
+                          className='link'
                           onClick={() => {
                             setSpinner(true);
                             spotify.autoRefresh(() => spotify.createNewPlayist(playlistName, playlist.track_ids))
@@ -54,8 +54,8 @@ export default function ShowPlaylist({ playlist, onClose = f => f, spotify = nul
                   {playlistUrl ?
                     <a
                       href={playlistUrl}
-                      target="_blank"
-                      rel="noopener noreferrer"
+                      target='_blank'
+                      rel='noopener noreferrer'
                     >{playlistName}</a> :
                     <span onClick={() => { if (userPlaylist) setEditing(true); }}>
                       {editing ?
@@ -75,12 +75,12 @@ export default function ShowPlaylist({ playlist, onClose = f => f, spotify = nul
                             }
                           }}
                         /> :
-                        <div className="d-flex">
+                        <div className='d-flex'>
                           {playlistName}
                           {userPlaylist ?
                             <>
                               <HorizontalSpacer px={10} />
-                              <FaPen size="15" className="link" />
+                              <FaPen size='15' className='link' />
                             </> :
                             <></>
                           }
@@ -91,7 +91,7 @@ export default function ShowPlaylist({ playlist, onClose = f => f, spotify = nul
                 </div>
               </Col>
               <Col>
-                <div className="d-flex justify-content-end">
+                <div className='d-flex justify-content-end'>
                   {rateIt ?
                     <span><RateStars totalStars={5} onSelect={(rating) => {
                       updatePlaylistRating(
@@ -113,12 +113,12 @@ export default function ShowPlaylist({ playlist, onClose = f => f, spotify = nul
             {playlistUrl ?
               <iframe
                 title={playlistId}
-                src={"https://open.spotify.com/embed/playlist/" + playlistId}
-                width="100%"
+                src={'https://open.spotify.com/embed/playlist/' + playlistId}
+                width='100%'
                 height={80 + 50 * playlist.track_ids.length}
-                frameBorder="0"
-                allowtransparency="true"
-                allow="encrypted-media"
+                frameBorder='0'
+                allowtransparency='true'
+                allow='encrypted-media'
               /> :
             */
           }
@@ -131,10 +131,10 @@ export default function ShowPlaylist({ playlist, onClose = f => f, spotify = nul
           {userPlaylist ?
             <>
               <hr />
-              <div className="d-flex align-items-center justify-content-between">
+              <div className='d-flex align-items-center justify-content-between'>
                 <FaBackward
-                  size="25"
-                  className="link"
+                  size='25'
+                  className='link'
                   onClick={() => onClose()}
                 />
               </div>

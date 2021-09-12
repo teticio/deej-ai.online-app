@@ -26,15 +26,15 @@ class SpotifyTrackWidget extends PureComponent {
       <VisibilitySensor offset={{ top: -5 * 80, bottom: -5 * 80 }}>
         {({ isVisible }) =>
           <iframe
-            className={highlight ? "highlight" : ""}
+            className={highlight ? 'highlight' : ''}
             title={track_id}
             // src={`https://open.spotify.com/embed/track/${track_id}`}
-            srcdoc={(isVisible || testing) ? Buffer.from(iframe.data, 'base64') : ""}
-            width="100%"
-            height="80"
-            frameBorder="0"
-            allowtransparency="true"
-            allow="encrypted-media"
+            srcdoc={(isVisible || testing) ? Buffer.from(iframe.data, 'base64') : ''}
+            width='100%'
+            height='80'
+            frameBorder='0'
+            allowtransparency='true'
+            allow='encrypted-media'
           />
         }
       </VisibilitySensor>
@@ -63,10 +63,10 @@ export default function Track({
   return (
     <Suspense fallback={
       <div
-        className="d-flex justify-content-center align-items-center align-middle"
-        style={{ height: 80, width: "100%" }}
+        className='d-flex justify-content-center align-items-center align-middle'
+        style={{ height: 80, width: '100%' }}
       >
-        <Spinner animation="border" />
+        <Spinner animation='border' />
       </div>
     } >
       <SpotifyTrackWidget

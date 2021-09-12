@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Test track widget 1`] = `
+exports[`track widget 1`] = `
 "<!DOCTYPE html>
 <html dir=\\"ltr\\">
 <head>

@@ -18,7 +18,7 @@ class PlaylistName(BaseModel):  # pylint: disable=too-few-public-methods
     """Schema for updating playlist name.
     """
     id: int
-    name: Optional[str] = 'Deej-A.I.'
+    name: Optional[str] = "Deej-A.I."
 
 
 class PlaylistRating(BaseModel):  # pylint: disable=too-few-public-methods
@@ -42,13 +42,13 @@ class Playlist(BaseModel):  # pylint: disable=too-few-public-methods
     """
     name: Optional[str] = "Deej-A.I."
     created: datetime
-    user_id: Optional[str] = ""
-    playlist_id: Optional[str] = ""
+    user_id: Optional[str] = ''
+    playlist_id: Optional[str] = ''
     av_rating: Optional[float] = 0
     num_ratings: Optional[int] = 0
     track_ids: str
-    tracks: Optional[str] = ""
-    waypoints: Optional[str] = ""
+    tracks: Optional[str] = ''
+    waypoints: Optional[str] = ''
     creativity: Optional[float] = 0.5
     noise: Optional[float] = 0
     

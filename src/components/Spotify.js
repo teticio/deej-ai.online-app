@@ -1,4 +1,4 @@
-import SpotifyWebApi from "spotify-web-api-js";
+import SpotifyWebApi from 'spotify-web-api-js';
 
 export default class Spotify extends SpotifyWebApi {
   constructor(params) {

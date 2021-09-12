@@ -54,14 +54,14 @@ def get_db():
         db.close()
 
 
-@event.listens_for(models.Playlist, "before_update")
+@event.listens_for(models.Playlist, 'before_update')
 def receive_before_update(mapper, connection, target):  # pylint: disable=unused-argument
     """Ensure hash is calculated before an update.
     """
     target.hash = models.Playlist.hash_it(target)
 
 
-@event.listens_for(models.Playlist, "before_insert")
+@event.listens_for(models.Playlist, 'before_insert')
 def receive_before_insert(mapper, connection, target):  # pylint: disable=unused-argument
     """Ensure hash is calculated before an insert.
     """
@@ -69,20 +69,20 @@ def receive_before_insert(mapper, connection, target):  # pylint: disable=unused
 
 
 origins = [
-    "http://deej-ai.online",
-    "https://deej-ai.online",
-    "http://localhost:8000",
-    "http://localhost:3000",
-    "http://127.0.0.1:8080",
-    "http://localhost",
+    'http://deej-ai.online',
+    'https://deej-ai.online',
+    'http://localhost:8000',
+    'http://localhost:3000',
+    'http://127.0.0.1:8080',
+    'http://localhost',
 ]
 
 app.add_middleware(
     CORSMiddleware,
     allow_origins=origins,
     allow_credentials=True,
-    allow_methods=["*"],
-    allow_headers=["*"],
+    allow_methods=['*'],
+    allow_headers=['*'],
 )
 
 
@@ -90,24 +90,24 @@ class EndpointFilter(logging.Filter):  # pylint: disable=too-few-public-methods
     """Filter out endpoints (e.g. /healthz) from logging
     """
     def filter(self, record: logging.LogRecord) -> bool:
-        return record.getMessage().find("/healthz") == -1
+        return record.getMessage().find('/healthz') == -1
 
 
 # Filter out /endpoint
-logging.getLogger("uvicorn.access").addFilter(EndpointFilter())
+logging.getLogger('uvicorn.access').addFilter(EndpointFilter())
 
 
-@app.get("/healthz")
+@app.get('/healthz')
 async def health_check():
     """Am I alive?
 
     Returns:
-        dict: {"status": "pass"}
+        dict: {'status': 'pass'}
     """
-    return {"status": "pass"}
+    return {'status': 'pass'}
 
 
-@app.get("/api/v1/login")
+@app.get('/api/v1/login')
 async def spotify_login(state: Optional[str] = None):
     """Initiate Spotify authentication.
 
@@ -117,7 +117,7 @@ async def spotify_login(state: Optional[str] = None):
     Returns:
         RedirectResponse: Redirection to Spotify authentication URL.
     """
-    scope = "playlist-modify-public user-read-currently-playing"
+    scope = 'playlist-modify-public user-read-currently-playing'
     body = {
         'response_type': 'code',
         'client_id': credentials.CLIENT_ID,
@@ -126,12 +126,12 @@ async def spotify_login(state: Optional[str] = None):
     }
     if state:
         body['state'] = state
-    url = "https://accounts.spotify.com/authorize?" + urllib.parse.urlencode(
+    url = 'https://accounts.spotify.com/authorize?' + urllib.parse.urlencode(
         body)
     return RedirectResponse(url=url)
 
 
-@app.get("/api/v1/callback")
+@app.get('/api/v1/callback')
 async def spotify_callback(code: str, state: Optional[str] = '/'):
     """Handle callback from Spotify. This endpoint must correspond to credentials.redirect_uri.
 
@@ -169,11 +169,11 @@ async def spotify_callback(code: str, state: Optional[str] = '/'):
         'refresh_token': json['refresh_token'],
         'route': state
     }
-    url = os.environ.get('APP_URL', '') + "#" + urllib.parse.urlencode(body)
+    url = os.environ.get('APP_URL', '') + '#' + urllib.parse.urlencode(body)
     return RedirectResponse(url=url)
 
 
-@app.get("/api/v1/refresh_token")
+@app.get('/api/v1/refresh_token')
 async def spotify_refresh_token(refresh_token: str):
     """Get a new access token using the refresh token.
 
@@ -204,7 +204,7 @@ async def spotify_refresh_token(refresh_token: str):
     return json
 
 
-@app.get("/api/v1/widget")
+@app.get('/api/v1/widget')
 async def widget(track_id: str):
     """Get Spotify track widget.
 
@@ -215,9 +215,9 @@ async def widget(track_id: str):
         str: Base 64 encoded HTML which can be embedded in an iframe.
     """
     headers = {
-        "User-Agent":
-        "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) " \
-        "Chrome/92.0.4515.159 Safari/537.36"
+        'User-Agent':
+        'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) ' \
+        'Chrome/92.0.4515.159 Safari/537.36'
     }
     async with aiohttp.ClientSession() as session:
         try:
@@ -233,7 +233,7 @@ async def widget(track_id: str):
     return b64encode(text.encode('ascii'))
 
 
-@app.get("/api/v1/search")
+@app.get('/api/v1/search')
 async def search_tracks(string: str, max_items: int):
     """Search database of tracks for artists and titles including words in string.
 
@@ -248,7 +248,7 @@ async def search_tracks(string: str, max_items: int):
     return [{'track_id': id, 'track': deejai.get_tracks()[id]} for id in ids]
 
 
-@app.get("/api/v1/search_similar")
+@app.get('/api/v1/search_similar')
 async def search_similar_tracks(url: str, max_items: int):
     """Search for tracks that sound similar using Deep Learning model.
 
@@ -263,7 +263,7 @@ async def search_similar_tracks(url: str, max_items: int):
     return [{'track_id': id, 'track': deejai.get_tracks()[id]} for id in ids]
 
 
-@app.post("/api/v1/playlist")
+@app.post('/api/v1/playlist')
 async def generate_playlist(playlist: schemas.NewPlaylist):
     """Generate a playlist that joins the dots between the waypoints.
 
@@ -281,7 +281,7 @@ async def generate_playlist(playlist: schemas.NewPlaylist):
     }
 
 
-@app.post("/api/v1/create_playlist")
+@app.post('/api/v1/create_playlist')
 def create_playlist(playlist: schemas.Playlist, db: Session = Depends(get_db)):
     """Store new playlist in database
 
@@ -307,7 +307,7 @@ def create_playlist(playlist: schemas.Playlist, db: Session = Depends(get_db)):
     return db_item
 
 
-@app.get("/api/v1/read_playlist")
+@app.get('/api/v1/read_playlist')
 def get_playlist(playlist_id: int, db: Session = Depends(get_db)):
     """Get playlist by ID from the database.
 
@@ -322,7 +322,7 @@ def get_playlist(playlist_id: int, db: Session = Depends(get_db)):
     return db_item
 
 
-@app.post("/api/v1/update_playlist_name")
+@app.post('/api/v1/update_playlist_name')
 def update_playlist_name(playlist: schemas.PlaylistName,
                          db: Session = Depends(get_db)):
     """Update name of playlist with given ID in the database.
@@ -339,7 +339,7 @@ def update_playlist_name(playlist: schemas.PlaylistName,
         db.rollback()
 
 
-@app.post("/api/v1/update_playlist_rating")
+@app.post('/api/v1/update_playlist_rating')
 def update_playlist_rating(playlist: schemas.PlaylistRating,
                            db: Session = Depends(get_db)):
     """Update rating of playlist with given ID in the database.
@@ -359,7 +359,7 @@ def update_playlist_rating(playlist: schemas.PlaylistRating,
         db.rollback()
 
 
-@app.post("/api/v1/update_playlist_id")
+@app.post('/api/v1/update_playlist_id')
 def update_playlist_id(playlist: schemas.PlaylistId,
                        db: Session = Depends(get_db)):
     """Update Spotrify playlist and user IDs of playlist with given ID in the database.
@@ -379,7 +379,7 @@ def update_playlist_id(playlist: schemas.PlaylistId,
         db.rollback()
 
 
-@app.get("/api/v1/latest_playlists")
+@app.get('/api/v1/latest_playlists')
 def get_latest_playlists(top_n: int, db: Session = Depends(get_db)):
     """Get the most recently added playlists from the database.
 
@@ -398,7 +398,7 @@ def get_latest_playlists(top_n: int, db: Session = Depends(get_db)):
     return db_items
 
 
-@app.get("/api/v1/top_playlists")
+@app.get('/api/v1/top_playlists')
 def get_top_playlists(top_n: int, db: Session = Depends(get_db)):
     """Get the most highly rated playlists from the database.
 
@@ -417,7 +417,7 @@ def get_top_playlists(top_n: int, db: Session = Depends(get_db)):
     return db_items
 
 
-@app.get("/api/v1/search_playlists")
+@app.get('/api/v1/search_playlists')
 def search_playlists(string: str,
                      max_items: int,
                      db: Session = Depends(get_db)):
@@ -450,7 +450,7 @@ async def custom_http_exception_handler(request, exc):
     """Itercept 404 not found and redirect to application 404 page.
     """
     if exc.status_code == 404:
-        url = os.environ.get('APP_URL', '') + "/#" + urllib.parse.urlencode(
+        url = os.environ.get('APP_URL', '') + '/#' + urllib.parse.urlencode(
             {'route': request.url.path})
         return RedirectResponse(url=url)
     return await http_exception_handler(request, exc)
@@ -468,4 +468,4 @@ class _StaticFiles(StaticFiles):
 
 
 # must be last
-app.mount("/", _StaticFiles(directory="build", html=True), name="app")
+app.mount('/', _StaticFiles(directory='build', html=True), name='app')

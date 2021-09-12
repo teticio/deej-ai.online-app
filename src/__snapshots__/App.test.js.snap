@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Test app routing 1`] = `
+exports[`app routing 1`] = `
 <DocumentFragment>
   <div
     class="App container"
@@ -143,7 +143,7 @@ exports[`Test app routing 1`] = `
               style="margin-top: 10px;"
             />
             <select>
-              \\ size="1"
+              \\ size='1'
             </select>
           </div>
           <div
@@ -372,7 +372,7 @@ exports[`Test app routing 1`] = `
 </DocumentFragment>
 `;
 
-exports[`Test app routing 2`] = `
+exports[`app routing 2`] = `
 <DocumentFragment>
   <div
     class="App container"
@@ -668,7 +668,7 @@ exports[`Test app routing 2`] = `
 </DocumentFragment>
 `;
 
-exports[`Test app routing 3`] = `
+exports[`app routing 3`] = `
 <DocumentFragment>
   <div
     class="App container"
@@ -964,7 +964,7 @@ exports[`Test app routing 3`] = `
 </DocumentFragment>
 `;
 
-exports[`Test app routing 4`] = `
+exports[`app routing 4`] = `
 <DocumentFragment>
   <div
     class="App container"
@@ -1284,7 +1284,7 @@ exports[`Test app routing 4`] = `
 </DocumentFragment>
 `;
 
-exports[`Test app routing 5`] = `
+exports[`app routing 5`] = `
 <DocumentFragment>
   <div
     class="App container"

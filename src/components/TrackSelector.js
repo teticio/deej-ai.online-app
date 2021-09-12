@@ -1,12 +1,12 @@
-import { useState, useEffect } from "react";
-import { FaSpotify } from "react-icons/fa"
+import { useState, useEffect } from 'react';
+import { FaSpotify } from 'react-icons/fa'
 import Container from 'react-bootstrap/Container';
-import { debounceFunction, HorizontalSpacer, VerticalSpacer } from "../lib";
-import Search, { searchSimilar } from "./Search";
-import "./TrackSelector.css";
+import { debounceFunction, HorizontalSpacer, VerticalSpacer } from '../lib';
+import Search, { searchSimilar } from './Search';
+import './TrackSelector.css';
 
 export default function TrackSelector({ spotify = null, onSelect = f => f, onSearch = f => f, onSearchEnd = f => f }) {
-  const [searchString, setSearchString] = useState("");
+  const [searchString, setSearchString] = useState('');
   const [searchResults, setSearchResults] = useState([]);
   const [currentTrack, setCurrentTrack] = useState(null);
 
@@ -34,7 +34,7 @@ export default function TrackSelector({ spotify = null, onSelect = f => f, onSea
   useEffect(() => debounceFunction(() => {
     async function fetchSearchResults() {
       onSearch();
-      if (searchString !== "") {
+      if (searchString !== '') {
         const tracks = await Search(searchString);
         setSearchResults(tracks);
         onSelect((tracks.length > 0) ? tracks[0].id : null);
@@ -63,7 +63,7 @@ export default function TrackSelector({ spotify = null, onSelect = f => f, onSea
       {currentTrack ?
         <>
           <VerticalSpacer px={10} />
-          <div className="d-flex align-items-center" onClick={() => {
+          <div className='d-flex align-items-center' onClick={() => {
             onSearch();
             searchSimilar(currentTrack.url)
               .then(tracks => {
@@ -78,24 +78,24 @@ export default function TrackSelector({ spotify = null, onSelect = f => f, onSea
                 console.error('Error:', error);
               });
           }}>
-            <FaSpotify size="15" className="link" />
+            <FaSpotify size='15' className='link' />
             <HorizontalSpacer px={10} />
-            <h6 className="link">{currentTrack.track}</h6>
+            <h6 className='link'>{currentTrack.track}</h6>
           </div>
         </> : <></>
       }
       <input
-        placeholder="Search..."
+        placeholder='Search...'
         onChange={event => {
           setSearchString(event.target.value);
         }}
       />
       <VerticalSpacer px={10} />
       <select onChange={event => onSelect(event.target.value)}>\
-        size="1"
+        size='1'
         {searchResults.map(({ track_id, track }, i) => (
           <option
-            data-testid="track"
+            data-testid='track'
             key={i}
             value={track_id}
           >{track}

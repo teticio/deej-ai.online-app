@@ -1,9 +1,9 @@
-import { useState } from "react";
-import { FaPlus } from "react-icons/fa";
+import { useState } from 'react';
+import { FaPlus } from 'react-icons/fa';
 import Card from 'react-bootstrap/Card';
 import Spinner from 'react-bootstrap/Spinner';
-import TrackSelector from "./TrackSelector";
-import { HorizontalSpacer } from "../lib";
+import TrackSelector from './TrackSelector';
+import { HorizontalSpacer } from '../lib';
 
 export default function AddTrack({ numTracks = 0, spotify = null, onAdd = f => f }) {
   const [currentId, setCurrentId] = useState(null);
@@ -14,7 +14,7 @@ export default function AddTrack({ numTracks = 0, spotify = null, onAdd = f => f
   return (
     <Card>
       <Card.Body>
-        <div className="d-flex align-items-center">
+        <div className='d-flex align-items-center'>
           <TrackSelector
             spotify={spotify}
             onSelect={(id) => setCurrentId(id)}
@@ -34,7 +34,7 @@ export default function AddTrack({ numTracks = 0, spotify = null, onAdd = f => f
           <HorizontalSpacer px={10} />
           {spinner ?
             <Spinner
-              animation="grow" size="md"
+              animation='grow' size='md'
               onClick={() => {
                 if (currentId && numTracks < 5) {
                   onAdd(currentId);
@@ -42,8 +42,8 @@ export default function AddTrack({ numTracks = 0, spotify = null, onAdd = f => f
               }}
             /> :
             <FaPlus
-              size="25"
-              className={(currentId && numTracks < 5) ? "link" : "text-muted"}
+              size='25'
+              className={(currentId && numTracks < 5) ? 'link' : 'text-muted'}
               onClick={() => {
                 if (currentId && numTracks < 5) {
                   onAdd(currentId);

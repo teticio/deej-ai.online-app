@@ -1,9 +1,9 @@
-import { render, screen, fireEvent } from "@testing-library/react";
-import React from "react";
-import { MemoryRouter } from "react-router-dom";
-import App from "./App";
+import { render, screen, fireEvent } from '@testing-library/react';
+import React from 'react';
+import { MemoryRouter } from 'react-router-dom';
+import App from './App';
 
-test("Test app routing", async () => {
+test('app routing', async () => {
   const { asFragment } = render(<App />, { wrapper: MemoryRouter });
   fireEvent.click(screen.getByText("Create playlist"));
   expect(asFragment()).toMatchSnapshot();

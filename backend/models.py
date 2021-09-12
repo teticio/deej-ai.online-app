@@ -10,17 +10,17 @@ from .database import Base
 class Playlist(Base):
     """Model for playlist table in the database.
     """
-    __tablename__ = "playlists"
+    __tablename__ = 'playlists'
     id = Column(Integer, primary_key=True, index=True)
     name = Column(String(30), default="Deej-A.I.")
     created = Column(DateTime)
-    user_id = Column(String(30), default="")
-    playlist_id = Column(String(30), default="")
+    user_id = Column(String(30), default='')
+    playlist_id = Column(String(30), default='')
     av_rating = Column(Float, default=0)
     num_ratings = Column(Integer, default=0)
     track_ids = Column(String(3000))
-    tracks = Column(String(8000), default="")
-    waypoints = Column(String(150), default="")
+    tracks = Column(String(8000), default='')
+    waypoints = Column(String(150), default='')
     creativity = Column(Float, default=0.5)
     noise = Column(Float, default=0)
     hash = Column(String(64), default=0, unique=True)

@@ -1,16 +1,16 @@
 import { useState, useEffect } from 'react';
-import { Routes, Route, useNavigate } from "react-router-dom";
+import { Routes, Route, useNavigate } from 'react-router-dom';
 import Container from 'react-bootstrap/Container';
-import { getHashParams, usePersistedState } from "./lib";
+import { getHashParams, usePersistedState } from './lib';
 import Banner from './components/Banner';
-import Spotify from "./components/Spotify";
+import Spotify from './components/Spotify';
 import ErrorBoundary from './components/ErrorBoundary';
 import CreatePlaylist from './components/CreatePlaylist';
 import ShowPlaylist from './components/ShowPlaylist';
-import Settings from "./components/Settings";
+import Settings from './components/Settings';
 import LatestPlaylists from './components/LatestPlaylists';
 import TopPlaylists from './components/TopPlaylists';
-import SearchPlaylists from "./components/SearchPlaylists";
+import SearchPlaylists from './components/SearchPlaylists';
 import Footer from './components/Footer';
 import About from './components/About';
 import NotFound from './components/NotFound';
@@ -36,7 +36,7 @@ function App() {
 
   return (
     <>
-      <Container className="App">
+      <Container className='App'>
         <Banner loggedIn={loggedIn} onSelect={route => {
           if (route === '/login') {
             window.location.href = `${process.env.REACT_APP_API_URL}/login?state=${window.location.pathname}`;
@@ -51,7 +51,7 @@ function App() {
         <ErrorBoundary >
           <Routes>
             <Route
-              path="/"
+              path='/'
               element={
                 <CreatePlaylist
                   waypoints={waypoints}
@@ -72,7 +72,7 @@ function App() {
               }
             />
             <Route
-              path="/playlist"
+              path='/playlist'
               element={
                 <ShowPlaylist
                   playlist={playlist}
@@ -83,7 +83,7 @@ function App() {
               }
             />
             <Route
-              path="/settings"
+              path='/settings'
               element={
                 <Settings
                   size={size}
@@ -99,43 +99,43 @@ function App() {
               }
             />
             <Route
-              path="/latest"
+              path='/latest'
               element={
                 <LatestPlaylists spotify={spotify} />
               }
             />
             <Route
-              path="/top"
+              path='/top'
               element={
                 <TopPlaylists spotify={spotify} />
               }
             />
             <Route
-              path="/search"
+              path='/search'
               element={
                 <SearchPlaylists spotify={spotify} />
               }
             />
             <Route
-              path="/about"
+              path='/about'
               element={
                 <About />
               }
             />
             <Route
-              path="/privacy_policy"
+              path='/privacy_policy'
               element={
                 <PrivacyPolicy />
               }
             />
             <Route
-              path="/privacy_policy.html"
+              path='/privacy_policy.html'
               element={
                 <PrivacyPolicy />
               }
             />
             <Route
-              path="*"
+              path='*'
               element={
                 <NotFound />
               }

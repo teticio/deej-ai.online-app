@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Test playlist creation 1`] = `
+exports[`playlist creation 1`] = `
 [MockFunction] {
   "calls": Array [
     Array [

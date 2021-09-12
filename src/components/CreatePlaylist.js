@@ -1,12 +1,12 @@
-import { useState } from "react";
-import { FaForward, FaCog } from "react-icons/fa";
+import { useState } from 'react';
+import { FaForward, FaCog } from 'react-icons/fa';
 import Card from 'react-bootstrap/Card';
 import Spinner from 'react-bootstrap/Spinner';
 import AddTrack from './AddTrack';
 import RemovablePlaylist from './RemovablePlaylist';
 import generatePlaylist from './GeneratePlaylist';
 import SavePlaylist from './SavePlaylist';
-import { VerticalSpacer } from "../lib";
+import { VerticalSpacer } from '../lib';
 
 export default function CreatePlaylist({
   waypoints = { track_ids: [] },
@@ -23,7 +23,7 @@ export default function CreatePlaylist({
 
   return (
     <>
-      <h3 style={{ textAlign: "center" }}>Choose the waypoints for your musical journey</h3>
+      <h3 style={{ textAlign: 'center' }}>Choose the waypoints for your musical journey</h3>
       <AddTrack
         numTracks={_waypoints.track_ids.length}
         spotify={spotify}
@@ -41,12 +41,12 @@ export default function CreatePlaylist({
             <></>
           }
           {spinner ?
-            <Spinner animation="border" size="md" /> :
-            <div className="d-flex align-items-center justify-content-between">
+            <Spinner animation='border' size='md' /> :
+            <div className='d-flex align-items-center justify-content-between'>
               <FaForward
-                data-testid="create-playlist"
-                size="25"
-                className="link"
+                data-testid='create-playlist'
+                size='25'
+                className='link'
                 onClick={() => {
                   setSpinner(true);
                   generatePlaylist(_waypoints, size, creativity, noise)
@@ -62,9 +62,9 @@ export default function CreatePlaylist({
                 }}
               />
               <FaCog
-                data-testid="settings"
-                size="25"
-                className="link"
+                data-testid='settings'
+                size='25'
+                className='link'
                 onClick={() => onSettings(_waypoints)}
               />
             </div>}

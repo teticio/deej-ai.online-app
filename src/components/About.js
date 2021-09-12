@@ -1,12 +1,12 @@
-import Row from "react-bootstrap/Row";
-import Col from "react-bootstrap/Col";
-import { FaPlus, FaForward, FaSave, FaSpotify, FaCog } from "react-icons/fa";
-import { VerticalSpacer } from "../lib";
+import Row from 'react-bootstrap/Row';
+import Col from 'react-bootstrap/Col';
+import { FaPlus, FaForward, FaSave, FaSpotify, FaCog } from 'react-icons/fa';
+import { VerticalSpacer } from '../lib';
 
 export default function About() {
   return (
     <>
-      <h5 data-testid="blurb">
+      <h5 data-testid='blurb'>
         <b>Deej-A.I.</b> uses artificial intelligence to automatically generate playlists of tracks that go well
         together. It was trained using hundreds of thousands of Spotify tracks and user playlists.
       </h5>
@@ -39,40 +39,40 @@ export default function About() {
       <VerticalSpacer px={15} />
       <h5>
         This was my Masters in Deep Learning project at <a
-          href="https://www.mbitschool.com/"
-          target="_blank"
-          rel="noopener noreferrer"
+          href='https://www.mbitschool.com/'
+          target='_blank'
+          rel='noopener noreferrer'
         >MBIT School</a>. If you want to learn about it works, check out this <a
-          href="https://towardsdatascience.com/create-automatic-playlists-by-using-deep-learning-to-listen-to-the-music-b72836c24ce2"
-          target="_blank"
-          rel="noopener noreferrer"
+          href='https://towardsdatascience.com/create-automatic-playlists-by-using-deep-learning-to-listen-to-the-music-b72836c24ce2'
+          target='_blank'
+          rel='noopener noreferrer'
         >article</a>.
       </h5>
       <VerticalSpacer px={15} />
-      <Row className="align-items-center">
+      <Row className='align-items-center'>
         <Col>
-          <div className="text-center">
+          <div className='text-center'>
             <a
               href='https://play.google.com/store/apps/details?id=online.deejai.www&pcampaignid=MKT-Other-global-all-co-prtnr-py-PartBadge-Mar2515-1'
-              target="_blank"
-              rel="noopener noreferrer"
+              target='_blank'
+              rel='noopener noreferrer'
             ><img
                 alt='Get it on Google Play'
                 src='https://play.google.com/intl/en_us/badges/images/generic/en_badge_web_generic.png'
-                width="150px"
+                width='150px'
               />
             </a>
           </div>
         </Col>
         <Col>
-          <div className="text-center">
+          <div className='text-center'>
             <a
-              href="https://apps.apple.com/us/app/deej-a-i/id1529860910?mt=8"
-              target="_blank"
-              rel="noopener noreferrer"
+              href='https://apps.apple.com/us/app/deej-a-i/id1529860910?mt=8'
+              target='_blank'
+              rel='noopener noreferrer'
             ><img
               alt='Get it on iTunes'
-              src="https://linkmaker.itunes.apple.com/en-us/badge-lrg.svg?releaseDate=2020-09-01&kind=iossoftware&bubble=apple_music) no-repeat;width:135px;height:40px;">
+              src='https://linkmaker.itunes.apple.com/en-us/badge-lrg.svg?releaseDate=2020-09-01&kind=iossoftware&bubble=apple_music) no-repeat;width:135px;height:40px;'>
               </img>
             </a>
           </div>

@@ -22,7 +22,7 @@ export default function ShowPlaylists({ playlists, spotify = null }) {
             <Row>
               {createArray(2).map((x, j) => (
                 (2 * i + j < playlists.length) ?
-                  <Col lg="6">
+                  <Col lg='6'>
                     <VerticalSpacer px={10} />
                     <Card key={2 * i + j} >
                       <Card.Body>
