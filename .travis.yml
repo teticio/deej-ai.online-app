@@ -1,10 +1,8 @@
 language: python
 python:
   - "3.8"
-node_js:
-  = "14.17"
 install:
-  - yarn install
+  - yarn install --ignore-engines
   - pip install -r requirements-lock.txt
   - pip install pytest
 script:
