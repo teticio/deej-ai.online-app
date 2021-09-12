@@ -19,6 +19,6 @@ test('playlist creation', async () => {
     />
   );
   fireEvent.click(screen.getByTestId('create-playlist'));
-  await waitFor(() => expect(onCreate).toHaveBeenCalledTimes(1));
+  await waitFor(() => expect(onCreate).toHaveBeenCalledTimes(1), { timeout: 20000 });
   expect(onCreate).toMatchSnapshot();
 });
