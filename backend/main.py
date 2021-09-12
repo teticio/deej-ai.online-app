@@ -29,7 +29,7 @@ from . import credentials
 from .deejai import DeejAI
 from .database import SessionLocal, engine
 
-credentials.redirect_uri = os.environ.get('SPOTIFY_REDIRECT_URI',
+credentials.REDIRECT_URL = os.environ.get('SPOTIFY_REDIRECT_URI',
                                           credentials.REDIRECT_URL)
 
 # Create tables if necessary
