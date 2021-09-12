@@ -12,4 +12,6 @@ install:
 script:
   - yarn build
   - python download.py
+  - APP_URL=http://localhost:3000 uvicorn backend.main:app --port=8001 &
   - pytest backend
+  - yarn test

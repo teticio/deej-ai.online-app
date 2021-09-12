@@ -1,4 +1,4 @@
-# Deej-A.I. React App
+# Deej-A.I. React App [![Build Status](https://app.travis-ci.com/teticio/deej-ai.online-app.svg?branch=main)](https://app.travis-ci.com/teticio/deej-ai.online-app)
 
 ![Deej-A.I.](screen_shot.png)
 
