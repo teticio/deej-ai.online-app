@@ -6,7 +6,7 @@ ENV CUDA_VISIBLE_DEVICES ""
 COPY . /deej-ai.online-app
 WORKDIR "/deej-ai.online-app"
 RUN apt update && \
-    apt install ffmpeg libsndfile1 nodejs npm -y
+    apt install ffmpeg nodejs npm -y
 RUN npm install --global yarn && \
     rm -rf node_modules deejai.db && \
     yarn install && \
