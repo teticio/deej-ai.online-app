@@ -2,7 +2,9 @@ language: python
 python:
   - "3.8"
 before_install:
-  - sudo apt install ffmpeg libsndfile1
+  - sudo add-apt-repository ppa:mc3man/trusty-media -y
+  - sudo apt-get update
+  - sudo apt install ffmpeg -y
   - npm install -g node@14.17.4
 install:
   - yarn install
