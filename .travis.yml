@@ -2,6 +2,7 @@ language: python
 python:
   - "3.8"
 before_install:
+  - apt install ffmpeg libsndfile-dev
   - npm install -g node@14.17.4
 install:
   - yarn install
