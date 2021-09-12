@@ -7,3 +7,4 @@ aiofiles
 librosa
 yapf
 pytest
+pylint
