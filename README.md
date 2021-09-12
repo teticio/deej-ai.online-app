@@ -7,9 +7,9 @@ This is the source code for my webpage which is hosted at https://deej-ai.online
 In order to run this, you wil need to create a `credentials.py` file in the `backend` directory with your Spotify Developer API credentials, which can be obtained from https://developer.spotify.com/dashboard/login.
 
 ```
-client_id = '<Your client ID>'
-client_secret = '<Your secret>'
-redirect_uri = '<Your external webpage URL>/api/v1/callback'
+CLIENT_ID = '<Your client ID>'
+CLIENT_SECRET = '<Your secret>'
+REDIRECT_URI = '<Your external webpage URL>/api/v1/callback'
 ```
 
 You will also need to download the following files to the root directory:

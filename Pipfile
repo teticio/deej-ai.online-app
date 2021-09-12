@@ -17,6 +17,7 @@ sqlalchemy-utils = "*"
 [dev-packages]
 yapf = "*"
 pytest = "*"
+pylint = "*"
 
 [requires]
 python_version = "3.8"

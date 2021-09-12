@@ -1,16 +1,27 @@
+"""Migrate from one database to another.
+
+   Usage: python migrate.py <FROM_DATABASE_URL> <TO_DATABASE_URL>
+"""
 import logging
 import argparse
-from backend import models
-from sqlalchemy import event
+
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker, class_mapper
-from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy_utils import database_exists, create_database
+
+from backend import models
 
 logging.basicConfig(format="%(levelname)s:%(message)s", level=logging.INFO)
 
 
 def copy_objects(db_from, db_to, cls):
+    """Copy all items in a table from one databse to another.
+
+    Args:
+        db_from (Session): SQLAlchemy session of databsse to copy from.
+        db_to (Session): SQLAlchemy session of databsse to copy to.
+        cls (type): Class of table schema.
+    """
     db_to_items = []
     db_items = db_from.query(cls)
     mapper = class_mapper(cls)
@@ -21,7 +32,7 @@ def copy_objects(db_from, db_to, cls):
         db_to_items.append(db_to_item)
     db_to.bulk_save_objects(db_to_items)
     db_to.commit()
-    logging.info(f"Migrated {len(db_to_items)} {cls}")
+    logging.info("Migrated %d %s", len(db_to_items), cls)
 
 
 if __name__ == "__main__":
@@ -53,7 +64,5 @@ if __name__ == "__main__":
     models.Base.metadata.drop_all(bind=to_engine,
                                   tables=[models.Playlist.__table__])
     models.Base.metadata.create_all(bind=to_engine)
-    db_from = FromSessionLocal()
-    db_to = ToSessionLocal()
 
-    copy_objects(db_from, db_to, models.Playlist)
+    copy_objects(FromSessionLocal(), ToSessionLocal(), models.Playlist)

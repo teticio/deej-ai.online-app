@@ -1,0 +1,41 @@
+{
+  // Use IntelliSense to learn about possible attributes.
+  // Hover to view descriptions of existing attributes.
+  // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Attach to Chrome",
+      "port": 9222,
+      "request": "attach",
+      "type": "pwa-chrome",
+      "webRoot": "${workspaceFolder}"
+    },
+    {
+      "name": "Python: Current File",
+      "type": "python",
+      "request": "launch",
+      "program": "${file}",
+      "console": "integratedTerminal"
+    },
+    {
+      "name": "Python: FastAPI",
+      "type": "python",
+      "request": "launch",
+      "env": {
+        "APP_URL": "http://localhost:3000",
+        "DOCS_URL": "/docs",
+        "REDOC_URL": "/redoc"
+      },
+      "module": "uvicorn",
+      "args": [
+        "backend.main:app",
+        "--reload",
+        "--reload-dir",
+        "backend",
+        "--port=8001"
+      ],
+      "jinja": true
+    }
+  ]
+}
