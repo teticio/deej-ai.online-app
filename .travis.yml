@@ -2,8 +2,10 @@ language: python
 python:
   - "3.8"
 install:
+  - yarn install
   - pip install -r requirements-lock.txt
   - pip install pytest
 script:
+  - yarn build
   - python download.py
   - pytest backend
