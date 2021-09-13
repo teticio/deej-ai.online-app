@@ -8,10 +8,6 @@ from datetime import datetime
 from . import main
 from . import schemas
 
-os.environ['SQLALCHEMY_DATABASE_URL'] = 'sqlite:///./deejai-test.db'
-if os.path.exists('deejai-test.db'):
-    os.remove('deejai-test.db')
-
 db = main.SessionLocal()
 
 
