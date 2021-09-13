@@ -1,6 +1,5 @@
 """Unit tests using pytest.
 """
-import os
 import json
 import asyncio
 from datetime import datetime
