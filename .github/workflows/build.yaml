@@ -20,7 +20,6 @@ jobs:
       run: |
         sudo apt-get update
         sudo apt install ffmpeg -y
-        npm install -g node@14.17.4
         yarn install
         python -m pip install --upgrade pip
         pip install flake8 pytest
