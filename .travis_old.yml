@@ -8,8 +8,8 @@ before_install:
   - npm install -g node@14.17.4
 install:
   - yarn install
-  - pip install -r requirements-lock.txt
   - pip install pytest
+  - pip install -r requirements-lock.txt
 script:
   - yarn build
   - python download.py

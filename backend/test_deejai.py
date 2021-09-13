@@ -5,8 +5,6 @@ import json
 import asyncio
 from datetime import datetime
 
-import pytest  # pylint: disable=unused-import
-
 from . import main
 from . import schemas
 
@@ -113,8 +111,8 @@ def test_search_similar():
     """
     assert asyncio.run(
         main.search_similar_tracks(
-            url=
-            'https://p.scdn.co/mp3-preview/04b28b12174a4c4448486070962dae74494c0f70?' \
+            url='https://p.scdn.co/mp3-preview'
+            '/04b28b12174a4c4448486070962dae74494c0f70?'
             'cid=194086cb37be48ebb45b9ba4ce4c5936',
             max_items=10)) == [{
                 'track_id': '1a9SiOELQS7YsBQwdEPMuq',

@@ -8,3 +8,4 @@ librosa
 yapf
 pytest
 pylint
+flake8

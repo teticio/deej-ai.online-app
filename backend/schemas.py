@@ -51,4 +51,3 @@ class Playlist(BaseModel):  # pylint: disable=too-few-public-methods
     waypoints: Optional[str] = ''
     creativity: Optional[float] = 0.5
     noise: Optional[float] = 0
-    
