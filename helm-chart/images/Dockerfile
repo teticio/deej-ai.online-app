@@ -8,7 +8,6 @@ WORKDIR "/deej-ai.online-app"
 RUN apt update && \
     apt install ffmpeg nodejs npm -y
 RUN npm install --global yarn && \
-    rm -rf node_modules deejai.db && \
     yarn install && \
     yarn build && \
     pip install -r requirements-lock.txt
