@@ -3,11 +3,7 @@
 
 name: Build Deej-A.I.
 
-on:
-  push:
-    branches: [ $default-branch ]
-  pull_request:
-    branches: [ $default-branch ]
+on: [push, pull_request]
 
 jobs:
   build:
@@ -16,7 +12,7 @@ jobs:
 
     steps:
     - uses: actions/checkout@v2
-    - name: Set up Python 3.9
+    - name: Set up Python 3.8
       uses: actions/setup-python@v2
       with:
         python-version: 3.8
