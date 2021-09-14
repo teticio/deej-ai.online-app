@@ -60,7 +60,7 @@ export default function TrackSelector({ spotify = null, onSelect = f => f, onSea
 
   return (
     <Container>
-      {currentTrack ?
+      {(currentTrack && currentTrack.url) ?
         <>
           <VerticalSpacer px={10} />
           <div className='d-flex align-items-center' onClick={() => {
