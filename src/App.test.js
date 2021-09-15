@@ -11,6 +11,8 @@ test('app routing', async () => {
   expect(asFragment()).toMatchSnapshot();
   fireEvent.click(screen.getByText("Latest playlists"));
   expect(asFragment()).toMatchSnapshot();
+  fireEvent.click(screen.getByText("Most uploaded playlists"));
+  expect(asFragment()).toMatchSnapshot();
   fireEvent.click(screen.getByText("Search playlists"));
   expect(asFragment()).toMatchSnapshot();
   fireEvent.click(screen.getByText("About"));
