@@ -297,12 +297,12 @@ def create_playlist(playlist: schemas.Playlist, db: Session = Depends(get_db)):
         db.add(db_item)
         db.commit()
         db.refresh(db_item)
-    except IntegrityError:  # duplicate
+    except IntegrityError:  # Duplicate
         db.rollback()
         db_item = db.query(models.Playlist).filter(
             models.Playlist.hash == models.Playlist.hash_it(playlist))
         db_item.update({'created': playlist.created})
-        db.commit()  # doesn't call hook but that's ok
+        db.commit()  # Doesn't call hook but that's ok
         db_item = db_item.first()
     return db_item
 
@@ -328,7 +328,7 @@ def update_playlist_name(playlist: schemas.PlaylistName,
     """Update name of playlist with given ID in the database.
 
     Args:
-        playlist (schemas.PlaylistName): playlist.name should be specified.
+        playlist (schemas.PlaylistName): id and name should be specified.
         db (Session, optional): SQLAlchemy session. Defaults to Depends(get_db).
     """
     db.query(models.Playlist).get(playlist.id).name = playlist.name
@@ -345,8 +345,8 @@ def update_playlist_rating(playlist: schemas.PlaylistRating,
     """Update rating of playlist with given ID in the database.
 
     Args:
-        playlist (schemas.PlaylistName): playlist.av_rating and playlist.num_ratings
-                                         should be specified.
+        playlist (schemas.PlaylistRating): id, av_rating and num_ratings should
+                                           be specified.
         db (Session, optional): SQLAlchemy session. Defaults to Depends(get_db).
     """
     db_item = db.query(models.Playlist).get(playlist.id)
@@ -362,11 +362,11 @@ def update_playlist_rating(playlist: schemas.PlaylistRating,
 @app.post('/api/v1/update_playlist_id')
 def update_playlist_id(playlist: schemas.PlaylistId,
                        db: Session = Depends(get_db)):
-    """Update Spotrify playlist and user IDs of playlist with given ID in the database.
+    """Update Spotify playlist and user IDs of playlist with given ID in the database.
 
     Args:
-        playlist (schemas.PlaylistName): playlist.playlist_id and playlist.user_id
-                                         should be specified.
+        playlist (schemas.PlaylistId): id, playlist_id and playlist.user_id
+                                       should be specified.
         db (Session, optional): SQLAlchemy session. Defaults to Depends(get_db).
     """
     db_item = db.query(models.Playlist).get(playlist.id)
@@ -376,6 +376,24 @@ def update_playlist_id(playlist: schemas.PlaylistId,
         db.commit()
     except SQLAlchemyError:
         logging.error("Unable to update playlist id %s", playlist)
+        db.rollback()
+
+
+@app.post('/api/v1/update_playlist_uploads')
+def update_playlist_uploads(playlist: schemas.PlaylistUploads,
+                             db: Session = Depends(get_db)):
+    """Update number of times playlist has been uploaded to Spotify.
+
+    Args:
+        playlist (schemas.PlaylistUploads): id and uploads should be specified.
+        db (Session, optional): SQLAlchemy session. Defaults to Depends(get_db).
+    """
+    db_item = db.query(models.Playlist).get(playlist.id)
+    db_item.uploads = playlist.uploads
+    try:
+        db.commit()
+    except SQLAlchemyError:
+        logging.error("Unable to update playlist uploads %s", playlist)
         db.rollback()
 
 
@@ -417,6 +435,25 @@ def get_top_playlists(top_n: int, db: Session = Depends(get_db)):
     return db_items
 
 
+@app.get('/api/v1/most_uploads')
+def get_most_uploads(top_n: int, db: Session = Depends(get_db)):
+    """Get the most uploaded playlists from the database.
+
+    Args:
+        top_n (int): Maximum number of playlists to return.
+        db (Session, optional): SQLAlchemy session. Defaults to Depends(get_db).
+
+    Returns:
+        list: List of models.Playlist items.
+    """
+    try:
+        db_items = db.query(models.Playlist).order_by(
+            desc(models.Playlist.uploads)).limit(top_n).all()
+    except SQLAlchemyError:
+        return []
+    return db_items
+
+
 @app.get('/api/v1/search_playlists')
 def search_playlists(string: str,
                      max_items: int,
@@ -444,7 +481,7 @@ def search_playlists(string: str,
     return db_items
 
 
-# let front end handle 404
+# Let front end handle 404
 @app.exception_handler(StarletteHTTPException)
 async def custom_http_exception_handler(request, exc):
     """Itercept 404 not found and redirect to application 404 page.
@@ -467,5 +504,5 @@ class _StaticFiles(StaticFiles):
         return response
 
 
-# must be last
+# Must be last
 app.mount('/', _StaticFiles(directory='build', html=True), name='app')

@@ -90,6 +90,13 @@ export default function Banner({ loggedIn = false, onSelect = f => f }) {
                 href='#'
                 onClick={() => {
                   setExpanded(false);
+                  onSelect('/most_uploaded');
+                }}
+              >Most uploaded playlists</Nav.Link>
+              <Nav.Link
+                href='#'
+                onClick={() => {
+                  setExpanded(false);
                   onSelect('/search');
                 }}
               >Search playlists</Nav.Link>

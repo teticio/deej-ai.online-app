@@ -10,6 +10,7 @@ import ShowPlaylist from './components/ShowPlaylist';
 import Settings from './components/Settings';
 import LatestPlaylists from './components/LatestPlaylists';
 import TopPlaylists from './components/TopPlaylists';
+import MostUploadedPlaylists from './components/MostUploadedPlaylists';
 import SearchPlaylists from './components/SearchPlaylists';
 import Footer from './components/Footer';
 import About from './components/About';
@@ -108,6 +109,12 @@ function App() {
               path='/top'
               element={
                 <TopPlaylists spotify={spotify} />
+              }
+            />
+            <Route
+              path='/most_uploaded'
+              element={
+                <MostUploadedPlaylists spotify={spotify} />
               }
             />
             <Route

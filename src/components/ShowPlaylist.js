@@ -1,11 +1,11 @@
 import { useState } from 'react';
-import { FaBackward, FaSave, FaPen } from 'react-icons/fa';
+import { FaBackward, FaCloudUploadAlt, FaPen } from 'react-icons/fa';
 import Card from 'react-bootstrap/Card';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Spinner from 'react-bootstrap/Spinner';
 import Playlist from './Playlist';
-import { updatePlaylistName, updatePlaylistRating, updatePlaylistId } from './SavePlaylist';
+import { updatePlaylistName, updatePlaylistRating, updatePlaylistId, updatePlaylistUploads } from './SavePlaylist';
 import StarRating, { RateStars } from './StarRating';
 import { HorizontalSpacer } from '../lib';
 
@@ -30,8 +30,10 @@ export default function ShowPlaylist({ playlist, onClose = f => f, spotify = nul
                     <>
                       {spinner ?
                         <Spinner animation='border' size='md' /> :
-                        <FaSave size='25'
+                        <FaCloudUploadAlt size='25'
                           className='link'
+                          data-toggle="tooltip"
+                          title="Upload to Spotify"
                           onClick={() => {
                             setSpinner(true);
                             spotify.autoRefresh(() => spotify.createNewPlayist(playlistName, playlist.track_ids))
@@ -40,6 +42,8 @@ export default function ShowPlaylist({ playlist, onClose = f => f, spotify = nul
                                 setEditing(false);
                                 setPlaylistUrl(spotify_playlist.external_urls.spotify);
                                 setPlaylistId(spotify_playlist.id);
+                                updatePlaylistUploads(playlist.id, playlist.uploads + 1)
+                                  .catch(error => console.error('Error:', error));
                                 if (userPlaylist) {
                                   setPlaylistUserId(spotify_playlist.owner.id);
                                   updatePlaylistId(playlist.id, playlistUserId, playlistId)
@@ -89,6 +93,13 @@ export default function ShowPlaylist({ playlist, onClose = f => f, spotify = nul
                     </span>
                   }
                 </div>
+                {(playlist.creativity !== undefined && playlist.noise !== undefined) ?
+                  <h6><small class='text-muted'>
+                    creativity {Math.round(playlist.creativity * 100)}%
+                    , noise {Math.round(playlist.noise * 100)}%
+                  </small></h6> :
+                  <></>
+                }
               </Col>
               <Col>
                 <div className='d-flex justify-content-end'>

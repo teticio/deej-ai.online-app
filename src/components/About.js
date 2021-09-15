@@ -1,6 +1,6 @@
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
-import { FaPlus, FaForward, FaSave, FaSpotify, FaCog } from 'react-icons/fa';
+import { FaPlus, FaForward, FaCloudUploadAlt, FaSpotify, FaCog } from 'react-icons/fa';
 import { VerticalSpacer } from '../lib';
 
 export default function About() {
@@ -25,7 +25,7 @@ export default function About() {
       <h5>
         If you have a Spotify <FaSpotify /> account and you log in, you will see the current track if one
         is playing when creating a playlist. By clicking on this, Deej-A.I. will search for similar sounding
-        tracks in its database. You will also be able to save <FaSave /> playlists to your account.
+        tracks in its database. You will also be able to upload <FaCloudUploadAlt /> playlists to your account.
       </h5>
       <VerticalSpacer px={15} />
       <h5>

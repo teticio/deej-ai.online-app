@@ -104,6 +104,15 @@ exports[`app routing 1`] = `
               role="button"
               tabindex="0"
             >
+              Most uploaded playlists
+            </a>
+            <a
+              class="nav-link active"
+              data-rr-ui-event-key="#"
+              href="#"
+              role="button"
+              tabindex="0"
+            >
               Search playlists
             </a>
             <a
@@ -476,6 +485,15 @@ exports[`app routing 2`] = `
               role="button"
               tabindex="0"
             >
+              Most uploaded playlists
+            </a>
+            <a
+              class="nav-link active"
+              data-rr-ui-event-key="#"
+              href="#"
+              role="button"
+              tabindex="0"
+            >
               Search playlists
             </a>
             <a
@@ -772,6 +790,15 @@ exports[`app routing 3`] = `
               role="button"
               tabindex="0"
             >
+              Most uploaded playlists
+            </a>
+            <a
+              class="nav-link active"
+              data-rr-ui-event-key="#"
+              href="#"
+              role="button"
+              tabindex="0"
+            >
               Search playlists
             </a>
             <a
@@ -1060,6 +1087,15 @@ exports[`app routing 4`] = `
               tabindex="0"
             >
               Latest playlists
+            </a>
+            <a
+              class="nav-link active"
+              data-rr-ui-event-key="#"
+              href="#"
+              role="button"
+              tabindex="0"
+            >
+              Most uploaded playlists
             </a>
             <a
               class="nav-link active"
@@ -1388,6 +1424,15 @@ exports[`app routing 5`] = `
               role="button"
               tabindex="0"
             >
+              Most uploaded playlists
+            </a>
+            <a
+              class="nav-link active"
+              data-rr-ui-event-key="#"
+              href="#"
+              role="button"
+              tabindex="0"
+            >
               Search playlists
             </a>
             <a
@@ -1473,18 +1518,18 @@ exports[`app routing 5`] = `
           d="M248 8C111.1 8 0 119.1 0 256s111.1 248 248 248 248-111.1 248-248S384.9 8 248 8zm100.7 364.9c-4.2 0-6.8-1.3-10.7-3.6-62.4-37.6-135-39.2-206.7-24.5-3.9 1-9 2.6-11.9 2.6-9.7 0-15.8-7.7-15.8-15.8 0-10.3 6.1-15.2 13.6-16.8 81.9-18.1 165.6-16.5 237 26.2 6.1 3.9 9.7 7.4 9.7 16.5s-7.1 15.4-15.2 15.4zm26.9-65.6c-5.2 0-8.7-2.3-12.3-4.2-62.5-37-155.7-51.9-238.6-29.4-4.8 1.3-7.4 2.6-11.9 2.6-10.7 0-19.4-8.7-19.4-19.4s5.2-17.8 15.5-20.7c27.8-7.8 56.2-13.6 97.8-13.6 64.9 0 127.6 16.1 177 45.5 8.1 4.8 11.3 11 11.3 19.7-.1 10.8-8.5 19.5-19.4 19.5zm31-76.2c-5.2 0-8.4-1.3-12.9-3.9-71.2-42.5-198.5-52.7-280.9-29.7-3.6 1-8.1 2.6-12.9 2.6-13.2 0-23.3-10.3-23.3-23.6 0-13.6 8.4-21.3 17.4-23.9 35.2-10.3 74.6-15.2 117.5-15.2 73 0 149.5 15.2 205.4 47.8 7.8 4.5 12.9 10.7 12.9 22.6 0 13.6-11 23.3-23.2 23.3z"
         />
       </svg>
-       account and you log in, you will see the current track if one is playing when creating a playlist. By clicking on this, Deej-A.I. will search for similar sounding tracks in its database. You will also be able to save 
+       account and you log in, you will see the current track if one is playing when creating a playlist. By clicking on this, Deej-A.I. will search for similar sounding tracks in its database. You will also be able to upload 
       <svg
         fill="currentColor"
         height="1em"
         stroke="currentColor"
         stroke-width="0"
-        viewBox="0 0 448 512"
+        viewBox="0 0 640 512"
         width="1em"
         xmlns="http://www.w3.org/2000/svg"
       >
         <path
-          d="M433.941 129.941l-83.882-83.882A48 48 0 0 0 316.118 32H48C21.49 32 0 53.49 0 80v352c0 26.51 21.49 48 48 48h352c26.51 0 48-21.49 48-48V163.882a48 48 0 0 0-14.059-33.941zM224 416c-35.346 0-64-28.654-64-64 0-35.346 28.654-64 64-64s64 28.654 64 64c0 35.346-28.654 64-64 64zm96-304.52V212c0 6.627-5.373 12-12 12H76c-6.627 0-12-5.373-12-12V108c0-6.627 5.373-12 12-12h228.52c3.183 0 6.235 1.264 8.485 3.515l3.48 3.48A11.996 11.996 0 0 1 320 111.48z"
+          d="M537.6 226.6c4.1-10.7 6.4-22.4 6.4-34.6 0-53-43-96-96-96-19.7 0-38.1 6-53.3 16.2C367 64.2 315.3 32 256 32c-88.4 0-160 71.6-160 160 0 2.7.1 5.4.2 8.1C40.2 219.8 0 273.2 0 336c0 79.5 64.5 144 144 144h368c70.7 0 128-57.3 128-128 0-61.9-44-113.6-102.4-125.4zM393.4 288H328v112c0 8.8-7.2 16-16 16h-48c-8.8 0-16-7.2-16-16V288h-65.4c-14.3 0-21.4-17.2-11.3-27.3l105.4-105.4c6.2-6.2 16.4-6.2 22.6 0l105.4 105.4c10.1 10.1 2.9 27.3-11.3 27.3z"
         />
       </svg>
        playlists to your account.

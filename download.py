@@ -40,7 +40,7 @@ def save_response_content(response, destination):
     """
     with open(destination, 'wb') as file:
         for chunk in response.iter_content(CHUNK_SIZE):
-            if chunk:  # filter out keep-alive new chunks
+            if chunk:  # Filter out keep-alive new chunks
                 file.write(chunk)
 
 

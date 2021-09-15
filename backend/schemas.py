@@ -30,11 +30,18 @@ class PlaylistRating(BaseModel):  # pylint: disable=too-few-public-methods
 
 
 class PlaylistId(BaseModel):  # pylint: disable=too-few-public-methods
-    """Schema for updating playlist Spotif playlist an2d user IDs.
+    """Schema for updating playlist Spotify playlist and user IDs.
     """
     id: int
     user_id: Optional[str] = None
     playlist_id: Optional[str] = None
+
+
+class PlaylistUploads(BaseModel):  # pylint: disable=too-few-public-methods
+    """Schema for updating number of uploads of playlist to Spotify.
+    """
+    id: int
+    uploads: int
 
 
 class Playlist(BaseModel):  # pylint: disable=too-few-public-methods
@@ -51,3 +58,4 @@ class Playlist(BaseModel):  # pylint: disable=too-few-public-methods
     waypoints: Optional[str] = ''
     creativity: Optional[float] = 0.5
     noise: Optional[float] = 0
+    uploads: Optional[int] = 0

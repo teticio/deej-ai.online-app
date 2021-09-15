@@ -59,3 +59,16 @@ export async function updatePlaylistId(id, user_id, playlist_id) {
     })
   });
 }
+
+export async function updatePlaylistUploads(id, uploads) {
+  fetch(`${process.env.REACT_APP_API_URL}/update_playlist_uploads`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+      'id': id,
+      'uploads': uploads
+    })
+  });
+}

@@ -32,7 +32,7 @@ export function RateStars({ totalStars = 5, onSelect = f => f }) {
           unrated={true}
           value={(selectedStars > i) ? 1 : 0}
           onSelect={() => {
-            if (selectedStars === 1 && i === 0) { // toggle 1 star
+            if (selectedStars === 1 && i === 0) { // Toggle 1 star
               setSelectedStars(0);
               onSelect(0);
             } else {

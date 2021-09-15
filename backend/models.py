@@ -23,6 +23,7 @@ class Playlist(Base):
     waypoints = Column(String(150), default='')
     creativity = Column(Float, default=0.5)
     noise = Column(Float, default=0)
+    uploads = Column(Integer, default=0)
     hash = Column(String(64), default=0, unique=True)
 
     @staticmethod

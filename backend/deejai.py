@@ -231,7 +231,7 @@ class DeejAI:
                                                hop_length=self.HOP_LENGTH,
                                                n_mels=n_mels,
                                                fmax=sr / 2)
-            # hack because Spotify samples are a shade under 30s
+            # Hack because Spotify samples are a shade under 30s
             x = np.ndarray(shape=(S.shape[1] // slice_size + 1, n_mels,
                                   slice_size, 1),
                            dtype=float)
@@ -243,7 +243,7 @@ class DeejAI:
                     log_S = (log_S - np.min(log_S)) / (np.max(log_S) -
                                                        np.min(log_S))
                 x[slice_, :, :, 0] = log_S
-            # hack because Spotify samples are a shade under 30s
+            # Hack because Spotify samples are a shade under 30s
             log_S = librosa.power_to_db(S[:, -slice_size:], ref=np.max)
             if np.max(log_S) - np.min(log_S) != 0:
                 log_S = (log_S - np.min(log_S)) / (np.max(log_S) -
@@ -262,7 +262,7 @@ class DeejAI:
             extension = 'wav' if 'wav' in response.headers[
                 'Content-Type'] else 'mp3'
             with open(f'{playlist_id}.{extension}',
-                      'wb') as file:  # this is really annoying!
+                      'wb') as file:  # This is really annoying!
                 shutil.copyfileobj(BytesIO(response.content),
                                    file,
                                    length=131072)

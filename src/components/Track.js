@@ -16,7 +16,7 @@ function createResource(pending) {
   };
 }
 
-// avoid unncessary re-renders
+// Avoid unncessary re-renders
 class SpotifyTrackWidget extends PureComponent {
   render() {
     const { track_id, highlight, resource, testing } = this.props;
