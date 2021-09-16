@@ -42,7 +42,10 @@ export default function ShowPlaylist({ playlist, onClose = f => f, spotify = nul
                                 setEditing(false);
                                 setPlaylistUrl(spotify_playlist.external_urls.spotify);
                                 setPlaylistId(spotify_playlist.id);
-                                updatePlaylistUploads(playlist.id, playlist.uploads + 1)
+                                updatePlaylistUploads(
+                                  playlist.id,
+                                  (playlist.uploads ? playlist.uploads : 0) + 1
+                                )
                                   .catch(error => console.error('Error:', error));
                                 if (userPlaylist) {
                                   setPlaylistUserId(spotify_playlist.owner.id);
