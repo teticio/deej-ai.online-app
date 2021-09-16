@@ -429,7 +429,8 @@ def get_top_playlists(top_n: int, db: Session = Depends(get_db)):
     """
     try:
         db_items = db.query(models.Playlist).order_by(
-            desc(models.Playlist.av_rating)).limit(top_n).all()
+            desc(models.Playlist.av_rating), desc(models.Playlist.num_ratings),
+            desc(models.Playlist.created)).limit(top_n).all()
     except SQLAlchemyError:
         return []
     return db_items
