@@ -76,7 +76,7 @@ export default class Spotify extends SpotifyWebApi {
     }
     await this.replaceTracksInPlaylist(
       playlist.id,
-      track_ids.map((track_id) => `spotify:track:${track_id}`)
+      track_ids.map(track_id => `spotify:track:${track_id}`)
     );
     return playlist;
   }

@@ -9,7 +9,7 @@ export default function RemovablePlaylist({ track_ids = [], onRemove = f => f })
             key={i}
             track_id={track_id}
             uuid={i}
-            onRemove={(uuid) => onRemove(uuid)}
+            onRemove={uuid => onRemove(uuid)}
           />
         </div>
       ))}

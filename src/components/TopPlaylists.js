@@ -19,7 +19,7 @@ export default function TopPlaylists({ spotify }) {
 
   useEffect(() => {
     getTopPlaylists(topN)
-      .then((playlists) => {
+      .then(playlists => {
         setPlaylists(playlists);
       }).catch(error => console.error('Error:', error));
   }, [topN]);

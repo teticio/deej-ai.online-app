@@ -29,7 +29,7 @@ export default function SearchPlaylists({ spotify }) {
       setPlaylists([]);
     } else {
       searchPlaylists(actualSearchString, topN)
-        .then((playlists) => {
+        .then(playlists => {
           setPlaylists(playlists);
         }).catch(error => console.error('Error:', error));
     }

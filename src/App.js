@@ -65,7 +65,7 @@ function App() {
                     setPlaylist(playlist);
                     navigate('/playlist');
                   }}
-                  onSettings={(waypoints) => {
+                  onSettings={waypoints => {
                     setWaypoints(waypoints);
                     navigate('/settings');
                   }}

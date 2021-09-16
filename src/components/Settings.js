@@ -8,7 +8,7 @@ export default function Settings({ size, creativity, noise, onChange = f => f, o
   const [_size, setSize] = useState(size);
   const [_creativity, setCreativity] = useState(creativity);
   const [_noise, setNoise] = useState(noise);
-  const setValidSize = (size) => setSize(Math.max(Math.min(size, 100), 1))
+  const setValidSize = size => setSize(Math.max(Math.min(size, 100), 1))
   const update = () => onChange(_size, _creativity, _noise);
 
   useEffect(() => () => update());

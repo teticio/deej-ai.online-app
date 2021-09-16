@@ -381,7 +381,7 @@ def update_playlist_id(playlist: schemas.PlaylistId,
 
 @app.post('/api/v1/update_playlist_uploads')
 def update_playlist_uploads(playlist: schemas.PlaylistUploads,
-                             db: Session = Depends(get_db)):
+                            db: Session = Depends(get_db)):
     """Update number of times playlist has been uploaded to Spotify.
 
     Args:

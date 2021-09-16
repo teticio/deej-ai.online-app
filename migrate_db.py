@@ -14,6 +14,7 @@ from backend import models
 
 logging.basicConfig(format='%(levelname)s:%(message)s', level=logging.INFO)
 
+
 def copy_objects(db_from, db_to, cls):
     """Copy all items in a table from one databse to another.
 

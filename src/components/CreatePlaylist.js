@@ -27,13 +27,13 @@ export default function CreatePlaylist({
       <AddTrack
         numTracks={_waypoints.track_ids.length}
         spotify={spotify}
-        onAdd={(id) => {
+        onAdd={id => {
           setWaypoints({ 'track_ids': _waypoints.track_ids.concat(id) });
         }} />
       <VerticalSpacer px={10} />
       <Card>
         <Card.Body>
-          <RemovablePlaylist {..._waypoints} onRemove={(id) => {
+          <RemovablePlaylist {..._waypoints} onRemove={id => {
             setWaypoints({ 'track_ids': _waypoints.track_ids.filter((element, index) => index !== id) });
           }} />
           {_waypoints.track_ids.length > 0 ?

@@ -17,7 +17,7 @@ export default function AddTrack({ numTracks = 0, spotify = null, onAdd = f => f
         <div className='d-flex align-items-center'>
           <TrackSelector
             spotify={spotify}
-            onSelect={(id) => setCurrentId(id)}
+            onSelect={id => setCurrentId(id)}
             onSearch={() => {
               setSearches(searches => {
                 if (searches + 1 !== 0) setSpinner(true);

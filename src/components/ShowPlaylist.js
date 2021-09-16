@@ -104,13 +104,16 @@ export default function ShowPlaylist({ playlist, onClose = f => f, spotify = nul
               <Col>
                 <div className='d-flex justify-content-end'>
                   {rateIt ?
-                    <span><RateStars totalStars={5} onSelect={(rating) => {
-                      updatePlaylistRating(
-                        playlist.id,
-                        (rating + playlist.av_rating) / (playlist.num_ratings + 1),
-                        playlist.num_ratings + 1
-                      ).catch(error => console.error('Error:', error));
-                    }} /></span> :
+                    <span><RateStars
+                      totalStars={5}
+                      onSelect={(rating) => {
+                        updatePlaylistRating(
+                          playlist.id,
+                          (rating + playlist.av_rating) / (playlist.num_ratings + 1),
+                          playlist.num_ratings + 1
+                        ).catch(error => console.error('Error:', error));
+                      }}
+                    /></span> :
                     <span onClick={() => setRateIt(true)}>
                       <StarRating rating={playlist.av_rating} />
                     </span>
