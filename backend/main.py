@@ -449,7 +449,8 @@ def get_most_uploads(top_n: int, db: Session = Depends(get_db)):
     """
     try:
         db_items = db.query(models.Playlist).order_by(
-            desc(models.Playlist.uploads)).limit(top_n).all()
+            desc(models.Playlist.uploads),
+            desc(models.Playlist.created)).limit(top_n).all()
     except SQLAlchemyError:
         return []
     return db_items
