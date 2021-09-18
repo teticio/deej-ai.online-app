@@ -1,13 +1,10 @@
+import React from 'react';
 import { useState } from 'react';
-import { FaBackward, FaCloudUploadAlt, FaPen } from 'react-icons/fa';
-import Card from 'react-bootstrap/Card';
-import Row from 'react-bootstrap/Row';
-import Col from 'react-bootstrap/Col';
-import Spinner from 'react-bootstrap/Spinner';
+import { Card, Row, Col, Spinner, FaBackward, FaCloudUploadAlt, FaPen } from './Platform';
 import Playlist from './Playlist';
 import { updatePlaylistName, updatePlaylistRating, updatePlaylistId, updatePlaylistUploads } from './SavePlaylist';
 import StarRating, { RateStars } from './StarRating';
-import { HorizontalSpacer } from '../lib';
+import { HorizontalSpacer } from './Lib';
 
 export default function ShowPlaylist({ playlist, onClose = f => f, spotify = null, userPlaylist = false }) {
   const [editing, setEditing] = useState(false);

@@ -1,4 +1,4 @@
-import { VerticalSpacer } from '../lib';
+import { VerticalSpacer } from './Lib';
 import Track from './Track';
 
 export default function NotFound() {

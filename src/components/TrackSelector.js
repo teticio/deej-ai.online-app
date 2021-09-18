@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { FaSpotify } from 'react-icons/fa'
 import Container from 'react-bootstrap/Container';
-import { debounceFunction, HorizontalSpacer, VerticalSpacer } from '../lib';
+import { debounceFunction, HorizontalSpacer, VerticalSpacer } from './Lib';
 import Search, { searchSimilar } from './Search';
 import './TrackSelector.css';
 

@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { Routes, Route, useNavigate } from 'react-router-dom';
 import Container from 'react-bootstrap/Container';
-import { getHashParams, usePersistedState } from './lib';
+import { getHashParams, usePersistedState } from './components/Lib';
 import Banner from './components/Banner';
 import Spotify from './components/Spotify';
 import ErrorBoundary from './components/ErrorBoundary';

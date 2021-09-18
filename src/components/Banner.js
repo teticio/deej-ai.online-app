@@ -4,7 +4,7 @@ import Navbar from 'react-bootstrap/Navbar';
 import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
 import './Banner.css'
-import { VerticalSpacer } from '../lib';
+import { VerticalSpacer } from './Lib';
 
 export default function Banner({ loggedIn = false, onSelect = f => f }) {
   const [expanded, setExpanded] = useState(false);

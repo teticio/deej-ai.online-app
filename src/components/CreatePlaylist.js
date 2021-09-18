@@ -6,7 +6,7 @@ import AddTrack from './AddTrack';
 import RemovablePlaylist from './RemovablePlaylist';
 import generatePlaylist from './GeneratePlaylist';
 import SavePlaylist from './SavePlaylist';
-import { VerticalSpacer } from '../lib';
+import { VerticalSpacer } from './Lib';
 
 export default function CreatePlaylist({
   waypoints = { track_ids: [] },

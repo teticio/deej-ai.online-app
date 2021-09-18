@@ -1,5 +1,5 @@
 import { useState, useEffect, useReducer } from 'react';
-import { VerticalSpacer } from '../lib';
+import { VerticalSpacer } from './Lib';
 import ShowPlaylists from './ShowPlaylists';
 
 export async function getTopPlaylists(top_n) {

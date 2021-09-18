@@ -1,7 +1,7 @@
 import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
 import Card from 'react-bootstrap/Card';
-import { createArray, VerticalSpacer } from '../lib';
+import { createArray, VerticalSpacer } from './Lib';
 import ShowPlaylist from './ShowPlaylist';
 
 export default function ShowPlaylists({ playlists, spotify = null }) {

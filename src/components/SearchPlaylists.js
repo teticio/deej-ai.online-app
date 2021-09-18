@@ -2,7 +2,7 @@ import { useState, useEffect, useReducer } from 'react';
 import { FaSearch } from 'react-icons/fa';
 import Card from 'react-bootstrap/Card';
 import ShowPlaylists from './ShowPlaylists';
-import { HorizontalSpacer, VerticalSpacer } from '../lib';
+import { HorizontalSpacer, VerticalSpacer } from './Lib';
 
 export async function searchPlaylists(searchString, maxItems) {
   const response = await fetch(`${process.env.REACT_APP_API_URL}/search_playlists` +

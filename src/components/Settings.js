@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { FaBackward } from 'react-icons/fa';
-import { HorizontalSpacer } from '../lib';
+import { HorizontalSpacer } from './Lib';
 import Card from 'react-bootstrap/Card';
 import Form from 'react-bootstrap/Form';
 

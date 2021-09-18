@@ -3,7 +3,7 @@ import { FaPlus } from 'react-icons/fa';
 import Card from 'react-bootstrap/Card';
 import Spinner from 'react-bootstrap/Spinner';
 import TrackSelector from './TrackSelector';
-import { HorizontalSpacer } from '../lib';
+import { HorizontalSpacer } from './Lib';
 
 export default function AddTrack({ numTracks = 0, spotify = null, onAdd = f => f }) {
   const [currentId, setCurrentId] = useState(null);

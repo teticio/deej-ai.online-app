@@ -1,3 +1,4 @@
+import { View } from './Platform';
 import { useState, useEffect } from 'react';
 
 export const getHashParams = () => {
@@ -32,12 +33,12 @@ export const usePersistedState = (key, defaultValue) => {
 
 export function VerticalSpacer({ px = 10 }) {
   return (
-    <div style={{ marginTop: `${px}px` }} />
+    <View style={{ marginTop: `${px}px` }} />
   );
 }
 
 export function HorizontalSpacer({ px = 10 }) {
   return (
-    <div style={{ width: `${px}px` }} />
+    <View style={{ width: `${px}px` }} />
   );
 }

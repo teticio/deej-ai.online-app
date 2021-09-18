@@ -1,4 +1,4 @@
-import { VerticalSpacer } from '../lib';
+import { VerticalSpacer } from './Lib';
 
 export default function PrivacyPolicy() {
   return (

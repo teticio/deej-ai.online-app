@@ -8,11 +8,20 @@
     "@testing-library/user-event": "^12.1.10",
     "bootstrap": "5.0.2",
     "bootswatch": "^5.1.0",
+    "buffer": "^6.0.3",
+    "expo": "~42.0.0",
     "history": "^5.0.1",
     "react": "^17.0.2",
     "react-bootstrap": "^2.0.0-beta.4",
     "react-dom": "^17.0.2",
     "react-icons": "^4.2.0",
+    "react-native": "https://github.com/expo/react-native/archive/sdk-42.0.0.tar.gz",
+    "react-native-elements": "^3.4.2",
+    "react-native-paper": "^4.9.2",
+    "react-native-svg": "^12.1.1",
+    "react-native-vector-icons": "^8.1.0",
+    "react-native-web": "~0.13.12",
+    "react-native-webview": "^11.13.0",
     "react-router": "^6.0.0-beta.1",
     "react-router-dom": "^6.0.0-beta.1",
     "react-scripts": "4.0.3",
@@ -36,7 +45,12 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "start-native": "expo start",
+    "android": "expo start --android",
+    "ios": "expo start --ios",
+    "web": "expo start --web",
+    "eject-native": "expo eject"
   },
   "eslintConfig": {
     "extends": [
@@ -58,6 +72,7 @@
   },
   "proxy": "http://localhost:8000",
   "devDependencies": {
+    "@babel/core": "^7.9.0",
     "react-test-renderer": "^17.0.2"
   }
 }
