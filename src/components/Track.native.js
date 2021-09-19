@@ -28,7 +28,7 @@ class SpotifyTrackWidget extends PureComponent {
                 justifyContent: 'center',
                 alignItems: 'center',
               }}>
-                <Spinner size='large' color='solid black' />
+                <Spinner size='large' />
               </View>);
           }}
           source={{

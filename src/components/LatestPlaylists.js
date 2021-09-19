@@ -1,4 +1,6 @@
+import React from 'react';
 import { useState, useEffect, useReducer } from 'react';
+import { ScrollView, Text } from './Platform';
 import { VerticalSpacer } from './Lib';
 import ShowPlaylists from './ShowPlaylists';
 
@@ -25,16 +27,16 @@ export default function LatestPlaylists({ spotify }) {
   }, [topN]);
 
   return (
-    <>
+    <ScrollView>
       <VerticalSpacer px={10} />
-      <h3 style={{ textAlign: 'center' }}>Latest playlists</h3>
+      <Text h3 style={{ textAlign: 'center' }}>Latest playlists</Text>
       <ShowPlaylists
         playlists={playlists}
         spotify={spotify}
       />
-      <span onClick={loadMore}>
-        <h6 className='link' style={{ textAlign: 'center' }}>Load more...</h6>
-      </span>
-    </>
+      <Text h6 onClick={loadMore} className='link' style={{ textAlign: 'center' }}>
+        Load more...
+      </Text>
+    </ScrollView>
   );
 }

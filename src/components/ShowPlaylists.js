@@ -1,12 +1,11 @@
 import React from 'react';
 import { Card } from './Platform';
-import { ScrollView } from './Platform';
 import { Row, Col, createArray, VerticalSpacer } from './Lib';
 import ShowPlaylist from './ShowPlaylist';
 
 export default function ShowPlaylists({ playlists, spotify = null }) {
   return (
-    <ScrollView>
+    <>
       {(playlists.length === 1) ?
         <Card key={0} >
           <ShowPlaylist
@@ -34,6 +33,6 @@ export default function ShowPlaylists({ playlists, spotify = null }) {
             </Row>
           </>
         ))}
-    </ScrollView>
+    </>
   );
 }

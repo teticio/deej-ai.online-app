@@ -17,9 +17,9 @@ export default function ShowPlaylist({ playlist, onClose = f => f, spotify = nul
 
   return (
     <Card>
-      <Row style={{ justifyContent: 'space-between', padding: 10 }}>
-        <Col>
-          <Row style={{ justifyContent: 'flex-start' }}>
+      <Row style={{ justifyContent: 'space-between', padding: 10 }} surface={true} >
+        <Col surface={true}>
+          <Row style={{ justifyContent: 'flex-start' }} surface={true}>
             {(spotify && spotify.loggedIn()) ?
               <>
                 {spinner ?
@@ -75,7 +75,7 @@ export default function ShowPlaylist({ playlist, onClose = f => f, spotify = nul
                       }
                     }}
                   /> :
-                  <View style={{ display: 'flex' }}>
+                  <View style={{ display: 'flex' }} surface={true}>
                     <Text h4>{playlistName}</Text>
                     {userPlaylist ?
                       <>
@@ -98,7 +98,7 @@ export default function ShowPlaylist({ playlist, onClose = f => f, spotify = nul
           }
         </Col>
         <Col>
-          <Row style={{ justifyContent: 'flex-end' }}>
+          <Row style={{ justifyContent: 'flex-end' }} surface={true}>
             {rateIt ?
               <Text><RateStars
                 totalStars={5}

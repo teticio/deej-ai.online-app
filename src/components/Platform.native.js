@@ -7,19 +7,30 @@ const MdIcon = require('react-native-vector-icons').MaterialIcons;
 const FaIcon = require('react-native-vector-icons').FontAwesome5;
 
 export { Card };
-export const Spinner = ActivityIndicator;
+
+export function Spinner(props) {
+  const { colors } = useTheme();
+
+  return (
+    <ActivityIndicator
+      color={colors.primary}
+      {...props}
+    ></ActivityIndicator >
+  );
+}
 
 export function Text(props) {
   const { colors } = useTheme();
 
-  return <TEXT
-    {...props}
-    style={{
-      color: colors.primary,
-      backgroundColor: colors.background,
-      ...props.style,
-    }}
-  ></TEXT >
+  return (
+    <TEXT
+      {...props}
+      style={{
+        color: props.className === 'link' ? colors.accent : colors.primary,
+        ...props.style,
+      }}
+    ></TEXT >
+  );
 }
 
 export function Small(props) {
@@ -33,7 +44,7 @@ export function View(props) {
     {...props}
     style={{
       color: colors.primary,
-      backgroundColor: colors.background,
+      backgroundColor: props.surface ? colors.surface : colors.background,
       ...props.style,
     }}
   ></VIEW >
@@ -59,7 +70,7 @@ export function WebView(props) {
     {...props}
     style={{
       color: colors.primary,
-      backgroundColor: colors.background,
+      backgroundColor: colors.surface,
       ...props.style,
     }}
   >{props.children}</WEB_VIEW >
@@ -83,7 +94,7 @@ export function Link(props) {
         onPress={handlePress}
         style={{
           color: colors.accent,
-          backgroundColor: colors.background,
+          backgroundColor: colors.surface,
           textDecorationLine: 'underline'
         }}
       >{props.text ? props.text : ''}
