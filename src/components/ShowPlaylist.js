@@ -16,146 +16,140 @@ export default function ShowPlaylist({ playlist, onClose = f => f, spotify = nul
   const [spinner, setSpinner] = useState(false);
 
   return (
-    <>
-      <Card>
-        <Card.Body>
-          <Card.Title>
-            <Row style={{ justifyContent: 'space-between' }}>
-              <Col>
-                <Row style={{ justifyContent: 'flex-start' }}>
-                  {(spotify && spotify.loggedIn()) ?
-                    <>
-                      {spinner ?
-                        <Spinner animation='border' size='md' /> :
-                        <FaCloudUploadAlt size='25'
-                          className='link'
-                          data-toggle="tooltip"
-                          title="Upload to Spotify"
-                          onClick={() => {
-                            setSpinner(true);
-                            spotify.autoRefresh(() => spotify.createNewPlayist(playlistName, playlist.track_ids))
-                              .then((spotify_playlist) => {
-                                setSpinner(false);
-                                setEditing(false);
-                                setPlaylistUrl(spotify_playlist.external_urls.spotify);
-                                setPlaylistId(spotify_playlist.id);
-                                updatePlaylistUploads(
-                                  playlist.id,
-                                  (playlist.uploads ? playlist.uploads : 0) + 1
-                                )
-                                  .catch(error => console.error('Error:', error));
-                                if (userPlaylist) {
-                                  setPlaylistUserId(spotify_playlist.owner.id);
-                                  updatePlaylistId(playlist.id, playlistUserId, playlistId)
-                                    .catch(error => console.error('Error:', error));
-                                }
-                              }).catch(error => console.error('Error:', error));
-                          }}
-                        />}
-                      <HorizontalSpacer px={10} />
-                    </> : <></>
-                  }
-                  {playlistUrl ?
-                    <Link
-                      url={playlistUrl}
-                      text={playlistName}
-                    /> :
-                    <Text onClick={() => { if (userPlaylist) setEditing(true); }}>
-                      {editing ?
-                        <Text
-                          value={playlistName}
-                          onChange={event => setPlaylistName(event.target.value)}
-                          onBlur={() => {
-                            setEditing(false);
-                            updatePlaylistName(playlist.id, playlistName)
+    <Card>
+      <Row style={{ justifyContent: 'space-between', padding: 10 }}>
+        <Col>
+          <Row style={{ justifyContent: 'flex-start' }}>
+            {(spotify && spotify.loggedIn()) ?
+              <>
+                {spinner ?
+                  <Spinner animation='border' size='md' /> :
+                  <FaCloudUploadAlt size='25'
+                    className='link'
+                    data-toggle="tooltip"
+                    title="Upload to Spotify"
+                    onClick={() => {
+                      setSpinner(true);
+                      spotify.autoRefresh(() => spotify.createNewPlayist(playlistName, playlist.track_ids))
+                        .then((spotify_playlist) => {
+                          setSpinner(false);
+                          setEditing(false);
+                          setPlaylistUrl(spotify_playlist.external_urls.spotify);
+                          setPlaylistId(spotify_playlist.id);
+                          updatePlaylistUploads(
+                            playlist.id,
+                            (playlist.uploads ? playlist.uploads : 0) + 1
+                          )
+                            .catch(error => console.error('Error:', error));
+                          if (userPlaylist) {
+                            setPlaylistUserId(spotify_playlist.owner.id);
+                            updatePlaylistId(playlist.id, playlistUserId, playlistId)
                               .catch(error => console.error('Error:', error));
-                          }}
-                          onKeyUp={event => {
-                            if (event.key === 'Enter') {
-                              setEditing(false);
-                              updatePlaylistName(playlist.id, playlistName)
-                                .catch(error => console.error('Error:', error));
-                            }
-                          }}
-                        /> :
-                        <View style={{ display: 'flex' }}>
-                          {playlistName}
-                          {userPlaylist ?
-                            <>
-                              <HorizontalSpacer px={10} />
-                              <FaPen size='15' className='link' />
-                            </> :
-                            <></>
                           }
-                        </View>
-                      }
-                    </Text>
-                  }
-                </Row>
-                {(playlist.creativity !== undefined && playlist.noise !== undefined) ?
-                  <Text h6><Small class='text-muted'>
-                    creativity {Math.round(playlist.creativity * 100)}%
-                    , noise {Math.round(playlist.noise * 100)}%
-                  </Small></Text> :
-                  <></>
-                }
-              </Col>
-              <Col>
-                <Row style={{ justifyContent: 'flex-end' }}>
-                  {rateIt ?
-                    <Text><RateStars
-                      totalStars={5}
-                      onSelect={(rating) => {
-                        updatePlaylistRating(
-                          playlist.id,
-                          (rating + playlist.av_rating) / (playlist.num_ratings + 1),
-                          playlist.num_ratings + 1
-                        ).catch(error => console.error('Error:', error));
-                      }}
-                    /></Text> :
-                    <Text onClick={() => setRateIt(true)}>
-                      <StarRating rating={playlist.av_rating} />
-                    </Text>
-                  }
-                </Row>
-              </Col>
-            </Row>
-          </Card.Title>
-          {
-            /*
-            {playlistUrl ?
-              <iframe
-                title={playlistId}
-                src={'https://open.spotify.com/embed/playlist/' + playlistId}
-                width='100%'
-                height={80 + 50 * playlist.track_ids.length}
-                frameBorder='0'
-                allowtransparency='true'
-                allow='encrypted-media'
-              /> :
-            */
-          }
-          <Playlist {...playlist} />
-          {
-            /*
+                        }).catch(error => console.error('Error:', error));
+                    }}
+                  />}
+                <HorizontalSpacer px={10} />
+              </> : <></>
             }
-            */
+            {playlistUrl ?
+              <Link
+                url={playlistUrl}
+                text={playlistName}
+              /> :
+              <Text onClick={() => { if (userPlaylist) setEditing(true); }}>
+                {editing ?
+                  <Text
+                    value={playlistName}
+                    onChange={event => setPlaylistName(event.target.value)}
+                    onBlur={() => {
+                      setEditing(false);
+                      updatePlaylistName(playlist.id, playlistName)
+                        .catch(error => console.error('Error:', error));
+                    }}
+                    onKeyUp={event => {
+                      if (event.key === 'Enter') {
+                        setEditing(false);
+                        updatePlaylistName(playlist.id, playlistName)
+                          .catch(error => console.error('Error:', error));
+                      }
+                    }}
+                  /> :
+                  <View style={{ display: 'flex' }}>
+                    <Text h4>{playlistName}</Text>
+                    {userPlaylist ?
+                      <>
+                        <HorizontalSpacer px={10} />
+                        <FaPen size='15' className='link' />
+                      </> :
+                      <></>
+                    }
+                  </View>
+                }
+              </Text>
+            }
+          </Row>
+          {(playlist.creativity !== undefined && playlist.noise !== undefined) ?
+            <Text h6><Small class='text-muted'>
+              creativity {Math.round(playlist.creativity * 100)}%
+              , noise {Math.round(playlist.noise * 100)}%
+            </Small></Text> :
+            <></>
           }
-          {userPlaylist ?
-            <>
-              <hr />
-              <div className='d-flex align-items-center justify-content-between'>
-                <FaBackward
-                  size='25'
-                  className='link'
-                  onClick={() => onClose()}
-                />
-              </div>
-            </> : <></>
-          }
-        </Card.Body>
-      </Card>
-    </>
+        </Col>
+        <Col>
+          <Row style={{ justifyContent: 'flex-end' }}>
+            {rateIt ?
+              <Text><RateStars
+                totalStars={5}
+                onSelect={(rating) => {
+                  updatePlaylistRating(
+                    playlist.id,
+                    (rating + playlist.av_rating) / (playlist.num_ratings + 1),
+                    playlist.num_ratings + 1
+                  ).catch(error => console.error('Error:', error));
+                }}
+              /></Text> :
+              <Text onClick={() => setRateIt(true)}>
+                <StarRating rating={playlist.av_rating} />
+              </Text>
+            }
+          </Row>
+        </Col>
+      </Row>
+      {
+        /*
+        {playlistUrl ?
+          <iframe
+            title={playlistId}
+            src={'https://open.spotify.com/embed/playlist/' + playlistId}
+            width='100%'
+            height={80 + 50 * playlist.track_ids.length}
+            frameBorder='0'
+            allowtransparency='true'
+            allow='encrypted-media'
+          /> :
+        */
+      }
+      <Playlist {...playlist} />
+      {
+        /*
+        }
+        */
+      }
+      {userPlaylist ?
+        <>
+          <hr />
+          <div className='d-flex align-items-center justify-content-between'>
+            <FaBackward
+              size='25'
+              className='link'
+              onClick={() => onClose()}
+            />
+          </div>
+        </> : <></>
+      }
+    </Card>
   );
 }
 
