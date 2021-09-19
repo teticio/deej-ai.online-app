@@ -1,4 +1,5 @@
-import { View } from './Platform';
+import React from 'react';
+import { View, Text } from './Platform';
 import { useState, useEffect } from 'react';
 
 export const getHashParams = () => {
@@ -33,12 +34,20 @@ export const usePersistedState = (key, defaultValue) => {
 
 export function VerticalSpacer({ px = 10 }) {
   return (
-    <View style={{ marginTop: `${px}px` }} />
+    <View style={{ marginTop: px }} />
   );
 }
 
 export function HorizontalSpacer({ px = 10 }) {
   return (
-    <View style={{ width: `${px}px` }} />
+    <View style={{ width: px }} />
   );
+}
+
+export function B(props) {
+  return <Text style={{ fontWeight: 'bold' }}>{props.children}</Text>;
+}
+
+export function I(props) {
+  return <Text style={{ fontWeight: 'bold' }}>{props.children}</Text>;
 }

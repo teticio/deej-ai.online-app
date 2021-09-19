@@ -37,6 +37,9 @@ export function Link(props) {
       href={props.url}
       target='_blank'
       rel='noopener noreferrer'
-    ><Text {...props}>{props.text}</Text></a>
+    >
+      {props.text ? <Text {...props}>{props.text}</Text> : <></>}
+      {props.source ? <img {...props} src={props.source} /> : <></>}
+    </a>
   );
 }

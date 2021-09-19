@@ -1,10 +1,26 @@
 import React, { useCallback } from 'react';
-import { Text } from "react-native-elements";
-import { Linking, Alert, View as VIEW, ScrollView as SCROLL_VIEW, ActivityIndicator } from 'react-native';
+import { Text as TEXT } from "react-native-elements";
+import { Linking, Alert, Image, View as VIEW, ScrollView as SCROLL_VIEW, ActivityIndicator } from 'react-native';
 import { WebView as WEB_VIEW } from 'react-native-webview';
-import { useTheme, Card as CARD } from 'react-native-paper';
-import { Icon as MdIcon } from 'react-native-vector-icons/MaterialIcons';
-import { Icon as FaIcon } from 'react-native-vector-icons/FontAwesome5';
+import { useTheme, Card } from 'react-native-paper';
+const MdIcon = require('react-native-vector-icons').MaterialIcons;
+const FaIcon = require('react-native-vector-icons').FontAwesome5;
+
+export { Card };
+export const Spinner = ActivityIndicator;
+
+export function Text(props) {
+  const { colors } = useTheme();
+
+  return <TEXT
+    {...props}
+    style={{
+      color: colors.primary,
+      backgroundColor: colors.background,
+      ...props.style,
+    }}
+  ></TEXT >
+}
 
 export function View(props) {
   const { colors } = useTheme();
@@ -12,9 +28,9 @@ export function View(props) {
   return <VIEW
     {...props}
     style={{
-      ...props.style,
       color: colors.primary,
       backgroundColor: colors.background,
+      ...props.style,
     }}
   ></VIEW >
 }
@@ -25,9 +41,9 @@ export function ScrollView(props) {
   return <SCROLL_VIEW
     {...props}
     style={{
-      ...props.style,
       color: colors.primary,
       backgroundColor: colors.background,
+      ...props.style,
     }}
   ></SCROLL_VIEW >
 }
@@ -38,80 +54,85 @@ export function WebView(props) {
   return <WEB_VIEW
     {...props}
     style={{
-      ...props.style,
       color: colors.primary,
       backgroundColor: colors.background,
+      ...props.style,
     }}
   >{props.children}</WEB_VIEW >
 }
 
-export const Spinner = ActivityIndicator;
-export const Card = CARD;
-
 export function Link(props) {
   const { colors } = useTheme();
   const handlePress = useCallback(async () => {
-    // Checking if the link is supported for links with custom URL scheme.
     const supported = await Linking.canOpenURL(props.url);
 
     if (supported) {
-      // Opening the link with some app, if the URL scheme is "http" the web link should be opened
-      // by some browser in the mobile
       await Linking.openURL(props.url);
     } else {
       Alert.alert(`Don't know how to open this URL: ${props.url}`);
     }
   }, [props.url]);
 
-  return <Text
-    onPress={handlePress}
-    {...props}
-    style={{
-      ...props.style,
-      color: colors.accent,
-      backgroundColor: colors.background,
-      textDecorationLine: 'underline'
-    }}
-  >{props.text}
-  </Text>;
+  if (props.text) {
+    return (
+      <Text
+        onPress={handlePress}
+        style={{
+          color: colors.accent,
+          backgroundColor: colors.background,
+          textDecorationLine: 'underline'
+        }}
+      >{props.text ? props.text : ''}
+      </Text>
+    );
+  } else {
+    return (
+      <Image
+        onPress={handlePress}
+        source={props.source}
+        resizeMode='contain'
+        {...props}
+      ></Image>
+    );
+  }
 }
 
-export function FaPlus({ size }) {
+export function FaPlus({ size = 10 }) {
   return <FaIcon name='plus' size={Number(size)} />
 }
 
-export function FaForward({ size }) {
+export function FaForward({ size = 10 }) {
   return <FaIcon name='forward' size={Number(size)} />
 }
 
-export function FaBackward({ size }) {
+export function FaBackward({ size = 10 }) {
   return <FaIcon name='backward' size={Number(size)} />
 }
 
-export function FaCloudUploadAlt({ size }) {
+export function FaCloudUploadAlt({ size = 10 }) {
   return <FaIcon name='cloud-upload-alt' size={Number(size)} />
 }
 
-export function FaPen({ size }) {
+export function FaPen({ size = 10 }) {
   return <FaIcon name='pen' size={Number(size)} />
 }
 
-export function FaSpotify({ size }) {
+export function FaSpotify({ size = 10 }) {
   return <FaIcon name='spotify' size={Number(size)} />
 }
 
-export function FaCog({ size }) {
+export function FaCog({ size = 10 }) {
   return <FaIcon name='cog' size={Number(size)} />
 }
 
-export function MdStar({ size }) {
+export function MdStar({ size = 10 }) {
   return <MdIcon name='star' size={Number(size)} />
 }
 
-export function MdStarHalf({ size }) {
+export function MdStarHalf({ size = 10 }) {
   return <MdIcon name='star-half' size={Number(size)} />
 }
 
-export function MdStarBorder({ size }) {
+export function MdStarBorder({ size = 10 }) {
   return <MdIcon name='star-outline' size={Number(size)} />
 }
