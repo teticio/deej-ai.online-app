@@ -12,7 +12,7 @@ export const getHashParams = () => {
   return hashParams;
 };
 
-export const createArray = length => (length > 0)? [...Array(length)] : [];
+export const createArray = length => (length > 0) ? [...Array(length)] : [];
 
 var timerId;
 
@@ -50,4 +50,35 @@ export function B(props) {
 
 export function I(props) {
   return <Text style={{ fontWeight: 'bold' }}>{props.children}</Text>;
+}
+
+export function Row(props) {
+  return (
+    <View
+    {...props}
+    style={{
+        display: 'flex',
+        flexWrap: 'wrap',
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'space-evenly',
+        ...props.style
+      }}
+    >{props.children}
+    </View>
+  );
+}
+
+export function Col(props) {
+  return (
+    <View
+      {...props}
+      style={{
+        display: 'flex',
+        flexDirection: 'column',
+        ...props.style
+      }}
+    >{props.children}
+    </View>
+  );
 }

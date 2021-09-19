@@ -1,5 +1,5 @@
 import React from 'react';
-import About from './src/components/About'
+import ShowPlaylist from './src/components/ShowPlaylist'
 import { DarkTheme, Provider as PaperProvider } from 'react-native-paper';
 
 global.Buffer = global.Buffer || require('buffer').Buffer;
@@ -16,7 +16,18 @@ const theme = {
 export default function App() {
   return (
     <PaperProvider theme={theme}>
-      <About />
+      <ShowPlaylist playlist={{
+        name: 'HELLO',
+        track_ids: [
+          "1O0xeZrBDbq7HPREdmYUYK", "6Y0ed41KYLRnJJyYGGaDgY",
+          "5yrsBzgHkfu2idkl2ILQis", "6yXcmVKGjFofPWvW9ustQX",
+          "1DKyFVzIh1oa1fFnEmTkIl", "6b8hjwuGl1H9o5ZbrHJcpJ",
+          "5qRJD1yaLJ5s0J3JpbgnwA", "6kotXaSQaGYxE62hVpdHWu",
+          "4lrQv8z3qq1Rl8bsc0Qy0y", "2nmaEzFZrSm2aMLtfJDzyG",
+          "3PPDUkGHUJx2bxct6A3PBy", "1b7LMtXCXGc2EwOIplI35z"
+        ]
+      }}
+      />
     </PaperProvider>
   );
 }

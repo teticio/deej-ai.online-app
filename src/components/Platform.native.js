@@ -22,6 +22,10 @@ export function Text(props) {
   ></TEXT >
 }
 
+export function Small(props) {
+  return <>{props.children}</>;
+}
+
 export function View(props) {
   const { colors } = useTheme();
 

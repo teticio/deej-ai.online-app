@@ -1,7 +1,8 @@
 import React from 'react';
-import { ScrollView, View, Text, Link, FaPlus, FaForward, FaCloudUploadAlt, FaSpotify, FaCog } from './Platform';
-import { B, I, VerticalSpacer } from './Lib';
-import { Image } from 'react-native';
+import GoogleBadge from '../images/google-play-badge.png'
+import AppleBadge from '../images/download-on-the-app-store.png'
+import { ScrollView, Text, Link, FaPlus, FaForward, FaCloudUploadAlt, FaSpotify, FaCog } from './Platform';
+import { B, I, VerticalSpacer, Row } from './Lib';
 
 export default function About() {
   return (
@@ -50,16 +51,19 @@ export default function About() {
           text='article'
         />.
       </Text>
-      <View style={{flex: 1, flexDirection: 'row', alignItems: 'center', justifyContent: 'center'}}>
+      <VerticalSpacer px={15} />
+      <Row>
         <Link style={{ width: 150, height: 60 }}
           url='https://play.google.com/store/apps/details?id=online.deejai.www&pcampaignid=MKT-Other-global-all-co-prtnr-py-PartBadge-Mar2515-1'
-          source={require('../images/google-play-badge.png')}
+          source={GoogleBadge}
+          alt='Get it on Google Play'
         />
         <Link style={{ width: 120, height: 40 }}
           url='https://apps.apple.com/us/app/deej-a-i/id1529860910?mt=8'
-          source={require('../images/download-on-the-app-store.png')}
+          source={AppleBadge}
+          alt='Get it on App Store'
         />
-      </View>
+      </Row>
     </ScrollView>
   );
 }

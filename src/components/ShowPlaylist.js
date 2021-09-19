@@ -1,10 +1,10 @@
 import React from 'react';
 import { useState } from 'react';
-import { Card, Row, Col, Spinner, FaBackward, FaCloudUploadAlt, FaPen } from './Platform';
 import Playlist from './Playlist';
 import { updatePlaylistName, updatePlaylistRating, updatePlaylistId, updatePlaylistUploads } from './SavePlaylist';
 import StarRating, { RateStars } from './StarRating';
-import { HorizontalSpacer } from './Lib';
+import { View, Text, Small, Link, Card, Spinner, FaBackward, FaCloudUploadAlt, FaPen } from './Platform';
+import { Row, Col, HorizontalSpacer } from './Lib';
 
 export default function ShowPlaylist({ playlist, onClose = f => f, spotify = null, userPlaylist = false }) {
   const [editing, setEditing] = useState(false);
@@ -20,9 +20,9 @@ export default function ShowPlaylist({ playlist, onClose = f => f, spotify = nul
       <Card>
         <Card.Body>
           <Card.Title>
-            <Row>
+            <Row style={{ justifyContent: 'space-between' }}>
               <Col>
-                <div className='d-flex align-items-center'>
+                <Row style={{ justifyContent: 'flex-start' }}>
                   {(spotify && spotify.loggedIn()) ?
                     <>
                       {spinner ?
@@ -56,14 +56,13 @@ export default function ShowPlaylist({ playlist, onClose = f => f, spotify = nul
                     </> : <></>
                   }
                   {playlistUrl ?
-                    <a
-                      href={playlistUrl}
-                      target='_blank'
-                      rel='noopener noreferrer'
-                    >{playlistName}</a> :
-                    <span onClick={() => { if (userPlaylist) setEditing(true); }}>
+                    <Link
+                      url={playlistUrl}
+                      text={playlistName}
+                    /> :
+                    <Text onClick={() => { if (userPlaylist) setEditing(true); }}>
                       {editing ?
-                        <input
+                        <Text
                           value={playlistName}
                           onChange={event => setPlaylistName(event.target.value)}
                           onBlur={() => {
@@ -79,7 +78,7 @@ export default function ShowPlaylist({ playlist, onClose = f => f, spotify = nul
                             }
                           }}
                         /> :
-                        <div className='d-flex'>
+                        <View style={{ display: 'flex' }}>
                           {playlistName}
                           {userPlaylist ?
                             <>
@@ -88,23 +87,23 @@ export default function ShowPlaylist({ playlist, onClose = f => f, spotify = nul
                             </> :
                             <></>
                           }
-                        </div>
+                        </View>
                       }
-                    </span>
+                    </Text>
                   }
-                </div>
+                </Row>
                 {(playlist.creativity !== undefined && playlist.noise !== undefined) ?
-                  <h6><small class='text-muted'>
+                  <Text h6><Small class='text-muted'>
                     creativity {Math.round(playlist.creativity * 100)}%
                     , noise {Math.round(playlist.noise * 100)}%
-                  </small></h6> :
+                  </Small></Text> :
                   <></>
                 }
               </Col>
               <Col>
-                <div className='d-flex justify-content-end'>
+                <Row style={{ justifyContent: 'flex-end' }}>
                   {rateIt ?
-                    <span><RateStars
+                    <Text><RateStars
                       totalStars={5}
                       onSelect={(rating) => {
                         updatePlaylistRating(
@@ -113,12 +112,12 @@ export default function ShowPlaylist({ playlist, onClose = f => f, spotify = nul
                           playlist.num_ratings + 1
                         ).catch(error => console.error('Error:', error));
                       }}
-                    /></span> :
-                    <span onClick={() => setRateIt(true)}>
+                    /></Text> :
+                    <Text onClick={() => setRateIt(true)}>
                       <StarRating rating={playlist.av_rating} />
-                    </span>
+                    </Text>
                   }
-                </div>
+                </Row>
               </Col>
             </Row>
           </Card.Title>

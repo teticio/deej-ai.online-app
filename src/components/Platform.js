@@ -30,6 +30,10 @@ export function Text(props) {
   );
 }
 
+export function Small(props) {
+  return <small {...props}>{props.children}</small>;
+}
+
 export function Link(props) {
   return (
     <a
@@ -38,8 +42,15 @@ export function Link(props) {
       target='_blank'
       rel='noopener noreferrer'
     >
-      {props.text ? <Text {...props}>{props.text}</Text> : <></>}
-      {props.source ? <img {...props} src={props.source} /> : <></>}
+      {props.text ? <Text
+        {...props}
+      >{props.text}
+      </Text> : <></>}
+      {props.source ? <img
+        {...props}
+        src={props.source}
+        alt={props.alt}
+      /> : <></>}
     </a>
   );
 }
