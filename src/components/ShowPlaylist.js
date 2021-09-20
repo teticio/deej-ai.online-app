@@ -1,5 +1,4 @@
-import React from 'react';
-import { useState } from 'react';
+import React, { useState } from 'react';
 import Playlist from './Playlist';
 import { updatePlaylistName, updatePlaylistRating, updatePlaylistId, updatePlaylistUploads } from './SavePlaylist';
 import StarRating, { RateStars } from './StarRating';
@@ -46,7 +45,7 @@ export default function ShowPlaylist({ playlist, onClose = f => f, spotify = nul
     <Card>
       <Row style={{ justifyContent: 'space-between', padding: 10 }} surface={true} >
         <Col surface={true}>
-          <Row style={{ justifyContent: 'flex-start' }} surface={true}>
+          <Row style={{ justifyContent: 'flex-start'}} surface={true}>
             {(spotify && spotify.loggedIn()) ?
               <>
                 {spinner ?
@@ -57,7 +56,7 @@ export default function ShowPlaylist({ playlist, onClose = f => f, spotify = nul
                     title="Upload to Spotify"
                     onClick={handleUpload}
                   />}
-                <HorizontalSpacer px={10} />
+                <HorizontalSpacer />
               </> : <></>
             }
             {playlistUrl ?
@@ -81,14 +80,14 @@ export default function ShowPlaylist({ playlist, onClose = f => f, spotify = nul
                     />
                   </View> :
                   <Row surface={true}>
-                      <Text h4>{playlistName}</Text>
-                      {userPlaylist ?
-                        <>
-                          <HorizontalSpacer px={10} />
-                          <FaPen size='15' className='link' />
-                        </> :
-                        <></>
-                      }
+                    <Text h4>{playlistName}</Text>
+                    {userPlaylist ?
+                      <>
+                        <HorizontalSpacer />
+                        <FaPen size='15' className='link' />
+                      </> :
+                      <></>
+                    }
                   </Row>
                 }
               </Text>

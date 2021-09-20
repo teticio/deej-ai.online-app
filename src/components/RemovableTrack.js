@@ -10,7 +10,7 @@ export default function RemovableTrack({ track_id, uuid, onRemove = f => f }) {
         track_id={track_id}
       >
       </Track>
-      <HorizontalSpacer px={10} />
+      <HorizontalSpacer />
       <FaTimes
         size='25'
         className='link'

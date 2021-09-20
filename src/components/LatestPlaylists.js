@@ -1,8 +1,7 @@
-import React from 'react';
-import { useState, useEffect, useReducer } from 'react';
+import React, { useState, useEffect, useReducer } from 'react';
+import ShowPlaylists from './ShowPlaylists';
 import { ScrollView, Text } from './Platform';
 import { VerticalSpacer } from './Lib';
-import ShowPlaylists from './ShowPlaylists';
 
 export async function getLatestPlaylists(top_n) {
   const response = await fetch(`${process.env.REACT_APP_API_URL}/latest_playlists?top_n=${top_n}`);
@@ -28,7 +27,7 @@ export default function LatestPlaylists({ spotify }) {
 
   return (
     <ScrollView>
-      <VerticalSpacer px={10} />
+      <VerticalSpacer />
       <Text h3 style={{ textAlign: 'center' }}>Latest playlists</Text>
       <ShowPlaylists
         playlists={playlists}

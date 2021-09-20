@@ -31,7 +31,7 @@ export default function AddTrack({ numTracks = 0, spotify = null, onAdd = f => f
               });
             }}
           ></TrackSelector>
-          <HorizontalSpacer px={10} />
+          <HorizontalSpacer />
           {spinner ?
             <Spinner
               animation='grow' size='md'

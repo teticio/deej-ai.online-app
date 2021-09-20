@@ -123,12 +123,12 @@ export function Hr(props) {
     <>
       <VerticalSpacer />
       <View
+        {...props}
         style={{
           borderBottomColor: colors.primary,
           borderBottomWidth: 1,
           ...props.style
         }}
-        {...props}
       />
       <VerticalSpacer />
     </>
@@ -142,7 +142,7 @@ export function FaIcon(props) {
     <Text {...props}>
       <FA_ICON
         name={props.name}
-        size={Number(props.size)}
+        size={Number(props.size? props.size: 15)}
         color={props.className === 'link' ? colors.accent :
           props.className === 'text-muted' ? colors.disabled :
             colors.primary}
@@ -178,6 +178,10 @@ export function FaCog(props) {
   return <FaIcon name='cog' {...props} />
 }
 
+export function FaSearch(props) {
+  return <FaIcon name='search' {...props} />
+}
+
 export function MdIcon(props) {
   const { colors } = useTheme();
 
@@ -185,7 +189,7 @@ export function MdIcon(props) {
     <Text {...props}>
       <MD_ICON
         name={props.name}
-        size={Number(props.size)}
+        size={Number(props.size? props.size: 15)}
         color={props.className === 'link' ? colors.accent :
           props.className === 'text-muted' ? colors.disabled :
             colors.primary}

@@ -1,10 +1,10 @@
-import { FaPlus, FaForward, FaBackward, FaCloudUploadAlt, FaPen, FaSpotify, FaCog } from 'react-icons/fa';
+import { FaPlus, FaForward, FaBackward, FaCloudUploadAlt, FaPen, FaSpotify, FaCog, FaSearch } from 'react-icons/fa';
 import { MdStar, MdStarHalf, MdStarBorder } from 'react-icons/md';
-import { Spinner, Card, Row, Col } from 'react-bootstrap';
+import { Spinner, Card } from 'react-bootstrap';
 
-export { FaPlus, FaForward, FaBackward, FaCloudUploadAlt, FaPen, FaSpotify, FaCog };
+export { FaPlus, FaForward, FaBackward, FaCloudUploadAlt, FaPen, FaSpotify, FaCog, FaSearch };
 export { MdStar, MdStarHalf, MdStarBorder };
-export { Spinner, Card, Row, Col };
+export { Spinner, Card };
 
 export function ScrollView({ children }) {
   return <>{children}</>;

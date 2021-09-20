@@ -20,7 +20,7 @@ export default function ShowPlaylists({ playlists, spotify = null }) {
               {createArray(2).map((x, j) => (
                 (2 * i + j < playlists.length) ?
                   <Col style={{ flex: 1, minWidth: 300  }}>
-                    <VerticalSpacer px={10} />
+                    <VerticalSpacer />
                     <Card key={2 * i + j} style={{margin: 10, padding: 10}} >
                       <ShowPlaylist
                         playlist={playlists[2 * i + j]}

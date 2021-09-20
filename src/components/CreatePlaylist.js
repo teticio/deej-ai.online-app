@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import React, { useState } from 'react';
 import { FaForward, FaCog } from 'react-icons/fa';
 import Card from 'react-bootstrap/Card';
 import Spinner from 'react-bootstrap/Spinner';
@@ -30,7 +30,7 @@ export default function CreatePlaylist({
         onAdd={id => {
           setWaypoints({ 'track_ids': _waypoints.track_ids.concat(id) });
         }} />
-      <VerticalSpacer px={10} />
+      <VerticalSpacer />
       <Card>
         <Card.Body>
           <RemovablePlaylist {..._waypoints} onRemove={id => {

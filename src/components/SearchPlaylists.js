@@ -1,8 +1,8 @@
-import { useState, useEffect, useReducer } from 'react';
-import { FaSearch } from 'react-icons/fa';
-import Card from 'react-bootstrap/Card';
+import React, { useState, useEffect, useReducer } from 'react';
+import { Dimensions } from 'react-native';
 import ShowPlaylists from './ShowPlaylists';
-import { HorizontalSpacer, VerticalSpacer } from './Lib';
+import { View, ScrollView, Card, Text, TextInput, FaSearch } from './Platform';
+import { Row, HorizontalSpacer, VerticalSpacer } from './Lib';
 
 export async function searchPlaylists(searchString, maxItems) {
   const response = await fetch(`${process.env.REACT_APP_API_URL}/search_playlists` +
@@ -24,6 +24,11 @@ export default function SearchPlaylists({ spotify }) {
   const [searchString, setSearchString] = useState('');
   const [actualSearchString, setActualSearchString] = useState('');
 
+  const handleUpdate = () => {
+    setActualSearchString(searchString);
+    setEditing(false);
+  }
+
   useEffect(() => {
     if (actualSearchString === '') {
       setPlaylists([]);
@@ -36,47 +41,46 @@ export default function SearchPlaylists({ spotify }) {
   }, [actualSearchString, topN]);
 
   return (
-    <>
-      <h3 style={{ textAlign: 'center' }}>Search playlists</h3>
+    <ScrollView>
+      <Text h3 style={{ textAlign: 'center' }}>Search playlists</Text>
       <Card>
-        <Card.Body>
-          <div
-            className='d-flex flex-row align-items-center'
-            onClick={() => setEditing(true)}
-          >
-            <FaSearch />
-            <HorizontalSpacer px={10} />
+        <Text onClick={() => setEditing(true)}>
+          <Row style={{ justifyContent: 'flex-start', padding: 10 }} surface={true}>
             {editing ?
-              <input
-                placeholder='Search...'
-                value={searchString}
-                onChange={event => setSearchString(event.target.value)}
-                onBlur={event => {
-                  setActualSearchString(searchString);
-                  setEditing(false);
-                }}
-                onKeyUp={event => {
-                  if (event.key === 'Enter') {
-                    setActualSearchString(searchString);
-                    setEditing(false);
-                  }
-                }}
-              /> :
-              <span>{searchString}</span>
+              <View style={{ width: Math.max(Dimensions.get('window').width, Dimensions.get('window').height) }}>
+                <TextInput
+                  placeholder='Search...'
+                  value={searchString}
+                  onChange={event => setSearchString(event.target.value)}
+                  onChangeText={value => setSearchString(value)}
+                  onBlur={handleUpdate}
+                  onKeyUp={event => {
+                    if (event.key === 'Enter') {
+                      handleUpdate();
+                    }
+                  }}
+                />
+              </View> :
+              <>
+                <FaSearch />
+                <HorizontalSpacer />
+                <Text>{searchString}</Text>
+              </>
             }
-          </div>
-        </Card.Body>
+          </Row>
+        </Text>
       </Card>
-      <VerticalSpacer px={10} />
+      <VerticalSpacer />
       <ShowPlaylists
         playlists={playlists}
         spotify={spotify}
       />
-      {actualSearchString !== '' ?
-        <span onClick={loadMore}>
-          <h6 className='link' style={{ textAlign: 'center' }}>Load more...</h6>
-        </span> : <></>
+      {
+        actualSearchString !== '' ?
+          <Text h6 onClick={loadMore} className='link' style={{ textAlign: 'center' }}>
+            Load more...
+          </Text> : <></>
       }
-    </>
+    </ScrollView>
   );
 }

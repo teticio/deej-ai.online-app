@@ -62,7 +62,7 @@ export default function TrackSelector({ spotify = null, onSelect = f => f, onSea
     <Container>
       {(currentTrack && currentTrack.url) ?
         <>
-          <VerticalSpacer px={10} />
+          <VerticalSpacer />
           <div className='d-flex align-items-center' onClick={() => {
             onSearch();
             searchSimilar(currentTrack.url)
@@ -79,7 +79,7 @@ export default function TrackSelector({ spotify = null, onSelect = f => f, onSea
               });
           }}>
             <FaSpotify size='15' className='link' />
-            <HorizontalSpacer px={10} />
+            <HorizontalSpacer />
             <h6 className='link'>{currentTrack.track}</h6>
           </div>
         </> : <></>
@@ -90,7 +90,7 @@ export default function TrackSelector({ spotify = null, onSelect = f => f, onSea
           setSearchString(event.target.value);
         }}
       />
-      <VerticalSpacer px={10} />
+      <VerticalSpacer />
       <select onChange={event => onSelect(event.target.value)}>\
         size='1'
         {searchResults.map(({ track_id, track }, i) => (

@@ -1,6 +1,7 @@
-import { useState, useEffect, useReducer } from 'react';
-import { VerticalSpacer } from './Lib';
+import React, { useState, useEffect, useReducer } from 'react';
 import ShowPlaylists from './ShowPlaylists';
+import { ScrollView, Text } from './Platform';
+import { VerticalSpacer } from './Lib';
 
 export async function getMostUploadedPlaylists(top_n) {
   const response = await fetch(`${process.env.REACT_APP_API_URL}/most_uploads?top_n=${top_n}`);
@@ -25,16 +26,16 @@ export default function MostUploadedPlaylists({ spotify }) {
   }, [topN]);
 
   return (
-    <>
-      <VerticalSpacer px={10} />
+    <ScrollView>
+      <VerticalSpacer />
       <h3 style={{ textAlign: 'center' }}>Most uploaded playlists</h3>
       <ShowPlaylists
         playlists={playlists}
         spotify={spotify}
       />
-      <span onClick={loadMore}>
-        <h6 className='link' style={{ textAlign: 'center' }}>Load more...</h6>
-      </span>
-    </>
+      <Text h6 onClick={loadMore} className='link' style={{ textAlign: 'center' }}>
+        Load more...
+      </Text>
+    </ScrollView>
   );
 }
