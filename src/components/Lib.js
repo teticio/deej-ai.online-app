@@ -55,8 +55,8 @@ export function I(props) {
 export function Row(props) {
   return (
     <View
-    {...props}
-    style={{
+      {...props}
+      style={{
         display: 'flex',
         flexWrap: 'wrap',
         flexDirection: 'row',

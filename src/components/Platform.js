@@ -54,3 +54,11 @@ export function Link(props) {
     </a>
   );
 }
+
+export function Hr(props) {
+  return <hr />
+}
+
+export function TextInput(props) {
+  return <input {...props}/>;
+}

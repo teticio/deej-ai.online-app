@@ -3,7 +3,7 @@ import { useState } from 'react';
 import Playlist from './Playlist';
 import { updatePlaylistName, updatePlaylistRating, updatePlaylistId, updatePlaylistUploads } from './SavePlaylist';
 import StarRating, { RateStars } from './StarRating';
-import { View, Text, Small, Link, Card, Spinner, FaBackward, FaCloudUploadAlt, FaPen } from './Platform';
+import { View, Text, TextInput, Small, Link, Card, Spinner, FaBackward, FaCloudUploadAlt, FaPen, Hr } from './Platform';
 import { Row, Col, HorizontalSpacer } from './Lib';
 
 export default function ShowPlaylist({ playlist, onClose = f => f, spotify = null, userPlaylist = false }) {
@@ -14,6 +14,33 @@ export default function ShowPlaylist({ playlist, onClose = f => f, spotify = nul
   const [playlistUrl, setPlaylistUrl] = useState(null);
   const [rateIt, setRateIt] = useState(playlist.av_rating === 0);
   const [spinner, setSpinner] = useState(false);
+
+  const handleUpload = () => {
+    setSpinner(true);
+    spotify.autoRefresh(() => spotify.createNewPlayist(playlistName, playlist.track_ids))
+      .then((spotify_playlist) => {
+        setSpinner(false);
+        setEditing(false);
+        setPlaylistUrl(spotify_playlist.external_urls.spotify);
+        setPlaylistId(spotify_playlist.id);
+        updatePlaylistUploads(
+          playlist.id,
+          (playlist.uploads ? playlist.uploads : 0) + 1
+        )
+          .catch(error => console.error('Error:', error));
+        if (userPlaylist) {
+          setPlaylistUserId(spotify_playlist.owner.id);
+          updatePlaylistId(playlist.id, playlistUserId, playlistId)
+            .catch(error => console.error('Error:', error));
+        }
+      }).catch(error => console.error('Error:', error));
+  }
+
+  const handleUpdate = () => {
+    setEditing(false);
+    updatePlaylistName(playlist.id, playlistName)
+      .catch(error => console.error('Error:', error));
+  }
 
   return (
     <Card>
@@ -28,63 +55,41 @@ export default function ShowPlaylist({ playlist, onClose = f => f, spotify = nul
                     className='link'
                     data-toggle="tooltip"
                     title="Upload to Spotify"
-                    onClick={() => {
-                      setSpinner(true);
-                      spotify.autoRefresh(() => spotify.createNewPlayist(playlistName, playlist.track_ids))
-                        .then((spotify_playlist) => {
-                          setSpinner(false);
-                          setEditing(false);
-                          setPlaylistUrl(spotify_playlist.external_urls.spotify);
-                          setPlaylistId(spotify_playlist.id);
-                          updatePlaylistUploads(
-                            playlist.id,
-                            (playlist.uploads ? playlist.uploads : 0) + 1
-                          )
-                            .catch(error => console.error('Error:', error));
-                          if (userPlaylist) {
-                            setPlaylistUserId(spotify_playlist.owner.id);
-                            updatePlaylistId(playlist.id, playlistUserId, playlistId)
-                              .catch(error => console.error('Error:', error));
-                          }
-                        }).catch(error => console.error('Error:', error));
-                    }}
+                    onClick={handleUpload}
                   />}
                 <HorizontalSpacer px={10} />
               </> : <></>
             }
             {playlistUrl ?
-              <Link
+              <Link h4
                 url={playlistUrl}
                 text={playlistName}
               /> :
               <Text onClick={() => { if (userPlaylist) setEditing(true); }}>
                 {editing ?
-                  <Text
-                    value={playlistName}
-                    onChange={event => setPlaylistName(event.target.value)}
-                    onBlur={() => {
-                      setEditing(false);
-                      updatePlaylistName(playlist.id, playlistName)
-                        .catch(error => console.error('Error:', error));
-                    }}
-                    onKeyUp={event => {
-                      if (event.key === 'Enter') {
-                        setEditing(false);
-                        updatePlaylistName(playlist.id, playlistName)
-                          .catch(error => console.error('Error:', error));
+                  <View style={{ width: 200 }}>
+                    <TextInput
+                      value={playlistName}
+                      onChange={event => setPlaylistName(event.target.value)}
+                      onChangeText={value => setPlaylistName(value)}
+                      onBlur={handleUpdate}
+                      onKeyUp={event => {
+                        if (event.key === 'Enter') {
+                          handleUpdate();
+                        }
+                      }}
+                    />
+                  </View> :
+                  <Row surface={true}>
+                      <Text h4>{playlistName}</Text>
+                      {userPlaylist ?
+                        <>
+                          <HorizontalSpacer px={10} />
+                          <FaPen size='15' className='link' />
+                        </> :
+                        <></>
                       }
-                    }}
-                  /> :
-                  <View style={{ display: 'flex' }} surface={true}>
-                    <Text h4>{playlistName}</Text>
-                    {userPlaylist ?
-                      <>
-                        <HorizontalSpacer px={10} />
-                        <FaPen size='15' className='link' />
-                      </> :
-                      <></>
-                    }
-                  </View>
+                  </Row>
                 }
               </Text>
             }
@@ -139,14 +144,14 @@ export default function ShowPlaylist({ playlist, onClose = f => f, spotify = nul
       }
       {userPlaylist ?
         <>
-          <hr />
-          <div className='d-flex align-items-center justify-content-between'>
+          <Hr />
+          <Row style={{ justifyContent: 'space-between' }} surface={true} >
             <FaBackward
               size='25'
               className='link'
               onClick={() => onClose()}
             />
-          </div>
+          </Row>
         </> : <></>
       }
     </Card>

@@ -10,7 +10,6 @@ export default function Star({ value = 0, unrated = false, onSelect = f => f }) 
           className={(value === 0) ? 'text-muted' : 'link'}
           style={{ cursor: 'pointer' }}
           onClick={onSelect}
-          onPress={onSelect}
         /> :
         (value > 0 && value < 1) ?
           <MdStarHalf

@@ -16,7 +16,7 @@ import Footer from './components/Footer';
 import About from './components/About';
 import NotFound from './components/NotFound';
 import PrivacyPolicy from './components/PrivacyPolicy';
-import './App.css'
+import './App.css';
 
 function App() {
   const hashParams = getHashParams();

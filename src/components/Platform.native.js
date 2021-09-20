@@ -3,10 +3,13 @@ import { Text as TEXT } from "react-native-elements";
 import { Linking, Alert, Image, View as VIEW, ScrollView as SCROLL_VIEW, ActivityIndicator } from 'react-native';
 import { WebView as WEB_VIEW } from 'react-native-webview';
 import { useTheme, Card } from 'react-native-paper';
-const MdIcon = require('react-native-vector-icons').MaterialIcons;
-const FaIcon = require('react-native-vector-icons').FontAwesome5;
+const MD_ICON = require('react-native-vector-icons').MaterialIcons;
+const FA_ICON = require('react-native-vector-icons').FontAwesome5;
+import { TextInput } from 'react-native-paper';
+import { VerticalSpacer } from './Lib';
 
 export { Card };
+export { TextInput };
 
 export function Spinner(props) {
   const { colors } = useTheme();
@@ -24,6 +27,7 @@ export function Text(props) {
 
   return (
     <TEXT
+      onPress={props.onClick}
       {...props}
       style={{
         color: props.className === 'link' ? colors.accent : colors.primary,
@@ -112,42 +116,92 @@ export function Link(props) {
   }
 }
 
-export function FaPlus({ size = 10 }) {
-  return <FaIcon name='plus' size={Number(size)} />
+export function Hr(props) {
+  const { colors } = useTheme();
+
+  return (
+    <>
+      <VerticalSpacer />
+      <View
+        style={{
+          borderBottomColor: colors.primary,
+          borderBottomWidth: 1,
+          ...props.style
+        }}
+        {...props}
+      />
+      <VerticalSpacer />
+    </>
+  );
 }
 
-export function FaForward({ size = 10 }) {
-  return <FaIcon name='forward' size={Number(size)} />
+export function FaIcon(props) {
+  const { colors } = useTheme();
+
+  return (
+    <Text {...props}>
+      <FA_ICON
+        name={props.name}
+        size={Number(props.size)}
+        color={props.className === 'link' ? colors.accent :
+          props.className === 'text-muted' ? colors.disabled :
+            colors.primary}
+      ></FA_ICON >
+    </Text>
+  );
 }
 
-export function FaBackward({ size = 10 }) {
-  return <FaIcon name='backward' size={Number(size)} />
+export function FaPlus(props) {
+  return <FaIcon name='plus' {...props} />
 }
 
-export function FaCloudUploadAlt({ size = 10 }) {
-  return <FaIcon name='cloud-upload-alt' size={Number(size)} />
+export function FaForward(props) {
+  return <FaIcon name='forward' {...props} />
 }
 
-export function FaPen({ size = 10 }) {
-  return <FaIcon name='pen' size={Number(size)} />
+export function FaBackward(props) {
+  return <FaIcon name='backward' {...props} />
+}
+export function FaCloudUploadAlt(props) {
+  return <FaIcon name='cloud-update-alt' {...props} />
 }
 
-export function FaSpotify({ size = 10 }) {
-  return <FaIcon name='spotify' size={Number(size)} />
+export function FaPen(props) {
+  return <FaIcon name='pen' {...props} />
 }
 
-export function FaCog({ size = 10 }) {
-  return <FaIcon name='cog' size={Number(size)} />
+export function FaSpotify(props) {
+  return <FaIcon name='spotify' {...props} />
 }
 
-export function MdStar({ size = 10 }) {
-  return <MdIcon name='star' size={Number(size)} />
+export function FaCog(props) {
+  return <FaIcon name='cog' {...props} />
 }
 
-export function MdStarHalf({ size = 10 }) {
-  return <MdIcon name='star-half' size={Number(size)} />
+export function MdIcon(props) {
+  const { colors } = useTheme();
+
+  return (
+    <Text {...props}>
+      <MD_ICON
+        name={props.name}
+        size={Number(props.size)}
+        color={props.className === 'link' ? colors.accent :
+          props.className === 'text-muted' ? colors.disabled :
+            colors.primary}
+      ></MD_ICON >
+    </Text>
+  );
 }
 
-export function MdStarBorder({ size = 10 }) {
-  return <MdIcon name='star-outline' size={Number(size)} />
+export function MdStar(props) {
+  return <MdIcon name='star' {...props} />
+}
+
+export function MdStarHalf(props) {
+  return <MdIcon name='star-half' {...props} />
+}
+
+export function MdStarBorder(props) {
+  return <MdIcon name='star-outline' {...props} />
 }
