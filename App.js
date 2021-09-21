@@ -1,5 +1,5 @@
 import React from 'react';
-import SearchPlaylists from './src/components/SearchPlaylists'
+import CreatePlaylist from './src/components/CreatePlaylist'
 import { DarkTheme, Provider as PaperProvider } from 'react-native-paper';
 
 global.Buffer = global.Buffer || require('buffer').Buffer;
@@ -21,7 +21,7 @@ const theme = {
 export default function App() {
   return (
     <PaperProvider theme={theme}>
-      <SearchPlaylists/>
+      <CreatePlaylist/>
     </PaperProvider>
   );
 }

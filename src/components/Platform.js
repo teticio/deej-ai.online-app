@@ -1,10 +1,10 @@
-import { FaPlus, FaForward, FaBackward, FaCloudUploadAlt, FaPen, FaSpotify, FaCog, FaSearch } from 'react-icons/fa';
+import { FaPlus, FaForward, FaBackward, FaCloudUploadAlt, FaPen, FaSpotify, FaCog, FaSearch, FaTimes } from 'react-icons/fa';
 import { MdStar, MdStarHalf, MdStarBorder } from 'react-icons/md';
-import { Spinner, Card } from 'react-bootstrap';
+import { Container, Card, Spinner } from 'react-bootstrap';
 
-export { FaPlus, FaForward, FaBackward, FaCloudUploadAlt, FaPen, FaSpotify, FaCog, FaSearch };
+export { FaPlus, FaForward, FaBackward, FaCloudUploadAlt, FaPen, FaSpotify, FaCog, FaSearch, FaTimes };
 export { MdStar, MdStarHalf, MdStarBorder };
-export { Spinner, Card };
+export { Container, Card, Spinner };
 
 export function ScrollView({ children }) {
   return <>{children}</>;
@@ -60,5 +60,13 @@ export function Hr(props) {
 }
 
 export function TextInput(props) {
-  return <input {...props}/>;
+  return <input {...props} />;
+}
+
+export function Select(props) {
+  return <select {...props}>{props.children}</select>;
+}
+
+export function Option(props) {
+  return <option {...props} />;
 }

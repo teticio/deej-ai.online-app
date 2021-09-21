@@ -1,6 +1,6 @@
 import React, { useCallback } from 'react';
 import { Text as TEXT } from "react-native-elements";
-import { Linking, Alert, Image, View as VIEW, ScrollView as SCROLL_VIEW, ActivityIndicator } from 'react-native';
+import { Linking, Alert, Image, View as VIEW, ScrollView as SCROLL_VIEW, ActivityIndicator, Picker } from 'react-native';
 import { WebView as WEB_VIEW } from 'react-native-webview';
 import { useTheme, Card } from 'react-native-paper';
 const MD_ICON = require('react-native-vector-icons').MaterialIcons;
@@ -17,7 +17,7 @@ export function Spinner(props) {
   return (
     <ActivityIndicator
       color={colors.primary}
-      {...props}
+      size={(props.size === 'md' || props.size === 'lg') ? 'large' : 'small'}
     ></ActivityIndicator >
   );
 }
@@ -142,7 +142,7 @@ export function FaIcon(props) {
     <Text {...props}>
       <FA_ICON
         name={props.name}
-        size={Number(props.size? props.size: 15)}
+        size={Number(props.size ? props.size : 15)}
         color={props.className === 'link' ? colors.accent :
           props.className === 'text-muted' ? colors.disabled :
             colors.primary}
@@ -182,6 +182,10 @@ export function FaSearch(props) {
   return <FaIcon name='search' {...props} />
 }
 
+export function FaTimes(props) {
+  return <FaIcon name='times' {...props} />
+}
+
 export function MdIcon(props) {
   const { colors } = useTheme();
 
@@ -189,7 +193,7 @@ export function MdIcon(props) {
     <Text {...props}>
       <MD_ICON
         name={props.name}
-        size={Number(props.size? props.size: 15)}
+        size={Number(props.size ? props.size : 15)}
         color={props.className === 'link' ? colors.accent :
           props.className === 'text-muted' ? colors.disabled :
             colors.primary}
@@ -208,4 +212,28 @@ export function MdStarHalf(props) {
 
 export function MdStarBorder(props) {
   return <MdIcon name='star-outline' {...props} />
+}
+
+export function Container(props) {
+  return <View {...props}>{props.children}</View>;
+}
+
+export function Select(props) {
+  const { colors } = useTheme();
+
+  return (
+    <Picker
+      {...props}
+      style={{
+        color: colors.primary,
+        backgroundColor: props.surface ? colors.surface : colors.background,
+        ...props.style,
+      }}
+    >{props.children}
+    </Picker>
+  );
+}
+
+export function Option(props) {
+  return <Picker.Item {...props} />;
 }

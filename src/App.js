@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { Routes, Route, useNavigate } from 'react-router-dom';
 import Container from 'react-bootstrap/Container';
+import { Card } from './components/Platform';
 import { getHashParams, usePersistedState } from './components/Lib';
 import Banner from './components/Banner';
 import Spotify from './components/Spotify';
@@ -75,12 +76,14 @@ function App() {
             <Route
               path='/playlist'
               element={
-                <ShowPlaylist
-                  playlist={playlist}
-                  onClose={() => navigate('/')}
-                  spotify={spotify}
-                  userPlaylist={true}
-                />
+                <Card style={{ padding: 15 }}>
+                  <ShowPlaylist
+                    playlist={playlist}
+                    onClose={() => navigate('/')}
+                    spotify={spotify}
+                    userPlaylist={true}
+                  />
+                </Card>
               }
             />
             <Route

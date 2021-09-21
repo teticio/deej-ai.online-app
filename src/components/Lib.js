@@ -14,10 +14,12 @@ export const getHashParams = () => {
 
 export const createArray = length => (length > 0) ? [...Array(length)] : [];
 
-var timerId;
+var timerId = null;
 
 export const debounceFunction = function (func, delay) {
-  clearTimeout(timerId)
+  if (timerId) {
+    clearTimeout(timerId)
+  }
   timerId = setTimeout(func, delay)
 }
 
@@ -58,7 +60,6 @@ export function Row(props) {
       {...props}
       style={{
         display: 'flex',
-        flexWrap: 'wrap',
         flexDirection: 'row',
         alignItems: 'center',
         justifyContent: 'space-evenly',

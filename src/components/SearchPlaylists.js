@@ -45,7 +45,9 @@ export default function SearchPlaylists({ spotify }) {
       <Text h3 style={{ textAlign: 'center' }}>Search playlists</Text>
       <Card>
         <Text onClick={() => setEditing(true)}>
-          <Row style={{ justifyContent: 'flex-start', padding: 10 }} surface={true}>
+          <Row style={{ justifyContent: 'flex-start', padding: 15 }} surface={true}>
+            <FaSearch />
+            <HorizontalSpacer />
             {editing ?
               <View style={{ width: Math.max(Dimensions.get('window').width, Dimensions.get('window').height) }}>
                 <TextInput
@@ -61,11 +63,7 @@ export default function SearchPlaylists({ spotify }) {
                   }}
                 />
               </View> :
-              <>
-                <FaSearch />
-                <HorizontalSpacer />
-                <Text>{searchString}</Text>
-              </>
+              <Text>{searchString}</Text>
             }
           </Row>
         </Text>

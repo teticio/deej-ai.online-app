@@ -43,7 +43,7 @@ export default function ShowPlaylist({ playlist, onClose = f => f, spotify = nul
 
   return (
     <Card>
-      <Row style={{ justifyContent: 'space-between', padding: 10 }} surface={true} >
+      <Row style={{ justifyContent: 'space-between', padding: 15 }} surface={true} >
         <Col surface={true}>
           <Row style={{ justifyContent: 'flex-start'}} surface={true}>
             {(spotify && spotify.loggedIn()) ?
@@ -144,7 +144,7 @@ export default function ShowPlaylist({ playlist, onClose = f => f, spotify = nul
       {userPlaylist ?
         <>
           <Hr />
-          <Row style={{ justifyContent: 'space-between' }} surface={true} >
+          <Row style={{ justifyContent: 'space-between', padding: 15 }} surface={true} >
             <FaBackward
               size='25'
               className='link'
