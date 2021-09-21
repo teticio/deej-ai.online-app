@@ -5,7 +5,7 @@ import Search, { searchSimilar } from './Search';
 
 export default function TrackSelector({ spotify = null, onSelect = f => f, onSearch = f => f, onSearchEnd = f => f }) {
   const [searchString, setSearchString] = useState('');
-  const [searchResults, setSearchResults] = useState([{ track_id: 'hi', track: 'ho' }]);
+  const [searchResults, setSearchResults] = useState([]);
   const [currentTrack, setCurrentTrack] = useState(null);
   const [selectedValue, setSelectedValue] = useState(null);
 
