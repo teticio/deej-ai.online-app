@@ -95,7 +95,7 @@ export default function TrackSelector({ spotify = null, onSelect = f => f, onSea
           style={{ width: '100%' }}
         />
       </Row>
-      <Row>
+      <Row surface={true}>
         <VerticalSpacer />
       </Row>
       <Row>

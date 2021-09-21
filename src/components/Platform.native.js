@@ -4,10 +4,11 @@ import { Linking, Alert, Image, View as VIEW, ScrollView as SCROLL_VIEW, Activit
 import { Picker } from '@react-native-picker/picker';
 import { WebView as WEB_VIEW } from 'react-native-webview';
 import { useTheme, Card } from 'react-native-paper';
-const MD_ICON = require('react-native-vector-icons').MaterialIcons;
-const FA_ICON = require('react-native-vector-icons').FontAwesome5;
 import { TextInput } from 'react-native-paper';
 import { VerticalSpacer } from './Lib';
+
+const MD_ICON = require('react-native-vector-icons').MaterialIcons;
+const FA_ICON = require('react-native-vector-icons').FontAwesome5;
 
 export { Card };
 export { TextInput };
@@ -225,6 +226,11 @@ export function Select(props) {
   return (
     <Picker
       {...props}
+      itemStyle={{
+        color: colors.primary,
+        backgroundColor: colors.surface,
+        ...props.style,
+      }}
       style={{
         color: colors.primary,
         backgroundColor: colors.surface,
