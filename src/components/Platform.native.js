@@ -1,6 +1,7 @@
 import React, { useCallback } from 'react';
 import { Text as TEXT } from "react-native-elements";
-import { Linking, Alert, Image, View as VIEW, ScrollView as SCROLL_VIEW, ActivityIndicator, Picker } from 'react-native';
+import { Linking, Alert, Image, View as VIEW, ScrollView as SCROLL_VIEW, ActivityIndicator } from 'react-native';
+import { Picker } from '@react-native-picker/picker';
 import { WebView as WEB_VIEW } from 'react-native-webview';
 import { useTheme, Card } from 'react-native-paper';
 const MD_ICON = require('react-native-vector-icons').MaterialIcons;
@@ -226,7 +227,7 @@ export function Select(props) {
       {...props}
       style={{
         color: colors.primary,
-        backgroundColor: props.surface ? colors.surface : colors.background,
+        backgroundColor: colors.surface,
         ...props.style,
       }}
     >{props.children}

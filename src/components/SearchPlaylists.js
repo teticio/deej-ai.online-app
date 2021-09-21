@@ -1,8 +1,7 @@
 import React, { useState, useEffect, useReducer } from 'react';
-import { Dimensions } from 'react-native';
 import ShowPlaylists from './ShowPlaylists';
-import { View, ScrollView, Card, Text, TextInput, FaSearch } from './Platform';
-import { Row, HorizontalSpacer, VerticalSpacer } from './Lib';
+import {  ScrollView, Card, Text, TextInput, FaSearch } from './Platform';
+import { Row,  HorizontalSpacer, VerticalSpacer } from './Lib';
 
 export async function searchPlaylists(searchString, maxItems) {
   const response = await fetch(`${process.env.REACT_APP_API_URL}/search_playlists` +
@@ -44,29 +43,27 @@ export default function SearchPlaylists({ spotify }) {
     <ScrollView>
       <Text h3 style={{ textAlign: 'center' }}>Search playlists</Text>
       <Card>
-        <Text onClick={() => setEditing(true)}>
-          <Row style={{ justifyContent: 'flex-start', padding: 15 }} surface={true}>
+        <Row style={{ justifyContent: 'flex-start', padding: 15 }} surface={true}>
+          <Text onClick={() => setEditing(true)}>
             <FaSearch />
             <HorizontalSpacer />
             {editing ?
-              <View style={{ width: Math.max(Dimensions.get('window').width, Dimensions.get('window').height) }}>
-                <TextInput
-                  placeholder='Search...'
-                  value={searchString}
-                  onChange={event => setSearchString(event.target.value)}
-                  onChangeText={value => setSearchString(value)}
-                  onBlur={handleUpdate}
-                  onKeyUp={event => {
-                    if (event.key === 'Enter') {
-                      handleUpdate();
-                    }
-                  }}
-                />
-              </View> :
+              <TextInput
+                placeholder='Search...'
+                value={searchString}
+                onChange={event => setSearchString(event.target.value)}
+                onChangeText={value => setSearchString(value)}
+                onBlur={handleUpdate}
+                onKeyUp={event => {
+                  if (event.key === 'Enter') {
+                    handleUpdate();
+                  }
+                }}
+              /> :
               <Text>{searchString}</Text>
             }
-          </Row>
-        </Text>
+          </Text>
+        </Row>
       </Card>
       <VerticalSpacer />
       <ShowPlaylists

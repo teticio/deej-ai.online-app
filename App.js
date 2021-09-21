@@ -1,3 +1,10 @@
+// TODO:
+// Settings
+// Navbar
+// Routes
+// NotFound, Privacy Policy
+// Spotify login
+
 import React from 'react';
 import CreatePlaylist from './src/components/CreatePlaylist'
 import { DarkTheme, Provider as PaperProvider } from 'react-native-paper';
