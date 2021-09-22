@@ -1,12 +1,12 @@
 // TODO:
-// Navbar
 // Routes
 // NotFound, Privacy Policy
 // Spotify login
 
 import React from 'react';
-import Settings from './src/components/Settings'
 import { DarkTheme, Provider as PaperProvider } from 'react-native-paper';
+import Banner from './src/components/Banner'
+import LatestPlaylists from './src/components/LatestPlaylists';
 
 global.Buffer = global.Buffer || require('buffer').Buffer;
 
@@ -27,7 +27,8 @@ const theme = {
 export default function App() {
   return (
     <PaperProvider theme={theme}>
-      <Settings creativity={0.5} noise={0} size={10}/>
+      <Banner/>
+      <LatestPlaylists/>
     </PaperProvider>
   );
 }

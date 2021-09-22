@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { ScrollView, Card, Text, Small, FormLabel, FormControl, FormRange, FaBackward, Hr } from './Platform';
+import { ScrollView, Card, Text, Small, Form, FaBackward, Hr } from './Platform';
 import { Row, Col, HorizontalSpacer, VerticalSpacer } from './Lib';
 
 export default function Settings({ size, creativity, noise, onChange = f => f, onClose = f => f }) {
@@ -23,10 +23,10 @@ export default function Settings({ size, creativity, noise, onChange = f => f, o
   return (
     <ScrollView>
       <Card style={{ padding: 15 }} surface={true}>
-        <FormLabel htmlFor='size'>Size</FormLabel>
+        <Form.Label htmlFor='size'>Size</Form.Label>
         <Text h6 className='text-muted'>Controls the number of tracks in the playlist, or the number to be generated between waypoints.</Text>
         <VerticalSpacer />
-        <FormControl
+        <Form.Control
           id='size'
           className='text-light'
           type='number'
@@ -43,7 +43,7 @@ export default function Settings({ size, creativity, noise, onChange = f => f, o
           }}
         />
         <Hr />
-        <FormLabel htmlFor='creativity'>Creativity</FormLabel>
+        <Form.Label htmlFor='creativity'>Creativity</Form.Label>
         <Text h6 className='text-muted'>A value of 0% will select tracks based on how likely they are to appear together in a Spotify user's
           playlist. A value of 100% will select tracks based purely on how they sound.</Text>
         <VerticalSpacer />
@@ -55,7 +55,7 @@ export default function Settings({ size, creativity, noise, onChange = f => f, o
             <HorizontalSpacer />
           </Col>
           <Col style={{ flex: 95 }}>
-            <FormRange
+            <Form.Range
               id='creativity'
               type='number'
               min='0'
@@ -74,7 +74,7 @@ export default function Settings({ size, creativity, noise, onChange = f => f, o
           </Col>
         </Row>
         <Hr />
-        <FormLabel htmlFor='noise'>Noise</FormLabel>
+        <Form.Label htmlFor='noise'>Noise</Form.Label>
         <Text h6 className='text-muted'>Controls the amount of randomness to apply.</Text>
         <VerticalSpacer />
         <Row>
@@ -85,7 +85,7 @@ export default function Settings({ size, creativity, noise, onChange = f => f, o
             <HorizontalSpacer />
           </Col>
           <Col style={{ flex: 95 }}>
-            <FormRange
+            <Form.Range
               id='noise'
               type='number'
               min='0'

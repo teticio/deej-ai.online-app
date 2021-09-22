@@ -4,8 +4,7 @@ import { Linking, Alert, Image, View as VIEW, ScrollView as SCROLL_VIEW, Activit
 import { Picker } from '@react-native-picker/picker';
 import Slider from '@react-native-community/slider';
 import { WebView as WEB_VIEW } from 'react-native-webview';
-import { useTheme, Card } from 'react-native-paper';
-import { TextInput } from 'react-native-paper';
+import { useTheme, Card, TextInput, Appbar, Menu } from 'react-native-paper';
 import { VerticalSpacer } from './Lib';
 
 const MD_ICON = require('react-native-vector-icons').MaterialIcons;
@@ -13,6 +12,14 @@ const FA_ICON = require('react-native-vector-icons').FontAwesome5;
 
 export { Card };
 export { TextInput };
+
+export function ReactJSOnly(props) {
+  return <></>;
+}
+
+export function ReactNativeOnly(props) {
+  return <>{props.children}</>;
+}
 
 export function Spinner(props) {
   const { colors } = useTheme();
@@ -218,7 +225,7 @@ export function MdStarBorder(props) {
 }
 
 export function Container(props) {
-  return <View {...props}>{props.children}</View>;
+  return <>{props.children}</>;
 }
 
 export function Select(props) {
@@ -246,41 +253,106 @@ export function Option(props) {
   return <Picker.Item {...props} />;
 }
 
-export function FormLabel(props) {
-  return <Text h4 {...props}>{props.children}</Text>;
+export class Form {
+  static Label(props) {
+    return <Text h4 {...props}>{props.children}</Text>;
+  }
+
+  static Control(props) {
+    const { colors } = useTheme();
+
+    return (
+      <TextInput
+        keyboardType={props.type === 'number' ? 'numeric' : 'default'}
+        style={{
+          color: colors.primary,
+          backgroundColor: colors.surface,
+          ...props.style,
+        }}
+        {...props}
+        value={String(props.value)}
+      />
+    );
+  }
+
+  static Range(props) {
+    const { colors } = useTheme();
+
+    return (
+      <Slider
+        style={{
+          color: colors.primary,
+          backgroundColor: colors.surface,
+          ...props.style,
+        }}
+        {...props}
+        minimumValue={Number(props.min)}
+        maximumValue={Number(props.max)}
+        step={Number(props.step)}
+      />
+    );
+  }
 }
 
-export function FormControl(props) {
-  const { colors } = useTheme();
+export class Navbar extends React.Component {
+  render() {
+    return (
+      <Appbar.Header
+        style={{
+          backgroundColor: '#00bc8c',
+          ...this.props.style
+        }}
+        {...this.props}
+      >{this.props.children}
+      </Appbar.Header>
+    );
+  }
 
-  return (
-    <TextInput
-      keyboardType={props.type === 'number' ? 'numeric' : 'default'}
-      style={{
-        color: colors.primary,
-        backgroundColor: colors.surface,
-        ...props.style,
-      }}
-      {...props}
-      value={String(props.value)}
-    />
-  );
+  static Brand(props) {
+    return <Appbar.Content {...props} />;
+  }
+
+  static Toggle(props) {
+    return <></>;
+  }
+
+  static Collapse(props) {
+    return <>{props.children}</>;
+  }
 }
 
-export function FormRange(props) {
-  const { colors } = useTheme();
+export class Nav extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = { visible: false };
+  }
 
-  return (
-    <Slider
-      style={{
-        color: colors.primary,
-        backgroundColor: colors.surface,
-        ...props.style,
-      }}
-      {...props}
-      minimumValue={Number(props.min)}
-      maximumValue={Number(props.max)}
-      step={Number(props.step)}
-    />
-  );
+  setVisible(value) {
+    this.setState({ visible: value });
+  }
+
+  render() {
+    const openMenu = () => this.setVisible(true);
+    const closeMenu = () => this.setVisible(false);
+
+    return (
+      <Menu
+        visible={this.state.visible}
+        onDismiss={closeMenu}
+        anchor={
+          <Appbar.Action
+            icon="menu"
+            color="white"
+            onPress={openMenu}
+          />
+        }
+        {...this.props}
+      >{this.props.children}
+      </Menu>
+    )
+  };
+
+  static Link(props) {
+    return <Menu.Item onPress={props.onClick} title={props.children} />
+  }
 }

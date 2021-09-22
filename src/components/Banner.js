@@ -1,17 +1,17 @@
-import { useState } from 'react';
-import Col from 'react-bootstrap/Col';
-import Navbar from 'react-bootstrap/Navbar';
-import Container from 'react-bootstrap/Container';
-import Nav from 'react-bootstrap/Nav';
-import './Banner.css'
-import { VerticalSpacer } from './Lib';
+import React, { useState } from 'react';
+import { ReactJSOnly, Container, Navbar, Nav, Text } from './Platform';
+import { Col, Row, VerticalSpacer } from './Lib';
+
+try {
+  require('./Banner.css');
+} catch (e) {}
 
 export default function Banner({ loggedIn = false, onSelect = f => f }) {
   const [expanded, setExpanded] = useState(false);
 
   return (
     <>
-      <VerticalSpacer px={120} />
+      <ReactJSOnly><VerticalSpacer px={120} /></ReactJSOnly>
       <Navbar
         className='banner shadow-lg'
         fixed='top'
@@ -21,10 +21,14 @@ export default function Banner({ loggedIn = false, onSelect = f => f }) {
         expanded={expanded}
       >
         <Container>
-          <Navbar.Brand href='#'>
-            <div className='d-flex flex-row align-items-center'>
+          <Navbar.Brand
+            href='#'
+            title='Deej-A.I.'
+            subtitle='by Robert Dargavel Smith'
+          >
+            <Row>
               <Col sm='auto'>
-                <span onClick={() => {
+                <Text h2 onClick={() => {
                   const accessToken = localStorage.accessToken;
                   const refreshToken = localStorage.refreshToken;
                   localStorage.clear();
@@ -32,17 +36,17 @@ export default function Banner({ loggedIn = false, onSelect = f => f }) {
                   localStorage.refreshToken = refreshToken;
                   setExpanded(false);
                   onSelect('/');
-                }} >
-                  <h2>Deej-A.I.&nbsp;&nbsp;</h2>
-                </span>
+                }}>Deej-A.I.&nbsp;&nbsp;
+                </Text>
               </Col>
               <Col sm='auto'>
-                <h6>by <span
+                <Text h6>by <Text
                   className='link'
                   onClick={() => window.open('https://www.linkedin.com/in/attentioncoach/')}
-                >Robert Smith</span></h6>
+                >Robert Smith
+                </Text></Text>
               </Col>
-            </div>
+            </Row>
           </Navbar.Brand>
           <Navbar.Toggle
             aria-controls='basic-navbar-nav'
@@ -57,56 +61,64 @@ export default function Banner({ loggedIn = false, onSelect = f => f }) {
                     setExpanded(false);
                     onSelect('/login');
                   }}
-                >Login to Spotify</Nav.Link> :
+                >Login to Spotify
+                </Nav.Link> :
                 <Nav.Link
                   href='#'
                   onClick={() => {
                     setExpanded(false);
                     onSelect('/logout');
                   }}
-                >Logout from Spotify</Nav.Link>}
+                >Logout from Spotify
+                </Nav.Link>}
               <Nav.Link
                 href='#'
                 onClick={() => {
                   setExpanded(false);
                   onSelect('/');
                 }}
-              >Create playlist</Nav.Link>
+              >Create playlist
+              </Nav.Link>
               <Nav.Link
                 href='#'
                 onClick={() => {
                   setExpanded(false);
                   onSelect('/top');
                 }}
-              >Top rated playlists</Nav.Link>
+              >Top rated playlists
+              </Nav.Link>
               <Nav.Link
                 href='#'
                 onClick={() => {
                   setExpanded(false);
                   onSelect('/latest');
                 }}
-              >Latest playlists</Nav.Link>
+              >Latest playlists
+              </Nav.Link>
               <Nav.Link
                 href='#'
                 onClick={() => {
                   setExpanded(false);
                   onSelect('/most_uploaded');
                 }}
-              >Most uploaded playlists</Nav.Link>
+              >Most uploaded playlists
+              </Nav.Link>
               <Nav.Link
                 href='#'
                 onClick={() => {
                   setExpanded(false);
                   onSelect('/search');
                 }}
-              >Search playlists</Nav.Link>
+              >Search playlists
+              </Nav.Link>
               <Nav.Link
                 href='#'
                 onClick={() => {
                   setExpanded(false);
                   onSelect('/about');
                 }}
-              >About</Nav.Link>
+              >About
+              </Nav.Link>
             </Nav>
           </Navbar.Collapse>
         </Container>
