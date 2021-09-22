@@ -1,4 +1,5 @@
-import { FaPlus, FaForward, FaBackward, FaCloudUploadAlt, FaPen, FaSpotify, FaCog, FaSearch, FaTimes } from 'react-icons/fa';
+import { FaPlus, FaForward, FaBackward, FaCloudUploadAlt,
+  FaPen, FaSpotify, FaCog, FaSearch, FaTimes } from 'react-icons/fa';
 import { MdStar, MdStarHalf, MdStarBorder } from 'react-icons/md';
 import { Container, Card, Spinner, Form } from 'react-bootstrap';
 
