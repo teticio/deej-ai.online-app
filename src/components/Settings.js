@@ -104,7 +104,7 @@ export default function Settings({ size, creativity, noise, onChange = f => f, o
           </Col>
         </Row>
         <Hr />
-        <Row style={{ justifyContent: 'flex-start' }}>
+        <Row style={{ justifyContent: 'flex-start' }} surface={true}>
           <FaBackward
             data-testid='close'
             size='25'

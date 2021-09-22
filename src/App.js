@@ -94,7 +94,7 @@ function App() {
                   creativity={creativity}
                   noise={noise}
                   onChange={(size, creativity, noise) => {
-                    setSize(size);
+                    setSize(size !== '' ? size : 0);
                     setCreativity(creativity);
                     setNoise(noise);
                   }}

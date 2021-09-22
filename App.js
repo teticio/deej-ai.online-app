@@ -1,5 +1,4 @@
 // TODO:
-// Settings
 // Navbar
 // Routes
 // NotFound, Privacy Policy
