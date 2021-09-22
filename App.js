@@ -6,7 +6,7 @@
 // Spotify login
 
 import React from 'react';
-import CreatePlaylist from './src/components/CreatePlaylist'
+import Settings from './src/components/Settings'
 import { DarkTheme, Provider as PaperProvider } from 'react-native-paper';
 
 global.Buffer = global.Buffer || require('buffer').Buffer;
@@ -28,7 +28,7 @@ const theme = {
 export default function App() {
   return (
     <PaperProvider theme={theme}>
-      <CreatePlaylist/>
+      <Settings creativity={0.5} noise={0} size={10}/>
     </PaperProvider>
   );
 }

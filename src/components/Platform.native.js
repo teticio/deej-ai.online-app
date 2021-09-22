@@ -2,6 +2,7 @@ import React, { useCallback } from 'react';
 import { Text as TEXT } from "react-native-elements";
 import { Linking, Alert, Image, View as VIEW, ScrollView as SCROLL_VIEW, ActivityIndicator } from 'react-native';
 import { Picker } from '@react-native-picker/picker';
+import Slider from '@react-native-community/slider';
 import { WebView as WEB_VIEW } from 'react-native-webview';
 import { useTheme, Card } from 'react-native-paper';
 import { TextInput } from 'react-native-paper';
@@ -243,4 +244,43 @@ export function Select(props) {
 
 export function Option(props) {
   return <Picker.Item {...props} />;
+}
+
+export function FormLabel(props) {
+  return <Text h4 {...props}>{props.children}</Text>;
+}
+
+export function FormControl(props) {
+  const { colors } = useTheme();
+
+  return (
+    <TextInput
+      keyboardType={props.type === 'number' ? 'numeric' : 'default'}
+      style={{
+        color: colors.primary,
+        backgroundColor: colors.surface,
+        ...props.style,
+      }}
+      {...props}
+      value={String(props.value)}
+    />
+  );
+}
+
+export function FormRange(props) {
+  const { colors } = useTheme();
+
+  return (
+    <Slider
+      style={{
+        color: colors.primary,
+        backgroundColor: colors.surface,
+        ...props.style,
+      }}
+      {...props}
+      minimumValue={Number(props.min)}
+      maximumValue={Number(props.max)}
+      step={Number(props.step)}
+    />
+  );
 }

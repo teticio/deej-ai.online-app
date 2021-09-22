@@ -1,6 +1,6 @@
 import { FaPlus, FaForward, FaBackward, FaCloudUploadAlt, FaPen, FaSpotify, FaCog, FaSearch, FaTimes } from 'react-icons/fa';
 import { MdStar, MdStarHalf, MdStarBorder } from 'react-icons/md';
-import { Container, Card, Spinner } from 'react-bootstrap';
+import { Container, Card, Spinner, Form } from 'react-bootstrap';
 
 export { FaPlus, FaForward, FaBackward, FaCloudUploadAlt, FaPen, FaSpotify, FaCog, FaSearch, FaTimes };
 export { MdStar, MdStarHalf, MdStarBorder };
@@ -69,4 +69,16 @@ export function Select(props) {
 
 export function Option(props) {
   return <option {...props} />;
+}
+
+export function FormLabel(props) {
+  return <Form.Label {...props}>{props.children}</Form.Label>;
+}
+
+export function FormControl(props) {
+  return <Form.Control {...props} />;
+}
+
+export function FormRange(props) {
+  return <Form.Range {...props} />;
 }
