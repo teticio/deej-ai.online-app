@@ -97,7 +97,7 @@ export default function ShowPlaylist({ playlist, onClose = f => f, spotify = nul
             }
           </Row>
           {(playlist.creativity !== undefined && playlist.noise !== undefined) ?
-            <Text h6><Small class='text-muted'>
+            <Text h6><Small className='text-muted'>
               creativity {Math.round(playlist.creativity * 100)}%
               , noise {Math.round(playlist.noise * 100)}%
             </Small></Text> :

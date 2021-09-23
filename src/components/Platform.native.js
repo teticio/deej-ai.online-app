@@ -40,7 +40,9 @@ export function Text(props) {
       onPress={props.onClick}
       {...props}
       style={{
-        color: props.className === 'link' ? colors.accent : colors.primary,
+        color: props.className === 'link' ? colors.accent :
+          props.className === 'text-muted' ? colors.disabled :
+            colors.primary,
         ...props.style,
       }}
     ></TEXT >
@@ -48,7 +50,21 @@ export function Text(props) {
 }
 
 export function Small(props) {
-  return <Text style={{ fontSize: 12 }}>{props.children}</Text>;
+  const { colors } = useTheme();
+  
+  return (
+    <Text
+      {...props}
+      style={{
+        fontSize: 12,
+        color: props.className === 'link' ? colors.accent :
+          props.className === 'text-muted' ? colors.disabled :
+            colors.primary,
+        ...props.style,
+      }}
+    >{props.children}
+    </Text >
+  );
 }
 
 export function View(props) {
