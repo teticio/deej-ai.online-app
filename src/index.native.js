@@ -6,8 +6,9 @@
 import { registerRootComponent } from 'expo';
 import React from 'react';
 import { DarkTheme, Provider as PaperProvider } from 'react-native-paper';
+import { View } from './components/Platform';
 import Banner from './components/Banner'
-import PrivacyPolicy from './components/PrivacyPolicy';
+import LatestPlaylists from './components/LatestPlaylists';
 
 global.Buffer = global.Buffer || require('buffer').Buffer;
 
@@ -28,8 +29,10 @@ const theme = {
 function Root() {
   return (
     <PaperProvider theme={theme}>
-      <Banner/>
-      <PrivacyPolicy/>
+      <Banner />
+      <View style={{ padding: 15 }}>
+        <LatestPlaylists />
+      </View>
     </PaperProvider>
   );
 }

@@ -1,4 +1,4 @@
-import React, { useCallback } from 'react';
+import React, { useCallback, Component, createContext, Children, cloneElement } from 'react';
 import { Text as TEXT } from "react-native-elements";
 import { Linking, Alert, Image, View as VIEW, ScrollView as SCROLL_VIEW, ActivityIndicator } from 'react-native';
 import { Picker } from '@react-native-picker/picker';
@@ -6,7 +6,6 @@ import Slider from '@react-native-community/slider';
 import { WebView as WEB_VIEW } from 'react-native-webview';
 import { useTheme, Card, TextInput, Appbar, Menu } from 'react-native-paper';
 import { VerticalSpacer } from './Lib';
-import { style } from 'dom-helpers';
 
 const MD_ICON = require('react-native-vector-icons').MaterialIcons;
 const FA_ICON = require('react-native-vector-icons').FontAwesome5;
@@ -295,7 +294,7 @@ export class Form {
   }
 }
 
-export class Navbar extends React.Component {
+export class Navbar extends Component {
   render() {
     return (
       <Appbar.Header
@@ -322,9 +321,9 @@ export class Navbar extends React.Component {
   }
 }
 
-const ParentContext = React.createContext(null);
+const ParentContext = createContext(null);
 
-export class Nav extends React.Component {
+export class Nav extends Component {
   constructor(props) {
     super(props);
     this.state = { visible: false };
@@ -375,10 +374,10 @@ export function Ul(props) {
   return (
     <Text
       {...props}
-    >{React.Children.map(props.children, (child, index) => (
+    >{Children.map(props.children, (child, index) => (
       <>
         {(index > 0) ? <Text>{'\n'}</Text> : <></>}
-        {React.cloneElement(child)}
+        {cloneElement(child)}
       </>
     ))}
     </Text>
