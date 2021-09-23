@@ -6,6 +6,7 @@ import Slider from '@react-native-community/slider';
 import { WebView as WEB_VIEW } from 'react-native-webview';
 import { useTheme, Card, TextInput, Appbar, Menu } from 'react-native-paper';
 import { VerticalSpacer } from './Lib';
+import { style } from 'dom-helpers';
 
 const MD_ICON = require('react-native-vector-icons').MaterialIcons;
 const FA_ICON = require('react-native-vector-icons').FontAwesome5;
@@ -48,7 +49,7 @@ export function Text(props) {
 }
 
 export function Small(props) {
-  return <>{props.children}</>;
+  return <Text style={{ fontSize: 12 }}>{props.children}</Text>;
 }
 
 export function View(props) {
@@ -321,10 +322,13 @@ export class Navbar extends React.Component {
   }
 }
 
+const ParentContext = React.createContext(null); ///// React
+
 export class Nav extends React.Component {
   constructor(props) {
     super(props);
     this.state = { visible: false };
+    this.setVisible = this.setVisible.bind(this);
   }
 
   setVisible(value) {
@@ -332,27 +336,37 @@ export class Nav extends React.Component {
   }
 
   render() {
-    const openMenu = () => this.setVisible(true);
-    const closeMenu = () => this.setVisible(false);
-
     return (
       <Menu
         visible={this.state.visible}
-        onDismiss={closeMenu}
+        onDismiss={() => this.setVisible(false)}
         anchor={
           <Appbar.Action
             icon="menu"
             color="white"
-            onPress={openMenu}
+            onPress={() => this.setVisible(true)}
           />
         }
         {...this.props}
-      >{this.props.children}
+      >
+        <ParentContext.Provider value={{ setVisible: this.setVisible }}>
+          {this.props.children}
+        </ParentContext.Provider>
       </Menu>
     )
   };
 
   static Link(props) {
-    return <Menu.Item onPress={props.onClick} title={props.children} />
+    return (
+      <ParentContext.Consumer>{context =>
+        <Menu.Item
+          onPress={() => {
+            context.setVisible(false);
+            props.onClick;
+          }}
+          title={props.children}
+        />}
+      </ParentContext.Consumer>
+    );
   }
 }

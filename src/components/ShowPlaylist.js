@@ -2,8 +2,10 @@ import React, { useState } from 'react';
 import Playlist from './Playlist';
 import { updatePlaylistName, updatePlaylistRating, updatePlaylistId, updatePlaylistUploads } from './SavePlaylist';
 import StarRating, { RateStars } from './StarRating';
-import { View, Text, TextInput, Small, Link, Card, Spinner,
-  FaBackward, FaCloudUploadAlt, FaPen, Hr } from './Platform';
+import {
+  View, Text, TextInput, Small, Link, Card, Spinner,
+  FaBackward, FaCloudUploadAlt, FaPen, Hr
+} from './Platform';
 import { Row, Col, HorizontalSpacer } from './Lib';
 
 export default function ShowPlaylist({ playlist, onClose = f => f, spotify = null, userPlaylist = false }) {
@@ -44,9 +46,9 @@ export default function ShowPlaylist({ playlist, onClose = f => f, spotify = nul
 
   return (
     <Card>
-      <Row style={{ justifyContent: 'space-between', padding: 15 }} surface={true} >
+      <Row style={{ flexWrap: 'wrap', justifyContent: 'space-between', padding: 15 }} surface={true} >
         <Col surface={true}>
-          <Row style={{ justifyContent: 'flex-start'}} surface={true}>
+          <Row style={{ justifyContent: 'flex-start' }} surface={true}>
             {(spotify && spotify.loggedIn()) ?
               <>
                 {spinner ?
