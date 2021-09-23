@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useReducer } from 'react';
 import ShowPlaylists from './ShowPlaylists';
-import { ScrollView, Text } from './Platform';
+import { Text } from './Platform';
 import { VerticalSpacer } from './Lib';
 
 export async function getTopPlaylists(top_n) {
@@ -26,7 +26,7 @@ export default function TopPlaylists({ spotify }) {
   }, [topN]);
 
   return (
-    <ScrollView>
+    <>
       <VerticalSpacer />
       <Text h3 style={{ textAlign: 'center' }}>Top rated playlists</Text>
       <ShowPlaylists
@@ -36,6 +36,6 @@ export default function TopPlaylists({ spotify }) {
       <Text h6 onClick={loadMore} className='link' style={{ textAlign: 'center' }}>
         Load more...
       </Text>
-    </ScrollView>
+    </>
   );
 }

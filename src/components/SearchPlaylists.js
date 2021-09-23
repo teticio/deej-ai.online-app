@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useReducer } from 'react';
 import ShowPlaylists from './ShowPlaylists';
-import {  ScrollView, Card, Text, TextInput, FaSearch } from './Platform';
+import { Card, Text, TextInput, FaSearch } from './Platform';
 import { Row,  HorizontalSpacer, VerticalSpacer } from './Lib';
 
 export async function searchPlaylists(searchString, maxItems) {
@@ -40,7 +40,7 @@ export default function SearchPlaylists({ spotify }) {
   }, [actualSearchString, topN]);
 
   return (
-    <ScrollView>
+    <>
       <Text h3 style={{ textAlign: 'center' }}>Search playlists</Text>
       <Card>
         <Row style={{ justifyContent: 'flex-start', padding: 15 }} surface={true}>
@@ -76,6 +76,6 @@ export default function SearchPlaylists({ spotify }) {
             Load more...
           </Text> : <></>
       }
-    </ScrollView>
+    </>
   );
 }

@@ -1,12 +1,12 @@
 import React from 'react';
 import GoogleBadge from '../images/google-play-badge.png'
 import AppleBadge from '../images/download-on-the-app-store.png'
-import { ScrollView, Text, Link, FaPlus, FaForward, FaCloudUploadAlt, FaSpotify, FaCog } from './Platform';
+import { Text, Link, FaPlus, FaForward, FaCloudUploadAlt, FaSpotify, FaCog } from './Platform';
 import { B, I, VerticalSpacer, Row } from './Lib';
 
 export default function About() {
   return (
-    <ScrollView>
+    <>
       <Text h5 data-testid='blurb'>
         <B>Deej-A.I.</B> uses artificial intelligence to automatically
         generate playlists of tracks that go well together. It was trained using hundreds of thousands of
@@ -64,6 +64,6 @@ export default function About() {
           alt='Get it on App Store'
         />
       </Row>
-    </ScrollView>
+    </>
   );
 }

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { ScrollView, Text, Card, Spinner, Hr, FaForward, FaCog } from './Platform';
+import { Text, Card, Spinner, Hr, FaForward, FaCog } from './Platform';
 import { VerticalSpacer, Row } from './Lib';
 import AddTrack from './AddTrack';
 import RemovablePlaylist from './RemovablePlaylist';
@@ -34,7 +34,7 @@ export default function CreatePlaylist({
   }
 
   return (
-    <ScrollView>
+    <>
       <Text h3 style={{ textAlign: 'center' }}>Choose the waypoints for your musical journey</Text>
       <AddTrack
         numTracks={_waypoints.track_ids.length}
@@ -69,6 +69,6 @@ export default function CreatePlaylist({
           </Row>
         }
       </Card>
-    </ScrollView>
+    </>
   );
 }

@@ -1,10 +1,10 @@
 import React from 'react';
-import { ScrollView, Text, Small, Link, Ul, Li } from './Platform';
+import { Text, Small, Link, Ul, Li } from './Platform';
 import { B, VerticalSpacer } from './Lib';
 
 export default function PrivacyPolicy() {
   return (
-    <ScrollView>
+    <>
       <Text h6><B>Privacy Policy</B></Text>
       <Text h6><Small>
         Robert Smith built the Deej-A.I. app as a Free app. This SERVICE is provided by Robert Smith at no
@@ -144,6 +144,6 @@ export default function PrivacyPolicy() {
           text='App Privacy Policy Generator'
         />
       </Small></Text>
-    </ScrollView>
+    </>
   );
 }

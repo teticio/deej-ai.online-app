@@ -1,12 +1,12 @@
 // TODO:
 // Routes
-// ScrollView + Appbar doesn't scroll to the bottom
 // Spotify login
 
 import { registerRootComponent } from 'expo';
 import React from 'react';
 import { DarkTheme, Provider as PaperProvider } from 'react-native-paper';
-import { View } from './components/Platform';
+import { ScrollView, View } from './components/Platform';
+import { VerticalSpacer } from './components/Lib';
 import Banner from './components/Banner'
 import LatestPlaylists from './components/LatestPlaylists';
 
@@ -30,12 +30,14 @@ function Root() {
   return (
     <PaperProvider theme={theme}>
       <Banner />
-      <View style={{
-        paddingLeft: 15,
-        paddingRight: 15
-      }}>
-        <LatestPlaylists />
-      </View>
+      <ScrollView>
+        <View style={{
+          paddingLeft: 15,
+          paddingRight: 15
+        }}>
+          <LatestPlaylists />
+        </View>
+      </ScrollView>
     </PaperProvider>
   );
 }

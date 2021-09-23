@@ -85,8 +85,6 @@ export function View(props) {
 export function ScrollView(props) {
   const { colors } = useTheme();
 
-  // VerticalSpacer is needed due to what appears to be a bug in ScrollView
-  // when Appbar is present.
   return (
     <SCROLL_VIEW
       {...props}
@@ -97,7 +95,6 @@ export function ScrollView(props) {
       }}
     >
       {props.children}
-      <VerticalSpacer px={120} />
     </SCROLL_VIEW >
   );
 }

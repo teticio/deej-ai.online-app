@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { ScrollView, Card, Text, Small, Form, FaBackward, Hr } from './Platform';
+import { Card, Text, Small, Form, FaBackward, Hr } from './Platform';
 import { Row, Col, HorizontalSpacer, VerticalSpacer } from './Lib';
 
 export default function Settings({ size, creativity, noise, onChange = f => f, onClose = f => f }) {
@@ -21,7 +21,7 @@ export default function Settings({ size, creativity, noise, onChange = f => f, o
   useEffect(() => () => update());
 
   return (
-    <ScrollView>
+    <>
       <Card style={{ padding: 15 }} surface={true}>
         <Form.Label htmlFor='size'>Size</Form.Label>
         <Text h6 className='text-muted'>Controls the number of tracks in the playlist, or the number to be generated between waypoints.</Text>
@@ -116,6 +116,6 @@ export default function Settings({ size, creativity, noise, onChange = f => f, o
           />
         </Row>
       </Card>
-    </ScrollView>
+    </>
   );
 }
