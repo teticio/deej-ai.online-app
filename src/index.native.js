@@ -3,10 +3,11 @@
 // NotFound, Privacy Policy
 // Spotify login
 
+import { registerRootComponent } from 'expo';
 import React from 'react';
 import { DarkTheme, Provider as PaperProvider } from 'react-native-paper';
-import Banner from './src/components/Banner'
-import LatestPlaylists from './src/components/LatestPlaylists';
+import Banner from './components/Banner'
+import PrivacyPolicy from './components/PrivacyPolicy';
 
 global.Buffer = global.Buffer || require('buffer').Buffer;
 
@@ -24,11 +25,13 @@ const theme = {
   },
 };
 
-export default function App() {
+function Root() {
   return (
     <PaperProvider theme={theme}>
       <Banner/>
-      <LatestPlaylists/>
+      <PrivacyPolicy/>
     </PaperProvider>
   );
 }
+
+export default registerRootComponent(Root);

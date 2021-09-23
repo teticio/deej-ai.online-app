@@ -322,7 +322,7 @@ export class Navbar extends React.Component {
   }
 }
 
-const ParentContext = React.createContext(null); ///// React
+const ParentContext = React.createContext(null);
 
 export class Nav extends React.Component {
   constructor(props) {
@@ -369,4 +369,22 @@ export class Nav extends React.Component {
       </ParentContext.Consumer>
     );
   }
+}
+
+export function Ul(props) {
+  return (
+    <Text
+      {...props}
+    >{React.Children.map(props.children, (child, index) => (
+      <>
+        {(index > 0) ? <Text>{'\n'}</Text> : <></>}
+        {React.cloneElement(child)}
+      </>
+    ))}
+    </Text>
+  );
+}
+
+export function Li(props) {
+  return <Text {...props}>{'   \u2022 '}{props.children}</Text>;
 }

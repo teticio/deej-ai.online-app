@@ -1,23 +1,25 @@
 import { useState, useEffect } from 'react';
 import { Routes, Route, useNavigate } from 'react-router-dom';
-import Container from 'react-bootstrap/Container';
-import { Card } from './components/Platform';
-import { getHashParams, usePersistedState } from './components/Lib';
-import Banner from './components/Banner';
-import Spotify from './components/Spotify';
-import ErrorBoundary from './components/ErrorBoundary';
-import CreatePlaylist from './components/CreatePlaylist';
-import ShowPlaylist from './components/ShowPlaylist';
-import Settings from './components/Settings';
-import LatestPlaylists from './components/LatestPlaylists';
-import TopPlaylists from './components/TopPlaylists';
-import MostUploadedPlaylists from './components/MostUploadedPlaylists';
-import SearchPlaylists from './components/SearchPlaylists';
-import Footer from './components/Footer';
-import About from './components/About';
-import NotFound from './components/NotFound';
-import PrivacyPolicy from './components/PrivacyPolicy';
-import './App.css';
+import { Container, Card } from './Platform';
+import { getHashParams, usePersistedState } from './Lib';
+import About from './About';
+import Banner from './Banner';
+import Footer from './Footer';
+import Spotify from './Spotify';
+import Settings from './Settings';
+import NotFound from './NotFound';
+import TopPlaylists from './TopPlaylists';
+import ShowPlaylist from './ShowPlaylist';
+import ErrorBoundary from './ErrorBoundary';
+import PrivacyPolicy from './PrivacyPolicy';
+import CreatePlaylist from './CreatePlaylist';
+import LatestPlaylists from './LatestPlaylists';
+import SearchPlaylists from './SearchPlaylists';
+import MostUploadedPlaylists from './MostUploadedPlaylists';
+
+try {
+  require('./App.css');
+} catch (e) {}
 
 function App() {
   const hashParams = getHashParams();

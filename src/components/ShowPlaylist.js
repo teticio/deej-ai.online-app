@@ -159,4 +159,3 @@ export default function ShowPlaylist({ playlist, onClose = f => f, spotify = nul
     </Card>
   );
 }
-
