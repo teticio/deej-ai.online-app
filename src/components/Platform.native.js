@@ -54,40 +54,51 @@ export function Small(props) {
 export function View(props) {
   const { colors } = useTheme();
 
-  return <VIEW
-    {...props}
-    style={{
-      color: colors.primary,
-      backgroundColor: props.surface ? colors.surface : colors.background,
-      ...props.style,
-    }}
-  ></VIEW >
+  return (
+    <VIEW
+      {...props}
+      style={{
+        color: colors.primary,
+        backgroundColor: props.surface ? colors.surface : colors.background,
+        ...props.style,
+      }}
+    ></VIEW >
+  );
 }
 
 export function ScrollView(props) {
   const { colors } = useTheme();
 
-  return <SCROLL_VIEW
-    {...props}
-    style={{
-      color: colors.primary,
-      backgroundColor: colors.background,
-      ...props.style,
-    }}
-  ></SCROLL_VIEW >
+  // VerticalSpacer is needed due to what appears to be a bug in ScrollView
+  // when Appbar is present.
+  return (
+    <SCROLL_VIEW
+      {...props}
+      style={{
+        color: colors.primary,
+        backgroundColor: colors.background,
+        ...props.style,
+      }}
+    >
+      {props.children}
+      <VerticalSpacer px={120} />
+    </SCROLL_VIEW >
+  );
 }
 
 export function WebView(props) {
   const { colors } = useTheme();
 
-  return <WEB_VIEW
-    {...props}
-    style={{
-      color: colors.primary,
-      backgroundColor: colors.surface,
-      ...props.style,
-    }}
-  >{props.children}</WEB_VIEW >
+  return (
+    <WEB_VIEW
+      {...props}
+      style={{
+        color: colors.primary,
+        backgroundColor: colors.surface,
+        ...props.style,
+      }}
+    >{props.children}</WEB_VIEW >
+  );
 }
 
 export function Link(props) {

@@ -1,10 +1,10 @@
 import React from 'react';
-import { ScrollView } from './Platform';
+import { View } from './Platform';
 import Track from './Track';
 
 export default function Playlist({ track_ids = [], waypoints = [] }) {
   return (
-    <ScrollView>
+    <View>
       {track_ids.map((track_id, i) => (
         <Track
           key={i}
@@ -12,6 +12,6 @@ export default function Playlist({ track_ids = [], waypoints = [] }) {
           highlight={waypoints.indexOf(track_id) >= 0}
         />
       ))}
-    </ScrollView>
+    </View>
   );
 }

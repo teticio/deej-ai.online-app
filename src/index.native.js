@@ -1,6 +1,6 @@
 // TODO:
 // Routes
-// NotFound, Privacy Policy
+// ScrollView + Appbar doesn't scroll to the bottom
 // Spotify login
 
 import { registerRootComponent } from 'expo';
@@ -30,7 +30,10 @@ function Root() {
   return (
     <PaperProvider theme={theme}>
       <Banner />
-      <View style={{ padding: 15 }}>
+      <View style={{
+        paddingLeft: 15,
+        paddingRight: 15
+      }}>
         <LatestPlaylists />
       </View>
     </PaperProvider>
