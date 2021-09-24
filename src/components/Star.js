@@ -7,8 +7,7 @@ export default function Star({ value = 0, unrated = false, onSelect = f => f }) 
       {unrated ?
         <MdStarBorder
           size='25'
-          className={(value === 0) ? 'text-muted' : 'link'}
-          style={{ cursor: 'pointer' }}
+          className={(value === 0) ? 'link-muted' : 'link'}
           onClick={onSelect}
         /> :
         (value > 0 && value < 1) ?
@@ -18,8 +17,7 @@ export default function Star({ value = 0, unrated = false, onSelect = f => f }) 
           /> :
           <MdStar
             size='25'
-            className={(value === 0) ? 'text-muted' : 'link'}
-            style={{ cursor: 'pointer' }}
+            className={(value === 0) ? 'link-muted' : 'link'}
           />
       }
     </>)

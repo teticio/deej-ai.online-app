@@ -1,12 +1,13 @@
 import React from 'react';
 import GoogleBadge from '../images/google-play-badge.png'
 import AppleBadge from '../images/download-on-the-app-store.png'
-import { Text, Link, FaPlus, FaForward, FaCloudUploadAlt, FaSpotify, FaCog } from './Platform';
+import { ReactJSOnly, Text, Link, FaPlus, FaForward, FaCloudUploadAlt, FaSpotify, FaCog } from './Platform';
 import { B, I, VerticalSpacer, Row } from './Lib';
 
 export default function About() {
   return (
     <>
+      <Text h3 style={{ textAlign: 'center' }}>About Deej-A.I.</Text>
       <Text h5 data-testid='blurb'>
         <B>Deej-A.I.</B> uses artificial intelligence to automatically
         generate playlists of tracks that go well together. It was trained using hundreds of thousands of
@@ -51,19 +52,21 @@ export default function About() {
           text='article'
         />.
       </Text>
-      <VerticalSpacer px={15} />
-      <Row>
-        <Link style={{ width: 150, height: 60 }}
-          url='https://play.google.com/store/apps/details?id=online.deejai.www&pcampaignid=MKT-Other-global-all-co-prtnr-py-PartBadge-Mar2515-1'
-          source={GoogleBadge}
-          alt='Get it on Google Play'
-        />
-        <Link style={{ width: 120, height: 40 }}
-          url='https://apps.apple.com/us/app/deej-a-i/id1529860910?mt=8'
-          source={AppleBadge}
-          alt='Get it on App Store'
-        />
-      </Row>
+      <ReactJSOnly>
+        <VerticalSpacer px={15} />
+        <Row>
+          <Link style={{ width: 150, height: 60 }}
+            url='https://play.google.com/store/apps/details?id=online.deejai.www&pcampaignid=MKT-Other-global-all-co-prtnr-py-PartBadge-Mar2515-1'
+            source={GoogleBadge}
+            alt='Get it on Google Play'
+          />
+          <Link style={{ width: 120, height: 40 }}
+            url='https://apps.apple.com/us/app/deej-a-i/id1529860910?mt=8'
+            source={AppleBadge}
+            alt='Get it on App Store'
+          />
+        </Row>
+      </ReactJSOnly>
     </>
   );
 }

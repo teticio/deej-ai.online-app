@@ -1,8 +1,11 @@
 import { FaLinkedin, FaFacebook, FaTwitter, FaReddit, FaMedium, FaGithub } from 'react-icons/fa';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
-import './Footer.css'
 import { VerticalSpacer } from './Lib';
+
+try {
+  require('./Footer.css');
+} catch (e) { }
 
 export default function Footer() {
   return (

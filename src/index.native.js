@@ -1,6 +1,9 @@
 // TODO:
 // Routes
+// Previous
+// Footer
 // Spotify login
+// Wrap Platform native common code?
 
 import { registerRootComponent } from 'expo';
 import React from 'react';
