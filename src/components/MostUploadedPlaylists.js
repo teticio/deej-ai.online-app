@@ -28,7 +28,7 @@ export default function MostUploadedPlaylists({ spotify }) {
   return (
     <>
       <VerticalSpacer />
-      <h3 style={{ textAlign: 'center' }}>Most uploaded playlists</h3>
+      <Text h3 style={{ textAlign: 'center' }}>Most uploaded playlists</Text>
       <ShowPlaylists
         playlists={playlists}
         spotify={spotify}

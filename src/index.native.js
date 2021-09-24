@@ -1,5 +1,6 @@
 // TODO:
 // Routes
+// Create playlist card
 // Previous
 // Footer
 // Spotify login
