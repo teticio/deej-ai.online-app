@@ -251,7 +251,17 @@ export function MdStarBorder(props) {
 }
 
 export function Container(props) {
-  return <>{props.children}</>;
+  return (
+    <ScrollView
+      style={{
+        paddingLeft: 15,
+        paddingRight: 15,
+        ...props.style
+      }}
+      {...props}
+    >{props.children}
+    </ScrollView>
+  );
 }
 
 export function Select(props) {
@@ -326,11 +336,11 @@ export class Navbar extends Component {
   render() {
     return (
       <Appbar.Header
+        {...this.props}
         style={{
           backgroundColor: '#00bc8c',
           ...this.props.style
         }}
-        {...this.props}
       >{this.props.children}
       </Appbar.Header>
     );

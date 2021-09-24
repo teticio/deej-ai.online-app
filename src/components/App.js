@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Routes, Route, useNavigate, Container, Card } from './Platform';
+import { ReactJSOnly, Routes, Route, useNavigate, Container, Card } from './Platform';
 import { getHashParams, usePersistedState } from './Lib';
 import About from './About';
 import Banner from './Banner';
@@ -18,7 +18,7 @@ import MostUploadedPlaylists from './MostUploadedPlaylists';
 
 try {
   require('./App.css');
-} catch (e) {}
+} catch (e) { }
 
 export default function App() {
   const hashParams = getHashParams();
@@ -39,18 +39,18 @@ export default function App() {
 
   return (
     <>
+      <Banner loggedIn={loggedIn} onSelect={route => {
+        if (route === '/login') {
+          window.location.href = `${process.env.REACT_APP_API_URL}/login?state=${window.location.pathname}`;
+          setLoggedIn(spotify.loggedIn());
+        } else if (route === '/logout') {
+          spotify.logOut();
+          setLoggedIn(false);
+        } else {
+          navigate(route);
+        }
+      }} />
       <Container className='App'>
-        <Banner loggedIn={loggedIn} onSelect={route => {
-          if (route === '/login') {
-            window.location.href = `${process.env.REACT_APP_API_URL}/login?state=${window.location.pathname}`;
-            setLoggedIn(spotify.loggedIn());
-          } else if (route === '/logout') {
-            spotify.logOut();
-            setLoggedIn(false);
-          } else {
-            navigate(route);
-          }
-        }} />
         <ErrorBoundary >
           <Routes>
             <Route
@@ -154,7 +154,7 @@ export default function App() {
           </Routes>
         </ErrorBoundary>
       </Container>
-      <Footer />
+      <ReactJSOnly><Footer /></ReactJSOnly>
     </>
   );
 }
