@@ -4,11 +4,9 @@
 
 import { registerRootComponent } from 'expo';
 import React from 'react';
+import { NavigationContainer } from '@react-navigation/native';
 import { DarkTheme, Provider as PaperProvider } from 'react-native-paper';
-import { ScrollView, View } from './components/Platform';
-import { VerticalSpacer } from './components/Lib';
-import Banner from './components/Banner'
-import LatestPlaylists from './components/LatestPlaylists';
+import App from './components/App';
 
 global.Buffer = global.Buffer || require('buffer').Buffer;
 
@@ -28,17 +26,11 @@ const theme = {
 
 function Root() {
   return (
-    <PaperProvider theme={theme}>
-      <Banner />
-      <ScrollView>
-        <View style={{
-          paddingLeft: 15,
-          paddingRight: 15
-        }}>
-          <LatestPlaylists />
-        </View>
-      </ScrollView>
-    </PaperProvider>
+    <NavigationContainer>
+      <PaperProvider theme={theme}>
+        <App />
+      </PaperProvider>
+    </NavigationContainer>
   );
 }
 

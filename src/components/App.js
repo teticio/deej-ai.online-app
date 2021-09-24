@@ -1,6 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Routes, Route, useNavigate } from 'react-router-dom';
-import { Container, Card } from './Platform';
+import { Routes, Route, useNavigate, Container, Card } from './Platform';
 import { getHashParams, usePersistedState } from './Lib';
 import About from './About';
 import Banner from './Banner';
@@ -21,7 +20,7 @@ try {
   require('./App.css');
 } catch (e) {}
 
-function App() {
+export default function App() {
   const hashParams = getHashParams();
   const spotify = new Spotify(hashParams);
   const [loggedIn, setLoggedIn] = useState(spotify.loggedIn());
@@ -159,5 +158,3 @@ function App() {
     </>
   );
 }
-
-export default App;

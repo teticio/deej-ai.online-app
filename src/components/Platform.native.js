@@ -1,6 +1,8 @@
+import 'react-native-gesture-handler';
 import React, { useCallback, Component, createContext, Children, cloneElement } from 'react';
-import { Text as TEXT } from "react-native-elements";
 import { Linking, Alert, Image, View as VIEW, ScrollView as SCROLL_VIEW, ActivityIndicator } from 'react-native';
+import { createStackNavigator } from '@react-navigation/stack';
+import { Text as TEXT } from "react-native-elements";
 import { Picker } from '@react-native-picker/picker';
 import Slider from '@react-native-community/slider';
 import { WebView as WEB_VIEW } from 'react-native-webview';
@@ -51,7 +53,7 @@ export function Text(props) {
 
 export function Small(props) {
   const { colors } = useTheme();
-  
+
   return (
     <Text
       {...props}
@@ -283,6 +285,7 @@ export class Form {
   }
 
   static Control(props) {
+    // eslint-disable-next-line react-hooks/rules-of-hooks
     const { colors } = useTheme();
 
     return (
@@ -300,6 +303,7 @@ export class Form {
   }
 
   static Range(props) {
+    // eslint-disable-next-line react-hooks/rules-of-hooks
     const { colors } = useTheme();
 
     return (
@@ -385,7 +389,7 @@ export class Nav extends Component {
         <Menu.Item
           onPress={() => {
             context.setVisible(false);
-            props.onClick;
+            props.onClick();
           }}
           title={props.children}
         />}
@@ -410,4 +414,27 @@ export function Ul(props) {
 
 export function Li(props) {
   return <Text {...props}>{'   \u2022 '}{props.children}</Text>;
+}
+
+const Stack = createStackNavigator();
+
+export function Routes(props) {
+  return (
+    <Stack.Navigator
+      initialRouteName='/'
+      {...props}
+    >{props.children}
+    </Stack.Navigator>
+  );
+}
+
+export function Route(props) {
+  return (
+    <Stack.Screen
+      name={props.path}
+      component={props.element}
+      {...props}
+    >{props.children}
+    </Stack.Screen>
+  );
 }
