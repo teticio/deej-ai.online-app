@@ -15,6 +15,10 @@ const FA_ICON = require('react-native-vector-icons').FontAwesome5;
 export { Card };
 export { TextInput };
 
+export const getHashParams = () => {
+  return '';
+};
+
 export function ReactJSOnly(props) {
   return <></>;
 }
@@ -251,17 +255,7 @@ export function MdStarBorder(props) {
 }
 
 export function Container(props) {
-  return (
-    <ScrollView
-      style={{
-        paddingLeft: 15,
-        paddingRight: 15,
-        ...props.style
-      }}
-      {...props}
-    >{props.children}
-    </ScrollView>
-  );
+  return <>{props.children}</>;
 }
 
 export function Select(props) {
@@ -336,11 +330,11 @@ export class Navbar extends Component {
   render() {
     return (
       <Appbar.Header
-        {...this.props}
         style={{
           backgroundColor: '#00bc8c',
           ...this.props.style
         }}
+        {...this.props}
       >{this.props.children}
       </Appbar.Header>
     );

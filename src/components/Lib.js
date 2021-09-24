@@ -2,16 +2,6 @@ import React from 'react';
 import { View, Text } from './Platform';
 import { useState, useEffect } from 'react';
 
-export const getHashParams = () => {
-  var hashParams = {};
-  var e, r = /([^&;=]+)=?([^&;]*)/g,
-    q = window.location.hash.substring(1);
-  while ((e = r.exec(q)) !== null) {
-    hashParams[e[1]] = decodeURIComponent(e[2]);
-  }
-  return hashParams;
-};
-
 export const createArray = length => (length > 0) ? [...Array(length)] : [];
 
 var timerId = null;

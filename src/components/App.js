@@ -1,6 +1,6 @@
-import { useState, useEffect } from 'react';
-import { ReactJSOnly, Routes, Route, useNavigate, Container, Card } from './Platform';
-import { getHashParams, usePersistedState } from './Lib';
+import React, { useState, useEffect } from 'react';
+import { getHashParams, ReactJSOnly, Routes, Route, useNavigate, Container, ScrollView, Card } from './Platform';
+import { usePersistedState } from './Lib';
 import About from './About';
 import Banner from './Banner';
 import Footer from './Footer';
@@ -38,7 +38,7 @@ export default function App() {
   }, [hashParams, navigate]);
 
   return (
-    <>
+    <ErrorBoundary>
       <Banner loggedIn={loggedIn} onSelect={route => {
         if (route === '/login') {
           window.location.href = `${process.env.REACT_APP_API_URL}/login?state=${window.location.pathname}`;
@@ -51,7 +51,11 @@ export default function App() {
         }
       }} />
       <Container className='App'>
-        <ErrorBoundary >
+        <ScrollView
+          style={{
+            paddingLeft: 15,
+            paddingRight: 15
+          }}>
           <Routes>
             <Route
               path='/'
@@ -152,9 +156,9 @@ export default function App() {
               }
             />
           </Routes>
-        </ErrorBoundary>
+        </ScrollView>
       </Container>
       <ReactJSOnly><Footer /></ReactJSOnly>
-    </>
+    </ErrorBoundary>
   );
 }
