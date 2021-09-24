@@ -7,7 +7,6 @@ import { Picker } from '@react-native-picker/picker';
 import Slider from '@react-native-community/slider';
 import { WebView as WEB_VIEW } from 'react-native-webview';
 import { useTheme, Card, TextInput, Appbar, Menu } from 'react-native-paper';
-import { VerticalSpacer } from './Lib';
 
 const MD_ICON = require('react-native-vector-icons').MaterialIcons;
 const FA_ICON = require('react-native-vector-icons').FontAwesome5;
@@ -161,7 +160,7 @@ export function Hr(props) {
 
   return (
     <>
-      <VerticalSpacer />
+      <View style={{ marginTop: 10 }} />
       <View
         {...props}
         style={{
@@ -170,7 +169,7 @@ export function Hr(props) {
           ...props.style
         }}
       />
-      <VerticalSpacer />
+      <View style={{ marginTop: 10 }} />
     </>
   );
 }
@@ -203,7 +202,7 @@ export function FaBackward(props) {
   return <FaIcon name='backward' {...props} />
 }
 export function FaCloudUploadAlt(props) {
-  return <FaIcon name='cloud-update-alt' {...props} />
+  return <FaIcon name='cloud-upload-alt' {...props} />
 }
 
 export function FaPen(props) {
