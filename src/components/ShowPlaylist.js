@@ -8,7 +8,7 @@ import {
 } from './Platform';
 import { Row, Col, HorizontalSpacer } from './Lib';
 
-export default function ShowPlaylist({ playlist, onClose = f => f, spotify = null, userPlaylist = false }) {
+export default function ShowPlaylist({ style, playlist, onClose = f => f, spotify = null, userPlaylist = false }) {
   const [editing, setEditing] = useState(false);
   const [playlistName, setPlaylistName] = useState(playlist.name);
   const [playlistUserId, setPlaylistUserId] = useState(playlist.user_id);
@@ -45,8 +45,8 @@ export default function ShowPlaylist({ playlist, onClose = f => f, spotify = nul
   }
 
   return (
-    <Card>
-      <Row style={{ flexWrap: 'wrap', justifyContent: 'space-between', padding: 15 }} surface={true} >
+    <Card style={style}>
+      <Row style={{ flexWrap: 'wrap', justifyContent: 'space-between', paddingBottom: 15 }} surface={true} >
         <Col surface={true}>
           <Row style={{ justifyContent: 'flex-start' }} surface={true}>
             {(spotify && spotify.loggedIn()) ?
@@ -147,7 +147,7 @@ export default function ShowPlaylist({ playlist, onClose = f => f, spotify = nul
       {userPlaylist ?
         <>
           <Hr />
-          <Row style={{ justifyContent: 'space-between', padding: 15 }} surface={true} >
+          <Row style={{ justifyContent: 'space-between'  }} surface={true} >
             <FaBackward
               size='25'
               className='link'

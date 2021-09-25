@@ -28,7 +28,7 @@ export default function TopPlaylists({ spotify }) {
   return (
     <>
       <VerticalSpacer />
-      <Text h3 style={{ textAlign: 'center' }}>Top rated playlists</Text>
+      <Text h4 style={{ textAlign: 'center' }}>Top rated playlists</Text>
       <ShowPlaylists
         playlists={playlists}
         spotify={spotify}

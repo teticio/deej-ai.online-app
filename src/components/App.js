@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { getHashParams, ReactJSOnly, Routes, Route, useNavigate, Container, ScrollView, Card } from './Platform';
+import { getHashParams, ReactJSOnly, Routes, Route, useNavigate, Container } from './Platform';
 import { usePersistedState } from './Lib';
 import About from './About';
 import Banner from './Banner';
@@ -51,11 +51,6 @@ export default function App() {
         }
       }} />
       <Container className='App'>
-        <ScrollView
-          style={{
-            paddingLeft: 15,
-            paddingRight: 15
-          }}>
           <Routes>
             <Route
               path='/'
@@ -81,14 +76,12 @@ export default function App() {
             <Route
               path='/playlist'
               element={
-                <Card style={{ padding: 15 }}>
-                  <ShowPlaylist
-                    playlist={playlist}
-                    onClose={() => navigate('/')}
-                    spotify={spotify}
-                    userPlaylist={true}
-                  />
-                </Card>
+                <ShowPlaylist style={{ padding: 15 }}
+                  playlist={playlist}
+                  onClose={() => navigate('/')}
+                  spotify={spotify}
+                  userPlaylist={true}
+                />
               }
             />
             <Route
@@ -156,7 +149,6 @@ export default function App() {
               }
             />
           </Routes>
-        </ScrollView>
       </Container>
       <ReactJSOnly><Footer /></ReactJSOnly>
     </ErrorBoundary>

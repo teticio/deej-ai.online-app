@@ -1,12 +1,11 @@
 import React, { useState, createElement, useEffect } from 'react';
 import { useNavigation } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
-import { getHashParams, ReactJSOnly, Routes, Route, Container, Card } from './Platform';
+import { getHashParams } from './Platform';
 import { ScrollView } from './Platform';
 import { usePersistedState } from './Lib';
 import About from './About';
 import Banner from './Banner';
-import Footer from './Footer';
 import Spotify from './Spotify';
 import Settings from './Settings';
 import NotFound from './NotFound';
@@ -48,7 +47,7 @@ export default function App(props) {
   const [creativity, setCreativity] = usePersistedState('creativity', 0.5);
   const [noise, setNoise] = usePersistedState('noise', 0);
   const [route, navigate] = useState('/');
-  
+
   const routeParams = {
     '/': {
       element: CreatePlaylist,
@@ -72,7 +71,8 @@ export default function App(props) {
       playlist: playlist,
       onClose: () => navigate('/'),
       spotify: spotify,
-      userPlaylist: true
+      userPlaylist: true,
+      style: { padding: 15 }
     },
     '/settings': {
       element: Settings,
@@ -120,6 +120,7 @@ export default function App(props) {
 
   useEffect(() => {
     _navigate(route, routeParams[route]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [route]);
 
   const handleSelect = route => {
