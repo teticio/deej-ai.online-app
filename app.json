@@ -6,8 +6,8 @@
     "version": "1.1.1",
     "userInterfaceStyle": "dark",
     "android": {
-      "package": "online.deej-ai",
-      "versionCode": 1,
+      "package": "online.deejai",
+      "versionCode": 1
     },
     "ios": {
       "bundleIdentifier": "online.deej-ai",
