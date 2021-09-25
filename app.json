@@ -3,9 +3,15 @@
     "name": "Deej-A.I.",
     "slug": "DeejAI",
     "entryPoint": "./src/index.native.js",
+    "version": "1.1.1",
     "userInterfaceStyle": "dark",
+    "android": {
+      "package": "online.deej-ai",
+      "versionCode": 1,
+    },
     "ios": {
-      "bundleIdentifier": "online.deejai"
+      "bundleIdentifier": "online.deej-ai",
+      "buildNumber": "1.1.1"
     }
   }
 }
