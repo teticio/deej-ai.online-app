@@ -1,8 +1,11 @@
 {
-    "expo": {
-        "name": "Deej-A.I.",
-        "slug": "DeejAI",
-        "entryPoint": "./src/index.native.js",
-        "userInterfaceStyle": "dark"
+  "expo": {
+    "name": "Deej-A.I.",
+    "slug": "DeejAI",
+    "entryPoint": "./src/index.native.js",
+    "userInterfaceStyle": "dark",
+    "ios": {
+      "bundleIdentifier": "online.deejai"
     }
+  }
 }
