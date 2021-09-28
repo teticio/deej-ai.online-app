@@ -3,7 +3,7 @@
     "name": "Deej-A.I.",
     "slug": "DeejAI",
     "entryPoint": "./src/index.native.js",
-    "version": "2.0.0",
+    "version": "2.0.1",
     "userInterfaceStyle": "dark",
     "android": {
       "package": "online.deejai",
@@ -11,7 +11,10 @@
     },
     "ios": {
       "bundleIdentifier": "online.deej-ai",
-      "buildNumber": "2.0.0"
+      "buildNumber": "1",
+      "supportsTablet": true,
+      "backgroundColor": "#000000",
+      "userInterfaceStyle": "dark"
     }
   }
 }

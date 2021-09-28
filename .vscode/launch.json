@@ -34,6 +34,14 @@
         "DOCS_URL": "/docs",
         "REDOC_URL": "/redoc"
       },
+      "osx": {
+        "env": {
+          "APP_URL": "http://localhost:3000",
+          "DOCS_URL": "/docs",
+          "REDOC_URL": "/redoc",
+          "HACKINTOSH": "1"
+        }
+      },
       "module": "uvicorn",
       "args": [
         "backend.main:app",

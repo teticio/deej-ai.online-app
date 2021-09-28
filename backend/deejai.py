@@ -14,8 +14,9 @@ import requests
 import numpy as np
 from starlette.concurrency import run_in_threadpool
 
-import tensorflow as tf
-from keras.models import load_model
+if 'HACKINTOSH' not in os.environ:  # can't get tensorflow to work on Hackintosh due to missing AVX support
+    import tensorflow as tf
+    from keras.models import load_model
 
 
 class DeejAI:
@@ -46,11 +47,12 @@ class DeejAI:
         self.mp3tovecs = np.array([[mp3tovecs[_], tracktovecs[_]]
                                    for _ in mp3tovecs])
         del mp3tovecs, tracktovecs
-        self.model = load_model('speccy_model',
-                                custom_objects={
-                                    'cosine_proximity':
-                                    tf.compat.v1.keras.losses.cosine_proximity
-                                })
+        if 'HACKINTOSH' not in os.environ:
+            self.model = load_model('speccy_model',
+                                    custom_objects={
+                                        'cosine_proximity':
+                                        tf.compat.v1.keras.losses.cosine_proximity
+                                    })
 
     def get_tracks(self):
         """Get tracks.
