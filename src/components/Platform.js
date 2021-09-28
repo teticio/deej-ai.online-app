@@ -1,4 +1,3 @@
-import { Routes, Route, useNavigate } from 'react-router-dom';
 import {
   FaPlus, FaForward, FaBackward, FaCloudUploadAlt,
   FaPen, FaSpotify, FaCog, FaSearch, FaTimes
@@ -6,7 +5,6 @@ import {
 import { MdStar, MdStarHalf, MdStarBorder } from 'react-icons/md';
 import { Container, Card, Spinner, Form, Navbar, Nav } from 'react-bootstrap';
 
-export { Routes, Route, useNavigate };
 export { FaPlus, FaForward, FaBackward, FaCloudUploadAlt, FaPen, FaSpotify, FaCog, FaSearch, FaTimes };
 export { MdStar, MdStarHalf, MdStarBorder };
 export { Container, Card, Spinner, Form, Navbar, Nav };

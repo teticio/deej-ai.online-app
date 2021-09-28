@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useReducer } from 'react';
 import ShowPlaylists from './ShowPlaylists';
 import { Card, Text, TextInput, FaSearch } from './Platform';
-import { Row,  HorizontalSpacer, VerticalSpacer } from './Lib';
+import { Row, HorizontalSpacer, VerticalSpacer } from './Lib';
 
 export async function searchPlaylists(searchString, maxItems) {
   const response = await fetch(`${process.env.REACT_APP_API_URL}/search_playlists` +
@@ -46,23 +46,23 @@ export default function SearchPlaylists({ spotify }) {
         <Row style={{ justifyContent: 'flex-start', padding: 15 }} surface={true}>
           <Text onClick={() => setEditing(true)}>
             <FaSearch />
-            <HorizontalSpacer />
-            {editing ?
-              <TextInput
-                placeholder='Search...'
-                value={searchString}
-                onChange={event => setSearchString(event.target.value)}
-                onChangeText={value => setSearchString(value)}
-                onBlur={handleUpdate}
-                onKeyUp={event => {
-                  if (event.key === 'Enter') {
-                    handleUpdate();
-                  }
-                }}
-              /> :
-              <Text>{searchString}</Text>
-            }
           </Text>
+          <HorizontalSpacer />
+          {editing ?
+            <TextInput
+              placeholder='Search...'
+              value={searchString}
+              onChange={event => setSearchString(event.target.value)}
+              onChangeText={value => setSearchString(value)}
+              onBlur={handleUpdate}
+              onKeyUp={event => {
+                if (event.key === 'Enter') {
+                  handleUpdate();
+                }
+              }}
+            /> :
+            <Text>{searchString}</Text>
+          }
         </Row>
       </Card>
       <VerticalSpacer />

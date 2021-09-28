@@ -1,20 +1,12 @@
-import React, { useState, useEffect } from 'react';
-import { getHashParams, ReactJSOnly, Routes, Route, useNavigate, Container } from './Platform';
+import React, { useState, useEffect, createElement } from 'react';
+import { Routes, Route, useNavigate } from 'react-router-dom';
+import { getHashParams, Container } from './Platform';
 import { usePersistedState } from './Lib';
-import About from './About';
 import Banner from './Banner';
 import Footer from './Footer';
 import Spotify from './Spotify';
-import Settings from './Settings';
-import NotFound from './NotFound';
-import TopPlaylists from './TopPlaylists';
-import ShowPlaylist from './ShowPlaylist';
 import ErrorBoundary from './ErrorBoundary';
-import PrivacyPolicy from './PrivacyPolicy';
-import CreatePlaylist from './CreatePlaylist';
-import LatestPlaylists from './LatestPlaylists';
-import SearchPlaylists from './SearchPlaylists';
-import MostUploadedPlaylists from './MostUploadedPlaylists';
+import { getRoutes } from './Menu';
 
 try {
   require('./App.css');
@@ -30,6 +22,14 @@ export default function App() {
   const [creativity, setCreativity] = usePersistedState('creativity', 0.5);
   const [noise, setNoise] = usePersistedState('noise', 0);
   const navigate = useNavigate();
+  const routes = getRoutes(
+    waypoints, setWaypoints,
+    size, setSize,
+    creativity, setCreativity,
+    noise, setNoise, 
+    playlist, setPlaylist,
+    spotify, navigate
+  );
 
   useEffect(() => {
     if ('route' in hashParams) {
@@ -51,106 +51,16 @@ export default function App() {
         }
       }} />
       <Container className='App'>
-          <Routes>
+        <Routes initialRouteName='/'>
+          {Object.keys(routes).map(route => (
             <Route
-              path='/'
-              element={
-                <CreatePlaylist
-                  waypoints={waypoints}
-                  size={size}
-                  creativity={creativity}
-                  noise={noise}
-                  spotify={spotify}
-                  onCreate={(playlist, waypoints) => {
-                    setWaypoints(waypoints);
-                    setPlaylist(playlist);
-                    navigate('/playlist');
-                  }}
-                  onSettings={waypoints => {
-                    setWaypoints(waypoints);
-                    navigate('/settings');
-                  }}
-                />
-              }
+              path={route}
+              element={createElement(routes[route].element, routes[route])}
             />
-            <Route
-              path='/playlist'
-              element={
-                <ShowPlaylist style={{ padding: 15 }}
-                  playlist={playlist}
-                  onClose={() => navigate('/')}
-                  spotify={spotify}
-                  userPlaylist={true}
-                />
-              }
-            />
-            <Route
-              path='/settings'
-              element={
-                <Settings
-                  size={size}
-                  creativity={creativity}
-                  noise={noise}
-                  onChange={(size, creativity, noise) => {
-                    setSize(size !== '' ? size : 0);
-                    setCreativity(creativity);
-                    setNoise(noise);
-                  }}
-                  onClose={() => navigate('/')}
-                />
-              }
-            />
-            <Route
-              path='/latest'
-              element={
-                <LatestPlaylists spotify={spotify} />
-              }
-            />
-            <Route
-              path='/top'
-              element={
-                <TopPlaylists spotify={spotify} />
-              }
-            />
-            <Route
-              path='/most_uploaded'
-              element={
-                <MostUploadedPlaylists spotify={spotify} />
-              }
-            />
-            <Route
-              path='/search'
-              element={
-                <SearchPlaylists spotify={spotify} />
-              }
-            />
-            <Route
-              path='/about'
-              element={
-                <About />
-              }
-            />
-            <Route
-              path='/privacy_policy'
-              element={
-                <PrivacyPolicy />
-              }
-            />
-            <Route
-              path='/privacy_policy.html'
-              element={
-                <PrivacyPolicy />
-              }
-            />
-            <Route
-              path='*'
-              element={
-                <NotFound />
-              }
-            />
-          </Routes>
+          ))}
+        </Routes>
       </Container>
-      <ReactJSOnly><Footer /></ReactJSOnly>
+      <Footer />
     </ErrorBoundary>
   );
 }

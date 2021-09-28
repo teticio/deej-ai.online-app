@@ -1,26 +1,12 @@
 import React, { useState, createElement, useEffect } from 'react';
 import { useNavigation } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
-import { getHashParams } from './Platform';
-import { ScrollView } from './Platform';
+import { getHashParams, ScrollView } from './Platform';
 import { usePersistedState } from './Lib';
-import About from './About';
+import { getRoutes } from './Menu';
 import Banner from './Banner';
 import Spotify from './Spotify';
-import Settings from './Settings';
-import NotFound from './NotFound';
-import TopPlaylists from './TopPlaylists';
-import ShowPlaylist from './ShowPlaylist';
 import ErrorBoundary from './ErrorBoundary';
-import PrivacyPolicy from './PrivacyPolicy';
-import CreatePlaylist from './CreatePlaylist';
-import LatestPlaylists from './LatestPlaylists';
-import SearchPlaylists from './SearchPlaylists';
-import MostUploadedPlaylists from './MostUploadedPlaylists';
-
-try {
-  require('./App.css');
-} catch (e) { }
 
 const Stack = createStackNavigator();
 
@@ -47,79 +33,19 @@ export default function App(props) {
   const [creativity, setCreativity] = usePersistedState('creativity', 0.5);
   const [noise, setNoise] = usePersistedState('noise', 0);
   const [route, navigate] = useState('/');
-
-  const routeParams = {
-    '/': {
-      element: CreatePlaylist,
-      waypoints: waypoints,
-      size: size,
-      creativity: creativity,
-      noise: noise,
-      spotify: spotify,
-      onCreate: (playlist, waypoints) => {
-        setWaypoints(waypoints);
-        setPlaylist(playlist);
-        navigate('/playlist');
-      },
-      onSettings: waypoints => {
-        setWaypoints(waypoints);
-        navigate('/settings');
-      }
-    },
-    '/playlist': {
-      element: ShowPlaylist,
-      playlist: playlist,
-      onClose: () => navigate('/'),
-      spotify: spotify,
-      userPlaylist: true,
-      style: { padding: 15 }
-    },
-    '/settings': {
-      element: Settings,
-      size: size,
-      creativity: creativity,
-      noise: noise,
-      onChange: (size, creativity, noise) => {
-        setSize(size !== '' ? size : 0);
-        setCreativity(creativity);
-        setNoise(noise);
-      },
-      onClose: () => navigate('/')
-    },
-    '/latest': {
-      element: LatestPlaylists,
-      spotify: spotify
-    },
-    '/top': {
-      element: TopPlaylists,
-      spotify: spotify
-    },
-    '/most_uploaded': {
-      element: MostUploadedPlaylists,
-      spotify: spotify
-    },
-    '/search': {
-      element: SearchPlaylists,
-      spotify: spotify
-    },
-    '/about': {
-      element: About
-    },
-    '/privacy_policy': {
-      element: PrivacyPolicy
-    },
-    '/privacy_policy.html': {
-      element: PrivacyPolicy
-    },
-    '*': {
-      element: NotFound
-    }
-  };
-
   const _navigate = useNavigation().navigate;
+  const routes = getRoutes(
+    waypoints, setWaypoints,
+    size, setSize,
+    creativity, setCreativity,
+    noise, setNoise, 
+    playlist, setPlaylist,
+    spotify, navigate 
+  );
+
 
   useEffect(() => {
-    _navigate(route, routeParams[route]);
+    _navigate(route, routes[route]);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [route]);
 
@@ -130,10 +56,8 @@ export default function App(props) {
     } else if (route === '/logout') {
       spotify.logOut();
       setLoggedIn(false);
-    } else if (route in routeParams) {
-      navigate(route);
     } else {
-      navigate('*');
+      navigate(route);
     }
   }
 
@@ -141,12 +65,12 @@ export default function App(props) {
     <ErrorBoundary>
       <Banner loggedIn={loggedIn} onSelect={handleSelect} />
       <Stack.Navigator initialRouteName='/'>
-        {Object.keys(routeParams).map((route) => (
+        {Object.keys(routes).map(route => (
           <Stack.Screen
             options={{ headerShown: false }}
             name={route}
             component={Screen}
-            initialParams={routeParams[route]}
+            initialParams={routes[route]}
           />
         ))}
       </Stack.Navigator>

@@ -1,7 +1,6 @@
 import 'react-native-gesture-handler';
 import React, { useCallback, Component, createContext, Children, cloneElement } from 'react';
 import { Linking, Alert, Image, View as VIEW, ScrollView as SCROLL_VIEW, ActivityIndicator } from 'react-native';
-import { createStackNavigator } from '@react-navigation/stack';
 import { Text as TEXT } from "react-native-elements";
 import { Picker } from '@react-native-picker/picker';
 import Slider from '@react-native-community/slider';
@@ -417,27 +416,4 @@ export function Ul(props) {
 
 export function Li(props) {
   return <Text {...props}>{'   \u2022 '}{props.children}</Text>;
-}
-
-const Stack = createStackNavigator();
-
-export function Routes(props) {
-  return (
-    <Stack.Navigator
-      initialRouteName='/'
-      {...props}
-    >{props.children}
-    </Stack.Navigator>
-  );
-}
-
-export function Route(props) {
-  return (
-    <Stack.Screen
-      name={props.path}
-      component={props.element}
-      {...props}
-    >{props.children}
-    </Stack.Screen>
-  );
 }
