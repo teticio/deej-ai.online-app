@@ -72,6 +72,7 @@ export function Link(props) {
         src={props.source}
         alt={props.alt}
       /> : <></>}
+      {props.children}
     </a>
   );
 }
