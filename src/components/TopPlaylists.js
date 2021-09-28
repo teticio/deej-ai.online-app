@@ -29,6 +29,7 @@ export default function TopPlaylists({ spotify }) {
     <>
       <VerticalSpacer />
       <Text h4 style={{ textAlign: 'center' }}>Top rated playlists</Text>
+      <VerticalSpacer />
       <ShowPlaylists
         playlists={playlists}
         spotify={spotify}

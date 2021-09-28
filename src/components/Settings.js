@@ -22,6 +22,7 @@ export default function Settings({ size, creativity, noise, onChange = f => f, o
 
   return (
     <>
+      <VerticalSpacer />
       <Card style={{ padding: 15 }} surface={true}>
         <Form.Label htmlFor='size'>Size</Form.Label>
         <Text h6 className='text-muted'>Controls the number of tracks in the playlist, or the number to be generated between waypoints.</Text>

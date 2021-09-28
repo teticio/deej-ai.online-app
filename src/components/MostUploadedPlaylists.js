@@ -29,6 +29,7 @@ export default function MostUploadedPlaylists({ spotify }) {
     <>
       <VerticalSpacer />
       <Text h4 style={{ textAlign: 'center' }}>Most uploaded playlists</Text>
+      <VerticalSpacer />
       <ShowPlaylists
         playlists={playlists}
         spotify={spotify}

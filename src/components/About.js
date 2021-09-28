@@ -7,7 +7,9 @@ import { B, I, VerticalSpacer, Row } from './Lib';
 export default function About() {
   return (
     <>
+      <VerticalSpacer />
       <Text h4 style={{ textAlign: 'center' }}>About Deej-A.I.</Text>
+      <VerticalSpacer />
       <Text h5 data-testid='blurb'>
         <B>Deej-A.I.</B> uses artificial intelligence to automatically
         generate playlists of tracks that go well together. It was trained using hundreds of thousands of

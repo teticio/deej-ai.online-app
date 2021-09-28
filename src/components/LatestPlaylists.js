@@ -29,6 +29,7 @@ export default function LatestPlaylists({ spotify }) {
     <>
       <VerticalSpacer />
       <Text h4 style={{ textAlign: 'center' }}>Latest playlists</Text>
+      <VerticalSpacer />
       <ShowPlaylists
         playlists={playlists}
         spotify={spotify}

@@ -35,7 +35,9 @@ export default function CreatePlaylist({
 
   return (
     <>
+      <VerticalSpacer />
       <Text h4 style={{ textAlign: 'center' }}>Choose the waypoints for your musical journey</Text>
+      <VerticalSpacer />
       <AddTrack
         numTracks={_waypoints.track_ids.length}
         spotify={spotify}

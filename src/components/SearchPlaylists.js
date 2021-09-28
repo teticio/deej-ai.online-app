@@ -41,7 +41,9 @@ export default function SearchPlaylists({ spotify }) {
 
   return (
     <>
+      <VerticalSpacer />
       <Text h4 style={{ textAlign: 'center' }}>Search playlists</Text>
+      <VerticalSpacer />
       <Card>
         <Row style={{ justifyContent: 'flex-start', padding: 15 }} surface={true}>
           <Text onClick={() => setEditing(true)}>
