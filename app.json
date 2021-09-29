@@ -3,6 +3,7 @@
     "name": "Deej-A.I.",
     "slug": "DeejAI",
     "entryPoint": "./src/index.native.js",
+    "scheme": "deejai",
     "version": "2.0.1",
     "userInterfaceStyle": "dark",
     "android": {

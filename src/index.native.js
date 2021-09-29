@@ -5,8 +5,11 @@
 import { registerRootComponent } from 'expo';
 import React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
+import * as Linking from 'expo-linking';
 import { DarkTheme, Provider as PaperProvider } from 'react-native-paper';
 import App from './components/App';
+
+const prefix = Linking.createURL('/');
 
 global.Buffer = global.Buffer || require('buffer').Buffer;
 global.localStorage = global.localStorage || require('localStorage');
@@ -25,8 +28,12 @@ const theme = {
 };
 
 function Root() {
+  const linking = {
+    prefixes: [prefix],
+  };
+
   return (
-    <NavigationContainer>
+    <NavigationContainer linking={linking}>
       <PaperProvider theme={theme}>
         <App />
       </PaperProvider>
