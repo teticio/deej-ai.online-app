@@ -71,6 +71,7 @@ export default function App(props) {
       <Stack.Navigator initialRouteName='/'>
         {Object.keys(routes).map(route => (
           <Stack.Screen
+            key={route}
             options={{ headerShown: false }}
             name={route}
             component={Screen}
