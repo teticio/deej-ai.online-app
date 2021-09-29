@@ -1,0 +1,9 @@
+.link {
+  color: var(--bs-success);
+  cursor: pointer;
+}
+
+.link-muted {
+  color: var(--bs-gray);
+  cursor: pointer;
+}

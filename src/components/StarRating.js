@@ -1,6 +1,6 @@
-import { useState } from 'react';
+import React, { useState } from 'react';
 import Star from './Star';
-import { createArray } from '../lib';
+import { createArray } from './Lib';
 
 export default function StarRating({ rating }) {
   return (

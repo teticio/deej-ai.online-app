@@ -3,36 +3,38 @@
 exports[`app routing 1`] = `
 <DocumentFragment>
   <div
-    class="App container"
+    style="margin-top: 120px;"
+  />
+  <nav
+    class="banner shadow-lg navbar navbar-expand-lg navbar-dark bg-dark fixed-top"
   >
     <div
-      style="margin-top: 120px;"
-    />
-    <nav
-      class="banner shadow-lg navbar navbar-expand-lg navbar-dark bg-dark fixed-top"
+      class="container"
     >
-      <div
-        class="container"
+      <a
+        class="navbar-brand"
+        href="#"
+        subtitle="by Robert Dargavel Smith"
+        title="Deej-A.I."
       >
-        <a
-          class="navbar-brand"
-          href="#"
+        <div
+          style="display: flex; flex-direction: row; align-items: center; justify-content: space-evenly;"
         >
           <div
-            class="d-flex flex-row align-items-center"
+            sm="auto"
+            style="display: flex; flex-direction: column;"
           >
-            <div
-              class="col-sm-auto"
-            >
-              <span>
-                <h2>
-                  Deej-A.I.  
-                </h2>
-              </span>
-            </div>
-            <div
-              class="col-sm-auto"
-            >
+            <span>
+              <h2>
+                Deej-A.I.  
+              </h2>
+            </span>
+          </div>
+          <div
+            sm="auto"
+            style="display: flex; flex-direction: column;"
+          >
+            <span>
               <h6>
                 by 
                 <span
@@ -41,138 +43,166 @@ exports[`app routing 1`] = `
                   Robert Smith
                 </span>
               </h6>
-            </div>
-          </div>
-        </a>
-        <button
-          aria-controls="basic-navbar-nav"
-          aria-label="Toggle navigation"
-          class="navbar-toggler collapsed"
-          type="button"
-        >
-          <span
-            class="navbar-toggler-icon"
-          />
-        </button>
-        <div
-          class="navbar-collapse collapse"
-          id="basic-navbar-nav"
-        >
-          <div
-            class="me-auto navbar-nav"
-          >
-            <a
-              class="nav-link active"
-              data-rr-ui-event-key="#"
-              href="#"
-              role="button"
-              tabindex="0"
-            >
-              Login to Spotify
-            </a>
-            <a
-              class="nav-link active"
-              data-rr-ui-event-key="#"
-              href="#"
-              role="button"
-              tabindex="0"
-            >
-              Create playlist
-            </a>
-            <a
-              class="nav-link active"
-              data-rr-ui-event-key="#"
-              href="#"
-              role="button"
-              tabindex="0"
-            >
-              Top rated playlists
-            </a>
-            <a
-              class="nav-link active"
-              data-rr-ui-event-key="#"
-              href="#"
-              role="button"
-              tabindex="0"
-            >
-              Latest playlists
-            </a>
-            <a
-              class="nav-link active"
-              data-rr-ui-event-key="#"
-              href="#"
-              role="button"
-              tabindex="0"
-            >
-              Most uploaded playlists
-            </a>
-            <a
-              class="nav-link active"
-              data-rr-ui-event-key="#"
-              href="#"
-              role="button"
-              tabindex="0"
-            >
-              Search playlists
-            </a>
-            <a
-              class="nav-link active"
-              data-rr-ui-event-key="#"
-              href="#"
-              role="button"
-              tabindex="0"
-            >
-              About
-            </a>
+            </span>
           </div>
         </div>
-      </div>
-    </nav>
-    <h3
-      style="text-align: center;"
-    >
-      Choose the waypoints for your musical journey
-    </h3>
-    <div
-      class="card"
-    >
+      </a>
+      <button
+        aria-controls="basic-navbar-nav"
+        aria-label="Toggle navigation"
+        class="navbar-toggler collapsed"
+        type="button"
+      >
+        <span
+          class="navbar-toggler-icon"
+        />
+      </button>
       <div
-        class="card-body"
+        class="navbar-collapse collapse"
+        id="basic-navbar-nav"
       >
         <div
-          class="d-flex align-items-center"
+          class="me-auto navbar-nav"
+        >
+          <a
+            class="nav-link active"
+            data-rr-ui-event-key="#"
+            href="#"
+            role="button"
+            tabindex="0"
+          >
+            Login to Spotify
+          </a>
+          <a
+            class="nav-link active"
+            data-rr-ui-event-key="#"
+            href="#"
+            role="button"
+            tabindex="0"
+          >
+            Create playlist
+          </a>
+          <a
+            class="nav-link active"
+            data-rr-ui-event-key="#"
+            href="#"
+            role="button"
+            tabindex="0"
+          >
+            Top rated playlists
+          </a>
+          <a
+            class="nav-link active"
+            data-rr-ui-event-key="#"
+            href="#"
+            role="button"
+            tabindex="0"
+          >
+            Latest playlists
+          </a>
+          <a
+            class="nav-link active"
+            data-rr-ui-event-key="#"
+            href="#"
+            role="button"
+            tabindex="0"
+          >
+            Most uploaded playlists
+          </a>
+          <a
+            class="nav-link active"
+            data-rr-ui-event-key="#"
+            href="#"
+            role="button"
+            tabindex="0"
+          >
+            Search playlists
+          </a>
+          <a
+            class="nav-link active"
+            data-rr-ui-event-key="#"
+            href="#"
+            role="button"
+            tabindex="0"
+          >
+            About
+          </a>
+        </div>
+      </div>
+    </div>
+  </nav>
+  <div
+    class="App container"
+  >
+    <div
+      style="margin-top: 10px;"
+    />
+    <span
+      style="text-align: center;"
+    >
+      <h4>
+        Choose the waypoints for your musical journey
+      </h4>
+    </span>
+    <div
+      style="margin-top: 10px;"
+    />
+    <div
+      class="card"
+      style="padding: 15px;"
+    >
+      <div
+        style="display: flex; flex-direction: row; align-items: center; justify-content: space-evenly;"
+      >
+        <div
+          style="display: flex; flex-direction: column; flex: 1;"
         >
           <div
-            class="container"
+            style="display: flex; flex-direction: row; align-items: center; justify-content: space-evenly;"
+          />
+          <div
+            style="display: flex; flex-direction: row; align-items: center; justify-content: space-evenly;"
           >
             <input
               placeholder="Search..."
+              style="width: 100%;"
             />
+          </div>
+          <div
+            style="display: flex; flex-direction: row; align-items: center; justify-content: space-evenly;"
+          >
             <div
               style="margin-top: 10px;"
             />
-            <select>
-              \\ size='1'
-            </select>
           </div>
           <div
-            style="width: 10px;"
-          />
-          <svg
-            class="text-muted"
-            fill="currentColor"
-            height="25"
-            stroke="currentColor"
-            stroke-width="0"
-            viewBox="0 0 448 512"
-            width="25"
-            xmlns="http://www.w3.org/2000/svg"
+            style="display: flex; flex-direction: row; align-items: center; justify-content: space-evenly;"
           >
-            <path
-              d="M416 208H272V64c0-17.67-14.33-32-32-32h-32c-17.67 0-32 14.33-32 32v144H32c-17.67 0-32 14.33-32 32v32c0 17.67 14.33 32 32 32h144v144c0 17.67 14.33 32 32 32h32c17.67 0 32-14.33 32-32V304h144c17.67 0 32-14.33 32-32v-32c0-17.67-14.33-32-32-32z"
+            <div
+              style="margin-top: 10px;"
             />
-          </svg>
+            <select
+              style="width: 100%;"
+            />
+          </div>
         </div>
+        <div
+          style="width: 10px;"
+        />
+        <svg
+          class="text-muted"
+          fill="currentColor"
+          height="25"
+          stroke="currentColor"
+          stroke-width="0"
+          viewBox="0 0 448 512"
+          width="25"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M416 208H272V64c0-17.67-14.33-32-32-32h-32c-17.67 0-32 14.33-32 32v144H32c-17.67 0-32 14.33-32 32v32c0 17.67 14.33 32 32 32h144v144c0 17.67 14.33 32 32 32h32c17.67 0 32-14.33 32-32V304h144c17.67 0 32-14.33 32-32v-32c0-17.67-14.33-32-32-32z"
+          />
+        </svg>
       </div>
     </div>
     <div
@@ -180,44 +210,41 @@ exports[`app routing 1`] = `
     />
     <div
       class="card"
+      style="padding: 15px;"
     >
       <div
-        class="card-body"
+        style="display: flex; flex-direction: row; align-items: center; justify-content: space-between;"
       >
-        <div
-          class="d-flex align-items-center justify-content-between"
+        <svg
+          class="link"
+          data-testid="create-playlist"
+          fill="currentColor"
+          height="25"
+          stroke="currentColor"
+          stroke-width="0"
+          viewBox="0 0 512 512"
+          width="25"
+          xmlns="http://www.w3.org/2000/svg"
         >
-          <svg
-            class="link"
-            data-testid="create-playlist"
-            fill="currentColor"
-            height="25"
-            stroke="currentColor"
-            stroke-width="0"
-            viewBox="0 0 512 512"
-            width="25"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path
-              d="M500.5 231.4l-192-160C287.9 54.3 256 68.6 256 96v320c0 27.4 31.9 41.8 52.5 24.6l192-160c15.3-12.8 15.3-36.4 0-49.2zm-256 0l-192-160C31.9 54.3 0 68.6 0 96v320c0 27.4 31.9 41.8 52.5 24.6l192-160c15.3-12.8 15.3-36.4 0-49.2z"
-            />
-          </svg>
-          <svg
-            class="link"
-            data-testid="settings"
-            fill="currentColor"
-            height="25"
-            stroke="currentColor"
-            stroke-width="0"
-            viewBox="0 0 512 512"
-            width="25"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path
-              d="M487.4 315.7l-42.6-24.6c4.3-23.2 4.3-47 0-70.2l42.6-24.6c4.9-2.8 7.1-8.6 5.5-14-11.1-35.6-30-67.8-54.7-94.6-3.8-4.1-10-5.1-14.8-2.3L380.8 110c-17.9-15.4-38.5-27.3-60.8-35.1V25.8c0-5.6-3.9-10.5-9.4-11.7-36.7-8.2-74.3-7.8-109.2 0-5.5 1.2-9.4 6.1-9.4 11.7V75c-22.2 7.9-42.8 19.8-60.8 35.1L88.7 85.5c-4.9-2.8-11-1.9-14.8 2.3-24.7 26.7-43.6 58.9-54.7 94.6-1.7 5.4.6 11.2 5.5 14L67.3 221c-4.3 23.2-4.3 47 0 70.2l-42.6 24.6c-4.9 2.8-7.1 8.6-5.5 14 11.1 35.6 30 67.8 54.7 94.6 3.8 4.1 10 5.1 14.8 2.3l42.6-24.6c17.9 15.4 38.5 27.3 60.8 35.1v49.2c0 5.6 3.9 10.5 9.4 11.7 36.7 8.2 74.3 7.8 109.2 0 5.5-1.2 9.4-6.1 9.4-11.7v-49.2c22.2-7.9 42.8-19.8 60.8-35.1l42.6 24.6c4.9 2.8 11 1.9 14.8-2.3 24.7-26.7 43.6-58.9 54.7-94.6 1.5-5.5-.7-11.3-5.6-14.1zM256 336c-44.1 0-80-35.9-80-80s35.9-80 80-80 80 35.9 80 80-35.9 80-80 80z"
-            />
-          </svg>
-        </div>
+          <path
+            d="M500.5 231.4l-192-160C287.9 54.3 256 68.6 256 96v320c0 27.4 31.9 41.8 52.5 24.6l192-160c15.3-12.8 15.3-36.4 0-49.2zm-256 0l-192-160C31.9 54.3 0 68.6 0 96v320c0 27.4 31.9 41.8 52.5 24.6l192-160c15.3-12.8 15.3-36.4 0-49.2z"
+          />
+        </svg>
+        <svg
+          class="link"
+          data-testid="settings"
+          fill="currentColor"
+          height="25"
+          stroke="currentColor"
+          stroke-width="0"
+          viewBox="0 0 512 512"
+          width="25"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M487.4 315.7l-42.6-24.6c4.3-23.2 4.3-47 0-70.2l42.6-24.6c4.9-2.8 7.1-8.6 5.5-14-11.1-35.6-30-67.8-54.7-94.6-3.8-4.1-10-5.1-14.8-2.3L380.8 110c-17.9-15.4-38.5-27.3-60.8-35.1V25.8c0-5.6-3.9-10.5-9.4-11.7-36.7-8.2-74.3-7.8-109.2 0-5.5 1.2-9.4 6.1-9.4 11.7V75c-22.2 7.9-42.8 19.8-60.8 35.1L88.7 85.5c-4.9-2.8-11-1.9-14.8 2.3-24.7 26.7-43.6 58.9-54.7 94.6-1.7 5.4.6 11.2 5.5 14L67.3 221c-4.3 23.2-4.3 47 0 70.2l-42.6 24.6c-4.9 2.8-7.1 8.6-5.5 14 11.1 35.6 30 67.8 54.7 94.6 3.8 4.1 10 5.1 14.8 2.3l42.6-24.6c17.9 15.4 38.5 27.3 60.8 35.1v49.2c0 5.6 3.9 10.5 9.4 11.7 36.7 8.2 74.3 7.8 109.2 0 5.5-1.2 9.4-6.1 9.4-11.7v-49.2c22.2-7.9 42.8-19.8 60.8-35.1l42.6 24.6c4.9 2.8 11 1.9 14.8-2.3 24.7-26.7 43.6-58.9 54.7-94.6 1.5-5.5-.7-11.3-5.6-14.1zM256 336c-44.1 0-80-35.9-80-80s35.9-80 80-80 80 35.9 80 80-35.9 80-80 80z"
+          />
+        </svg>
       </div>
     </div>
   </div>
@@ -225,18 +252,20 @@ exports[`app routing 1`] = `
     style="margin-top: 35px;"
   />
   <div
-    class="footer align-items-center bg-secondary row"
+    class="footer align-items-center bg-secondary"
+    style="display: flex; flex-direction: row; align-items: center; justify-content: space-evenly;"
   >
     <div
-      class="col"
+      style="display: flex; flex-direction: column;"
     />
     <div
-      class="col"
+      style="display: flex; flex-direction: column;"
     >
       <a
         href="https://www.linkedin.com/shareArticle?&url=https://deej-ai.online"
         rel="noopener noreferrer"
         target="_blank"
+        url="https://www.linkedin.com/shareArticle?&url=https://deej-ai.online"
       >
         <svg
           class="link"
@@ -255,12 +284,13 @@ exports[`app routing 1`] = `
       </a>
     </div>
     <div
-      class="col"
+      style="display: flex; flex-direction: column;"
     >
       <a
         href="https://www.facebook.com/sharer/sharer.php?u=https://deej-ai.online"
         rel="noopener noreferrer"
         target="_blank"
+        url="https://www.facebook.com/sharer/sharer.php?u=https://deej-ai.online"
       >
         <svg
           class="link"
@@ -279,12 +309,13 @@ exports[`app routing 1`] = `
       </a>
     </div>
     <div
-      class="col"
+      style="display: flex; flex-direction: column;"
     >
       <a
         href="https://twitter.com/intent/tweet?text=Check%20this%20https://deej-ai.online%20@att_coach"
         rel="noopener noreferrer"
         target="_blank"
+        url="https://twitter.com/intent/tweet?text=Check%20this%20https://deej-ai.online%20@att_coach"
       >
         <svg
           class="link"
@@ -303,12 +334,13 @@ exports[`app routing 1`] = `
       </a>
     </div>
     <div
-      class="col"
+      style="display: flex; flex-direction: column;"
     >
       <a
         href="https://www.reddit.com/submit?url=https://deej-ai.online&title=Deej-A.I.%20-%20Automatically%20generate%20playlists%20based%20on%20how%20the%20music%20sounds"
         rel="noopener noreferrer"
         target="_blank"
+        url="https://www.reddit.com/submit?url=https://deej-ai.online&title=Deej-A.I.%20-%20Automatically%20generate%20playlists%20based%20on%20how%20the%20music%20sounds"
       >
         <svg
           class="link"
@@ -327,12 +359,13 @@ exports[`app routing 1`] = `
       </a>
     </div>
     <div
-      class="col"
+      style="display: flex; flex-direction: column;"
     >
       <a
         href="https://medium.com/@teticio"
         rel="noopener noreferrer"
         target="_blank"
+        url="https://medium.com/@teticio"
       >
         <svg
           class="link"
@@ -351,12 +384,13 @@ exports[`app routing 1`] = `
       </a>
     </div>
     <div
-      class="col"
+      style="display: flex; flex-direction: column;"
     >
       <a
         href="https://github.com/teticio/Deej-A.I."
         rel="noopener noreferrer"
         target="_blank"
+        url="https://github.com/teticio/Deej-A.I."
       >
         <svg
           class="link"
@@ -375,7 +409,7 @@ exports[`app routing 1`] = `
       </a>
     </div>
     <div
-      class="col"
+      style="display: flex; flex-direction: column;"
     />
   </div>
 </DocumentFragment>
@@ -384,36 +418,38 @@ exports[`app routing 1`] = `
 exports[`app routing 2`] = `
 <DocumentFragment>
   <div
-    class="App container"
+    style="margin-top: 120px;"
+  />
+  <nav
+    class="banner shadow-lg navbar navbar-expand-lg navbar-dark bg-dark fixed-top"
   >
     <div
-      style="margin-top: 120px;"
-    />
-    <nav
-      class="banner shadow-lg navbar navbar-expand-lg navbar-dark bg-dark fixed-top"
+      class="container"
     >
-      <div
-        class="container"
+      <a
+        class="navbar-brand"
+        href="#"
+        subtitle="by Robert Dargavel Smith"
+        title="Deej-A.I."
       >
-        <a
-          class="navbar-brand"
-          href="#"
+        <div
+          style="display: flex; flex-direction: row; align-items: center; justify-content: space-evenly;"
         >
           <div
-            class="d-flex flex-row align-items-center"
+            sm="auto"
+            style="display: flex; flex-direction: column;"
           >
-            <div
-              class="col-sm-auto"
-            >
-              <span>
-                <h2>
-                  Deej-A.I.  
-                </h2>
-              </span>
-            </div>
-            <div
-              class="col-sm-auto"
-            >
+            <span>
+              <h2>
+                Deej-A.I.  
+              </h2>
+            </span>
+          </div>
+          <div
+            sm="auto"
+            style="display: flex; flex-direction: column;"
+          >
+            <span>
               <h6>
                 by 
                 <span
@@ -422,106 +458,115 @@ exports[`app routing 2`] = `
                   Robert Smith
                 </span>
               </h6>
-            </div>
-          </div>
-        </a>
-        <button
-          aria-controls="basic-navbar-nav"
-          aria-label="Toggle navigation"
-          class="navbar-toggler collapsed"
-          type="button"
-        >
-          <span
-            class="navbar-toggler-icon"
-          />
-        </button>
-        <div
-          class="navbar-collapse collapse"
-          id="basic-navbar-nav"
-        >
-          <div
-            class="me-auto navbar-nav"
-          >
-            <a
-              class="nav-link active"
-              data-rr-ui-event-key="#"
-              href="#"
-              role="button"
-              tabindex="0"
-            >
-              Login to Spotify
-            </a>
-            <a
-              class="nav-link active"
-              data-rr-ui-event-key="#"
-              href="#"
-              role="button"
-              tabindex="0"
-            >
-              Create playlist
-            </a>
-            <a
-              class="nav-link active"
-              data-rr-ui-event-key="#"
-              href="#"
-              role="button"
-              tabindex="0"
-            >
-              Top rated playlists
-            </a>
-            <a
-              class="nav-link active"
-              data-rr-ui-event-key="#"
-              href="#"
-              role="button"
-              tabindex="0"
-            >
-              Latest playlists
-            </a>
-            <a
-              class="nav-link active"
-              data-rr-ui-event-key="#"
-              href="#"
-              role="button"
-              tabindex="0"
-            >
-              Most uploaded playlists
-            </a>
-            <a
-              class="nav-link active"
-              data-rr-ui-event-key="#"
-              href="#"
-              role="button"
-              tabindex="0"
-            >
-              Search playlists
-            </a>
-            <a
-              class="nav-link active"
-              data-rr-ui-event-key="#"
-              href="#"
-              role="button"
-              tabindex="0"
-            >
-              About
-            </a>
+            </span>
           </div>
         </div>
+      </a>
+      <button
+        aria-controls="basic-navbar-nav"
+        aria-label="Toggle navigation"
+        class="navbar-toggler collapsed"
+        type="button"
+      >
+        <span
+          class="navbar-toggler-icon"
+        />
+      </button>
+      <div
+        class="navbar-collapse collapse"
+        id="basic-navbar-nav"
+      >
+        <div
+          class="me-auto navbar-nav"
+        >
+          <a
+            class="nav-link active"
+            data-rr-ui-event-key="#"
+            href="#"
+            role="button"
+            tabindex="0"
+          >
+            Login to Spotify
+          </a>
+          <a
+            class="nav-link active"
+            data-rr-ui-event-key="#"
+            href="#"
+            role="button"
+            tabindex="0"
+          >
+            Create playlist
+          </a>
+          <a
+            class="nav-link active"
+            data-rr-ui-event-key="#"
+            href="#"
+            role="button"
+            tabindex="0"
+          >
+            Top rated playlists
+          </a>
+          <a
+            class="nav-link active"
+            data-rr-ui-event-key="#"
+            href="#"
+            role="button"
+            tabindex="0"
+          >
+            Latest playlists
+          </a>
+          <a
+            class="nav-link active"
+            data-rr-ui-event-key="#"
+            href="#"
+            role="button"
+            tabindex="0"
+          >
+            Most uploaded playlists
+          </a>
+          <a
+            class="nav-link active"
+            data-rr-ui-event-key="#"
+            href="#"
+            role="button"
+            tabindex="0"
+          >
+            Search playlists
+          </a>
+          <a
+            class="nav-link active"
+            data-rr-ui-event-key="#"
+            href="#"
+            role="button"
+            tabindex="0"
+          >
+            About
+          </a>
+        </div>
       </div>
-    </nav>
+    </div>
+  </nav>
+  <div
+    class="App container"
+  >
     <div
       style="margin-top: 10px;"
     />
-    <h3
+    <span
       style="text-align: center;"
     >
-      Top rated playlists
-    </h3>
-    <span>
-      <h6
-        class="link"
-        style="text-align: center;"
-      >
+      <h4>
+        Top rated playlists
+      </h4>
+    </span>
+    <div
+      style="margin-top: 10px;"
+    />
+    <span
+      class="link"
+      style="text-align: center;"
+    >
+      <h6>
         Load more...
       </h6>
     </span>
@@ -530,18 +575,20 @@ exports[`app routing 2`] = `
     style="margin-top: 35px;"
   />
   <div
-    class="footer align-items-center bg-secondary row"
+    class="footer align-items-center bg-secondary"
+    style="display: flex; flex-direction: row; align-items: center; justify-content: space-evenly;"
   >
     <div
-      class="col"
+      style="display: flex; flex-direction: column;"
     />
     <div
-      class="col"
+      style="display: flex; flex-direction: column;"
     >
       <a
         href="https://www.linkedin.com/shareArticle?&url=https://deej-ai.online"
         rel="noopener noreferrer"
         target="_blank"
+        url="https://www.linkedin.com/shareArticle?&url=https://deej-ai.online"
       >
         <svg
           class="link"
@@ -560,12 +607,13 @@ exports[`app routing 2`] = `
       </a>
     </div>
     <div
-      class="col"
+      style="display: flex; flex-direction: column;"
     >
       <a
         href="https://www.facebook.com/sharer/sharer.php?u=https://deej-ai.online"
         rel="noopener noreferrer"
         target="_blank"
+        url="https://www.facebook.com/sharer/sharer.php?u=https://deej-ai.online"
       >
         <svg
           class="link"
@@ -584,12 +632,13 @@ exports[`app routing 2`] = `
       </a>
     </div>
     <div
-      class="col"
+      style="display: flex; flex-direction: column;"
     >
       <a
         href="https://twitter.com/intent/tweet?text=Check%20this%20https://deej-ai.online%20@att_coach"
         rel="noopener noreferrer"
         target="_blank"
+        url="https://twitter.com/intent/tweet?text=Check%20this%20https://deej-ai.online%20@att_coach"
       >
         <svg
           class="link"
@@ -608,12 +657,13 @@ exports[`app routing 2`] = `
       </a>
     </div>
     <div
-      class="col"
+      style="display: flex; flex-direction: column;"
     >
       <a
         href="https://www.reddit.com/submit?url=https://deej-ai.online&title=Deej-A.I.%20-%20Automatically%20generate%20playlists%20based%20on%20how%20the%20music%20sounds"
         rel="noopener noreferrer"
         target="_blank"
+        url="https://www.reddit.com/submit?url=https://deej-ai.online&title=Deej-A.I.%20-%20Automatically%20generate%20playlists%20based%20on%20how%20the%20music%20sounds"
       >
         <svg
           class="link"
@@ -632,12 +682,13 @@ exports[`app routing 2`] = `
       </a>
     </div>
     <div
-      class="col"
+      style="display: flex; flex-direction: column;"
     >
       <a
         href="https://medium.com/@teticio"
         rel="noopener noreferrer"
         target="_blank"
+        url="https://medium.com/@teticio"
       >
         <svg
           class="link"
@@ -656,12 +707,13 @@ exports[`app routing 2`] = `
       </a>
     </div>
     <div
-      class="col"
+      style="display: flex; flex-direction: column;"
     >
       <a
         href="https://github.com/teticio/Deej-A.I."
         rel="noopener noreferrer"
         target="_blank"
+        url="https://github.com/teticio/Deej-A.I."
       >
         <svg
           class="link"
@@ -680,7 +732,7 @@ exports[`app routing 2`] = `
       </a>
     </div>
     <div
-      class="col"
+      style="display: flex; flex-direction: column;"
     />
   </div>
 </DocumentFragment>
@@ -689,36 +741,38 @@ exports[`app routing 2`] = `
 exports[`app routing 3`] = `
 <DocumentFragment>
   <div
-    class="App container"
+    style="margin-top: 120px;"
+  />
+  <nav
+    class="banner shadow-lg navbar navbar-expand-lg navbar-dark bg-dark fixed-top"
   >
     <div
-      style="margin-top: 120px;"
-    />
-    <nav
-      class="banner shadow-lg navbar navbar-expand-lg navbar-dark bg-dark fixed-top"
+      class="container"
     >
-      <div
-        class="container"
+      <a
+        class="navbar-brand"
+        href="#"
+        subtitle="by Robert Dargavel Smith"
+        title="Deej-A.I."
       >
-        <a
-          class="navbar-brand"
-          href="#"
+        <div
+          style="display: flex; flex-direction: row; align-items: center; justify-content: space-evenly;"
         >
           <div
-            class="d-flex flex-row align-items-center"
+            sm="auto"
+            style="display: flex; flex-direction: column;"
           >
-            <div
-              class="col-sm-auto"
-            >
-              <span>
-                <h2>
-                  Deej-A.I.  
-                </h2>
-              </span>
-            </div>
-            <div
-              class="col-sm-auto"
-            >
+            <span>
+              <h2>
+                Deej-A.I.  
+              </h2>
+            </span>
+          </div>
+          <div
+            sm="auto"
+            style="display: flex; flex-direction: column;"
+          >
+            <span>
               <h6>
                 by 
                 <span
@@ -727,106 +781,115 @@ exports[`app routing 3`] = `
                   Robert Smith
                 </span>
               </h6>
-            </div>
-          </div>
-        </a>
-        <button
-          aria-controls="basic-navbar-nav"
-          aria-label="Toggle navigation"
-          class="navbar-toggler collapsed"
-          type="button"
-        >
-          <span
-            class="navbar-toggler-icon"
-          />
-        </button>
-        <div
-          class="navbar-collapse collapse"
-          id="basic-navbar-nav"
-        >
-          <div
-            class="me-auto navbar-nav"
-          >
-            <a
-              class="nav-link active"
-              data-rr-ui-event-key="#"
-              href="#"
-              role="button"
-              tabindex="0"
-            >
-              Login to Spotify
-            </a>
-            <a
-              class="nav-link active"
-              data-rr-ui-event-key="#"
-              href="#"
-              role="button"
-              tabindex="0"
-            >
-              Create playlist
-            </a>
-            <a
-              class="nav-link active"
-              data-rr-ui-event-key="#"
-              href="#"
-              role="button"
-              tabindex="0"
-            >
-              Top rated playlists
-            </a>
-            <a
-              class="nav-link active"
-              data-rr-ui-event-key="#"
-              href="#"
-              role="button"
-              tabindex="0"
-            >
-              Latest playlists
-            </a>
-            <a
-              class="nav-link active"
-              data-rr-ui-event-key="#"
-              href="#"
-              role="button"
-              tabindex="0"
-            >
-              Most uploaded playlists
-            </a>
-            <a
-              class="nav-link active"
-              data-rr-ui-event-key="#"
-              href="#"
-              role="button"
-              tabindex="0"
-            >
-              Search playlists
-            </a>
-            <a
-              class="nav-link active"
-              data-rr-ui-event-key="#"
-              href="#"
-              role="button"
-              tabindex="0"
-            >
-              About
-            </a>
+            </span>
           </div>
         </div>
+      </a>
+      <button
+        aria-controls="basic-navbar-nav"
+        aria-label="Toggle navigation"
+        class="navbar-toggler collapsed"
+        type="button"
+      >
+        <span
+          class="navbar-toggler-icon"
+        />
+      </button>
+      <div
+        class="navbar-collapse collapse"
+        id="basic-navbar-nav"
+      >
+        <div
+          class="me-auto navbar-nav"
+        >
+          <a
+            class="nav-link active"
+            data-rr-ui-event-key="#"
+            href="#"
+            role="button"
+            tabindex="0"
+          >
+            Login to Spotify
+          </a>
+          <a
+            class="nav-link active"
+            data-rr-ui-event-key="#"
+            href="#"
+            role="button"
+            tabindex="0"
+          >
+            Create playlist
+          </a>
+          <a
+            class="nav-link active"
+            data-rr-ui-event-key="#"
+            href="#"
+            role="button"
+            tabindex="0"
+          >
+            Top rated playlists
+          </a>
+          <a
+            class="nav-link active"
+            data-rr-ui-event-key="#"
+            href="#"
+            role="button"
+            tabindex="0"
+          >
+            Latest playlists
+          </a>
+          <a
+            class="nav-link active"
+            data-rr-ui-event-key="#"
+            href="#"
+            role="button"
+            tabindex="0"
+          >
+            Most uploaded playlists
+          </a>
+          <a
+            class="nav-link active"
+            data-rr-ui-event-key="#"
+            href="#"
+            role="button"
+            tabindex="0"
+          >
+            Search playlists
+          </a>
+          <a
+            class="nav-link active"
+            data-rr-ui-event-key="#"
+            href="#"
+            role="button"
+            tabindex="0"
+          >
+            About
+          </a>
+        </div>
       </div>
-    </nav>
+    </div>
+  </nav>
+  <div
+    class="App container"
+  >
     <div
       style="margin-top: 10px;"
     />
-    <h3
+    <span
       style="text-align: center;"
     >
-      Latest playlists
-    </h3>
-    <span>
-      <h6
-        class="link"
-        style="text-align: center;"
-      >
+      <h4>
+        Latest playlists
+      </h4>
+    </span>
+    <div
+      style="margin-top: 10px;"
+    />
+    <span
+      class="link"
+      style="text-align: center;"
+    >
+      <h6>
         Load more...
       </h6>
     </span>
@@ -835,18 +898,20 @@ exports[`app routing 3`] = `
     style="margin-top: 35px;"
   />
   <div
-    class="footer align-items-center bg-secondary row"
+    class="footer align-items-center bg-secondary"
+    style="display: flex; flex-direction: row; align-items: center; justify-content: space-evenly;"
   >
     <div
-      class="col"
+      style="display: flex; flex-direction: column;"
     />
     <div
-      class="col"
+      style="display: flex; flex-direction: column;"
     >
       <a
         href="https://www.linkedin.com/shareArticle?&url=https://deej-ai.online"
         rel="noopener noreferrer"
         target="_blank"
+        url="https://www.linkedin.com/shareArticle?&url=https://deej-ai.online"
       >
         <svg
           class="link"
@@ -865,12 +930,13 @@ exports[`app routing 3`] = `
       </a>
     </div>
     <div
-      class="col"
+      style="display: flex; flex-direction: column;"
     >
       <a
         href="https://www.facebook.com/sharer/sharer.php?u=https://deej-ai.online"
         rel="noopener noreferrer"
         target="_blank"
+        url="https://www.facebook.com/sharer/sharer.php?u=https://deej-ai.online"
       >
         <svg
           class="link"
@@ -889,12 +955,13 @@ exports[`app routing 3`] = `
       </a>
     </div>
     <div
-      class="col"
+      style="display: flex; flex-direction: column;"
     >
       <a
         href="https://twitter.com/intent/tweet?text=Check%20this%20https://deej-ai.online%20@att_coach"
         rel="noopener noreferrer"
         target="_blank"
+        url="https://twitter.com/intent/tweet?text=Check%20this%20https://deej-ai.online%20@att_coach"
       >
         <svg
           class="link"
@@ -913,12 +980,13 @@ exports[`app routing 3`] = `
       </a>
     </div>
     <div
-      class="col"
+      style="display: flex; flex-direction: column;"
     >
       <a
         href="https://www.reddit.com/submit?url=https://deej-ai.online&title=Deej-A.I.%20-%20Automatically%20generate%20playlists%20based%20on%20how%20the%20music%20sounds"
         rel="noopener noreferrer"
         target="_blank"
+        url="https://www.reddit.com/submit?url=https://deej-ai.online&title=Deej-A.I.%20-%20Automatically%20generate%20playlists%20based%20on%20how%20the%20music%20sounds"
       >
         <svg
           class="link"
@@ -937,12 +1005,13 @@ exports[`app routing 3`] = `
       </a>
     </div>
     <div
-      class="col"
+      style="display: flex; flex-direction: column;"
     >
       <a
         href="https://medium.com/@teticio"
         rel="noopener noreferrer"
         target="_blank"
+        url="https://medium.com/@teticio"
       >
         <svg
           class="link"
@@ -961,12 +1030,13 @@ exports[`app routing 3`] = `
       </a>
     </div>
     <div
-      class="col"
+      style="display: flex; flex-direction: column;"
     >
       <a
         href="https://github.com/teticio/Deej-A.I."
         rel="noopener noreferrer"
         target="_blank"
+        url="https://github.com/teticio/Deej-A.I."
       >
         <svg
           class="link"
@@ -985,7 +1055,7 @@ exports[`app routing 3`] = `
       </a>
     </div>
     <div
-      class="col"
+      style="display: flex; flex-direction: column;"
     />
   </div>
 </DocumentFragment>
@@ -994,36 +1064,38 @@ exports[`app routing 3`] = `
 exports[`app routing 4`] = `
 <DocumentFragment>
   <div
-    class="App container"
+    style="margin-top: 120px;"
+  />
+  <nav
+    class="banner shadow-lg navbar navbar-expand-lg navbar-dark bg-dark fixed-top"
   >
     <div
-      style="margin-top: 120px;"
-    />
-    <nav
-      class="banner shadow-lg navbar navbar-expand-lg navbar-dark bg-dark fixed-top"
+      class="container"
     >
-      <div
-        class="container"
+      <a
+        class="navbar-brand"
+        href="#"
+        subtitle="by Robert Dargavel Smith"
+        title="Deej-A.I."
       >
-        <a
-          class="navbar-brand"
-          href="#"
+        <div
+          style="display: flex; flex-direction: row; align-items: center; justify-content: space-evenly;"
         >
           <div
-            class="d-flex flex-row align-items-center"
+            sm="auto"
+            style="display: flex; flex-direction: column;"
           >
-            <div
-              class="col-sm-auto"
-            >
-              <span>
-                <h2>
-                  Deej-A.I.  
-                </h2>
-              </span>
-            </div>
-            <div
-              class="col-sm-auto"
-            >
+            <span>
+              <h2>
+                Deej-A.I.  
+              </h2>
+            </span>
+          </div>
+          <div
+            sm="auto"
+            style="display: flex; flex-direction: column;"
+          >
+            <span>
               <h6>
                 by 
                 <span
@@ -1032,106 +1104,115 @@ exports[`app routing 4`] = `
                   Robert Smith
                 </span>
               </h6>
-            </div>
-          </div>
-        </a>
-        <button
-          aria-controls="basic-navbar-nav"
-          aria-label="Toggle navigation"
-          class="navbar-toggler collapsed"
-          type="button"
-        >
-          <span
-            class="navbar-toggler-icon"
-          />
-        </button>
-        <div
-          class="navbar-collapse collapse"
-          id="basic-navbar-nav"
-        >
-          <div
-            class="me-auto navbar-nav"
-          >
-            <a
-              class="nav-link active"
-              data-rr-ui-event-key="#"
-              href="#"
-              role="button"
-              tabindex="0"
-            >
-              Login to Spotify
-            </a>
-            <a
-              class="nav-link active"
-              data-rr-ui-event-key="#"
-              href="#"
-              role="button"
-              tabindex="0"
-            >
-              Create playlist
-            </a>
-            <a
-              class="nav-link active"
-              data-rr-ui-event-key="#"
-              href="#"
-              role="button"
-              tabindex="0"
-            >
-              Top rated playlists
-            </a>
-            <a
-              class="nav-link active"
-              data-rr-ui-event-key="#"
-              href="#"
-              role="button"
-              tabindex="0"
-            >
-              Latest playlists
-            </a>
-            <a
-              class="nav-link active"
-              data-rr-ui-event-key="#"
-              href="#"
-              role="button"
-              tabindex="0"
-            >
-              Most uploaded playlists
-            </a>
-            <a
-              class="nav-link active"
-              data-rr-ui-event-key="#"
-              href="#"
-              role="button"
-              tabindex="0"
-            >
-              Search playlists
-            </a>
-            <a
-              class="nav-link active"
-              data-rr-ui-event-key="#"
-              href="#"
-              role="button"
-              tabindex="0"
-            >
-              About
-            </a>
+            </span>
           </div>
         </div>
+      </a>
+      <button
+        aria-controls="basic-navbar-nav"
+        aria-label="Toggle navigation"
+        class="navbar-toggler collapsed"
+        type="button"
+      >
+        <span
+          class="navbar-toggler-icon"
+        />
+      </button>
+      <div
+        class="navbar-collapse collapse"
+        id="basic-navbar-nav"
+      >
+        <div
+          class="me-auto navbar-nav"
+        >
+          <a
+            class="nav-link active"
+            data-rr-ui-event-key="#"
+            href="#"
+            role="button"
+            tabindex="0"
+          >
+            Login to Spotify
+          </a>
+          <a
+            class="nav-link active"
+            data-rr-ui-event-key="#"
+            href="#"
+            role="button"
+            tabindex="0"
+          >
+            Create playlist
+          </a>
+          <a
+            class="nav-link active"
+            data-rr-ui-event-key="#"
+            href="#"
+            role="button"
+            tabindex="0"
+          >
+            Top rated playlists
+          </a>
+          <a
+            class="nav-link active"
+            data-rr-ui-event-key="#"
+            href="#"
+            role="button"
+            tabindex="0"
+          >
+            Latest playlists
+          </a>
+          <a
+            class="nav-link active"
+            data-rr-ui-event-key="#"
+            href="#"
+            role="button"
+            tabindex="0"
+          >
+            Most uploaded playlists
+          </a>
+          <a
+            class="nav-link active"
+            data-rr-ui-event-key="#"
+            href="#"
+            role="button"
+            tabindex="0"
+          >
+            Search playlists
+          </a>
+          <a
+            class="nav-link active"
+            data-rr-ui-event-key="#"
+            href="#"
+            role="button"
+            tabindex="0"
+          >
+            About
+          </a>
+        </div>
       </div>
-    </nav>
+    </div>
+  </nav>
+  <div
+    class="App container"
+  >
     <div
       style="margin-top: 10px;"
     />
-    <h3
+    <span
       style="text-align: center;"
     >
-      Most uploaded playlists
-    </h3>
-    <span>
-      <h6
-        class="link"
-        style="text-align: center;"
-      >
+      <h4>
+        Most uploaded playlists
+      </h4>
+    </span>
+    <div
+      style="margin-top: 10px;"
+    />
+    <span
+      class="link"
+      style="text-align: center;"
+    >
+      <h6>
         Load more...
       </h6>
     </span>
@@ -1140,18 +1221,20 @@ exports[`app routing 4`] = `
     style="margin-top: 35px;"
   />
   <div
-    class="footer align-items-center bg-secondary row"
+    class="footer align-items-center bg-secondary"
+    style="display: flex; flex-direction: row; align-items: center; justify-content: space-evenly;"
   >
     <div
-      class="col"
+      style="display: flex; flex-direction: column;"
     />
     <div
-      class="col"
+      style="display: flex; flex-direction: column;"
     >
       <a
         href="https://www.linkedin.com/shareArticle?&url=https://deej-ai.online"
         rel="noopener noreferrer"
         target="_blank"
+        url="https://www.linkedin.com/shareArticle?&url=https://deej-ai.online"
       >
         <svg
           class="link"
@@ -1170,12 +1253,13 @@ exports[`app routing 4`] = `
       </a>
     </div>
     <div
-      class="col"
+      style="display: flex; flex-direction: column;"
     >
       <a
         href="https://www.facebook.com/sharer/sharer.php?u=https://deej-ai.online"
         rel="noopener noreferrer"
         target="_blank"
+        url="https://www.facebook.com/sharer/sharer.php?u=https://deej-ai.online"
       >
         <svg
           class="link"
@@ -1194,12 +1278,13 @@ exports[`app routing 4`] = `
       </a>
     </div>
     <div
-      class="col"
+      style="display: flex; flex-direction: column;"
     >
       <a
         href="https://twitter.com/intent/tweet?text=Check%20this%20https://deej-ai.online%20@att_coach"
         rel="noopener noreferrer"
         target="_blank"
+        url="https://twitter.com/intent/tweet?text=Check%20this%20https://deej-ai.online%20@att_coach"
       >
         <svg
           class="link"
@@ -1218,12 +1303,13 @@ exports[`app routing 4`] = `
       </a>
     </div>
     <div
-      class="col"
+      style="display: flex; flex-direction: column;"
     >
       <a
         href="https://www.reddit.com/submit?url=https://deej-ai.online&title=Deej-A.I.%20-%20Automatically%20generate%20playlists%20based%20on%20how%20the%20music%20sounds"
         rel="noopener noreferrer"
         target="_blank"
+        url="https://www.reddit.com/submit?url=https://deej-ai.online&title=Deej-A.I.%20-%20Automatically%20generate%20playlists%20based%20on%20how%20the%20music%20sounds"
       >
         <svg
           class="link"
@@ -1242,12 +1328,13 @@ exports[`app routing 4`] = `
       </a>
     </div>
     <div
-      class="col"
+      style="display: flex; flex-direction: column;"
     >
       <a
         href="https://medium.com/@teticio"
         rel="noopener noreferrer"
         target="_blank"
+        url="https://medium.com/@teticio"
       >
         <svg
           class="link"
@@ -1266,12 +1353,13 @@ exports[`app routing 4`] = `
       </a>
     </div>
     <div
-      class="col"
+      style="display: flex; flex-direction: column;"
     >
       <a
         href="https://github.com/teticio/Deej-A.I."
         rel="noopener noreferrer"
         target="_blank"
+        url="https://github.com/teticio/Deej-A.I."
       >
         <svg
           class="link"
@@ -1290,7 +1378,7 @@ exports[`app routing 4`] = `
       </a>
     </div>
     <div
-      class="col"
+      style="display: flex; flex-direction: column;"
     />
   </div>
 </DocumentFragment>
@@ -1299,36 +1387,38 @@ exports[`app routing 4`] = `
 exports[`app routing 5`] = `
 <DocumentFragment>
   <div
-    class="App container"
+    style="margin-top: 120px;"
+  />
+  <nav
+    class="banner shadow-lg navbar navbar-expand-lg navbar-dark bg-dark fixed-top"
   >
     <div
-      style="margin-top: 120px;"
-    />
-    <nav
-      class="banner shadow-lg navbar navbar-expand-lg navbar-dark bg-dark fixed-top"
+      class="container"
     >
-      <div
-        class="container"
+      <a
+        class="navbar-brand"
+        href="#"
+        subtitle="by Robert Dargavel Smith"
+        title="Deej-A.I."
       >
-        <a
-          class="navbar-brand"
-          href="#"
+        <div
+          style="display: flex; flex-direction: row; align-items: center; justify-content: space-evenly;"
         >
           <div
-            class="d-flex flex-row align-items-center"
+            sm="auto"
+            style="display: flex; flex-direction: column;"
           >
-            <div
-              class="col-sm-auto"
-            >
-              <span>
-                <h2>
-                  Deej-A.I.  
-                </h2>
-              </span>
-            </div>
-            <div
-              class="col-sm-auto"
-            >
+            <span>
+              <h2>
+                Deej-A.I.  
+              </h2>
+            </span>
+          </div>
+          <div
+            sm="auto"
+            style="display: flex; flex-direction: column;"
+          >
+            <span>
               <h6>
                 by 
                 <span
@@ -1337,107 +1427,117 @@ exports[`app routing 5`] = `
                   Robert Smith
                 </span>
               </h6>
-            </div>
-          </div>
-        </a>
-        <button
-          aria-controls="basic-navbar-nav"
-          aria-label="Toggle navigation"
-          class="navbar-toggler collapsed"
-          type="button"
-        >
-          <span
-            class="navbar-toggler-icon"
-          />
-        </button>
-        <div
-          class="navbar-collapse collapse"
-          id="basic-navbar-nav"
-        >
-          <div
-            class="me-auto navbar-nav"
-          >
-            <a
-              class="nav-link active"
-              data-rr-ui-event-key="#"
-              href="#"
-              role="button"
-              tabindex="0"
-            >
-              Login to Spotify
-            </a>
-            <a
-              class="nav-link active"
-              data-rr-ui-event-key="#"
-              href="#"
-              role="button"
-              tabindex="0"
-            >
-              Create playlist
-            </a>
-            <a
-              class="nav-link active"
-              data-rr-ui-event-key="#"
-              href="#"
-              role="button"
-              tabindex="0"
-            >
-              Top rated playlists
-            </a>
-            <a
-              class="nav-link active"
-              data-rr-ui-event-key="#"
-              href="#"
-              role="button"
-              tabindex="0"
-            >
-              Latest playlists
-            </a>
-            <a
-              class="nav-link active"
-              data-rr-ui-event-key="#"
-              href="#"
-              role="button"
-              tabindex="0"
-            >
-              Most uploaded playlists
-            </a>
-            <a
-              class="nav-link active"
-              data-rr-ui-event-key="#"
-              href="#"
-              role="button"
-              tabindex="0"
-            >
-              Search playlists
-            </a>
-            <a
-              class="nav-link active"
-              data-rr-ui-event-key="#"
-              href="#"
-              role="button"
-              tabindex="0"
-            >
-              About
-            </a>
+            </span>
           </div>
         </div>
+      </a>
+      <button
+        aria-controls="basic-navbar-nav"
+        aria-label="Toggle navigation"
+        class="navbar-toggler collapsed"
+        type="button"
+      >
+        <span
+          class="navbar-toggler-icon"
+        />
+      </button>
+      <div
+        class="navbar-collapse collapse"
+        id="basic-navbar-nav"
+      >
+        <div
+          class="me-auto navbar-nav"
+        >
+          <a
+            class="nav-link active"
+            data-rr-ui-event-key="#"
+            href="#"
+            role="button"
+            tabindex="0"
+          >
+            Login to Spotify
+          </a>
+          <a
+            class="nav-link active"
+            data-rr-ui-event-key="#"
+            href="#"
+            role="button"
+            tabindex="0"
+          >
+            Create playlist
+          </a>
+          <a
+            class="nav-link active"
+            data-rr-ui-event-key="#"
+            href="#"
+            role="button"
+            tabindex="0"
+          >
+            Top rated playlists
+          </a>
+          <a
+            class="nav-link active"
+            data-rr-ui-event-key="#"
+            href="#"
+            role="button"
+            tabindex="0"
+          >
+            Latest playlists
+          </a>
+          <a
+            class="nav-link active"
+            data-rr-ui-event-key="#"
+            href="#"
+            role="button"
+            tabindex="0"
+          >
+            Most uploaded playlists
+          </a>
+          <a
+            class="nav-link active"
+            data-rr-ui-event-key="#"
+            href="#"
+            role="button"
+            tabindex="0"
+          >
+            Search playlists
+          </a>
+          <a
+            class="nav-link active"
+            data-rr-ui-event-key="#"
+            href="#"
+            role="button"
+            tabindex="0"
+          >
+            About
+          </a>
+        </div>
       </div>
-    </nav>
-    <h3
+    </div>
+  </nav>
+  <div
+    class="App container"
+  >
+    <div
+      style="margin-top: 10px;"
+    />
+    <span
       style="text-align: center;"
     >
-      Search playlists
-    </h3>
+      <h4>
+        Search playlists
+      </h4>
+    </span>
+    <div
+      style="margin-top: 10px;"
+    />
     <div
       class="card"
     >
       <div
-        class="card-body"
+        style="display: flex; flex-direction: row; align-items: center; justify-content: flex-start; padding: 15px;"
       >
-        <div
-          class="d-flex flex-row align-items-center"
-        >
+        <span>
           <svg
             fill="currentColor"
             height="1em"
@@ -1451,14 +1551,14 @@ exports[`app routing 5`] = `
               d="M505 442.7L405.3 343c-4.5-4.5-10.6-7-17-7H372c27.6-35.3 44-79.7 44-128C416 93.1 322.9 0 208 0S0 93.1 0 208s93.1 208 208 208c48.3 0 92.7-16.4 128-44v16.3c0 6.4 2.5 12.5 7 17l99.7 99.7c9.4 9.4 24.6 9.4 33.9 0l28.3-28.3c9.4-9.4 9.4-24.6.1-34zM208 336c-70.7 0-128-57.2-128-128 0-70.7 57.2-128 128-128 70.7 0 128 57.2 128 128 0 70.7-57.2 128-128 128z"
             />
           </svg>
-          <div
-            style="width: 10px;"
-          />
-          <input
-            placeholder="Search..."
-            value=""
-          />
-        </div>
+        </span>
+        <div
+          style="width: 10px;"
+        />
+        <input
+          placeholder="Search..."
+          value=""
+        />
       </div>
     </div>
     <div
@@ -1469,18 +1569,20 @@ exports[`app routing 5`] = `
     style="margin-top: 35px;"
   />
   <div
-    class="footer align-items-center bg-secondary row"
+    class="footer align-items-center bg-secondary"
+    style="display: flex; flex-direction: row; align-items: center; justify-content: space-evenly;"
   >
     <div
-      class="col"
+      style="display: flex; flex-direction: column;"
     />
     <div
-      class="col"
+      style="display: flex; flex-direction: column;"
     >
       <a
         href="https://www.linkedin.com/shareArticle?&url=https://deej-ai.online"
         rel="noopener noreferrer"
         target="_blank"
+        url="https://www.linkedin.com/shareArticle?&url=https://deej-ai.online"
       >
         <svg
           class="link"
@@ -1499,12 +1601,13 @@ exports[`app routing 5`] = `
       </a>
     </div>
     <div
-      class="col"
+      style="display: flex; flex-direction: column;"
     >
       <a
         href="https://www.facebook.com/sharer/sharer.php?u=https://deej-ai.online"
         rel="noopener noreferrer"
         target="_blank"
+        url="https://www.facebook.com/sharer/sharer.php?u=https://deej-ai.online"
       >
         <svg
           class="link"
@@ -1523,12 +1626,13 @@ exports[`app routing 5`] = `
       </a>
     </div>
     <div
-      class="col"
+      style="display: flex; flex-direction: column;"
     >
       <a
         href="https://twitter.com/intent/tweet?text=Check%20this%20https://deej-ai.online%20@att_coach"
         rel="noopener noreferrer"
         target="_blank"
+        url="https://twitter.com/intent/tweet?text=Check%20this%20https://deej-ai.online%20@att_coach"
       >
         <svg
           class="link"
@@ -1547,12 +1651,13 @@ exports[`app routing 5`] = `
       </a>
     </div>
     <div
-      class="col"
+      style="display: flex; flex-direction: column;"
     >
       <a
         href="https://www.reddit.com/submit?url=https://deej-ai.online&title=Deej-A.I.%20-%20Automatically%20generate%20playlists%20based%20on%20how%20the%20music%20sounds"
         rel="noopener noreferrer"
         target="_blank"
+        url="https://www.reddit.com/submit?url=https://deej-ai.online&title=Deej-A.I.%20-%20Automatically%20generate%20playlists%20based%20on%20how%20the%20music%20sounds"
       >
         <svg
           class="link"
@@ -1571,12 +1676,13 @@ exports[`app routing 5`] = `
       </a>
     </div>
     <div
-      class="col"
+      style="display: flex; flex-direction: column;"
     >
       <a
         href="https://medium.com/@teticio"
         rel="noopener noreferrer"
         target="_blank"
+        url="https://medium.com/@teticio"
       >
         <svg
           class="link"
@@ -1595,12 +1701,13 @@ exports[`app routing 5`] = `
       </a>
     </div>
     <div
-      class="col"
+      style="display: flex; flex-direction: column;"
     >
       <a
         href="https://github.com/teticio/Deej-A.I."
         rel="noopener noreferrer"
         target="_blank"
+        url="https://github.com/teticio/Deej-A.I."
       >
         <svg
           class="link"
@@ -1619,7 +1726,7 @@ exports[`app routing 5`] = `
       </a>
     </div>
     <div
-      class="col"
+      style="display: flex; flex-direction: column;"
     />
   </div>
 </DocumentFragment>
@@ -1628,36 +1735,38 @@ exports[`app routing 5`] = `
 exports[`app routing 6`] = `
 <DocumentFragment>
   <div
-    class="App container"
+    style="margin-top: 120px;"
+  />
+  <nav
+    class="banner shadow-lg navbar navbar-expand-lg navbar-dark bg-dark fixed-top"
   >
     <div
-      style="margin-top: 120px;"
-    />
-    <nav
-      class="banner shadow-lg navbar navbar-expand-lg navbar-dark bg-dark fixed-top"
+      class="container"
     >
-      <div
-        class="container"
+      <a
+        class="navbar-brand"
+        href="#"
+        subtitle="by Robert Dargavel Smith"
+        title="Deej-A.I."
       >
-        <a
-          class="navbar-brand"
-          href="#"
+        <div
+          style="display: flex; flex-direction: row; align-items: center; justify-content: space-evenly;"
         >
           <div
-            class="d-flex flex-row align-items-center"
+            sm="auto"
+            style="display: flex; flex-direction: column;"
           >
-            <div
-              class="col-sm-auto"
-            >
-              <span>
-                <h2>
-                  Deej-A.I.  
-                </h2>
-              </span>
-            </div>
-            <div
-              class="col-sm-auto"
-            >
+            <span>
+              <h2>
+                Deej-A.I.  
+              </h2>
+            </span>
+          </div>
+          <div
+            sm="auto"
+            style="display: flex; flex-direction: column;"
+          >
+            <span>
               <h6>
                 by 
                 <span
@@ -1666,290 +1775,340 @@ exports[`app routing 6`] = `
                   Robert Smith
                 </span>
               </h6>
-            </div>
-          </div>
-        </a>
-        <button
-          aria-controls="basic-navbar-nav"
-          aria-label="Toggle navigation"
-          class="navbar-toggler collapsed"
-          type="button"
-        >
-          <span
-            class="navbar-toggler-icon"
-          />
-        </button>
-        <div
-          class="navbar-collapse collapse"
-          id="basic-navbar-nav"
-        >
-          <div
-            class="me-auto navbar-nav"
-          >
-            <a
-              class="nav-link active"
-              data-rr-ui-event-key="#"
-              href="#"
-              role="button"
-              tabindex="0"
-            >
-              Login to Spotify
-            </a>
-            <a
-              class="nav-link active"
-              data-rr-ui-event-key="#"
-              href="#"
-              role="button"
-              tabindex="0"
-            >
-              Create playlist
-            </a>
-            <a
-              class="nav-link active"
-              data-rr-ui-event-key="#"
-              href="#"
-              role="button"
-              tabindex="0"
-            >
-              Top rated playlists
-            </a>
-            <a
-              class="nav-link active"
-              data-rr-ui-event-key="#"
-              href="#"
-              role="button"
-              tabindex="0"
-            >
-              Latest playlists
-            </a>
-            <a
-              class="nav-link active"
-              data-rr-ui-event-key="#"
-              href="#"
-              role="button"
-              tabindex="0"
-            >
-              Most uploaded playlists
-            </a>
-            <a
-              class="nav-link active"
-              data-rr-ui-event-key="#"
-              href="#"
-              role="button"
-              tabindex="0"
-            >
-              Search playlists
-            </a>
-            <a
-              class="nav-link active"
-              data-rr-ui-event-key="#"
-              href="#"
-              role="button"
-              tabindex="0"
-            >
-              About
-            </a>
+            </span>
           </div>
         </div>
+      </a>
+      <button
+        aria-controls="basic-navbar-nav"
+        aria-label="Toggle navigation"
+        class="navbar-toggler collapsed"
+        type="button"
+      >
+        <span
+          class="navbar-toggler-icon"
+        />
+      </button>
+      <div
+        class="navbar-collapse collapse"
+        id="basic-navbar-nav"
+      >
+        <div
+          class="me-auto navbar-nav"
+        >
+          <a
+            class="nav-link active"
+            data-rr-ui-event-key="#"
+            href="#"
+            role="button"
+            tabindex="0"
+          >
+            Login to Spotify
+          </a>
+          <a
+            class="nav-link active"
+            data-rr-ui-event-key="#"
+            href="#"
+            role="button"
+            tabindex="0"
+          >
+            Create playlist
+          </a>
+          <a
+            class="nav-link active"
+            data-rr-ui-event-key="#"
+            href="#"
+            role="button"
+            tabindex="0"
+          >
+            Top rated playlists
+          </a>
+          <a
+            class="nav-link active"
+            data-rr-ui-event-key="#"
+            href="#"
+            role="button"
+            tabindex="0"
+          >
+            Latest playlists
+          </a>
+          <a
+            class="nav-link active"
+            data-rr-ui-event-key="#"
+            href="#"
+            role="button"
+            tabindex="0"
+          >
+            Most uploaded playlists
+          </a>
+          <a
+            class="nav-link active"
+            data-rr-ui-event-key="#"
+            href="#"
+            role="button"
+            tabindex="0"
+          >
+            Search playlists
+          </a>
+          <a
+            class="nav-link active"
+            data-rr-ui-event-key="#"
+            href="#"
+            role="button"
+            tabindex="0"
+          >
+            About
+          </a>
+        </div>
       </div>
-    </nav>
-    <h5
+    </div>
+  </nav>
+  <div
+    class="App container"
+  >
+    <div
+      style="margin-top: 10px;"
+    />
+    <span
+      style="text-align: center;"
+    >
+      <h4>
+        About Deej-A.I.
+      </h4>
+    </span>
+    <div
+      style="margin-top: 10px;"
+    />
+    <span
       data-testid="blurb"
     >
-      <b>
-        Deej-A.I.
-      </b>
-       uses artificial intelligence to automatically generate playlists of tracks that go well together. It was trained using hundreds of thousands of Spotify tracks and user playlists.
-    </h5>
+      <h5>
+        <span
+          style="font-weight: bold;"
+        >
+          Deej-A.I.
+        </span>
+         uses artificial intelligence to automatically generate playlists of tracks that go well together. It was trained using hundreds of thousands of Spotify tracks and user playlists.
+      </h5>
+    </span>
     <div
       style="margin-top: 15px;"
     />
-    <h5>
-      Create a playlist by adding 
-      <svg
-        fill="currentColor"
-        height="1em"
-        stroke="currentColor"
-        stroke-width="0"
-        viewBox="0 0 448 512"
-        width="1em"
-        xmlns="http://www.w3.org/2000/svg"
-      >
-        <path
-          d="M416 208H272V64c0-17.67-14.33-32-32-32h-32c-17.67 0-32 14.33-32 32v144H32c-17.67 0-32 14.33-32 32v32c0 17.67 14.33 32 32 32h144v144c0 17.67 14.33 32 32 32h32c17.67 0 32-14.33 32-32V304h144c17.67 0 32-14.33 32-32v-32c0-17.67-14.33-32-32-32z"
-        />
-      </svg>
-       any tracks that you would like to include. Pressing 
-      <svg
-        fill="currentColor"
-        height="1em"
-        stroke="currentColor"
-        stroke-width="0"
-        viewBox="0 0 512 512"
-        width="1em"
-        xmlns="http://www.w3.org/2000/svg"
-      >
-        <path
-          d="M500.5 231.4l-192-160C287.9 54.3 256 68.6 256 96v320c0 27.4 31.9 41.8 52.5 24.6l192-160c15.3-12.8 15.3-36.4 0-49.2zm-256 0l-192-160C31.9 54.3 0 68.6 0 96v320c0 27.4 31.9 41.8 52.5 24.6l192-160c15.3-12.8 15.3-36.4 0-49.2z"
-        />
-      </svg>
-       will then generate a playlist that smoothly "
-      <i>
-        joins the dots
-      </i>
-      " between them. This is a great way to create playlists that start off with chill out, for example, and build up to dance music as the party picks up!
-    </h5>
+    <span>
+      <h5>
+        Create a playlist by adding 
+        <svg
+          fill="currentColor"
+          height="1em"
+          stroke="currentColor"
+          stroke-width="0"
+          viewBox="0 0 448 512"
+          width="1em"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M416 208H272V64c0-17.67-14.33-32-32-32h-32c-17.67 0-32 14.33-32 32v144H32c-17.67 0-32 14.33-32 32v32c0 17.67 14.33 32 32 32h144v144c0 17.67 14.33 32 32 32h32c17.67 0 32-14.33 32-32V304h144c17.67 0 32-14.33 32-32v-32c0-17.67-14.33-32-32-32z"
+          />
+        </svg>
+         any tracks that you would like to include. Pressing 
+        <svg
+          fill="currentColor"
+          height="1em"
+          stroke="currentColor"
+          stroke-width="0"
+          viewBox="0 0 512 512"
+          width="1em"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M500.5 231.4l-192-160C287.9 54.3 256 68.6 256 96v320c0 27.4 31.9 41.8 52.5 24.6l192-160c15.3-12.8 15.3-36.4 0-49.2zm-256 0l-192-160C31.9 54.3 0 68.6 0 96v320c0 27.4 31.9 41.8 52.5 24.6l192-160c15.3-12.8 15.3-36.4 0-49.2z"
+          />
+        </svg>
+         will then generate a playlist that smoothly "
+        <span
+          style="font-weight: bold;"
+        >
+          joins the dots
+        </span>
+        " between them. This is a great way to create playlists that start off with chill out, for example, and build up to dance music as the party picks up!
+      </h5>
+    </span>
     <div
       style="margin-top: 15px;"
     />
-    <h5>
-      Don't forget to rate the playlists! This will help other people find the best ones.
-    </h5>
+    <span>
+      <h5>
+        Don't forget to rate the playlists! This will help other people find the best ones.
+      </h5>
+    </span>
     <div
       style="margin-top: 15px;"
     />
-    <h5>
-      If you have a Spotify 
-      <svg
-        fill="currentColor"
-        height="1em"
-        stroke="currentColor"
-        stroke-width="0"
-        viewBox="0 0 496 512"
-        width="1em"
-        xmlns="http://www.w3.org/2000/svg"
-      >
-        <path
-          d="M248 8C111.1 8 0 119.1 0 256s111.1 248 248 248 248-111.1 248-248S384.9 8 248 8zm100.7 364.9c-4.2 0-6.8-1.3-10.7-3.6-62.4-37.6-135-39.2-206.7-24.5-3.9 1-9 2.6-11.9 2.6-9.7 0-15.8-7.7-15.8-15.8 0-10.3 6.1-15.2 13.6-16.8 81.9-18.1 165.6-16.5 237 26.2 6.1 3.9 9.7 7.4 9.7 16.5s-7.1 15.4-15.2 15.4zm26.9-65.6c-5.2 0-8.7-2.3-12.3-4.2-62.5-37-155.7-51.9-238.6-29.4-4.8 1.3-7.4 2.6-11.9 2.6-10.7 0-19.4-8.7-19.4-19.4s5.2-17.8 15.5-20.7c27.8-7.8 56.2-13.6 97.8-13.6 64.9 0 127.6 16.1 177 45.5 8.1 4.8 11.3 11 11.3 19.7-.1 10.8-8.5 19.5-19.4 19.5zm31-76.2c-5.2 0-8.4-1.3-12.9-3.9-71.2-42.5-198.5-52.7-280.9-29.7-3.6 1-8.1 2.6-12.9 2.6-13.2 0-23.3-10.3-23.3-23.6 0-13.6 8.4-21.3 17.4-23.9 35.2-10.3 74.6-15.2 117.5-15.2 73 0 149.5 15.2 205.4 47.8 7.8 4.5 12.9 10.7 12.9 22.6 0 13.6-11 23.3-23.2 23.3z"
-        />
-      </svg>
-       account and you log in, you will see the current track if one is playing when creating a playlist. By clicking on this, Deej-A.I. will search for similar sounding tracks in its database. You will also be able to upload 
-      <svg
-        fill="currentColor"
-        height="1em"
-        stroke="currentColor"
-        stroke-width="0"
-        viewBox="0 0 640 512"
-        width="1em"
-        xmlns="http://www.w3.org/2000/svg"
-      >
-        <path
-          d="M537.6 226.6c4.1-10.7 6.4-22.4 6.4-34.6 0-53-43-96-96-96-19.7 0-38.1 6-53.3 16.2C367 64.2 315.3 32 256 32c-88.4 0-160 71.6-160 160 0 2.7.1 5.4.2 8.1C40.2 219.8 0 273.2 0 336c0 79.5 64.5 144 144 144h368c70.7 0 128-57.3 128-128 0-61.9-44-113.6-102.4-125.4zM393.4 288H328v112c0 8.8-7.2 16-16 16h-48c-8.8 0-16-7.2-16-16V288h-65.4c-14.3 0-21.4-17.2-11.3-27.3l105.4-105.4c6.2-6.2 16.4-6.2 22.6 0l105.4 105.4c10.1 10.1 2.9 27.3-11.3 27.3z"
-        />
-      </svg>
-       playlists to your account.
-    </h5>
+    <span>
+      <h5>
+        If you have a Spotify 
+        <svg
+          fill="currentColor"
+          height="1em"
+          stroke="currentColor"
+          stroke-width="0"
+          viewBox="0 0 496 512"
+          width="1em"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M248 8C111.1 8 0 119.1 0 256s111.1 248 248 248 248-111.1 248-248S384.9 8 248 8zm100.7 364.9c-4.2 0-6.8-1.3-10.7-3.6-62.4-37.6-135-39.2-206.7-24.5-3.9 1-9 2.6-11.9 2.6-9.7 0-15.8-7.7-15.8-15.8 0-10.3 6.1-15.2 13.6-16.8 81.9-18.1 165.6-16.5 237 26.2 6.1 3.9 9.7 7.4 9.7 16.5s-7.1 15.4-15.2 15.4zm26.9-65.6c-5.2 0-8.7-2.3-12.3-4.2-62.5-37-155.7-51.9-238.6-29.4-4.8 1.3-7.4 2.6-11.9 2.6-10.7 0-19.4-8.7-19.4-19.4s5.2-17.8 15.5-20.7c27.8-7.8 56.2-13.6 97.8-13.6 64.9 0 127.6 16.1 177 45.5 8.1 4.8 11.3 11 11.3 19.7-.1 10.8-8.5 19.5-19.4 19.5zm31-76.2c-5.2 0-8.4-1.3-12.9-3.9-71.2-42.5-198.5-52.7-280.9-29.7-3.6 1-8.1 2.6-12.9 2.6-13.2 0-23.3-10.3-23.3-23.6 0-13.6 8.4-21.3 17.4-23.9 35.2-10.3 74.6-15.2 117.5-15.2 73 0 149.5 15.2 205.4 47.8 7.8 4.5 12.9 10.7 12.9 22.6 0 13.6-11 23.3-23.2 23.3z"
+          />
+        </svg>
+         account and you log in, you will see the current track if one is playing when creating a playlist. By clicking on this, Deej-A.I. will search for similar sounding tracks in its database. You will also be able to upload 
+        <svg
+          fill="currentColor"
+          height="1em"
+          stroke="currentColor"
+          stroke-width="0"
+          viewBox="0 0 640 512"
+          width="1em"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M537.6 226.6c4.1-10.7 6.4-22.4 6.4-34.6 0-53-43-96-96-96-19.7 0-38.1 6-53.3 16.2C367 64.2 315.3 32 256 32c-88.4 0-160 71.6-160 160 0 2.7.1 5.4.2 8.1C40.2 219.8 0 273.2 0 336c0 79.5 64.5 144 144 144h368c70.7 0 128-57.3 128-128 0-61.9-44-113.6-102.4-125.4zM393.4 288H328v112c0 8.8-7.2 16-16 16h-48c-8.8 0-16-7.2-16-16V288h-65.4c-14.3 0-21.4-17.2-11.3-27.3l105.4-105.4c6.2-6.2 16.4-6.2 22.6 0l105.4 105.4c10.1 10.1 2.9 27.3-11.3 27.3z"
+          />
+        </svg>
+         playlists to your account.
+      </h5>
+    </span>
     <div
       style="margin-top: 15px;"
     />
-    <h5>
-      In the settings screen 
-      <svg
-        fill="currentColor"
-        height="1em"
-        stroke="currentColor"
-        stroke-width="0"
-        viewBox="0 0 512 512"
-        width="1em"
-        xmlns="http://www.w3.org/2000/svg"
-      >
-        <path
-          d="M487.4 315.7l-42.6-24.6c4.3-23.2 4.3-47 0-70.2l42.6-24.6c4.9-2.8 7.1-8.6 5.5-14-11.1-35.6-30-67.8-54.7-94.6-3.8-4.1-10-5.1-14.8-2.3L380.8 110c-17.9-15.4-38.5-27.3-60.8-35.1V25.8c0-5.6-3.9-10.5-9.4-11.7-36.7-8.2-74.3-7.8-109.2 0-5.5 1.2-9.4 6.1-9.4 11.7V75c-22.2 7.9-42.8 19.8-60.8 35.1L88.7 85.5c-4.9-2.8-11-1.9-14.8 2.3-24.7 26.7-43.6 58.9-54.7 94.6-1.7 5.4.6 11.2 5.5 14L67.3 221c-4.3 23.2-4.3 47 0 70.2l-42.6 24.6c-4.9 2.8-7.1 8.6-5.5 14 11.1 35.6 30 67.8 54.7 94.6 3.8 4.1 10 5.1 14.8 2.3l42.6-24.6c17.9 15.4 38.5 27.3 60.8 35.1v49.2c0 5.6 3.9 10.5 9.4 11.7 36.7 8.2 74.3 7.8 109.2 0 5.5-1.2 9.4-6.1 9.4-11.7v-49.2c22.2-7.9 42.8-19.8 60.8-35.1l42.6 24.6c4.9 2.8 11 1.9 14.8-2.3 24.7-26.7 43.6-58.9 54.7-94.6 1.5-5.5-.7-11.3-5.6-14.1zM256 336c-44.1 0-80-35.9-80-80s35.9-80 80-80 80 35.9 80 80-35.9 80-80 80z"
-        />
-      </svg>
-      , you can control the number of tracks that are added to the playlists as well as a couple of aspects of how they are generated. If 
-      <i>
-        creativity
-      </i>
-       is set to 100%, then tracks are chosen with similar sound, energy, mood and instrumentation. It does this by simply "listening" and not using any information about the tracks themselves. If creativity is set to 0%, then tracks are selected based on similar artists ("Spotify users also included in their playlists..."). You can use the 
-      <i>
-        noise
-      </i>
-       setting to add a bit of randomness.
-    </h5>
+    <span>
+      <h5>
+        In the settings screen 
+        <svg
+          fill="currentColor"
+          height="1em"
+          stroke="currentColor"
+          stroke-width="0"
+          viewBox="0 0 512 512"
+          width="1em"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M487.4 315.7l-42.6-24.6c4.3-23.2 4.3-47 0-70.2l42.6-24.6c4.9-2.8 7.1-8.6 5.5-14-11.1-35.6-30-67.8-54.7-94.6-3.8-4.1-10-5.1-14.8-2.3L380.8 110c-17.9-15.4-38.5-27.3-60.8-35.1V25.8c0-5.6-3.9-10.5-9.4-11.7-36.7-8.2-74.3-7.8-109.2 0-5.5 1.2-9.4 6.1-9.4 11.7V75c-22.2 7.9-42.8 19.8-60.8 35.1L88.7 85.5c-4.9-2.8-11-1.9-14.8 2.3-24.7 26.7-43.6 58.9-54.7 94.6-1.7 5.4.6 11.2 5.5 14L67.3 221c-4.3 23.2-4.3 47 0 70.2l-42.6 24.6c-4.9 2.8-7.1 8.6-5.5 14 11.1 35.6 30 67.8 54.7 94.6 3.8 4.1 10 5.1 14.8 2.3l42.6-24.6c17.9 15.4 38.5 27.3 60.8 35.1v49.2c0 5.6 3.9 10.5 9.4 11.7 36.7 8.2 74.3 7.8 109.2 0 5.5-1.2 9.4-6.1 9.4-11.7v-49.2c22.2-7.9 42.8-19.8 60.8-35.1l42.6 24.6c4.9 2.8 11 1.9 14.8-2.3 24.7-26.7 43.6-58.9 54.7-94.6 1.5-5.5-.7-11.3-5.6-14.1zM256 336c-44.1 0-80-35.9-80-80s35.9-80 80-80 80 35.9 80 80-35.9 80-80 80z"
+          />
+        </svg>
+        , you can control the number of tracks that are added to the playlists as well as a couple of aspects of how they are generated. If 
+        <span
+          style="font-weight: bold;"
+        >
+          creativity
+        </span>
+         is set to 100%, then tracks are chosen with similar sound, energy, mood and instrumentation. It does this by simply "listening" and not using any information about the tracks themselves. If creativity is set to 0%, then tracks are selected based on similar artists ("Spotify users also included in their playlists..."). You can use the 
+        <span
+          style="font-weight: bold;"
+        >
+          noise
+        </span>
+         setting to add a bit of randomness.
+      </h5>
+    </span>
     <div
       style="margin-top: 15px;"
     />
-    <h5>
-      This was my Masters in Deep Learning project at 
-      <a
-        href="https://www.mbitschool.com/"
-        rel="noopener noreferrer"
-        target="_blank"
-      >
-        MBIT School
-      </a>
-      . If you want to learn about it works, check out this 
-      <a
-        href="https://towardsdatascience.com/create-automatic-playlists-by-using-deep-learning-to-listen-to-the-music-b72836c24ce2"
-        rel="noopener noreferrer"
-        target="_blank"
-      >
-        article
-      </a>
-      .
-    </h5>
+    <span>
+      <h5>
+        This was my Masters in Deep Learning projects at 
+        <a
+          href="https://www.mbitschool.com/"
+          rel="noopener noreferrer"
+          target="_blank"
+          text="MBIT School"
+          url="https://www.mbitschool.com/"
+        >
+          <span
+            text="MBIT School"
+            url="https://www.mbitschool.com/"
+          >
+            MBIT School
+          </span>
+        </a>
+        . If you want to learn about it works, check out this 
+        <a
+          href="https://towardsdatascience.com/create-automatic-playlists-by-using-deep-learning-to-listen-to-the-music-b72836c24ce2"
+          rel="noopener noreferrer"
+          target="_blank"
+          text="article"
+          url="https://towardsdatascience.com/create-automatic-playlists-by-using-deep-learning-to-listen-to-the-music-b72836c24ce2"
+        >
+          <span
+            text="article"
+            url="https://towardsdatascience.com/create-automatic-playlists-by-using-deep-learning-to-listen-to-the-music-b72836c24ce2"
+          >
+            article
+          </span>
+        </a>
+        .
+      </h5>
+    </span>
     <div
       style="margin-top: 15px;"
     />
     <div
-      class="align-items-center row"
+      style="display: flex; flex-direction: row; align-items: center; justify-content: space-evenly;"
     >
-      <div
-        class="col"
+      <a
+        alt="Get it on Google Play"
+        href="https://play.google.com/store/apps/details?id=online.deejai.www&pcampaignid=MKT-Other-global-all-co-prtnr-py-PartBadge-Mar2515-1"
+        rel="noopener noreferrer"
+        source="google-play-badge.png"
+        style="width: 150px; height: 60px;"
+        target="_blank"
+        url="https://play.google.com/store/apps/details?id=online.deejai.www&pcampaignid=MKT-Other-global-all-co-prtnr-py-PartBadge-Mar2515-1"
       >
-        <div
-          class="text-center"
-        >
-          <a
-            href="https://play.google.com/store/apps/details?id=online.deejai.www&pcampaignid=MKT-Other-global-all-co-prtnr-py-PartBadge-Mar2515-1"
-            rel="noopener noreferrer"
-            target="_blank"
-          >
-            <img
-              alt="Get it on Google Play"
-              src="https://play.google.com/intl/en_us/badges/images/generic/en_badge_web_generic.png"
-              width="150px"
-            />
-          </a>
-        </div>
-      </div>
-      <div
-        class="col"
+        <img
+          alt="Get it on Google Play"
+          source="google-play-badge.png"
+          src="google-play-badge.png"
+          style="width: 150px; height: 60px;"
+          url="https://play.google.com/store/apps/details?id=online.deejai.www&pcampaignid=MKT-Other-global-all-co-prtnr-py-PartBadge-Mar2515-1"
+        />
+      </a>
+      <a
+        alt="Get it on App Store"
+        href="https://apps.apple.com/us/app/deej-a-i/id1529860910?mt=8"
+        rel="noopener noreferrer"
+        source="download-on-the-app-store.png"
+        style="width: 120px; height: 40px;"
+        target="_blank"
+        url="https://apps.apple.com/us/app/deej-a-i/id1529860910?mt=8"
       >
-        <div
-          class="text-center"
-        >
-          <a
-            href="https://apps.apple.com/us/app/deej-a-i/id1529860910?mt=8"
-            rel="noopener noreferrer"
-            target="_blank"
-          >
-            <img
-              alt="Get it on iTunes"
-              src="https://linkmaker.itunes.apple.com/en-us/badge-lrg.svg?releaseDate=2020-09-01&kind=iossoftware&bubble=apple_music) no-repeat;width:135px;height:40px;"
-            />
-          </a>
-        </div>
-      </div>
+        <img
+          alt="Get it on App Store"
+          source="download-on-the-app-store.png"
+          src="download-on-the-app-store.png"
+          style="width: 120px; height: 40px;"
+          url="https://apps.apple.com/us/app/deej-a-i/id1529860910?mt=8"
+        />
+      </a>
     </div>
   </div>
   <div
     style="margin-top: 35px;"
   />
   <div
-    class="footer align-items-center bg-secondary row"
+    class="footer align-items-center bg-secondary"
+    style="display: flex; flex-direction: row; align-items: center; justify-content: space-evenly;"
   >
     <div
-      class="col"
+      style="display: flex; flex-direction: column;"
     />
     <div
-      class="col"
+      style="display: flex; flex-direction: column;"
     >
       <a
         href="https://www.linkedin.com/shareArticle?&url=https://deej-ai.online"
         rel="noopener noreferrer"
         target="_blank"
+        url="https://www.linkedin.com/shareArticle?&url=https://deej-ai.online"
       >
         <svg
           class="link"
@@ -1968,12 +2127,13 @@ exports[`app routing 6`] = `
       </a>
     </div>
     <div
-      class="col"
+      style="display: flex; flex-direction: column;"
     >
       <a
         href="https://www.facebook.com/sharer/sharer.php?u=https://deej-ai.online"
         rel="noopener noreferrer"
         target="_blank"
+        url="https://www.facebook.com/sharer/sharer.php?u=https://deej-ai.online"
       >
         <svg
           class="link"
@@ -1992,12 +2152,13 @@ exports[`app routing 6`] = `
       </a>
     </div>
     <div
-      class="col"
+      style="display: flex; flex-direction: column;"
     >
       <a
         href="https://twitter.com/intent/tweet?text=Check%20this%20https://deej-ai.online%20@att_coach"
         rel="noopener noreferrer"
         target="_blank"
+        url="https://twitter.com/intent/tweet?text=Check%20this%20https://deej-ai.online%20@att_coach"
       >
         <svg
           class="link"
@@ -2016,12 +2177,13 @@ exports[`app routing 6`] = `
       </a>
     </div>
     <div
-      class="col"
+      style="display: flex; flex-direction: column;"
     >
       <a
         href="https://www.reddit.com/submit?url=https://deej-ai.online&title=Deej-A.I.%20-%20Automatically%20generate%20playlists%20based%20on%20how%20the%20music%20sounds"
         rel="noopener noreferrer"
         target="_blank"
+        url="https://www.reddit.com/submit?url=https://deej-ai.online&title=Deej-A.I.%20-%20Automatically%20generate%20playlists%20based%20on%20how%20the%20music%20sounds"
       >
         <svg
           class="link"
@@ -2040,12 +2202,13 @@ exports[`app routing 6`] = `
       </a>
     </div>
     <div
-      class="col"
+      style="display: flex; flex-direction: column;"
     >
       <a
         href="https://medium.com/@teticio"
         rel="noopener noreferrer"
         target="_blank"
+        url="https://medium.com/@teticio"
       >
         <svg
           class="link"
@@ -2064,12 +2227,13 @@ exports[`app routing 6`] = `
       </a>
     </div>
     <div
-      class="col"
+      style="display: flex; flex-direction: column;"
     >
       <a
         href="https://github.com/teticio/Deej-A.I."
         rel="noopener noreferrer"
         target="_blank"
+        url="https://github.com/teticio/Deej-A.I."
       >
         <svg
           class="link"
@@ -2088,7 +2252,7 @@ exports[`app routing 6`] = `
       </a>
     </div>
     <div
-      class="col"
+      style="display: flex; flex-direction: column;"
     />
   </div>
 </DocumentFragment>

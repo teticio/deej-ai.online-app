@@ -1,5 +1,4 @@
-import { PureComponent } from 'react';
-import { Suspense } from 'react';
+import { PureComponent, Suspense } from 'react';
 import Spinner from 'react-bootstrap/Spinner';
 import VisibilitySensor from 'react-visibility-sensor';
 import './Track.css';
@@ -63,8 +62,13 @@ export default function Track({
   return (
     <Suspense fallback={
       <div
-        className='d-flex justify-content-center align-items-center align-middle'
-        style={{ height: 80, width: '100%' }}
+        style={{
+          display: 'flex',
+          height: 80,
+          width: '100%',
+          justifyContent: 'center',
+          alignItems: 'center'
+        }}
       >
         <Spinner animation='border' />
       </div>

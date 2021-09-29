@@ -4,189 +4,189 @@ exports[`track search 1`] = `
 Array [
   <option
     data-testid="track"
+    label="Cage The Elephant - James Brown"
+    style="width: 100%;"
     value="21QIUV4JxFRym3XDhUxO52"
-  >
-    Cage The Elephant - James Brown
-  </option>,
+  />,
   <option
     data-testid="track"
+    label="James Brown & The Famous Flames - I Got You (I Feel Good)"
+    style="width: 100%;"
     value="0rTkE0FmT4zT2xL6GXwosU"
-  >
-    James Brown & The Famous Flames - I Got You (I Feel Good)
-  </option>,
+  />,
   <option
     data-testid="track"
+    label="James Brown & The Famous Flames - It's A Man's, Man's, Man's World"
+    style="width: 100%;"
     value="3SQ9Hb9rfpJ02AWfaOPhpy"
-  >
-    James Brown & The Famous Flames - It's A Man's, Man's, Man's World
-  </option>,
+  />,
   <option
     data-testid="track"
+    label="James Brown - Cold Sweat"
+    style="width: 100%;"
     value="7Aroy5dZs3mY2cFEWexlcG"
-  >
-    James Brown - Cold Sweat
-  </option>,
+  />,
   <option
     data-testid="track"
+    label="James Brown - Get Up (I Feel Like Being A) Sex Machine - Pt. 1 & 2"
+    style="width: 100%;"
     value="7gJLBHI6q2ca0JzfNHwXjm"
-  >
-    James Brown - Get Up (I Feel Like Being A) Sex Machine - Pt. 1 & 2
-  </option>,
+  />,
   <option
     data-testid="track"
+    label="James Brown - Get Up (I Feel Like Being A) Sex Machine - Pt. 1 & 2"
+    style="width: 100%;"
     value="295ZWWZXJtTpjY4BA4fQJt"
-  >
-    James Brown - Get Up (I Feel Like Being A) Sex Machine - Pt. 1 & 2
-  </option>,
+  />,
   <option
     data-testid="track"
+    label="James Brown - Get Up (I Feel Like Being A) Sex Machine - Pt. 1 & 2"
+    style="width: 100%;"
     value="0tERCb22oQgVKNZmp9Lmyj"
-  >
-    James Brown - Get Up (I Feel Like Being A) Sex Machine - Pt. 1 & 2
-  </option>,
+  />,
   <option
     data-testid="track"
+    label="James Brown - Get Up Offa That Thing"
+    style="width: 100%;"
     value="2q8eudK0r9ImgCB1XhFfxG"
-  >
-    James Brown - Get Up Offa That Thing
-  </option>,
+  />,
   <option
     data-testid="track"
+    label="James Brown - Get Up Offa That Thing"
+    style="width: 100%;"
     value="16Wqad0VEQP195srPEIThY"
-  >
-    James Brown - Get Up Offa That Thing
-  </option>,
+  />,
   <option
     data-testid="track"
+    label="James Brown - Get Up Offa That Thing"
+    style="width: 100%;"
     value="3whRKAOlJ0M3banzcChvQv"
-  >
-    James Brown - Get Up Offa That Thing
-  </option>,
+  />,
   <option
     data-testid="track"
+    label="James Brown - I Got The Feelin'"
+    style="width: 100%;"
     value="3UPWHgwMFfpE7dIWubNIXr"
-  >
-    James Brown - I Got The Feelin'
-  </option>,
+  />,
   <option
     data-testid="track"
+    label="James Brown - I Got You (I Feel Good)"
+    style="width: 100%;"
     value="6yqThFsiJG2jUEA6jdhruE"
-  >
-    James Brown - I Got You (I Feel Good)
-  </option>,
+  />,
   <option
     data-testid="track"
+    label="James Brown - It's A Man's, Man's, Man's World"
+    style="width: 100%;"
     value="2hXpZ5RZtDvOFK92CSUq1E"
-  >
-    James Brown - It's A Man's, Man's, Man's World
-  </option>,
+  />,
   <option
     data-testid="track"
+    label="James Brown - It's a Man's, Man's, Man's World"
+    style="width: 100%;"
     value="5rsnq2h3OLOg1FnW8m1trx"
-  >
-    James Brown - It's a Man's, Man's, Man's World
-  </option>,
+  />,
   <option
     data-testid="track"
+    label="James Brown - Living In America"
+    style="width: 100%;"
     value="6EmlQzYEiU4v3HAfyCyUJ5"
-  >
-    James Brown - Living In America
-  </option>,
+  />,
   <option
     data-testid="track"
+    label="James Brown - Living in America"
+    style="width: 100%;"
     value="6i6ETV4DCuhLtnlZ6Xlypd"
-  >
-    James Brown - Living in America
-  </option>,
+  />,
   <option
     data-testid="track"
+    label="James Brown - Living in America"
+    style="width: 100%;"
     value="4Y5yjzs9FFw5qIgfZBd43I"
-  >
-    James Brown - Living in America
-  </option>,
+  />,
   <option
     data-testid="track"
+    label="James Brown - Papa's Got A Brand New Bag - Pt. 1"
+    style="width: 100%;"
     value="0T7ph5mpPbRTaIk5jCz0sC"
-  >
-    James Brown - Papa's Got A Brand New Bag - Pt. 1
-  </option>,
+  />,
   <option
     data-testid="track"
+    label="James Brown - People Get Up And Drive Your Funky Soul"
+    style="width: 100%;"
     value="7FqcsBx3azfOg1gAJkAXje"
-  >
-    James Brown - People Get Up And Drive Your Funky Soul
-  </option>,
+  />,
   <option
     data-testid="track"
+    label="James Brown - People Get Up And Drive Your Funky Soul - Remix"
+    style="width: 100%;"
     value="58iP9J86ksOPwbo0pWOafk"
-  >
-    James Brown - People Get Up And Drive Your Funky Soul - Remix
-  </option>,
+  />,
   <option
     data-testid="track"
+    label="James Brown - Please Please Please"
+    style="width: 100%;"
     value="1KqWKHh36bJG96CCFUcqiT"
-  >
-    James Brown - Please Please Please
-  </option>,
+  />,
   <option
     data-testid="track"
+    label="James Brown - Sexmachine (Part 1 And 2)"
+    style="width: 100%;"
     value="5wWLhUJdb1Ebb01gGHIa38"
-  >
-    James Brown - Sexmachine (Part 1 And 2)
-  </option>,
+  />,
   <option
     data-testid="track"
+    label="James Brown - The Boss"
+    style="width: 100%;"
     value="6LzjgzpVl0hB3YrBU1b8Z1"
-  >
-    James Brown - The Boss
-  </option>,
+  />,
   <option
     data-testid="track"
+    label="James Brown - The Boss"
+    style="width: 100%;"
     value="6Mg17BebEPPQiu628sGJGC"
-  >
-    James Brown - The Boss
-  </option>,
+  />,
   <option
     data-testid="track"
+    label="James Brown - The Payback"
+    style="width: 100%;"
     value="6SaOWdixuJbg010zPmwjOw"
-  >
-    James Brown - The Payback
-  </option>,
+  />,
   <option
     data-testid="track"
+    label="James Brown - The Payback"
+    style="width: 100%;"
     value="5OcyX5eg7VrJuI833qOCUc"
-  >
-    James Brown - The Payback
-  </option>,
+  />,
   <option
     data-testid="track"
+    label="James Brown - The Payback - Part 1"
+    style="width: 100%;"
     value="0E4Tb9UvOHgI5v59yG50Wm"
-  >
-    James Brown - The Payback - Part 1
-  </option>,
+  />,
   <option
     data-testid="track"
+    label="James Brown - Try Me"
+    style="width: 100%;"
     value="6bs9zxCTiAzYXsE7dEBrF5"
-  >
-    James Brown - Try Me
-  </option>,
+  />,
   <option
     data-testid="track"
+    label="James Brown - Unchained (The Payback / Untouchable)"
+    style="width: 100%;"
     value="47Zqlw3jmibtVPy8usPjBj"
-  >
-    James Brown - Unchained (The Payback / Untouchable)
-  </option>,
+  />,
   <option
     data-testid="track"
+    label="L.A. Style - James Brown Is Dead (Original Mix)"
+    style="width: 100%;"
     value="5EEsZl9wCWtPHXoi9I9PY7"
-  >
-    L.A. Style - James Brown Is Dead (Original Mix)
-  </option>,
+  />,
   <option
     data-testid="track"
+    label="Tower Of Power - Diggin' On James Brown"
+    style="width: 100%;"
     value="0tIUC7pNotlR2fxrpNcEMb"
-  >
-    Tower Of Power - Diggin' On James Brown
-  </option>,
+  />,
 ]
 `;

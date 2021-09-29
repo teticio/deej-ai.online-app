@@ -1,6 +1,7 @@
-import { useState, useEffect, useReducer } from 'react';
-import { VerticalSpacer } from '../lib';
+import React, { useState, useEffect, useReducer } from 'react';
 import ShowPlaylists from './ShowPlaylists';
+import { Text } from './Platform';
+import { VerticalSpacer } from './Lib';
 
 export async function getLatestPlaylists(top_n) {
   const response = await fetch(`${process.env.REACT_APP_API_URL}/latest_playlists?top_n=${top_n}`);
@@ -26,15 +27,16 @@ export default function LatestPlaylists({ spotify }) {
 
   return (
     <>
-      <VerticalSpacer px={10} />
-      <h3 style={{ textAlign: 'center' }}>Latest playlists</h3>
+      <VerticalSpacer />
+      <Text h4 style={{ textAlign: 'center' }}>Latest playlists</Text>
+      <VerticalSpacer />
       <ShowPlaylists
         playlists={playlists}
         spotify={spotify}
       />
-      <span onClick={loadMore}>
-        <h6 className='link' style={{ textAlign: 'center' }}>Load more...</h6>
-      </span>
+      <Text h6 onClick={loadMore} className='link' style={{ textAlign: 'center' }}>
+        Load more...
+      </Text>
     </>
   );
 }

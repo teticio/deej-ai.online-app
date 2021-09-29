@@ -5,6 +5,13 @@
   "version": "0.2.0",
   "configurations": [
     {
+      "name": "Launch Chrome",
+      "request": "launch",
+      "type": "pwa-chrome",
+      "url": "http://localhost:19000/debugger-ui/",
+      "webRoot": "${workspaceFolder}"
+    },
+    {
       "name": "Attach to Chrome",
       "port": 9222,
       "request": "attach",
@@ -27,12 +34,21 @@
         "DOCS_URL": "/docs",
         "REDOC_URL": "/redoc"
       },
+      "osx": {
+        "env": {
+          "APP_URL": "http://localhost:3000",
+          "DOCS_URL": "/docs",
+          "REDOC_URL": "/redoc",
+          "HACKINTOSH": "1"
+        }
+      },
       "module": "uvicorn",
       "args": [
         "backend.main:app",
         "--reload",
         "--reload-dir",
         "backend",
+        "--host=0.0.0.0",
         "--port=8001"
       ],
       "jinja": true

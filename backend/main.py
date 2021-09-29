@@ -75,6 +75,7 @@ origins = [
     'http://localhost:3000',
     'http://127.0.0.1:8080',
     'http://localhost',
+    'http://localhost:19006',
 ]
 
 app.add_middleware(
@@ -169,7 +170,10 @@ async def spotify_callback(code: str, state: Optional[str] = '/'):
         'refresh_token': json['refresh_token'],
         'route': state
     }
-    url = os.environ.get('APP_URL', '') + '#' + urllib.parse.urlencode(body)
+    if state.startswith('deejai://'):
+        url = state + '?' + urllib.parse.urlencode(body)
+    else:
+        url = os.environ.get('APP_URL', '') + '#' + urllib.parse.urlencode(body)
     return RedirectResponse(url=url)
 
 
