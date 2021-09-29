@@ -9,16 +9,6 @@ export { FaPlus, FaForward, FaBackward, FaCloudUploadAlt, FaPen, FaSpotify, FaCo
 export { MdStar, MdStarHalf, MdStarBorder };
 export { Container, Card, Spinner, Form, Navbar, Nav };
 
-export const getHashParams = () => {
-  var hashParams = {};
-  var e, r = /([^&;=]+)=?([^&;]*)/g,
-    q = window.location.hash.substring(1);
-  while ((e = r.exec(q)) !== null) {
-    hashParams[e[1]] = decodeURIComponent(e[2]);
-  }
-  return hashParams;
-};
-
 export function ReactJSOnly(props) {
   return <>{ props.children }</>;
 }

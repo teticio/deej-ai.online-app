@@ -4,6 +4,16 @@ import { useState, useEffect } from 'react';
 
 export const createArray = length => (length > 0) ? [...Array(length)] : [];
 
+export const getHashParams = hash => {
+  var hashParams = {};
+  var e, r = /([^&;=]+)=?([^&;]*)/g,
+    q = hash;
+  while ((e = r.exec(q)) !== null) {
+    hashParams[e[1]] = decodeURIComponent(e[2]);
+  }
+  return hashParams;
+};
+
 var timerId = null;
 
 export const debounceFunction = function (func, delay) {

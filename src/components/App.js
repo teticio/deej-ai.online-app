@@ -1,7 +1,7 @@
 import React, { useState, useEffect, createElement } from 'react';
 import { Routes, Route, useNavigate } from 'react-router-dom';
-import { getHashParams, Container } from './Platform';
-import { usePersistedState } from './Lib';
+import { Container } from './Platform';
+import { getHashParams, usePersistedState } from './Lib';
 import Banner from './Banner';
 import Footer from './Footer';
 import Spotify from './Spotify';
@@ -13,7 +13,7 @@ try {
 } catch (e) { }
 
 export default function App() {
-  const hashParams = getHashParams();
+  const hashParams = getHashParams(window.location.hash.substring(1));
   const spotify = new Spotify(hashParams);
   const [loggedIn, setLoggedIn] = useState(spotify.loggedIn());
   const [waypoints, setWaypoints] = usePersistedState('waypoints', { track_ids: [] });

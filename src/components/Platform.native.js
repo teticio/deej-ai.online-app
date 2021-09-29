@@ -13,10 +13,6 @@ const FA_ICON = require('react-native-vector-icons').FontAwesome5;
 export { Card };
 export { TextInput };
 
-export const getHashParams = () => {
-  return '';
-};
-
 export function ReactJSOnly(props) {
   return <></>;
 }
@@ -134,10 +130,12 @@ export function Link(props) {
     return (
       <Text
         onPress={handlePress}
+        {...props}
         style={{
           color: colors.accent,
           backgroundColor: colors.surface,
-          textDecorationLine: 'underline'
+          textDecorationLine: 'underline',
+          ...props.style
         }}
       >{props.text ? props.text : ''}
       </Text>

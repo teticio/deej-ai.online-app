@@ -1,8 +1,9 @@
 import React, { useState, createElement, useEffect } from 'react';
+import { Linking } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
-import { getHashParams, ScrollView } from './Platform';
-import { usePersistedState } from './Lib';
+import { ScrollView } from './Platform';
+import { getHashParams, usePersistedState } from './Lib';
 import { getRoutes } from './Menu';
 import Banner from './Banner';
 import Spotify from './Spotify';
@@ -24,8 +25,7 @@ export function Screen(props) {
 }
 
 export default function App(props) {
-  const hashParams = getHashParams();
-  const spotify = new Spotify(hashParams);
+  const [spotify, setSpotify] = useState(new Spotify({ }));
   const [loggedIn, setLoggedIn] = useState(spotify.loggedIn());
   const [waypoints, setWaypoints] = usePersistedState('waypoints', { track_ids: [] });
   const [playlist, setPlaylist] = usePersistedState('playlist', { track_ids: [] });
@@ -43,15 +43,19 @@ export default function App(props) {
     spotify, navigate 
   );
 
+  Linking.addEventListener('url', event => {
+    const params = getHashParams(event.url.substring(event.url.indexOf('?') + 1));
+    setSpotify(new Spotify(params));
+  });
 
   useEffect(() => {
     _navigate(route, routes[route]);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [route]);
 
-  const handleSelect = route => {
+  const handleSelect = async route => {
     if (route === '/login') {
-      window.location.href = `${process.env.REACT_APP_API_URL}/login?state=${window.location.pathname}`;
+      await Linking.openURL(`${process.env.REACT_APP_API_URL}/login?state=deejai://`);
       setLoggedIn(spotify.loggedIn());
     } else if (route === '/logout') {
       spotify.logOut();
