@@ -2,7 +2,8 @@ import React, { useState, createElement, useEffect } from 'react';
 import { Linking, SafeAreaView } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
-import { View, ScrollView } from './Platform';
+import { useTheme } from 'react-native-paper';
+import { ScrollView } from './Platform';
 import { getHashParams, usePersistedState } from './Lib';
 import { getRoutes } from './Menu';
 import Banner from './Banner';
@@ -27,19 +28,21 @@ export default function App(props) {
   );
 
   function Screen(props) {
+    const { colors } = useTheme();
+
     return (
-      <SafeAreaView>
+      <SafeAreaView style={{ backgroundColor: colors.background }}>
         <Banner
           loggedIn={loggedIn}
           onSelect={handleSelect}
           subtitle={props.route.params ? props.route.params.title : null}
         />
         {['/top', '/latest', '/most_uploaded', '/search'].includes(props.route.name) ?
-          <View style={{ height: '100%' }}>
+          <>
             {props.route.params ?
               createElement(props.route.params.element, props.route.params) : <></>
             }
-          </View> :
+          </> :
           <ScrollView style={{ padding: 15 }}>
             {props.route.params ?
               createElement(props.route.params.element, props.route.params) : <></>

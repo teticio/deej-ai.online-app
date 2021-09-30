@@ -15,8 +15,7 @@ export default function ShowPlaylists({ playlists, spotify = null, header = null
   const Item = ({ playlist }) => {
     return (
       <>
-        <VerticalSpacer />
-        <Card style={{ marginRight: 5, marginLeft: 5, padding: 15 }}>
+        <Card style={{ margin: 5, padding: 15 }}>
           <ShowPlaylist
             playlist={playlist}
             spotify={spotify}
