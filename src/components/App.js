@@ -1,7 +1,7 @@
 import React, { useState, useEffect, createElement } from 'react';
 import { Routes, Route, useNavigate } from 'react-router-dom';
-import { Container } from './Platform';
-import { getHashParams, usePersistedState } from './Lib';
+import { Container, Text } from './Platform';
+import { getHashParams, usePersistedState, VerticalSpacer } from './Lib';
 import Banner from './Banner';
 import Footer from './Footer';
 import Spotify from './Spotify';
@@ -23,13 +23,24 @@ export default function App() {
   const [noise, setNoise] = usePersistedState('noise', 0);
   const navigate = useNavigate();
   const routes = getRoutes(
-    waypoints, setWaypoints,
-    size, setSize,
-    creativity, setCreativity,
-    noise, setNoise, 
-    playlist, setPlaylist,
-    spotify, navigate
+    waypoints, setWaypoints, size, setSize, creativity, setCreativity,
+    noise, setNoise, playlist, setPlaylist, spotify, navigate, 4
   );
+
+  function Screen({ element, title, params }) {
+    return (
+      <>
+        {title ?
+          <>
+            <VerticalSpacer />
+            <Text h4 style={{ textAlign: 'center' }}>{title}</Text>
+            <VerticalSpacer />
+          </> : <></>
+        }
+        {createElement(element, params)}
+      </>
+    );
+  }
 
   useEffect(() => {
     if ('route' in hashParams) {
@@ -55,7 +66,13 @@ export default function App() {
           {Object.keys(routes).map(route => (
             <Route
               path={route}
-              element={createElement(routes[route].element, routes[route])}
+              element={
+                <Screen
+                  element={routes[route].element}
+                  title={routes[route].title}
+                  params={routes[route]}
+                />
+              }
             />
           ))}
         </Routes>

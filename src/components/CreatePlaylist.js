@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Text, Card, Spinner, Hr, FaForward, FaCog } from './Platform';
+import { Card, Spinner, Hr, FaForward, FaCog } from './Platform';
 import { VerticalSpacer, Row } from './Lib';
 import AddTrack from './AddTrack';
 import RemovablePlaylist from './RemovablePlaylist';
@@ -35,9 +35,6 @@ export default function CreatePlaylist({
 
   return (
     <>
-      <VerticalSpacer />
-      <Text h4 style={{ textAlign: 'center' }}>Choose the waypoints for your musical journey</Text>
-      <VerticalSpacer />
       <AddTrack
         numTracks={_waypoints.track_ids.length}
         spotify={spotify}

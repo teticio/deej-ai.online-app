@@ -4,9 +4,9 @@ import { Col, Row, VerticalSpacer } from './Lib';
 
 try {
   require('./Banner.css');
-} catch (e) {}
+} catch (e) { }
 
-export default function Banner({ loggedIn = false, onSelect = f => f }) {
+export default function Banner({ loggedIn = false, onSelect = f => f, subtitle = null }) {
   const [expanded, setExpanded] = useState(false);
 
   return (
@@ -24,7 +24,7 @@ export default function Banner({ loggedIn = false, onSelect = f => f }) {
           <Navbar.Brand
             href='#'
             title='Deej-A.I.'
-            subtitle='by Robert Dargavel Smith'
+            subtitle={subtitle ? subtitle : 'by Robert Dargavel Smith'}
           >
             <Row>
               <Col sm='auto'>

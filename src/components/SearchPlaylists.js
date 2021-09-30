@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useReducer } from 'react';
 import ShowPlaylists from './ShowPlaylists';
-import { Card, Text, TextInput, FaSearch } from './Platform';
+import { ReactJSOnly, Card, Text, TextInput, FaSearch } from './Platform';
 import { Row, HorizontalSpacer, VerticalSpacer } from './Lib';
 
 export async function searchPlaylists(searchString, maxItems) {
@@ -16,8 +16,8 @@ export async function searchPlaylists(searchString, maxItems) {
   return playlists;
 }
 
-export default function SearchPlaylists({ spotify }) {
-  const [topN, loadMore] = useReducer(n => n + 4, 4);
+export default function SearchPlaylists({ spotify, numPlaylists = 4 }) {
+  const [topN, loadMore] = useReducer(n => n + 4, numPlaylists);
   const [playlists, setPlaylists] = useState([]);
   const [editing, setEditing] = useState(true);
   const [searchString, setSearchString] = useState('');
@@ -41,9 +41,6 @@ export default function SearchPlaylists({ spotify }) {
 
   return (
     <>
-      <VerticalSpacer />
-      <Text h4 style={{ textAlign: 'center' }}>Search playlists</Text>
-      <VerticalSpacer />
       <Card>
         <Row style={{ justifyContent: 'flex-start', padding: 15 }} surface={true}>
           <Text onClick={() => setEditing(true)}>
@@ -72,12 +69,14 @@ export default function SearchPlaylists({ spotify }) {
         playlists={playlists}
         spotify={spotify}
       />
-      {
-        actualSearchString !== '' ?
-          <Text h6 onClick={loadMore} className='link' style={{ textAlign: 'center' }}>
-            Load more...
-          </Text> : <></>
-      }
+      <ReactJSOnly>
+        {
+          actualSearchString !== '' ?
+            <Text h6 onClick={loadMore} className='link' style={{ textAlign: 'center' }}>
+              Load more...
+            </Text> : <></>
+        }
+      </ReactJSOnly>
     </>
   );
 }
