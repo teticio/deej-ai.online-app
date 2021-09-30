@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useReducer } from 'react';
 import ShowPlaylists from './ShowPlaylists';
-import { Card, Text, TextInput, FaSearch } from './Platform';
+import { ReactJSOnly, Card, Text, TextInput, FaSearch } from './Platform';
 import { Row, HorizontalSpacer, VerticalSpacer } from './Lib';
 
 export async function searchPlaylists(searchString, maxItems) {
@@ -16,16 +16,48 @@ export async function searchPlaylists(searchString, maxItems) {
   return playlists;
 }
 
-export default function SearchPlaylists({ spotify }) {
-  const [topN, loadMore] = useReducer(n => n + 4, 4);
+export default function SearchPlaylists({ spotify, numPlaylists = 4 }) {
+  const [topN, loadMore] = useReducer(n => n + 4, numPlaylists);
   const [playlists, setPlaylists] = useState([]);
   const [editing, setEditing] = useState(true);
-  const [searchString, setSearchString] = useState('');
   const [actualSearchString, setActualSearchString] = useState('');
 
-  const handleUpdate = () => {
+  const handleUpdate = searchString => {
     setActualSearchString(searchString);
     setEditing(false);
+  }
+
+  const SearchPlaylistsWidget = () => {
+    const [searchString, setSearchString] = useState('');
+
+    return (
+      <>
+        <VerticalSpacer />
+        <Card>
+          <Row style={{ justifyContent: 'flex-start', padding: 15 }} surface={true}>
+            <Text onClick={() => setEditing(true)}>
+              <FaSearch />
+            </Text>
+            <HorizontalSpacer />
+            {editing ?
+              <TextInput
+                placeholder='Search...'
+                value={searchString}
+                onChange={event => setSearchString(event.target.value)}
+                onChangeText={value => setSearchString(value)}
+                onBlur={() => handleUpdate(searchString)}
+                onKeyUp={event => {
+                  if (event.key === 'Enter') {
+                    handleUpdate(searchString);
+                  }
+                }}
+              /> :
+              <Text>{searchString}</Text>
+            }
+          </Row>
+        </Card>
+      </>
+    );
   }
 
   useEffect(() => {
@@ -41,43 +73,22 @@ export default function SearchPlaylists({ spotify }) {
 
   return (
     <>
-      <VerticalSpacer />
-      <Text h4 style={{ textAlign: 'center' }}>Search playlists</Text>
-      <VerticalSpacer />
-      <Card>
-        <Row style={{ justifyContent: 'flex-start', padding: 15 }} surface={true}>
-          <Text onClick={() => setEditing(true)}>
-            <FaSearch />
-          </Text>
-          <HorizontalSpacer />
-          {editing ?
-            <TextInput
-              placeholder='Search...'
-              value={searchString}
-              onChange={event => setSearchString(event.target.value)}
-              onChangeText={value => setSearchString(value)}
-              onBlur={handleUpdate}
-              onKeyUp={event => {
-                if (event.key === 'Enter') {
-                  handleUpdate();
-                }
-              }}
-            /> :
-            <Text>{searchString}</Text>
-          }
-        </Row>
-      </Card>
-      <VerticalSpacer />
+      <ReactJSOnly>
+        <SearchPlaylistsWidget />
+      </ReactJSOnly>
       <ShowPlaylists
         playlists={playlists}
         spotify={spotify}
+        header={SearchPlaylistsWidget}
       />
-      {
-        actualSearchString !== '' ?
-          <Text h6 onClick={loadMore} className='link' style={{ textAlign: 'center' }}>
-            Load more...
-          </Text> : <></>
-      }
+      <ReactJSOnly>
+        {
+          actualSearchString !== '' ?
+            <Text h6 onClick={loadMore} className='link' style={{ textAlign: 'center' }}>
+              Load more...
+            </Text> : <></>
+        }
+      </ReactJSOnly>
     </>
   );
 }

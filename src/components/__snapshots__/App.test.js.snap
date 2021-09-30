@@ -556,7 +556,7 @@ exports[`app routing 2`] = `
       style="text-align: center;"
     >
       <h4>
-        Top rated playlists
+        Top playlists
       </h4>
     </span>
     <div
@@ -1532,6 +1532,9 @@ exports[`app routing 5`] = `
       style="margin-top: 10px;"
     />
     <div
+      style="margin-top: 10px;"
+    />
+    <div
       class="card"
     >
       <div
@@ -1561,9 +1564,6 @@ exports[`app routing 5`] = `
         />
       </div>
     </div>
-    <div
-      style="margin-top: 10px;"
-    />
   </div>
   <div
     style="margin-top: 35px;"

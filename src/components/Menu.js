@@ -15,11 +15,12 @@ export const getRoutes = (
   creativity, setCreativity,
   noise, setNoise, 
   playlist, setPlaylist,
-  spotify, navigate
+  spotify, navigate, numPlaylists
 ) => {
   return {
     '/': {
       element: CreatePlaylist,
+      title: "Choose the waypoints for your musical journey",
       waypoints: waypoints,
       size: size,
       creativity: creativity,
@@ -45,6 +46,7 @@ export const getRoutes = (
     },
     '/settings': {
       element: Settings,
+      title: "Settings",
       size: size,
       creativity: creativity,
       noise: noise,
@@ -57,22 +59,31 @@ export const getRoutes = (
     },
     '/latest': {
       element: LatestPlaylists,
-      spotify: spotify
+      title: "Latest playlists",
+      spotify: spotify,
+      numPlaylists: numPlaylists
     },
     '/top': {
       element: TopPlaylists,
-      spotify: spotify
+      title: "Top playlists",
+      spotify: spotify,
+      numPlaylists: numPlaylists
     },
     '/most_uploaded': {
       element: MostUploadedPlaylists,
-      spotify: spotify
+      title: "Most uploaded playlists",
+      spotify: spotify,
+      numPlaylists: numPlaylists
     },
     '/search': {
       element: SearchPlaylists,
-      spotify: spotify
+      title: "Search playlists",
+      spotify: spotify,
+      numPlaylists: numPlaylists
     },
     '/about': {
-      element: About
+      element: About,
+      title: "About Deej-A.I."
     },
     '/privacy_policy': {
       element: PrivacyPolicy
@@ -81,7 +92,8 @@ export const getRoutes = (
       element: PrivacyPolicy
     },
     '*': {
-      element: NotFound
+      element: NotFound,
+      title: "I still haven't found what you're looking for..."
     }
   };
 }

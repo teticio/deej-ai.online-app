@@ -1,7 +1,6 @@
 import React, { useState, useEffect, useReducer } from 'react';
 import ShowPlaylists from './ShowPlaylists';
-import { Text } from './Platform';
-import { VerticalSpacer } from './Lib';
+import { ReactJSOnly, Text } from './Platform';
 
 export async function getTopPlaylists(top_n) {
   const response = await fetch(`${process.env.REACT_APP_API_URL}/top_playlists?top_n=${top_n}`);
@@ -14,8 +13,8 @@ export async function getTopPlaylists(top_n) {
   return playlists;
 }
 
-export default function TopPlaylists({ spotify }) {
-  const [topN, loadMore] = useReducer(n => n + 4, 4);
+export default function TopPlaylists({ spotify, numPlaylists = 4 }) {
+  const [topN, loadMore] = useReducer(n => n + 4, numPlaylists);
   const [playlists, setPlaylists] = useState([]);
 
   useEffect(() => {
@@ -27,16 +26,15 @@ export default function TopPlaylists({ spotify }) {
 
   return (
     <>
-      <VerticalSpacer />
-      <Text h4 style={{ textAlign: 'center' }}>Top rated playlists</Text>
-      <VerticalSpacer />
       <ShowPlaylists
         playlists={playlists}
         spotify={spotify}
       />
-      <Text h6 onClick={loadMore} className='link' style={{ textAlign: 'center' }}>
-        Load more...
-      </Text>
+      <ReactJSOnly>
+        <Text h6 onClick={loadMore} className='link' style={{ textAlign: 'center' }}>
+          Load more...
+        </Text>
+      </ReactJSOnly>
     </>
   );
 }

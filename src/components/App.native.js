@@ -1,9 +1,9 @@
 import React, { useState, createElement, useEffect } from 'react';
-import { Linking } from 'react-native';
+import { Linking, SafeAreaView } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
-import { ScrollView } from './Platform';
-import { getHashParams, usePersistedState } from './Lib';
+import { View, ScrollView } from './Platform';
+import { getHashParams, usePersistedState, VerticalSpacer } from './Lib';
 import { getRoutes } from './Menu';
 import Banner from './Banner';
 import Spotify from './Spotify';
@@ -11,21 +11,8 @@ import ErrorBoundary from './ErrorBoundary';
 
 const Stack = createStackNavigator();
 
-export function Screen(props) {
-  return (
-    <ScrollView
-      style={{
-        paddingLeft: 15,
-        paddingRight: 15
-      }}>
-      {props.route.params ?
-        createElement(props.route.params.element, props.route.params) : <></>}
-    </ScrollView>
-  );
-}
-
 export default function App(props) {
-  const [spotify, setSpotify] = useState(new Spotify({ }));
+  const [spotify, setSpotify] = useState(new Spotify({}));
   const [loggedIn, setLoggedIn] = useState(spotify.loggedIn());
   const [waypoints, setWaypoints] = usePersistedState('waypoints', { track_ids: [] });
   const [playlist, setPlaylist] = usePersistedState('playlist', { track_ids: [] });
@@ -35,13 +22,37 @@ export default function App(props) {
   const [route, navigate] = useState('/');
   const _navigate = useNavigation().navigate;
   const routes = getRoutes(
-    waypoints, setWaypoints,
-    size, setSize,
-    creativity, setCreativity,
-    noise, setNoise, 
-    playlist, setPlaylist,
-    spotify, navigate 
+    waypoints, setWaypoints, size, setSize, creativity, setCreativity,
+    noise, setNoise, playlist, setPlaylist, spotify, navigate, 20
   );
+
+  function Screen(props) {
+    return (
+      <>
+        <Banner
+          loggedIn={loggedIn}
+          onSelect={handleSelect}
+          subtitle={props.route.params ? props.route.params.title : null}
+        />
+        <SafeAreaView style={{ flex: 1 }}>
+          {['/top', '/latest', '/most_uploaded', '/search'].includes(props.route.name) ?
+            <View style={{ height: '100%' }}>
+              {props.route.params ?
+                createElement(props.route.params.element, props.route.params) : <></>
+              }
+            </View> :
+            <ScrollView style={{ height: '100%' }}>
+              <View style={{ padding: 15 }}>
+                {props.route.params ?
+                  createElement(props.route.params.element, props.route.params) : <></>
+                }
+              </View>
+            </ScrollView>
+          }
+        </SafeAreaView>
+      </>
+    );
+  }
 
   Linking.addEventListener('url', event => {
     const params = getHashParams(event.url.substring(event.url.indexOf('?') + 1));
@@ -67,7 +78,6 @@ export default function App(props) {
 
   return (
     <ErrorBoundary>
-      <Banner loggedIn={loggedIn} onSelect={handleSelect} />
       <Stack.Navigator initialRouteName='/'>
         {Object.keys(routes).map(route => (
           <Stack.Screen
