@@ -1,5 +1,5 @@
 import React, { useState, createElement, useEffect } from 'react';
-import { Linking } from 'react-native';
+import { Linking, SafeAreaView } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { View, ScrollView } from './Platform';
@@ -28,14 +28,14 @@ export default function App(props) {
 
   function Screen(props) {
     return (
-      <>
+      <SafeAreaView>
         <Banner
           loggedIn={loggedIn}
           onSelect={handleSelect}
           subtitle={props.route.params ? props.route.params.title : null}
         />
         {['/top', '/latest', '/most_uploaded', '/search'].includes(props.route.name) ?
-          <View>
+          <View style={{ height: '100%' }}>
             {props.route.params ?
               createElement(props.route.params.element, props.route.params) : <></>
             }
@@ -46,7 +46,7 @@ export default function App(props) {
             }
           </ScrollView>
         }
-      </>
+      </SafeAreaView>
     );
   }
 

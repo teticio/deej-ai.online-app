@@ -1,10 +1,10 @@
 import React from 'react';
 import { FlatList } from 'react-native';
-import { Card, View } from './Platform';
+import { Card } from './Platform';
 import { VerticalSpacer } from './Lib';
 import ShowPlaylist from './ShowPlaylist';
 
-export default function ShowPlaylists({ playlists, spotify = null }) {
+export default function ShowPlaylists({ playlists, spotify = null, header = null }) {
   const data = playlists.map((playlist, i) => {
     return {
       id: String(i),
@@ -32,16 +32,15 @@ export default function ShowPlaylists({ playlists, spotify = null }) {
   );
 
   return (
-    <View style={{ height: '100%' }}>
-      <FlatList
-        initialNumToRender={1}
-        maxToRenderPerBatch={1}
-        updateCellsBatchingPeriod={1000}
-        windowSize={3}
-        data={data}
-        renderItem={renderItem}
-        keyExtractor={item => item.id}
-      />
-    </View>
+    <FlatList
+      initialNumToRender={1}
+      maxToRenderPerBatch={1}
+      updateCellsBatchingPeriod={1000}
+      windowSize={3}
+      ListHeaderComponent={header ? header : null}
+      data={data}
+      renderItem={renderItem}
+      keyExtractor={item => item.id}
+    />
   );
 }
