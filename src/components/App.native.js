@@ -28,26 +28,29 @@ export default function App(props) {
 
   function Screen(props) {
     return (
-      <SafeAreaView>
+      <>
         <Banner
           loggedIn={loggedIn}
           onSelect={handleSelect}
           subtitle={props.route.params ? props.route.params.title : null}
         />
-        {['/top', '/latest', '/most_uploaded', '/search'].includes(props.route.name) ?
-          <View style={{ height: '100%' }}>
-            {props.route.params ?
-              createElement(props.route.params.element, props.route.params) : <></>
-            }
-            <VerticalSpacer px={210} />
-          </View> :
-          <ScrollView style={{ padding: 15 }}>
-            {props.route.params ?
-              createElement(props.route.params.element, props.route.params) : <></>
-            }
-          </ScrollView>
-        }
-      </SafeAreaView>
+        <SafeAreaView style={{ flex: 1 }}>
+          {['/top', '/latest', '/most_uploaded', '/search'].includes(props.route.name) ?
+            <View style={{ height: '100%' }}>
+              {props.route.params ?
+                createElement(props.route.params.element, props.route.params) : <></>
+              }
+            </View> :
+            <ScrollView style={{ height: '100%' }}>
+              <View style={{ padding: 15 }}>
+                {props.route.params ?
+                  createElement(props.route.params.element, props.route.params) : <></>
+                }
+              </View>
+            </ScrollView>
+          }
+        </SafeAreaView>
+      </>
     );
   }
 
