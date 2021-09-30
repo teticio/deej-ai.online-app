@@ -3,7 +3,7 @@ import { Linking, SafeAreaView } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { View, ScrollView } from './Platform';
-import { getHashParams, usePersistedState } from './Lib';
+import { getHashParams, usePersistedState, VerticalSpacer } from './Lib';
 import { getRoutes } from './Menu';
 import Banner from './Banner';
 import Spotify from './Spotify';
@@ -39,6 +39,7 @@ export default function App(props) {
             {props.route.params ?
               createElement(props.route.params.element, props.route.params) : <></>
             }
+            <VerticalSpacer px={210} />
           </View> :
           <ScrollView style={{ padding: 15 }}>
             {props.route.params ?
