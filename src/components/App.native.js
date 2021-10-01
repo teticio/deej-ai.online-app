@@ -3,7 +3,7 @@ import { Linking, SafeAreaView } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { View, ScrollView } from './Platform';
-import { getHashParams, usePersistedState, VerticalSpacer } from './Lib';
+import { getHashParams, usePersistedState } from './Lib';
 import { getRoutes } from './Menu';
 import Banner from './Banner';
 import Spotify from './Spotify';
