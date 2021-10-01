@@ -5,7 +5,10 @@ import {
 import { MdStar, MdStarHalf, MdStarBorder } from 'react-icons/md';
 import { Container, Card, Spinner, Form, Navbar, Nav } from 'react-bootstrap';
 
-export { FaPlus, FaForward, FaBackward, FaCloudUploadAlt, FaPen, FaSpotify, FaCog, FaSearch, FaTimes };
+export {
+  FaPlus, FaForward, FaBackward, FaCloudUploadAlt,
+  FaPen, FaSpotify, FaCog, FaSearch, FaTimes
+};
 export { MdStar, MdStarHalf, MdStarBorder };
 export { Container, Card, Spinner, Form, Navbar, Nav };
 

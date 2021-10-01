@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { Card, Text, Small, Form, FaBackward, Hr } from './Platform';
 import { Row, Col, HorizontalSpacer, VerticalSpacer } from './Lib';
 
@@ -12,13 +12,10 @@ export default function Settings({ size, creativity, noise, onChange = f => f, o
   const validateSize = (value) => {
     if (value && value !== '') {
       setValidSize(value);
-      update();
     } else {
       setSize('');
     }
   }
-
-  useEffect(() => () => update());
 
   return (
     <>
@@ -39,7 +36,6 @@ export default function Settings({ size, creativity, noise, onChange = f => f, o
           onBlur={event => {
             if (event.target.value) {
               setValidSize(event.target.value);
-              update();
             }
           }}
         />
@@ -63,14 +59,8 @@ export default function Settings({ size, creativity, noise, onChange = f => f, o
               max='1'
               step='0.01'
               value={_creativity}
-              onChange={event => {
-                setCreativity(event.target.value);
-                update();
-              }}
-              onValueChange={value => {
-                setCreativity(value);
-                update();
-              }}
+              onChange={event => setCreativity(event.target.value)}
+              onValueChange={value => setCreativity(value)}
             />
           </Col>
         </Row>
@@ -93,14 +83,8 @@ export default function Settings({ size, creativity, noise, onChange = f => f, o
               max='1'
               step='0.01'
               value={_noise}
-              onChange={event => {
-                setNoise(event.target.value);
-                update();
-              }}
-              onValueChange={value => {
-                setNoise(value);
-                update();
-              }}
+              onChange={event => setNoise(event.target.value)}
+              onValueChange={value => setNoise(value)}
             />
           </Col>
         </Row>

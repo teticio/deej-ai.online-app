@@ -13,7 +13,7 @@ export const getRoutes = (
   waypoints, setWaypoints,
   size, setSize,
   creativity, setCreativity,
-  noise, setNoise,
+  noise, setNoise, 
   playlist, setPlaylist,
   spotify, navigate, numPlaylists
 ) => {
@@ -27,12 +27,12 @@ export const getRoutes = (
       noise: noise,
       spotify: spotify,
       onCreate: (playlist, waypoints) => {
-        setWaypoints(() => waypoints);
-        setPlaylist(() => playlist);
+        setWaypoints(waypoints);
+        setPlaylist(playlist);
         navigate('/playlist');
       },
       onSettings: waypoints => {
-        setWaypoints(() => waypoints);
+        setWaypoints(waypoints);
         navigate('/settings');
       }
     },
@@ -51,9 +51,9 @@ export const getRoutes = (
       creativity: creativity,
       noise: noise,
       onChange: (size, creativity, noise) => {
-        setSize(() => { return size !== '' ? size : 0; });
-        setCreativity(() => creativity);
-        setNoise(() => noise);
+        setSize(size !== '' ? size : 0);
+        setCreativity(creativity);
+        setNoise(noise);
       },
       onClose: () => navigate('/')
     },

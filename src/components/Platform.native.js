@@ -198,6 +198,7 @@ export function FaForward(props) {
 export function FaBackward(props) {
   return <FaIcon name='backward' {...props} />
 }
+
 export function FaCloudUploadAlt(props) {
   return <FaIcon name='cloud-upload-alt' {...props} />
 }
