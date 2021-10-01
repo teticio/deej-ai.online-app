@@ -20,7 +20,5 @@ test('settings', async () => {
     target: { value: '0.15' },
   });
   fireEvent.click(screen.getByTestId('close'));
-  expect(onChange).toHaveBeenCalledWith(25, '0.5', '0');
-  expect(onChange).toHaveBeenCalledWith(25, '0.75', '0');
   expect(onChange).toHaveBeenCalledWith(25, '0.75', '0.15');
 });
