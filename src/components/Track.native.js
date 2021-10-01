@@ -18,8 +18,9 @@ class SpotifyTrackWidgetClass extends PureComponent {
           style={{
             flex: 0,
             height: 80,
-            backgroundColor: colors.surface
+            backgroundColor: 'transparent'
           }}
+          androidLayerType='software'
           startInLoadingState={true}
           renderLoading={() => {
             return (

@@ -35,7 +35,7 @@ export default function ShowPlaylists({ playlists, spotify = null, header = null
     <FlatList
       initialNumToRender={1}
       maxToRenderPerBatch={1}
-      updateCellsBatchingPeriod={1000}
+      updateCellsBatchingPeriod={60000}
       ListHeaderComponent={header ? header : null}
       data={data}
       renderItem={renderItem}
