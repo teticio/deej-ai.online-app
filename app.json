@@ -6,16 +6,15 @@
     "scheme": "deejai",
     "version": "2.0.1",
     "userInterfaceStyle": "dark",
+    "backgroundColor": "#000000",
     "android": {
       "package": "online.deejai",
       "versionCode": 1
-    },
+    }, 
     "ios": {
       "bundleIdentifier": "online.deej-ai",
       "buildNumber": "1",
-      "supportsTablet": true,
-      "backgroundColor": "#000000",
-      "userInterfaceStyle": "dark"
+      "supportsTablet": true
     }
   }
 }
