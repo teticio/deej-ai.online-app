@@ -2,15 +2,16 @@
 
 exports[`track widget 1`] = `
 "<!DOCTYPE html>
+
 <html dir=\\"ltr\\">
 <head>
-    <meta charset=\\"UTF-8\\">
-    <link rel=\\"icon\\" sizes=\\"32x32\\" type=\\"image/png\\" href=\\"https://open.scdn.co/cdn/images/favicon32.8e66b099.png\\" />
-    <link rel=\\"icon\\" sizes=\\"16x16\\" type=\\"image/png\\" href=\\"https://open.scdn.co/cdn/images/favicon16.c498a969.png\\" />
-    <title>Spotify</title>
-    <meta name=\\"viewport\\" content=\\"width=device-width, initial-scale=1.0, user-scalable=1.0, minimum-scale=1.0, maximum-scale=1.0\\">
-            <link rel=\\"canonical\\" href=\\"https://open.spotify.com/track/3KZMPnlyKTDV4W7oNs7Vbk\\" />
-        <style type=\\"text/css\\">
+<meta charset=\\"utf-8\\"/>
+<link href=\\"https://open.scdn.co/cdn/images/favicon32.8e66b099.png\\" rel=\\"icon\\" sizes=\\"32x32\\" type=\\"image/png\\"/>
+<link href=\\"https://open.scdn.co/cdn/images/favicon16.c498a969.png\\" rel=\\"icon\\" sizes=\\"16x16\\" type=\\"image/png\\"/>
+<title>Spotify</title>
+<meta content=\\"width=device-width, initial-scale=1.0, user-scalable=1.0, minimum-scale=1.0, maximum-scale=1.0\\" name=\\"viewport\\"/>
+<link href=\\"https://open.spotify.com/track/3KZMPnlyKTDV4W7oNs7Vbk\\" rel=\\"canonical\\"/>
+<style type=\\"text/css\\">
         @font-face {
             font-family: 'spotify-circular';
             src: url(\\"https://open.scdn.co/cdn/fonts/CircularSpUIv3T-Light.afd9ab26.woff2\\") format('woff2'),
@@ -145,19 +146,15 @@ exports[`track widget 1`] = `
             border: solid 8px transparent;
         }
     </style>
-	
-
-
 
 
 
 </head>
 <body>
-    
-    
 
-    
-    
+
+
+
 </body>
 </html>
 "
