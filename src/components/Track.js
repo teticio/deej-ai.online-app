@@ -51,8 +51,8 @@ export default function Track({
       <View
         style={{
           display: 'flex',
-          height: 80,
           width: '100%',
+          height: 80,
           justifyContent: 'center',
           alignItems: 'center'
         }}
