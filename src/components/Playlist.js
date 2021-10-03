@@ -1,4 +1,5 @@
 import React, { PureComponent, Suspense, useState } from 'react';
+import 'react-native-get-random-values';
 import { v4 as uuidv4 } from 'uuid';
 import { View, Spinner, IFrame } from './Platform';
 
@@ -54,13 +55,13 @@ export default function Playlist({ track_ids = [], waypoints = [] }) {
       <View
         style={{
           display: 'flex',
-          height: height,
           width: '100%',
+          height: height,
           justifyContent: 'center',
           alignItems: 'center'
         }}
       >
-        <Spinner size='large' />
+        <Spinner animation='border' size='lg' />
       </View>
     } >
       <SpotifyPlaylistWidget

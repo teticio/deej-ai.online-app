@@ -24,6 +24,7 @@
     "react-native": "https://github.com/expo/react-native/archive/sdk-42.0.0.tar.gz",
     "react-native-elements": "^3.4.2",
     "react-native-gesture-handler": "^1.10.3",
+    "react-native-get-random-values": "^1.7.0",
     "react-native-paper": "^4.9.2",
     "react-native-svg": "^12.1.1",
     "react-native-vector-icons": "^8.1.0",
