@@ -1,7 +1,10 @@
-import { PureComponent, Suspense } from 'react';
-import Spinner from 'react-bootstrap/Spinner';
+import { PureComponent, Suspense, useState } from 'react';
+import { View, Spinner } from './Platform';
 import VisibilitySensor from 'react-visibility-sensor';
-import './Track.css';
+
+try {
+  require('./Track.css');
+} catch (e) { }
 
 function createResource(pending) {
   let error, response;
@@ -50,18 +53,18 @@ export default function Track({
     Track.cache = {};
   }
 
-  const resource = (track_id in Track.cache) ? Track.cache[track_id] :
+  const [ resource, _ ] = useState((track_id in Track.cache) ? Track.cache[track_id] :
     createResource(new Promise(resolves => {
       fetch(`${process.env.REACT_APP_API_URL}/widget?track_id=${track_id}`)
         .then(response => (response.status === 200) ? response.text() : '')
         .then(data => resolves({ data: data }))
         .catch(error => console.error('Error:', error));
-    }));
+    })));
   Track.cache[track_id] = resource;
 
   return (
     <Suspense fallback={
-      <div
+      <View
         style={{
           display: 'flex',
           height: 80,
@@ -71,7 +74,7 @@ export default function Track({
         }}
       >
         <Spinner animation='border' />
-      </div>
+      </View>
     } >
       <SpotifyTrackWidget
         track_id={track_id}

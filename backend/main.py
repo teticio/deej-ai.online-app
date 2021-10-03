@@ -3,6 +3,7 @@
 
 import os
 import re
+import json
 import urllib
 import logging
 from typing import Optional
@@ -22,6 +23,8 @@ from sqlalchemy.orm import Session
 from sqlalchemy.exc import IntegrityError, SQLAlchemyError
 
 import aiohttp
+
+from bs4 import BeautifulSoup
 
 from . import models
 from . import schemas
@@ -162,18 +165,19 @@ async def spotify_callback(code: str, state: Optional[str] = '/'):
                 if response.status != 200:
                     raise HTTPException(status_code=response.status,
                                         detail=response.reason)
-                json = await response.json()
+                _json = await response.json()
         except aiohttp.ClientError as error:
             raise HTTPException(status_code=400, detail=str(error)) from error
     body = {
-        'access_token': json['access_token'],
-        'refresh_token': json['refresh_token'],
+        'access_token': _json['access_token'],
+        'refresh_token': _json['refresh_token'],
         'route': state
     }
     if state.startswith('deejai://'):
         url = state + '?' + urllib.parse.urlencode(body)
     else:
-        url = os.environ.get('APP_URL', '') + '#' + urllib.parse.urlencode(body)
+        url = os.environ.get('APP_URL',
+                             '') + '#' + urllib.parse.urlencode(body)
     return RedirectResponse(url=url)
 
 
@@ -202,10 +206,10 @@ async def spotify_refresh_token(refresh_token: str):
                 if response.status != 200:
                     raise HTTPException(status_code=response.status,
                                         detail=response.reason)
-                json = await response.json()
+                _json = await response.json()
         except aiohttp.ClientError as error:
             raise HTTPException(status_code=400, detail=str(error)) from error
-    return json
+    return _json
 
 
 @app.get('/api/v1/widget')
@@ -234,7 +238,74 @@ async def widget(track_id: str):
                 text = await response.text()
         except aiohttp.ClientError as error:
             raise HTTPException(status_code=400, detail=str(error)) from error
-    return b64encode(text.encode('ascii'))
+    soup = BeautifulSoup(text, 'html.parser')
+    tag = soup.find(id="resource")
+    track = json.loads(urllib.parse.unquote(tag.string))
+    track['preview_url'] = deejai.urls.get(track_id, '')
+    tag.string.replace_with(urllib.parse.quote(json.dumps(track)))
+    return b64encode(str(soup).encode('ascii'))
+
+
+@app.post('/api/v1/playlist_widget')
+async def make_playlist_widget(playlist_widget: schemas.PlaylistWidget):
+    """Make a new Spotify playlist widget.
+
+    Args:
+        playlist_widget (schemas.PlaylistWidget): List of track IDs.
+
+    Returns:
+        str: Base 64 encoded HTML which can be embedded in an iframe.
+    """
+
+    assert len(playlist_widget.track_ids) > 0
+    headers = {
+        'User-Agent':
+        'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) '
+        'Chrome/92.0.4515.159 Safari/537.36'
+    }
+    async with aiohttp.ClientSession() as session:
+        try:
+            async with session.get(
+                    f'https://open.spotify.com/embed/track/{playlist_widget.track_ids[0]}',
+                    headers=headers) as response:
+                if response.status != 200:
+                    raise HTTPException(status_code=response.status,
+                                        detail=response.reason)
+                text = await response.text()
+        except aiohttp.ClientError as error:
+            raise HTTPException(status_code=400, detail=str(error)) from error
+    soup = BeautifulSoup(text, 'html.parser')
+    tag = soup.find(id="resource")
+    track = json.loads(urllib.parse.unquote(tag.string))
+    playlist = {
+        'images': track['album']['images'],
+        'tracks': {},
+        'type': 'playlist',
+        'uri': 'spotify:playlist:6itFIZoAKyetrbFr8BxSd2',
+        'dominantColor': track['dominantColor']
+    }
+    playlist['tracks']['items'] = []
+    for track_id in playlist_widget.track_ids:
+        title = deejai.tracks[track_id]
+        track = {
+            'is_local': True,
+            'is_playable': True,
+            'name': title[title.find(' - ') + 3:],
+            'preview_url': deejai.urls.get(track_id, ''),
+            'artists': [{
+                'name': title[:title.find(' - ')]
+            }],
+            'duration_ms': '30000',
+            'uri': f'spotify:track{track_id}'
+        }
+        playlist['tracks']['items'].append({'track': track})
+    playlist['name'] = playlist['tracks']['items'][0]['track']['name']
+    playlist['owner'] = {
+        'display_name':
+        playlist['tracks']['items'][0]['track']['artists'][0]['name']
+    }
+    tag.string.replace_with(urllib.parse.quote(json.dumps(playlist)))
+    return b64encode(str(soup).encode('ascii'))
 
 
 @app.get('/api/v1/search')
