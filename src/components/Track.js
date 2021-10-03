@@ -1,7 +1,5 @@
-import { PureComponent, Suspense } from 'react';
-import Spinner from 'react-bootstrap/Spinner';
-import VisibilitySensor from 'react-visibility-sensor';
-import './Track.css';
+import React, { PureComponent, Suspense, useState } from 'react';
+import { View, Spinner, IFrame } from './Platform';
 
 function createResource(pending) {
   let error, response;
@@ -18,50 +16,39 @@ function createResource(pending) {
 // Avoid unncessary re-renders
 class SpotifyTrackWidget extends PureComponent {
   render() {
-    const { track_id, highlight, resource, testing } = this.props;
+    const { track_id, resource } = this.props;
     const iframe = (resource) ? resource.read() : null;
 
     return (
-      <VisibilitySensor offset={{ top: -5 * 80, bottom: -5 * 80 }}>
-        {({ isVisible }) =>
-          <iframe
-            className={highlight ? 'highlight' : ''}
-            title={track_id}
-            // src={`https://open.spotify.com/embed/track/${track_id}`}
-            srcdoc={(isVisible || testing) ? Buffer.from(iframe.data, 'base64') : ''}
-            width='100%'
-            height='80'
-            frameBorder='0'
-            allowtransparency='true'
-            allow='encrypted-media'
-          />
-        }
-      </VisibilitySensor>
+      <IFrame
+        title={track_id}
+        width='100%'
+        height={80}
+        srcdoc={Buffer.from(iframe.data, 'base64').toString()}
+      />
     );
   }
 }
 
 export default function Track({
-  track_id,
-  highlight = false,
-  testing = false
+  track_id
 }) {
   if (typeof Track.cache == 'undefined') {
     Track.cache = {};
   }
 
-  const resource = (track_id in Track.cache) ? Track.cache[track_id] :
+  const [resource, ] = useState((track_id in Track.cache) ? Track.cache[track_id] :
     createResource(new Promise(resolves => {
       fetch(`${process.env.REACT_APP_API_URL}/widget?track_id=${track_id}`)
         .then(response => (response.status === 200) ? response.text() : '')
         .then(data => resolves({ data: data }))
         .catch(error => console.error('Error:', error));
-    }));
+    })));
   Track.cache[track_id] = resource;
 
   return (
     <Suspense fallback={
-      <div
+      <View
         style={{
           display: 'flex',
           height: 80,
@@ -71,13 +58,11 @@ export default function Track({
         }}
       >
         <Spinner animation='border' />
-      </div>
+      </View>
     } >
       <SpotifyTrackWidget
         track_id={track_id}
-        highlight={highlight}
         resource={resource}
-        testing={testing}
       />
     </Suspense>
   );

@@ -14,7 +14,8 @@ import requests
 import numpy as np
 from starlette.concurrency import run_in_threadpool
 
-if 'HACKINTOSH' not in os.environ:  # can't get tensorflow to work on Hackintosh due to missing AVX support
+# can't get tensorflow to work on Hackintosh due to missing AVX support
+if 'HACKINTOSH' not in os.environ:
     import tensorflow as tf
     from keras.models import load_model
 
@@ -41,6 +42,8 @@ class DeejAI:
             ]))
         with open('spotify_tracks.p', 'rb') as file:
             self.tracks = pickle.load(file)
+        with open('spotify_urls.p', 'rb') as file:
+            self.urls = pickle.load(file)
         self.track_ids = list(mp3tovecs)
         self.track_indices = dict(
             map(lambda x: (x[1], x[0]), enumerate(mp3tovecs)))
@@ -48,11 +51,12 @@ class DeejAI:
                                    for _ in mp3tovecs])
         del mp3tovecs, tracktovecs
         if 'HACKINTOSH' not in os.environ:
-            self.model = load_model('speccy_model',
-                                    custom_objects={
-                                        'cosine_proximity':
-                                        tf.compat.v1.keras.losses.cosine_proximity
-                                    })
+            self.model = load_model(
+                'speccy_model',
+                custom_objects={
+                    'cosine_proximity':
+                    tf.compat.v1.keras.losses.cosine_proximity
+                })
 
     def get_tracks(self):
         """Get tracks.
@@ -106,13 +110,14 @@ class DeejAI:
                                         size=size,
                                         noise=noise)
 
-    async def most_similar(self,  # pylint: disable=too-many-arguments
-                           mp3tovecs,
-                           weights,
-                           positive=iter(()),
-                           negative=iter(()),
-                           noise=0,
-                           vecs=None):
+    async def most_similar(
+            self,  # pylint: disable=too-many-arguments
+            mp3tovecs,
+            weights,
+            positive=iter(()),
+            negative=iter(()),
+            noise=0,
+            vecs=None):
         """Most similar IDs.
         """
         mp3_vecs_i = np.array([
@@ -137,12 +142,13 @@ class DeejAI:
             del result[result.index(i)]
         return result
 
-    async def most_similar_by_vec(self,  # pylint: disable=too-many-arguments
-                                  mp3tovecs,
-                                  weights,
-                                  positives=iter(()),
-                                  negatives=iter(()),
-                                  noise=0):
+    async def most_similar_by_vec(
+            self,  # pylint: disable=too-many-arguments
+            mp3tovecs,
+            weights,
+            positives=iter(()),
+            negatives=iter(()),
+            noise=0):
         """Most similar IDs by vector.
         """
         mp3_vecs_i = np.array([
@@ -191,12 +197,13 @@ class DeejAI:
         playlist.append(end)
         return playlist
 
-    async def make_playlist(self,  # pylint: disable=too-many-arguments
-                            weights,
-                            playlist,
-                            size=10,
-                            lookback=3,
-                            noise=0):
+    async def make_playlist(
+            self,  # pylint: disable=too-many-arguments
+            weights,
+            playlist,
+            size=10,
+            lookback=3,
+            noise=0):
         """Generate playlist starting from seed track(s).
         """
         playlist_tracks = [self.tracks[_] for _ in playlist]

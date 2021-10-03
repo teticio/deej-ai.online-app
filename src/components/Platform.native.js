@@ -416,3 +416,24 @@ export function Ul(props) {
 export function Li(props) {
   return <Text {...props}>{'   \u2022 '}{props.children}</Text>;
 }
+
+export function IFrame(props) {
+  return (
+    <WebView
+      style={{
+        flex: 0,
+        width: props.width,
+        height: props.height,
+        backgroundColor: 'transparent',
+        ...props.style
+      }}
+      {...props}
+      androidLayerType='software'
+      source={props.srcdoc ? {
+        'html': props.srcdoc
+      } : {
+        'uri': props.src
+      }}
+    />
+  );
+}

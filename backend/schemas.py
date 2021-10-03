@@ -59,3 +59,9 @@ class Playlist(BaseModel):  # pylint: disable=too-few-public-methods
     creativity: Optional[float] = 0.5
     noise: Optional[float] = 0
     uploads: Optional[int] = 0
+
+class PlaylistWidget(BaseModel):  # pylint: disable=too-few-public-methods
+    """Schema for generating a new playlist widget.
+    """
+    track_ids: list
+    waypoints: list
