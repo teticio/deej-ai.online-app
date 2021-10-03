@@ -43,7 +43,6 @@ def save_response_content(response, destination):
             if chunk:  # Filter out keep-alive new chunks
                 file.write(chunk)
 
-
 if __name__ == '__main__':
     download_file_from_google_drive('1Mg924qqF3iDgVW5w34m6Zaki5fNBdfSy',
                                     'spotifytovec.p')
@@ -51,6 +50,8 @@ if __name__ == '__main__':
                                     'tracktovec.p')
     download_file_from_google_drive('1Qre4Lkym1n5UTpAveNl5ffxlaAmH1ntS',
                                     'spotify_tracks.p')
+    download_file_from_google_drive('1tLT_wmATWMC5UU-kERLsUNNcz0Vo19J3',
+                                    'spotify_urls.p')
     download_file_from_google_drive('1LM1WW1GCGKeFD1AAHS8ijNwahqH4r4xV',
                                     'speccy_model')
 

@@ -13,7 +13,7 @@ export { MdStar, MdStarHalf, MdStarBorder };
 export { Container, Card, Spinner, Form, Navbar, Nav };
 
 export function ReactJSOnly(props) {
-  return <>{ props.children }</>;
+  return <>{props.children}</>;
 }
 
 export function ReactNativeOnly(props) {
@@ -92,4 +92,13 @@ export function Ul(props) {
 
 export function Li(props) {
   return <li {...props}>{props.children}</li>;
+}
+
+export function IFrame(props) {
+  return (
+    <iframe
+      title={props.title}
+      {...props}
+    />
+  );
 }
