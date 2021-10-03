@@ -64,3 +64,4 @@ class PlaylistWidget(BaseModel):  # pylint: disable=too-few-public-methods
     """Schema for generating a new playlist widget.
     """
     track_ids: list
+    waypoints: list

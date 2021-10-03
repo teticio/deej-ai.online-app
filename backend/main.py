@@ -251,7 +251,7 @@ async def make_playlist_widget(playlist_widget: schemas.PlaylistWidget):
     """Make a new Spotify playlist widget.
 
     Args:
-        playlist_widget (schemas.PlaylistWidget): List of track IDs.
+        playlist_widget (schemas.PlaylistWidget): List of track IDs and waypoints.
 
     Returns:
         str: Base 64 encoded HTML which can be embedded in an iframe.
@@ -288,15 +288,21 @@ async def make_playlist_widget(playlist_widget: schemas.PlaylistWidget):
     for track_id in playlist_widget.track_ids:
         title = deejai.tracks[track_id]
         track = {
-            'is_local': True,
-            'is_playable': True,
-            'name': title[title.find(' - ') + 3:],
-            'preview_url': deejai.urls.get(track_id, ''),
+            'is_local':
+            True,
+            'is_playable':
+            True,
+            'name': ('* ' if track_id in playlist_widget.waypoints else '') +
+            title[title.find(' - ') + 3:],
+            'preview_url':
+            deejai.urls.get(track_id, ''),
             'artists': [{
                 'name': title[:title.find(' - ')]
             }],
-            'duration_ms': '30000',
-            'uri': f'spotify:track{track_id}'
+            'duration_ms':
+            '30000',
+            'uri':
+            f'spotify:track{track_id}'
         }
         playlist['tracks']['items'].append({'track': track})
     playlist['name'] = playlist['tracks']['items'][0]['track']['name']

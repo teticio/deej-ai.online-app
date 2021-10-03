@@ -40,7 +40,8 @@ export default function Playlist({ track_ids = [], waypoints = [] }) {
         'Content-Type': 'application/json'
       },
       body: JSON.stringify({
-        'track_ids': track_ids
+        'track_ids': track_ids,
+        'waypoints': waypoints
       })
     })
       .then(response => (response.status === 200) ? response.text() : '')
