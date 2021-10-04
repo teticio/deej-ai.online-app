@@ -124,30 +124,11 @@ export default function ShowPlaylist({ style, playlist, onClose = f => f, spotif
           </Row>
         </Col>
       </Row>
-      {
-        /*
-        {playlistUrl ?
-          <iframe
-            title={playlistId}
-            src={'https://open.spotify.com/embed/playlist/' + playlistId}
-            width='100%'
-            height={80 + 50 * playlist.track_ids.length}
-            frameBorder='0'
-            allowtransparency='true'
-            allow='encrypted-media'
-          /> :
-        */
-      }
-      <Playlist {...playlist} />
-      {
-        /*
-        }
-        */
-      }
+      <Playlist {...playlist} playlist_id={playlistId} />
       {userPlaylist ?
         <>
           <Hr />
-          <Row style={{ justifyContent: 'space-between'  }} surface={true} >
+          <Row style={{ justifyContent: 'space-between' }} surface={true} >
             <FaBackward
               size='25'
               className='link'

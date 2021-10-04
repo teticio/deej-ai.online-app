@@ -2,6 +2,11 @@
   "expo": {
     "name": "Deej-A.I.",
     "slug": "DeejAI",
+    "icon": "./public/android-chrome-512x512.png",
+    "splash": {
+      "image": "./public/android-chrome-512x512.png",
+      "backgroundColor": "#222222"
+    },
     "entryPoint": "./src/index.native.js",
     "scheme": "deejai",
     "version": "2.0.1",

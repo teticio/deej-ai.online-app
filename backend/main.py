@@ -14,6 +14,7 @@ from starlette.responses import Response, RedirectResponse
 from starlette.exceptions import HTTPException as StarletteHTTPException
 
 from fastapi import Depends, FastAPI, HTTPException
+from fastapi.responses import HTMLResponse
 from fastapi.staticfiles import StaticFiles
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.exception_handlers import http_exception_handler
@@ -220,7 +221,7 @@ async def widget(track_id: str):
         track_id (str): Spotify track ID.
 
     Returns:
-        str: Base 64 encoded HTML which can be embedded in an iframe.
+        str: HTML which can be embedded in an iframe.
     """
     headers = {
         'User-Agent':
@@ -243,21 +244,25 @@ async def widget(track_id: str):
     track = json.loads(urllib.parse.unquote(tag.string))
     track['preview_url'] = deejai.urls.get(track_id, '')
     tag.string.replace_with(urllib.parse.quote(json.dumps(track)))
-    return b64encode(str(soup).encode('ascii'))
+    return HTMLResponse(content=str(soup), status_code=200)
 
 
-@app.post('/api/v1/playlist_widget')
-async def make_playlist_widget(playlist_widget: schemas.PlaylistWidget):
+@app.get('/api/v1/playlist_widget')
+async def make_playlist_widget(track_ids, waypoints = '[]', playlist_id = ''):
     """Make a new Spotify playlist widget.
 
     Args:
-        playlist_widget (schemas.PlaylistWidget): List of track IDs and waypoints.
+        track_ids (str): JSONified list of track IDs
+        waypoints (str): JSONified list of waypoints
+        playlist_id (str): Playlist id
 
     Returns:
-        str: Base 64 encoded HTML which can be embedded in an iframe.
+        str: HTML which can be embedded in an iframe.
     """
 
-    assert len(playlist_widget.track_ids) > 0
+    track_ids = json.loads(track_ids)
+    waypoints = json.loads(waypoints)
+    assert len(track_ids) > 0
     headers = {
         'User-Agent':
         'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) '
@@ -266,7 +271,7 @@ async def make_playlist_widget(playlist_widget: schemas.PlaylistWidget):
     async with aiohttp.ClientSession() as session:
         try:
             async with session.get(
-                    f'https://open.spotify.com/embed/track/{playlist_widget.track_ids[0]}',
+                    f'https://open.spotify.com/embed/track/{track_ids[0]}',
                     headers=headers) as response:
                 if response.status != 200:
                     raise HTTPException(status_code=response.status,
@@ -281,18 +286,19 @@ async def make_playlist_widget(playlist_widget: schemas.PlaylistWidget):
         'images': track['album']['images'],
         'tracks': {},
         'type': 'playlist',
-        'uri': 'spotify:playlist:6itFIZoAKyetrbFr8BxSd2',
+        'uri':
+        f'spotify:playlist:{playlist_id if playlist_id != "" else "2p8cnjuIgVpsWln5HfbqTk"}',
         'dominantColor': track['dominantColor']
     }
     playlist['tracks']['items'] = []
-    for track_id in playlist_widget.track_ids:
+    for track_id in track_ids:
         title = deejai.tracks[track_id]
         track = {
             'is_local':
             True,
             'is_playable':
             True,
-            'name': ('* ' if track_id in playlist_widget.waypoints else '') +
+            'name': ('* ' if track_id in waypoints else '') +
             title[title.find(' - ') + 3:],
             'preview_url':
             deejai.urls.get(track_id, ''),
@@ -311,7 +317,7 @@ async def make_playlist_widget(playlist_widget: schemas.PlaylistWidget):
         playlist['tracks']['items'][0]['track']['artists'][0]['name']
     }
     tag.string.replace_with(urllib.parse.quote(json.dumps(playlist)))
-    return b64encode(str(soup).encode('ascii'))
+    return HTMLResponse(content=str(soup), status_code=200)
 
 
 @app.get('/api/v1/search')
