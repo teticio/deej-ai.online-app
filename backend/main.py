@@ -214,6 +214,14 @@ async def spotify_refresh_token(refresh_token: str):
 
 
 async def get_track_widget(track_id):
+    """Get Spotify track widget.
+
+    Args:
+        track_id (str): Spotify track ID.
+
+    Returns:
+        str: HTML as text.
+    """
     headers = {
         'User-Agent':
         'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) '
@@ -268,7 +276,7 @@ async def track_widget(track_id: str):
 
 
 @app.get('/api/v1/playlist_widget')
-async def make_playlist_widget(track_ids, waypoints = '[]', playlist_id = ''):
+async def make_playlist_widget(track_ids, waypoints='[]', playlist_id=''):
     """Make a new Spotify playlist widget.
 
     Args:
