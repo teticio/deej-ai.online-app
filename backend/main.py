@@ -213,16 +213,7 @@ async def spotify_refresh_token(refresh_token: str):
     return _json
 
 
-@app.get('/api/v1/widget')
-async def widget(track_id: str):
-    """Get Spotify track widget.
-
-    Args:
-        track_id (str): Spotify track ID.
-
-    Returns:
-        str: HTML which can be embedded in an iframe.
-    """
+async def get_track_widget(track_id):
     headers = {
         'User-Agent':
         'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) '
@@ -244,7 +235,36 @@ async def widget(track_id: str):
     track = json.loads(urllib.parse.unquote(tag.string))
     track['preview_url'] = deejai.urls.get(track_id, '')
     tag.string.replace_with(urllib.parse.quote(json.dumps(track)))
-    return HTMLResponse(content=str(soup), status_code=200)
+    return str(soup)
+
+
+@app.get('/api/v1/widget')
+async def widget(track_id: str):
+    """Get Spotify track widget.
+    (Deprecated.)
+
+    Args:
+        track_id (str): Spotify track ID.
+
+    Returns:
+        str: Base64 encoded HTML which can be embedded in an iframe.
+    """
+    html = await get_track_widget(track_id)
+    return b64encode(html.encode('ascii'))
+
+
+@app.get('/api/v1/track_widget')
+async def track_widget(track_id: str):
+    """Get Spotify track widget.
+
+    Args:
+        track_id (str): Spotify track ID.
+
+    Returns:
+        str: HTML which can be embedded in an iframe.
+    """
+    html = await get_track_widget(track_id)
+    return HTMLResponse(content=html, status_code=200)
 
 
 @app.get('/api/v1/playlist_widget')
