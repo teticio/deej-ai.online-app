@@ -70,6 +70,7 @@ registerRoute(
     url.pathname.endsWith('/api/v1/search') ||
     url.pathname.endsWith('/api/v1/search_similar') ||
     url.pathname.endsWith('/api/v1/widget'),
+    url.pathname.endsWith('/api/v1/track_widget'),
     url.pathname.endsWith('/api/v1/playlist_widget'),
   new StaleWhileRevalidate({
     cacheName: 'api',
