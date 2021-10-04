@@ -2,6 +2,7 @@ import React, { useState, createElement, useEffect } from 'react';
 import { Linking, SafeAreaView } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
+import { useTheme } from 'react-native-paper';
 import { View, ScrollView } from './Platform';
 import { getHashParams, usePersistedState } from './Lib';
 import { getRoutes } from './Menu';
@@ -12,6 +13,7 @@ import ErrorBoundary from './ErrorBoundary';
 const Stack = createStackNavigator();
 
 export default function App(props) {
+  const { colors } = useTheme();
   const [spotify, setSpotify] = useState(new Spotify({}));
   const [loggedIn, setLoggedIn] = useState(spotify.loggedIn());
   const [waypoints, setWaypoints] = usePersistedState('waypoints', { track_ids: [] });
@@ -34,7 +36,12 @@ export default function App(props) {
           onSelect={handleSelect}
           subtitle={props.route.params ? props.route.params.title : null}
         />
-        <SafeAreaView style={{ flex: 1 }}>
+        <SafeAreaView
+          style={{
+            flex: 1,
+            backgroundColor: colors.background
+          }}
+        >
           {['/top', '/latest', '/most_uploaded', '/search'].includes(props.route.name) ?
             <View style={{ height: '100%' }}>
               {props.route.params ?
