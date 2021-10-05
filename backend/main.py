@@ -13,7 +13,7 @@ from starlette.types import Scope
 from starlette.responses import Response, RedirectResponse
 from starlette.exceptions import HTTPException as StarletteHTTPException
 
-from fastapi import Depends, FastAPI, HTTPException
+from fastapi import Depends, FastAPI, HTTPException, Request
 from fastapi.responses import HTMLResponse
 from fastapi.staticfiles import StaticFiles
 from fastapi.middleware.cors import CORSMiddleware
@@ -213,6 +213,29 @@ async def spotify_refresh_token(refresh_token: str):
     return _json
 
 
+@app.get('/get_access_token')
+async def get_access_token(request: Request):
+    """Proxy
+    """
+    headers = {
+        'User-Agent':
+        'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) '
+        'Chrome/92.0.4515.159 Safari/537.36'
+    }
+    async with aiohttp.ClientSession() as session:
+        try:
+            async with session.get(
+                    f'https://open.spotify.com/get_access_token?{request.query_params}',
+                    headers=headers) as response:
+                if response.status != 200:
+                    raise HTTPException(status_code=response.status,
+                                        detail=response.reason)
+                text = await response.text()
+        except aiohttp.ClientError as error:
+            raise HTTPException(status_code=400, detail=str(error)) from error
+    return text
+
+
 async def get_track_widget(track_id):
     """Get Spotify track widget.
 
@@ -310,12 +333,14 @@ async def make_playlist_widget(track_ids, waypoints='[]', playlist_id=''):
     soup = BeautifulSoup(text, 'html.parser')
     tag = soup.find(id="resource")
     track = json.loads(urllib.parse.unquote(tag.string))
+    if playlist_id == "":
+        playlist_id = "2p8cnjuIgVpsWln5HfbqTk"
     playlist = {
         'images': track['album']['images'],
         'tracks': {},
         'type': 'playlist',
-        'uri':
-        f'spotify:playlist:{playlist_id if playlist_id != "" else "2p8cnjuIgVpsWln5HfbqTk"}',
+        'uri': f'spotify:playlist:{playlist_id}',
+        'href': f'https://api.spotify.com/v1/playlist/{playlist_id}',
         'dominantColor': track['dominantColor']
     }
     playlist['tracks']['items'] = []
