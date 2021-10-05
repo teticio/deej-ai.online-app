@@ -9,7 +9,7 @@
     },
     "entryPoint": "./src/index.native.js",
     "scheme": "deejai",
-    "version": "2.0.1",
+    "version": "2.2.3",
     "userInterfaceStyle": "dark",
     "backgroundColor": "#000000",
     "android": {
@@ -18,8 +18,9 @@
     }, 
     "ios": {
       "bundleIdentifier": "online.deej-ai",
-      "buildNumber": "1",
-      "supportsTablet": true
+      "buildNumber": "3",
+      "supportsTablet": true,
+      "icon": "./public/ios-512x512.png"
     }
   }
 }
