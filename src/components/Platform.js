@@ -83,7 +83,7 @@ export function Select(props) {
 }
 
 export function Option(props) {
-  return <option {...props} />;
+  return <option {...props}>{props.label}</option>;
 }
 
 export function Ul(props) {
