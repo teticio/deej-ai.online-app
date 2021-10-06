@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Text, TextInput, FaSpotify, Select, Option } from './Platform'
-import { Row, Col, debounceFunction, HorizontalSpacer, VerticalSpacer } from './Lib';
+import { Row, Col, debounceFunction, VerticalSpacer } from './Lib';
 import Search, { searchSimilar } from './Search';
 
 export default function TrackSelector({ spotify = null, onSelect = f => f, onSearch = f => f, onSearchEnd = f => f }) {

@@ -58,7 +58,8 @@ export default function ShowPlaylist({ style, playlist, onClose = f => f, spotif
                     data-toggle="tooltip"
                     title="Upload to Spotify"
                     onClick={handleUpload}
-                  />}
+                  />
+                }
                 <HorizontalSpacer />
               </> : <></>
             }
@@ -67,7 +68,7 @@ export default function ShowPlaylist({ style, playlist, onClose = f => f, spotif
                 url={playlistUrl}
                 text={playlistName}
               /> :
-              <Text onClick={() => { if (userPlaylist) setEditing(true); }}>
+              <>
                 {editing ?
                   <View style={{ width: 200 }}>
                     <TextInput
@@ -83,17 +84,22 @@ export default function ShowPlaylist({ style, playlist, onClose = f => f, spotif
                     />
                   </View> :
                   <Row surface={true}>
-                    <Text h4>{playlistName}</Text>
-                    {userPlaylist ?
-                      <>
-                        <HorizontalSpacer />
-                        <FaPen size='15' className='link' />
-                      </> :
-                      <></>
-                    }
+                    <Text h4
+                      onClick={() => {
+                        if (userPlaylist) setEditing(true);
+                      }}
+                    >{playlistName}
+                      {userPlaylist ?
+                        <>
+                          {'  '}
+                          <FaPen size='15' className='link' />
+                        </> :
+                        <></>
+                      }
+                    </Text>
                   </Row>
                 }
-              </Text>
+              </>
             }
           </Row>
           {(playlist.creativity !== undefined && playlist.noise !== undefined) ?
