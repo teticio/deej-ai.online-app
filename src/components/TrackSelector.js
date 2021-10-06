@@ -6,7 +6,7 @@ import Search, { searchSimilar } from './Search';
 export default function TrackSelector({ spotify = null, onSelect = f => f, onSearch = f => f, onSearchEnd = f => f }) {
   const [searchString, setSearchString] = useState('');
   const [searchResults, setSearchResults] = useState([]);
-  const [currentTrack, setCurrentTrack] = useState(null);
+  const [currentTrack, setCurrentTrack] = useState({});
   const [selectedValue, setSelectedValue] = useState(null);
 
   const handleSearchSimilar = () => {
@@ -74,49 +74,50 @@ export default function TrackSelector({ spotify = null, onSelect = f => f, onSea
   }, 1000), [searchString]);
 
   return (
-    <Col style={{flex: 1}}>
-      <Row>
-        {(currentTrack && currentTrack.url) ?
-          <>
-            <VerticalSpacer />
-            <Row onClick={handleSearchSimilar}>
-              <FaSpotify size='15' className='link' />
-              <HorizontalSpacer />
-              <Text h6 className='link'>{currentTrack.track}</Text>
-            </Row>
-          </> : <></>
-        }
-      </Row>
-      <Row>
-        <TextInput
-          placeholder='Search...'
-          onChange={event => setSearchString(event.target.value)}
-          onChangeText={value => setSearchString(value)}
-          style={{ width: '100%' }}
-        />
-      </Row>
-      <Row surface={true}>
-        <VerticalSpacer />
-      </Row>
-      <Row>
-        <VerticalSpacer />
-        <Select
-          selectedValue={selectedValue}
-          onChange={event => onSelect(event.target.value)}
-          onValueChange={value => { setSelectedValue(() => value); onSelect(value) }}
-          style={{ width: '100%' }}
-        >
-          {searchResults.map(({ track_id, track }, i) => (
-            <Option
-              data-testid='track'
-              key={i}
-              label={track}
-              value={track_id}
-              style={{ width: '100%' }}
-            />
-          ))}
-        </Select>
-      </Row>
-    </Col >
+    <>
+      <Col style={{ flex: 1 }}>
+        <Row style={{ justifyContent: 'flex-start', padding: 10 }} surface={true}>
+          {(currentTrack && currentTrack.url) ?
+            <Row surface={true}>
+              <Text h6 className='link' onClick={handleSearchSimilar}>
+                <FaSpotify size='15' className='link' />
+                {' '}
+                {currentTrack.track}
+              </Text>
+            </Row> : <></>
+          }
+        </Row>
+        <Row>
+          <TextInput
+            placeholder='Search...'
+            onChange={event => setSearchString(event.target.value)}
+            onChangeText={value => setSearchString(value)}
+            style={{ width: '100%' }}
+          />
+        </Row>
+        <Row surface={true}>
+          <VerticalSpacer />
+        </Row>
+        <Row>
+          <VerticalSpacer />
+          <Select
+            selectedValue={selectedValue}
+            onChange={event => onSelect(event.target.value)}
+            onValueChange={value => { setSelectedValue(() => value); onSelect(value) }}
+            style={{ width: '100%' }}
+          >
+            {searchResults.map(({ track_id, track }, i) => (
+              <Option
+                data-testid='track'
+                key={i}
+                label={track}
+                value={track_id}
+                style={{ width: '100%' }}
+              />
+            ))}
+          </Select>
+        </Row>
+      </Col >
+    </>
   );
 }
