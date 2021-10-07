@@ -1,6 +1,6 @@
 # Deej-A.I. React App  ![Build Status](https://github.com/teticio/deej-ai.online-app/actions/workflows/build.yaml/badge.svg)
 
-![Deej-A.I.](screen_shot.png)
+![Deej-A.I.](screenshot.png)
 
 This is the source code for my webpage which is hosted at https://deej-ai.online/. If you are interested in the deep learning models that are used in the backend, have a look at my other repo https://github.com/teticio/Deej-A.I./.
 
@@ -53,6 +53,8 @@ kubectl get svc -n deejai
 will return an external IP for the Elastic Load Balancer (ELB). You will need to point your domain to the ELB by editing the relevant A record for your hosted zone in the AWS console.
 
 ## React Native
+
+<img src="screenshot2.png" alt="Deej-A.I." style="width:49%;"/> <img src="screenshot3.png" alt="Deej-A.I." style="width:49%;"/>
 
 ReactJS and React Native are very similar but quite different at the same time. I wanted to avoid duplicating code as mch as possible (following the DRY - Don't Repeat Yourself - principle) so I have wrapped the platform specific code in `Platform.js` and `Platform.native.js`. In particular, the standard HTML tags like `<h1>` or `<a>` have been replaced with wrapper components (e.g., `Text` and `Link`). To run on iOS or Android using Expo type
 ```
