@@ -55,6 +55,7 @@ export default function SearchPlaylists({ spotify, numPlaylists = 4 }) {
               <Text>{searchString}</Text>
             }
           </Row>
+          <VerticalSpacer />
         </Card>
       </>
     );
