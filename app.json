@@ -13,8 +13,9 @@
     "userInterfaceStyle": "dark",
     "backgroundColor": "#000000",
     "android": {
-      "package": "online.deejai",
-      "versionCode": 2
+      "package": "online.deejai.www",
+      "versionCode": 8,
+      "permissions": ["INTERNET"]
     }, 
     "ios": {
       "bundleIdentifier": "online.deej-ai",
