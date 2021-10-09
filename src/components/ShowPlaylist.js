@@ -48,41 +48,41 @@ export default function ShowPlaylist({ style, playlist, onClose = f => f, spotif
     <Card style={style}>
       <Row style={{ flexWrap: 'wrap', justifyContent: 'space-between', paddingBottom: 15 }} surface={true} >
         <Col surface={true}>
-          <Text h4>
-            {(spotify && spotify.loggedIn()) ?
-              <>
-                {spinner ?
-                  <Spinner animation='border' size='md' /> :
-                  <FaCloudUploadAlt size='25'
-                    className='link'
-                    data-toggle="tooltip"
-                    title="Upload to Spotify"
-                    onClick={handleUpload}
-                  />
-                }
-                {' '}
-              </> : <></>
-            }
-            {playlistUrl ?
-              <Link
-                url={playlistUrl}
-                text={playlistName}
-              /> :
-              <>
-                {editing ?
-                  <View style={{ width: 200 }}>
-                    <TextInput
-                      value={playlistName}
-                      onChange={event => setPlaylistName(event.target.value)}
-                      onChangeText={value => setPlaylistName(value)}
-                      onBlur={handleUpdate}
-                      onKeyUp={event => {
-                        if (event.key === 'Enter') {
-                          handleUpdate();
-                        }
-                      }}
+          {editing ?
+            <View style={{ width: 200 }}>
+              <TextInput
+                value={playlistName}
+                onChange={event => setPlaylistName(event.target.value)}
+                onChangeText={value => setPlaylistName(value)}
+                onBlur={handleUpdate}
+                onKeyUp={event => {
+                  if (event.key === 'Enter') {
+                    handleUpdate();
+                  }
+                }}
+              />
+            </View> :
+            <Text h4>
+              {(spotify && spotify.loggedIn()) ?
+                <>
+                  {spinner ?
+                    <Spinner animation='border' size='md' /> :
+                    <FaCloudUploadAlt size='25'
+                      className='link'
+                      data-toggle="tooltip"
+                      title="Upload to Spotify"
+                      onClick={handleUpload}
                     />
-                  </View> :
+                  }
+                  {' '}
+                </> : <></>
+              }
+              {playlistUrl ?
+                <Link
+                  url={playlistUrl}
+                  text={playlistName}
+                /> :
+                <>
                   <Text
                     onClick={() => {
                       if (userPlaylist) setEditing(true);
@@ -96,10 +96,10 @@ export default function ShowPlaylist({ style, playlist, onClose = f => f, spotif
                       <></>
                     }
                   </Text>
-                }
-              </>
-            }
-          </Text>
+                </>
+              }
+            </Text>
+          }
           {(playlist.creativity !== undefined && playlist.noise !== undefined) ?
             <Text h6><Small className='text-muted'>
               creativity {Math.round(playlist.creativity * 100)}%
