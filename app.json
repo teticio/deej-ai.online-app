@@ -9,17 +9,17 @@
     },
     "entryPoint": "./src/index.native.js",
     "scheme": "deejai",
-    "version": "2.2.3",
+    "version": "2.2.5",
     "userInterfaceStyle": "dark",
     "backgroundColor": "#000000",
     "android": {
       "package": "online.deejai.www",
-      "versionCode": 8,
+      "versionCode": 9,
       "permissions": ["INTERNET"]
     }, 
     "ios": {
       "bundleIdentifier": "online.deej-ai",
-      "buildNumber": "7",
+      "buildNumber": "1",
       "supportsTablet": true,
       "icon": "./public/ios-512x512.png"
     }
