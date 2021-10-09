@@ -6,7 +6,7 @@ import {
   View, Text, TextInput, Small, Link, Card, Spinner,
   FaBackward, FaCloudUploadAlt, FaPen, Hr
 } from './Platform';
-import { Row, Col, HorizontalSpacer } from './Lib';
+import { Row, Col } from './Lib';
 
 export default function ShowPlaylist({ style, playlist, onClose = f => f, spotify = null, userPlaylist = false }) {
   const [editing, setEditing] = useState(false);
@@ -48,7 +48,7 @@ export default function ShowPlaylist({ style, playlist, onClose = f => f, spotif
     <Card style={style}>
       <Row style={{ flexWrap: 'wrap', justifyContent: 'space-between', paddingBottom: 15 }} surface={true} >
         <Col surface={true}>
-          <Row style={{ justifyContent: 'flex-start' }} surface={true}>
+          <Text h4>
             {(spotify && spotify.loggedIn()) ?
               <>
                 {spinner ?
@@ -60,11 +60,11 @@ export default function ShowPlaylist({ style, playlist, onClose = f => f, spotif
                     onClick={handleUpload}
                   />
                 }
-                <HorizontalSpacer />
+                {' '}
               </> : <></>
             }
             {playlistUrl ?
-              <Link h4
+              <Link
                 url={playlistUrl}
                 text={playlistName}
               /> :
@@ -83,25 +83,23 @@ export default function ShowPlaylist({ style, playlist, onClose = f => f, spotif
                       }}
                     />
                   </View> :
-                  <Row surface={true}>
-                    <Text h4
-                      onClick={() => {
-                        if (userPlaylist) setEditing(true);
-                      }}
-                    >{playlistName}
-                      {userPlaylist ?
-                        <>
-                          {'  '}
-                          <FaPen size='15' className='link' />
-                        </> :
-                        <></>
-                      }
-                    </Text>
-                  </Row>
+                  <Text
+                    onClick={() => {
+                      if (userPlaylist) setEditing(true);
+                    }}
+                  >{playlistName}
+                    {userPlaylist ?
+                      <>
+                        {' '}
+                        <FaPen size='15' className='link' />
+                      </> :
+                      <></>
+                    }
+                  </Text>
                 }
               </>
             }
-          </Row>
+          </Text>
           {(playlist.creativity !== undefined && playlist.noise !== undefined) ?
             <Text h6><Small className='text-muted'>
               creativity {Math.round(playlist.creativity * 100)}%

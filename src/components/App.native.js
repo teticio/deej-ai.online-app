@@ -64,6 +64,7 @@ export default function App(props) {
   Linking.addEventListener('url', event => {
     const params = getHashParams(event.url.substring(event.url.indexOf('?') + 1));
     setSpotify(new Spotify(params));
+    setLoggedIn(spotify.loggedIn());
   });
 
   useEffect(() => {
@@ -74,7 +75,6 @@ export default function App(props) {
   const handleSelect = async route => {
     if (route === '/login') {
       await Linking.openURL(`${process.env.REACT_APP_API_URL}/login?state=deejai://`);
-      setLoggedIn(spotify.loggedIn());
     } else if (route === '/logout') {
       spotify.logOut();
       setLoggedIn(false);
