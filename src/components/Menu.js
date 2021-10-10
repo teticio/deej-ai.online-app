@@ -1,13 +1,11 @@
 import About from './About';
 import Settings from './Settings';
 import NotFound from './NotFound';
-import TopPlaylists from './TopPlaylists';
 import ShowPlaylist from './ShowPlaylist';
 import PrivacyPolicy from './PrivacyPolicy';
 import CreatePlaylist from './CreatePlaylist';
-import LatestPlaylists from './LatestPlaylists';
 import SearchPlaylists from './SearchPlaylists';
-import MostUploadedPlaylists from './MostUploadedPlaylists';
+import SelectedPlaylists from './SelectedPlaylists';
 
 export const getRoutes = (
   waypoints, setWaypoints,
@@ -58,20 +56,23 @@ export const getRoutes = (
       onClose: () => navigate('/')
     },
     '/latest': {
-      element: LatestPlaylists,
+      element: SelectedPlaylists,
       title: "Latest playlists",
+      query: 'latest_playlists',
       spotify: spotify,
       numPlaylists: numPlaylists
     },
     '/top': {
-      element: TopPlaylists,
+      element: SelectedPlaylists,
       title: "Top playlists",
+      query: 'top_playlists',
       spotify: spotify,
       numPlaylists: numPlaylists
     },
     '/most_uploaded': {
-      element: MostUploadedPlaylists,
+      element: SelectedPlaylists,
       title: "Most uploaded playlists",
+      query: 'most_uploads',
       spotify: spotify,
       numPlaylists: numPlaylists
     },

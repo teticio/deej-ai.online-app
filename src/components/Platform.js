@@ -102,3 +102,7 @@ export function IFrame(props) {
     />
   );
 }
+
+export function Image(props) {
+  return <img alt='alt' src={props.source} {...props} />;
+}
