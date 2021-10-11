@@ -442,6 +442,15 @@ def create_playlist(playlist: schemas.Playlist, db: Session = Depends(get_db)):
         db_item = db.query(models.Playlist).filter(
             models.Playlist.hash == models.Playlist.hash_it(playlist))
         db_item.update({'created': playlist.created})
+        if playlist.num_ratings > 0:
+            db_item.update({
+                'num_ratings':
+                db_item.first().num_ratings + playlist.num_ratings,
+                'av_rating':
+                (db_item.first().av_rating * db_item.first().num_ratings +
+                 playlist.av_rating * playlist.num_ratings) /
+                (db_item.first().num_ratings + playlist.num_ratings)
+            })
         db.commit()  # Doesn't call hook but that's ok
         db_item = db_item.first()
     return db_item
