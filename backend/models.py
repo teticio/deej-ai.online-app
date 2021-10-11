@@ -38,8 +38,7 @@ class Playlist(Base):
             str: SHA256 digest.
         """
         blob = (target.name, target.user_id, target.playlist_id,
-                target.av_rating, target.num_ratings, target.track_ids,
-                target.waypoints)
+                target.track_ids, target.waypoints)
         return sha256(pickle.dumps(blob)).hexdigest()
 
     def __repr__(self):
