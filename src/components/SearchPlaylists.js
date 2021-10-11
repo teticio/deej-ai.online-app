@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useReducer } from 'react';
-import ShowPlaylists from './ShowPlaylists';
 import { ReactJSOnly, Card, Text, TextInput, FaSearch } from './Platform';
 import { Row, HorizontalSpacer, VerticalSpacer } from './Lib';
+import ShowPlaylists from './ShowPlaylists';
 
 export async function searchPlaylists(searchString, maxItems) {
   const response = await fetch(`${process.env.REACT_APP_API_URL}/search_playlists` +
