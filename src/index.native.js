@@ -15,8 +15,7 @@ const prefix = Linking.createURL('/');
 global.Buffer = global.Buffer || require('buffer').Buffer;
 global.localStorage = global.localStorage || require('localStorage');
 
-//process.env.REACT_APP_API_URL = 'https://deej-ai.online/api/v1';
-process.env.REACT_APP_API_URL = 'http://192.168.0.243:8001/api/v1';
+process.env.REACT_APP_API_URL = 'https://deej-ai.online/api/v1';
 
 const theme = {
   ...DarkTheme,

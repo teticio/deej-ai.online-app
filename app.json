@@ -14,12 +14,12 @@
     "backgroundColor": "#000000",
     "android": {
       "package": "online.deejai.www",
-      "versionCode": 10,
+      "versionCode": 11,
       "permissions": ["INTERNET"]
     }, 
     "ios": {
       "bundleIdentifier": "online.deej-ai",
-      "buildNumber": "1",
+      "buildNumber": "2",
       "supportsTablet": true,
       "icon": "./public/ios-512x512.png"
     }
