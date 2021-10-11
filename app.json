@@ -19,7 +19,7 @@
     }, 
     "ios": {
       "bundleIdentifier": "online.deej-ai",
-      "buildNumber": "2",
+      "buildNumber": "3",
       "supportsTablet": true,
       "icon": "./public/ios-512x512.png"
     }
