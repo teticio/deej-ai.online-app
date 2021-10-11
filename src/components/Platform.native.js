@@ -133,7 +133,7 @@ export function Link(props) {
         {...props}
         style={{
           color: colors.accent,
-          backgroundColor: colors.surface,
+          backgroundColor: props.surface ? colors.surface : colors.background,
           textDecorationLine: 'underline',
           ...props.style
         }}

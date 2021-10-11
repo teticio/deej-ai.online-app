@@ -44,8 +44,8 @@ export default function Settings({ size, creativity, noise, onChange = f => f, o
         <Text h6 className='text-muted'>A value of 0% will select tracks based on how likely they are to appear together in a Spotify user's
           playlist. A value of 100% will select tracks based purely on how they sound.</Text>
         <VerticalSpacer />
-        <Row>
-          <Col>
+        <Row surface={true}>
+          <Col surface={true}>
             <Text h6><Small>{Math.round(_creativity * 100)}%</Small></Text>
           </Col>
           <Col>
@@ -68,8 +68,8 @@ export default function Settings({ size, creativity, noise, onChange = f => f, o
         <Form.Label htmlFor='noise'>Noise</Form.Label>
         <Text h6 className='text-muted'>Controls the amount of randomness to apply.</Text>
         <VerticalSpacer />
-        <Row>
-          <Col>
+        <Row surface={true}>
+          <Col surface={true}>
             <Text h6><Small>{Math.round(_noise * 100)}%</Small></Text>
           </Col>
           <Col>
