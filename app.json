@@ -9,12 +9,12 @@
     },
     "entryPoint": "./src/index.native.js",
     "scheme": "deejai",
-    "version": "2.2.5",
+    "version": "2.2.6",
     "userInterfaceStyle": "dark",
     "backgroundColor": "#000000",
     "android": {
       "package": "online.deejai.www",
-      "versionCode": 9,
+      "versionCode": 10,
       "permissions": ["INTERNET"]
     }, 
     "ios": {
