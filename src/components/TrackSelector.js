@@ -76,17 +76,17 @@ export default function TrackSelector({ spotify = null, onSelect = f => f, onSea
   return (
     <>
       <Col style={{ flex: 1 }}>
-        <Row style={{ justifyContent: 'flex-start', padding: 10 }} surface={true}>
-          {(currentTrack && currentTrack.url) ?
+        {(currentTrack && currentTrack.url) ?
+          <Row style={{ justifyContent: 'flex-start', padding: 10 }} surface={true}>
             <Row surface={true}>
               <Text h6 className='link' onClick={handleSearchSimilar}>
                 <FaSpotify size='15' className='link' />
                 {' '}
                 {currentTrack.track}
               </Text>
-            </Row> : <></>
-          }
-        </Row>
+            </Row>          }
+          </Row> : <></>
+        }
         <Row>
           <TextInput
             placeholder='Search...'
