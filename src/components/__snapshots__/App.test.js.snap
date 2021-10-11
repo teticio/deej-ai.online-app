@@ -158,9 +158,6 @@ exports[`app routing 1`] = `
           style="display: flex; flex-direction: column; flex: 1;"
         >
           <div
-            style="display: flex; flex-direction: row; align-items: center; justify-content: flex-start; padding: 10px;"
-          />
-          <div
             style="display: flex; flex-direction: row; align-items: center; justify-content: space-evenly;"
           >
             <input
