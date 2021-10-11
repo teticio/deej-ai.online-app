@@ -50,7 +50,7 @@ provided your domain is hosted by Route 53 and you have configured the [DNS, S3 
 ```
 kubectl get svc -n deejai
 ```
-will return an external IP for the Elastic Load Balancer (ELB). You will need to point your domain to the ELB by editing the relevant A record for your hosted zone in the AWS console.
+will return an external IP for the Elastic Load Balancer (ELB). You will need to point your domain to the ELB by editing the relevant A record for your hosted zone in the AWS console. It will then automatically create and periodically refresh an SSL certificate for HTTPS connections using Let's Encrypt.
 
 ## React Native
 
