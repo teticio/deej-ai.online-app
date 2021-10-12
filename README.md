@@ -37,7 +37,7 @@ You will also need to download the following files to the root directory:
 
 The easiest way to do this is by running `python download.py`. You should also set `REACT_APP_API_URL` to `'<Your external webpage URL>/api/v1'` in `.env.production` and `APP_URL` to `<Your external webpage URL>` in `run.sh`.
 
-If you have `pipenv` and `yarn` already installed you can then type
+If you want to avoid having to install Redis for caching requests, you should set the environment variable `NO_CACHE`. Assuming you have `pipenv` and `yarn` already installed, you can type
 ```
 ./install.sh
 ```
