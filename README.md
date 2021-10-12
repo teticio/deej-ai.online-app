@@ -42,7 +42,7 @@ You will need to have already created your `credentials.py`, as explained above.
 ```
 ./install_helm.sh
 ```
-The scripts assume you are running a `minikube`. To install on an AWS cluster with Kops
+The scripts assume you are running a `minikube`. This will install the backend FastAPI server, an SQL database to store the playlists and a Redis instance to cache server side static requests. To install on an AWS cluster with Kops
 ```
 ./deploy_kops.sh <Your external webpage domain>
 ```

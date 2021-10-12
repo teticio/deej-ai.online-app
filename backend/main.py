@@ -19,11 +19,17 @@ from fastapi.staticfiles import StaticFiles
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.exception_handlers import http_exception_handler
 
+from fastapi_cache import FastAPICache
+from fastapi_cache.backends.redis import RedisBackend
+from fastapi_cache.decorator import cache
+from fastapi_cache.coder import JsonCoder
+
 from sqlalchemy import desc, event
 from sqlalchemy.orm import Session
 from sqlalchemy.exc import IntegrityError, SQLAlchemyError
 
 import aiohttp
+import aioredis
 
 from bs4 import BeautifulSoup
 
@@ -35,6 +41,16 @@ from .database import SessionLocal, engine
 
 credentials.REDIRECT_URL = os.environ.get('SPOTIFY_REDIRECT_URI',
                                           credentials.REDIRECT_URL)
+REDIS_URL = os.environ.get('REDIS_URL', 'redis://localhost')
+REDIS_NAMESPACE = os.environ.get('REDIS_NAMESPACE', 'deejai')
+if 'NO_CACHE' in os.environ:
+
+    def cache(**kwargs):  # noqa: F811
+        def do_nothing(f):
+            return f
+
+        return do_nothing
+
 
 # Create tables if necessary
 models.Base.metadata.create_all(bind=engine)
@@ -70,6 +86,23 @@ def receive_before_insert(mapper, connection, target):  # pylint: disable=unused
     """Ensure hash is calculated before an insert.
     """
     target.hash = models.Playlist.hash_it(target)
+
+
+@app.on_event('startup')
+async def startup():
+    if 'NO_CACHE' not in os.environ:
+        redis = aioredis.from_url(REDIS_URL,
+                                  encoding='utf8',
+                                  decode_responses=True)
+        FastAPICache.init(RedisBackend(redis), prefix='fastapi-cache')
+
+
+class HTTPCoder(JsonCoder):
+    @classmethod
+    def decode(cls, value):
+        response = JsonCoder.decode(value)
+        return HTMLResponse(content=response['body'],
+                            status_code=response['status_code'])
 
 
 origins = [
@@ -233,7 +266,7 @@ async def get_access_token(request: Request):
                 text = await response.text()
         except aiohttp.ClientError as error:
             raise HTTPException(status_code=400, detail=str(error)) from error
-    return text
+    return HTMLResponse(content=text, status_code=200)
 
 
 async def get_track_widget(track_id):
@@ -270,6 +303,7 @@ async def get_track_widget(track_id):
 
 
 @app.get('/api/v1/widget')
+@cache(namespace=REDIS_NAMESPACE, expire=24 * 60 * 60)
 async def widget(track_id: str):
     """Get Spotify track widget.
     (Deprecated.)
@@ -285,6 +319,7 @@ async def widget(track_id: str):
 
 
 @app.get('/api/v1/track_widget')
+@cache(namespace=REDIS_NAMESPACE, expire=24 * 60 * 60, coder=HTTPCoder)
 async def track_widget(track_id: str):
     """Get Spotify track widget.
 
@@ -299,6 +334,7 @@ async def track_widget(track_id: str):
 
 
 @app.get('/api/v1/playlist_widget')
+@cache(namespace=REDIS_NAMESPACE, expire=24 * 60 * 60, coder=HTTPCoder)
 async def make_playlist_widget(track_ids, waypoints='[]', playlist_id=''):
     """Make a new Spotify playlist widget.
 
@@ -310,7 +346,6 @@ async def make_playlist_widget(track_ids, waypoints='[]', playlist_id=''):
     Returns:
         str: HTML which can be embedded in an iframe.
     """
-
     track_ids = json.loads(track_ids)
     waypoints = json.loads(waypoints)
     assert len(track_ids) > 0
