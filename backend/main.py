@@ -45,9 +45,13 @@ REDIS_URL = os.environ.get('REDIS_URL', 'redis://localhost')
 REDIS_NAMESPACE = os.environ.get('REDIS_NAMESPACE', 'deejai')
 if 'NO_CACHE' in os.environ:
 
-    def cache(**kwargs):  # noqa: F811
-        def do_nothing(f):
-            return f
+    def cache(**kwargs):  # noqa: F811 pylint: disable=function-redefined, unused-argument
+        """Override cache decorator
+        """
+        def do_nothing(func):
+            """Don't cache
+            """
+            return func
 
         return do_nothing
 
@@ -90,6 +94,8 @@ def receive_before_insert(mapper, connection, target):  # pylint: disable=unused
 
 @app.on_event('startup')
 async def startup():
+    """Initialize cache.
+    """
     if 'NO_CACHE' not in os.environ:
         redis = aioredis.from_url(REDIS_URL,
                                   encoding='utf8',
@@ -97,9 +103,13 @@ async def startup():
         FastAPICache.init(RedisBackend(redis), prefix='fastapi-cache')
 
 
-class HTTPCoder(JsonCoder):
+class HTMLCoder(JsonCoder):
+    """Cache HTMLResponse.
+    """
     @classmethod
     def decode(cls, value):
+        """Decode HTMLResponse.
+        """
         response = JsonCoder.decode(value)
         return HTMLResponse(content=response['body'],
                             status_code=response['status_code'])
@@ -319,7 +329,7 @@ async def widget(track_id: str):
 
 
 @app.get('/api/v1/track_widget')
-@cache(namespace=REDIS_NAMESPACE, expire=24 * 60 * 60, coder=HTTPCoder)
+@cache(namespace=REDIS_NAMESPACE, expire=24 * 60 * 60, coder=HTMLCoder)
 async def track_widget(track_id: str):
     """Get Spotify track widget.
 
@@ -334,7 +344,7 @@ async def track_widget(track_id: str):
 
 
 @app.get('/api/v1/playlist_widget')
-@cache(namespace=REDIS_NAMESPACE, expire=24 * 60 * 60, coder=HTTPCoder)
+@cache(namespace=REDIS_NAMESPACE, expire=24 * 60 * 60, coder=HTMLCoder)
 async def make_playlist_widget(track_ids, waypoints='[]', playlist_id=''):
     """Make a new Spotify playlist widget.
 

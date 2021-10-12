@@ -1,10 +1,25 @@
 # Deej-A.I. React App  ![Build Status](https://github.com/teticio/deej-ai.online-app/actions/workflows/build.yaml/badge.svg)
 
-![Deej-A.I.](screenshot.png)
-
 This is the source code for my webpage which is hosted at https://deej-ai.online/. If you are interested in the deep learning models that are used in the backend, have a look at my other repo https://github.com/teticio/Deej-A.I./.
 
-In order to run this, you wil need to create a `credentials.py` file in the `backend` directory with your Spotify Developer API credentials, which can be obtained from https://developer.spotify.com/dashboard/login.
+![Deej-A.I.](screenshot.png)
+
+---
+## Technical features
+
+* FastAPI backend server that handles calls to TensorFlow deep learning models, serves web content and manages the database (SQL, SQLite, etc.).
+* Dockerized for reproducibility.
+* Scalable and highly available Kubernetes deployment which is easy to install on a cloud or bare metal server using Helm.
+* SSL certificates for HTTPS connections provisioned automatically using Let's Encrypt.
+* Responsive ReactJS frontend web app and React Native app for iOS and Android using common codebase.
+* Client-side caching with service workers and server-side caching using Redis.
+* PWA (Progressive Web App) that can be installed on the desktop.
+* Automated unit tests and linting with Travis CI and / or GitHub Actions.
+
+---
+## Installation
+
+In order to run this, you will need to create a `credentials.py` file in the `backend` directory with your Spotify Developer API credentials, which can be obtained from https://developer.spotify.com/dashboard/login.
 
 ```
 CLIENT_ID = '<Your client ID>'
@@ -50,13 +65,13 @@ provided your domain is hosted by Route 53 and you have configured the [DNS, S3 
 ```
 kubectl get svc -n deejai
 ```
-will return an external IP for the Elastic Load Balancer (ELB). You will need to point your domain to the ELB by editing the relevant A record for your hosted zone in the AWS console. It will then automatically create and periodically refresh an SSL certificate for HTTPS connections using Let's Encrypt.
+will return an external IP for the Elastic Load Balancer (ELB). You will need to point your domain to the ELB by editing the relevant A record for your hosted zone in the AWS console. It will then automatically provision an SSL certificate for HTTPS connections.
 
 ## React Native
 
 <img src="screenshot2.png" alt="Deej-A.I." style="width:49%;"/> <img src="screenshot3.png" alt="Deej-A.I." style="width:49%;"/>
 
-ReactJS and React Native are very similar but quite different at the same time. I wanted to avoid duplicating code as mch as possible (following the DRY - Don't Repeat Yourself - principle) so I have wrapped the platform specific code in `Platform.js` and `Platform.native.js`. In particular, the standard HTML tags like `<h1>` or `<a>` have been replaced with wrapper components (e.g., `Text` and `Link`). To run on iOS or Android using Expo type
+ReactJS and React Native are very similar but quite different at the same time. I wanted to avoid duplicating code as much as possible (following the DRY - Don't Repeat Yourself - principle) so I have wrapped the platform specific code in `Platform.js` and `Platform.native.js`. In particular, the standard HTML tags like `<h1>` or `<a>` have been replaced with wrapper components (e.g., `Text` and `Link`). To run on iOS or Android using Expo type
 ```
 yarn start-native
 ```
