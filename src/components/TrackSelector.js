@@ -84,7 +84,7 @@ export default function TrackSelector({ spotify = null, onSelect = f => f, onSea
                 {' '}
                 {currentTrack.track}
               </Text>
-            </Row>          }
+            </Row>
           </Row> : <></>
         }
         <Row>
