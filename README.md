@@ -7,7 +7,7 @@ This is the source code for my webpage which is hosted at https://deej-ai.online
 ---
 ## Technical features
 
-* FastAPI backend server that handles calls to TensorFlow deep learning models, serves web content and manages the database (SQL, SQLite, etc.).
+* FastAPI backend server that handles calls to TensorFlow deep learning models, serves web content, manages the database (SQL, SQLite, etc.) and takes care of the Spotify authentication flow.
 * Dockerized for reproducibility.
 * Scalable and highly available Kubernetes deployment which is easy to install on a cloud or bare metal server using Helm.
 * SSL certificates for HTTPS connections provisioned automatically using Let's Encrypt.
