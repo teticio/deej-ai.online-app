@@ -49,6 +49,8 @@ and
 
 ## Deployment on a Kubernetes cluster with Helm
 
+![Deej-A.I.](architecture.png)
+
 To build the Docker image, run
 ```
 ./build_docker.sh
