@@ -27,7 +27,7 @@ if 'NO_CACHE' not in os.environ:
     from fastapi_cache.decorator import cache
 else:
 
-    def cache(**kwargs):  # disable=unused-argument
+    def cache(**kwargs):  # pylint: disable=unused-argument
         """Override cache decorator
         """
         def do_nothing(func):
