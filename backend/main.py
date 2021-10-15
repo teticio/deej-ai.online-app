@@ -23,21 +23,6 @@ from fastapi_cache import FastAPICache
 from fastapi_cache.backends.redis import RedisBackend
 from fastapi_cache.coder import JsonCoder
 
-if 'NO_CACHE' not in os.environ:
-    from fastapi_cache.decorator import cache
-else:
-
-    def cache(**kwargs):  # pylint: disable=unused-argument
-        """Override cache decorator
-        """
-        def do_nothing(func):
-            """Don't cache
-            """
-            return func
-
-        return do_nothing
-
-
 from sqlalchemy import desc, event
 from sqlalchemy.orm import Session
 from sqlalchemy.exc import IntegrityError, SQLAlchemyError
@@ -52,6 +37,21 @@ from . import schemas
 from . import credentials
 from .deejai import DeejAI
 from .database import SessionLocal, engine
+
+if 'NO_CACHE' not in os.environ:
+    from fastapi_cache.decorator import cache  # pylint: disable=ungrouped-imports
+else:
+
+    def cache(**kwargs):  # pylint: disable=unused-argument
+        """Override cache decorator
+        """
+        def do_nothing(func):
+            """Don't cache
+            """
+            return func
+
+        return do_nothing
+
 
 credentials.REDIRECT_URL = os.environ.get('SPOTIFY_REDIRECT_URI',
                                           credentials.REDIRECT_URL)
