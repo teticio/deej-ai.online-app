@@ -682,7 +682,7 @@ def search_playlists(string: str,
 # Let front end handle 404
 @app.exception_handler(StarletteHTTPException)
 async def custom_http_exception_handler(request, exc):
-    """Itercept 404 not found and redirect to application 404 page.
+    """Intercept 404 not found and redirect to application 404 page.
     """
     if exc.status_code == 404:
         url = os.environ.get('APP_URL', '') + '/#' + urllib.parse.urlencode(
