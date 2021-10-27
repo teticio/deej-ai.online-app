@@ -22,10 +22,14 @@ export default function App() {
   const [creativity, setCreativity] = usePersistedState('creativity', 0.5);
   const [noise, setNoise] = usePersistedState('noise', 0);
   const navigate = useNavigate();
-  const routes = getRoutes(
+  var routes = getRoutes(
     waypoints, setWaypoints, size, setSize, creativity, setCreativity,
     noise, setNoise, playlist, setPlaylist, spotify, navigate, 4
   );
+  // If running on Electron avoid not found for initial route
+  if (navigator.userAgent.toLowerCase().indexOf(' electron/') > -1) {
+    routes['*'] = routes['/'];
+  }
 
   function Screen({ element, title, params }) {
     return (

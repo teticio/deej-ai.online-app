@@ -26,11 +26,11 @@ import aiohttp
 
 from bs4 import BeautifulSoup
 
-from . import models
-from . import schemas
-from . import credentials
-from .deejai import DeejAI
-from .database import SessionLocal, engine
+from . import models  # pylint: disable=relative-beyond-top-level
+from . import schemas  # pylint: disable=relative-beyond-top-level
+from . import credentials  # pylint: disable=relative-beyond-top-level
+from .deejai import DeejAI  # pylint: disable=relative-beyond-top-level
+from .database import SessionLocal, engine  # pylint: disable=relative-beyond-top-level
 
 credentials.REDIRECT_URL = os.environ.get('SPOTIFY_REDIRECT_URI',
                                           credentials.REDIRECT_URL)

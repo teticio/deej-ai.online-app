@@ -1,6 +1,10 @@
 {
   "name": "deej-ai.online-app",
+  "description": "Automatically generate playlists based on how the music sounds",
+  "license": "GPL-3.0",
   "version": "0.1.0",
+  "main": "src/electron.js",
+  "homepage": "./",
   "private": true,
   "dependencies": {
     "@react-native-community/slider": "^4.1.7",
@@ -13,6 +17,8 @@
     "bootstrap": "5.0.2",
     "bootswatch": "^5.1.0",
     "buffer": "^6.0.3",
+    "electron-is-dev": "^2.0.0",
+    "electron-squirrel-startup": "^1.0.0",
     "expo": "~42.0.0",
     "expo-linking": "^2.3.1",
     "history": "^5.0.1",
@@ -58,7 +64,9 @@
     "android": "expo start --android",
     "ios": "expo start --ios",
     "web": "expo start --web",
-    "eject-native": "expo eject"
+    "eject-native": "expo eject",
+    "electron": "electron-forge start",
+    "make": "react-scripts build && electron-forge make"
   },
   "eslintConfig": {
     "extends": [
@@ -81,6 +89,48 @@
   "proxy": "http://localhost:8000",
   "devDependencies": {
     "@babel/core": "^7.9.0",
+    "@electron-forge/cli": "^6.0.0-beta.61",
+    "@electron-forge/maker-deb": "^6.0.0-beta.61",
+    "@electron-forge/maker-rpm": "^6.0.0-beta.61",
+    "@electron-forge/maker-snap": "^6.0.0-beta.61",
+    "@electron-forge/maker-squirrel": "^6.0.0-beta.61",
+    "@electron-forge/maker-zip": "^6.0.0-beta.61",
+    "electron": "^15.3.0",
+    "electron-devtools-installer": "^3.2.0",
     "react-test-renderer": "^17.0.2"
+  },
+  "config": {
+    "forge": {
+      "packagerConfig": {
+        "icon": "src/icons/icon"
+      },
+      "makers": [
+        {
+          "name": "@electron-forge/maker-squirrel",
+          "config": {
+            "name": "deej_ai.online_app"
+          }
+        },
+        {
+          "name": "@electron-forge/maker-zip",
+          "platforms": [
+            "darwin"
+          ]
+        },
+        {
+          "name": "@electron-forge/maker-deb",
+          "config": {
+            "options": {
+              "maintainer": "Robert Dargavel Smith",
+              "homepage": "https://deej-ai.online"
+            }
+          }
+        },
+        {
+          "name": "@electron-forge/maker-snap",
+          "config": {}
+        }
+      ]
+    }
   }
 }

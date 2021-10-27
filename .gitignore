@@ -98,3 +98,4 @@ deejai.db
 deejai-test.db
 credentials.py
 server.log
+out/
