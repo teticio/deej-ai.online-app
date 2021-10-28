@@ -13,16 +13,22 @@ from starlette.types import Scope
 from starlette.responses import Response, RedirectResponse
 from starlette.exceptions import HTTPException as StarletteHTTPException
 
-from fastapi import Depends, FastAPI, HTTPException
+from fastapi import Depends, FastAPI, HTTPException, Request
+from fastapi.responses import HTMLResponse
 from fastapi.staticfiles import StaticFiles
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.exception_handlers import http_exception_handler
+
+from fastapi_cache import FastAPICache
+from fastapi_cache.backends.redis import RedisBackend
+from fastapi_cache.coder import JsonCoder
 
 from sqlalchemy import desc, event
 from sqlalchemy.orm import Session
 from sqlalchemy.exc import IntegrityError, SQLAlchemyError
 
 import aiohttp
+import aioredis
 
 from bs4 import BeautifulSoup
 
@@ -32,8 +38,25 @@ from . import credentials  # pylint: disable=relative-beyond-top-level
 from .deejai import DeejAI  # pylint: disable=relative-beyond-top-level
 from .database import SessionLocal, engine  # pylint: disable=relative-beyond-top-level
 
+if 'NO_CACHE' not in os.environ:
+    from fastapi_cache.decorator import cache  # pylint: disable=ungrouped-imports
+else:
+
+    def cache(**kwargs):  # pylint: disable=unused-argument
+        """Override cache decorator
+        """
+        def do_nothing(func):
+            """Don't cache
+            """
+            return func
+
+        return do_nothing
+
+
 credentials.REDIRECT_URL = os.environ.get('SPOTIFY_REDIRECT_URI',
                                           credentials.REDIRECT_URL)
+REDIS_URL = os.environ.get('REDIS_URL', 'redis://localhost')
+REDIS_NAMESPACE = os.environ.get('REDIS_NAMESPACE', 'deejai')
 
 # Create tables if necessary
 models.Base.metadata.create_all(bind=engine)
@@ -69,6 +92,29 @@ def receive_before_insert(mapper, connection, target):  # pylint: disable=unused
     """Ensure hash is calculated before an insert.
     """
     target.hash = models.Playlist.hash_it(target)
+
+
+@app.on_event('startup')
+async def startup():
+    """Initialize cache.
+    """
+    if 'NO_CACHE' not in os.environ:
+        redis = aioredis.from_url(REDIS_URL,
+                                  encoding='utf8',
+                                  decode_responses=True)
+        FastAPICache.init(RedisBackend(redis), prefix='fastapi-cache')
+
+
+class HTMLCoder(JsonCoder):
+    """Cache HTMLResponse.
+    """
+    @classmethod
+    def decode(cls, value):
+        """Decode HTMLResponse.
+        """
+        response = JsonCoder.decode(value)
+        return HTMLResponse(content=response['body'],
+                            status_code=response['status_code'])
 
 
 origins = [
@@ -212,15 +258,37 @@ async def spotify_refresh_token(refresh_token: str):
     return _json
 
 
-@app.get('/api/v1/widget')
-async def widget(track_id: str):
+@app.get('/get_access_token')
+async def get_access_token(request: Request):
+    """Proxy
+    """
+    headers = {
+        'User-Agent':
+        'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) '
+        'Chrome/92.0.4515.159 Safari/537.36'
+    }
+    async with aiohttp.ClientSession() as session:
+        try:
+            async with session.get(
+                    f'https://open.spotify.com/get_access_token?{request.query_params}',
+                    headers=headers) as response:
+                if response.status != 200:
+                    raise HTTPException(status_code=response.status,
+                                        detail=response.reason)
+                text = await response.text()
+        except aiohttp.ClientError as error:
+            raise HTTPException(status_code=400, detail=str(error)) from error
+    return HTMLResponse(content=text, status_code=200)
+
+
+async def get_track_widget(track_id):
     """Get Spotify track widget.
 
     Args:
         track_id (str): Spotify track ID.
 
     Returns:
-        str: Base 64 encoded HTML which can be embedded in an iframe.
+        str: HTML as text.
     """
     headers = {
         'User-Agent':
@@ -243,21 +311,56 @@ async def widget(track_id: str):
     track = json.loads(urllib.parse.unquote(tag.string))
     track['preview_url'] = deejai.urls.get(track_id, '')
     tag.string.replace_with(urllib.parse.quote(json.dumps(track)))
-    return b64encode(str(soup).encode('ascii'))
+    return str(soup)
 
 
-@app.post('/api/v1/playlist_widget')
-async def make_playlist_widget(playlist_widget: schemas.PlaylistWidget):
+@app.get('/api/v1/widget')
+@cache(namespace=REDIS_NAMESPACE, expire=24 * 60 * 60)
+async def widget(track_id: str):
+    """Get Spotify track widget.
+    (Deprecated.)
+
+    Args:
+        track_id (str): Spotify track ID.
+
+    Returns:
+        str: Base64 encoded HTML which can be embedded in an iframe.
+    """
+    html = await get_track_widget(track_id)
+    return b64encode(html.encode('ascii'))
+
+
+@app.get('/api/v1/track_widget')
+@cache(namespace=REDIS_NAMESPACE, expire=24 * 60 * 60, coder=HTMLCoder)
+async def track_widget(track_id: str):
+    """Get Spotify track widget.
+
+    Args:
+        track_id (str): Spotify track ID.
+
+    Returns:
+        str: HTML which can be embedded in an iframe.
+    """
+    html = await get_track_widget(track_id)
+    return HTMLResponse(content=html, status_code=200)
+
+
+@app.get('/api/v1/playlist_widget')
+@cache(namespace=REDIS_NAMESPACE, expire=24 * 60 * 60, coder=HTMLCoder)
+async def make_playlist_widget(track_ids, waypoints='[]', playlist_id=''):
     """Make a new Spotify playlist widget.
 
     Args:
-        playlist_widget (schemas.PlaylistWidget): List of track IDs and waypoints.
+        track_ids (str): JSONified list of track IDs
+        waypoints (str): JSONified list of waypoints
+        playlist_id (str): Playlist id
 
     Returns:
-        str: Base 64 encoded HTML which can be embedded in an iframe.
+        str: HTML which can be embedded in an iframe.
     """
-
-    assert len(playlist_widget.track_ids) > 0
+    track_ids = json.loads(track_ids)
+    waypoints = json.loads(waypoints)
+    assert len(track_ids) > 0
     headers = {
         'User-Agent':
         'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) '
@@ -266,7 +369,7 @@ async def make_playlist_widget(playlist_widget: schemas.PlaylistWidget):
     async with aiohttp.ClientSession() as session:
         try:
             async with session.get(
-                    f'https://open.spotify.com/embed/track/{playlist_widget.track_ids[0]}',
+                    f'https://open.spotify.com/embed/track/{track_ids[0]}',
                     headers=headers) as response:
                 if response.status != 200:
                     raise HTTPException(status_code=response.status,
@@ -277,22 +380,25 @@ async def make_playlist_widget(playlist_widget: schemas.PlaylistWidget):
     soup = BeautifulSoup(text, 'html.parser')
     tag = soup.find(id="resource")
     track = json.loads(urllib.parse.unquote(tag.string))
+    if playlist_id == "":
+        playlist_id = "2p8cnjuIgVpsWln5HfbqTk"
     playlist = {
         'images': track['album']['images'],
         'tracks': {},
         'type': 'playlist',
-        'uri': 'spotify:playlist:6itFIZoAKyetrbFr8BxSd2',
+        'uri': f'spotify:playlist:{playlist_id}',
+        'href': f'https://api.spotify.com/v1/playlist/{playlist_id}',
         'dominantColor': track['dominantColor']
     }
     playlist['tracks']['items'] = []
-    for track_id in playlist_widget.track_ids:
+    for track_id in track_ids:
         title = deejai.tracks[track_id]
         track = {
             'is_local':
             True,
             'is_playable':
             True,
-            'name': ('* ' if track_id in playlist_widget.waypoints else '') +
+            'name': ('* ' if track_id in waypoints else '') +
             title[title.find(' - ') + 3:],
             'preview_url':
             deejai.urls.get(track_id, ''),
@@ -311,7 +417,7 @@ async def make_playlist_widget(playlist_widget: schemas.PlaylistWidget):
         playlist['tracks']['items'][0]['track']['artists'][0]['name']
     }
     tag.string.replace_with(urllib.parse.quote(json.dumps(playlist)))
-    return b64encode(str(soup).encode('ascii'))
+    return HTMLResponse(content=str(soup), status_code=200)
 
 
 @app.get('/api/v1/search')
@@ -383,6 +489,15 @@ def create_playlist(playlist: schemas.Playlist, db: Session = Depends(get_db)):
         db_item = db.query(models.Playlist).filter(
             models.Playlist.hash == models.Playlist.hash_it(playlist))
         db_item.update({'created': playlist.created})
+        if playlist.num_ratings > 0:
+            db_item.update({
+                'num_ratings':
+                db_item.first().num_ratings + playlist.num_ratings,
+                'av_rating':
+                (db_item.first().av_rating * db_item.first().num_ratings +
+                 playlist.av_rating * playlist.num_ratings) /
+                (db_item.first().num_ratings + playlist.num_ratings)
+            })
         db.commit()  # Doesn't call hook but that's ok
         db_item = db_item.first()
     return db_item
@@ -567,7 +682,7 @@ def search_playlists(string: str,
 # Let front end handle 404
 @app.exception_handler(StarletteHTTPException)
 async def custom_http_exception_handler(request, exc):
-    """Itercept 404 not found and redirect to application 404 page.
+    """Intercept 404 not found and redirect to application 404 page.
     """
     if exc.status_code == 404:
         url = os.environ.get('APP_URL', '') + '/#' + urllib.parse.urlencode(

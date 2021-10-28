@@ -5,17 +5,14 @@ import { Row, Col, HorizontalSpacer } from './Lib';
 
 export default function RemovableTrack({ track_id, uuid, onRemove = f => f }) {
   return (
-    <Row>
+    <Row surface={true}>
       <Col style={{ flex: 1 }}>
-        <Track
-          track_id={track_id}
-        >
-        </Track>
+        <Track track_id={track_id} />
       </Col>
-      <Col>
+      <Col surface={true}>
         <HorizontalSpacer />
       </Col>
-      <Col>
+      <Col surface={true}>
         <FaTimes
           size='25'
           className='link'

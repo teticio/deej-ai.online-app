@@ -110,8 +110,8 @@ class DeejAI:
                                         size=size,
                                         noise=noise)
 
-    async def most_similar(
-            self,  # pylint: disable=too-many-arguments
+    async def most_similar(  # pylint: disable=too-many-arguments
+            self,
             mp3tovecs,
             weights,
             positive=iter(()),
@@ -142,8 +142,8 @@ class DeejAI:
             del result[result.index(i)]
         return result
 
-    async def most_similar_by_vec(
-            self,  # pylint: disable=too-many-arguments
+    async def most_similar_by_vec(  # pylint: disable=too-many-arguments
+            self,
             mp3tovecs,
             weights,
             positives=iter(()),
@@ -197,8 +197,8 @@ class DeejAI:
         playlist.append(end)
         return playlist
 
-    async def make_playlist(
-            self,  # pylint: disable=too-many-arguments
+    async def make_playlist(  # pylint: disable=too-many-arguments
+            self,
             weights,
             playlist,
             size=10,

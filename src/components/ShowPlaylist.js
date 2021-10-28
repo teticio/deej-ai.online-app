@@ -6,7 +6,7 @@ import {
   View, Text, TextInput, Small, Link, Card, Spinner,
   FaBackward, FaCloudUploadAlt, FaPen, Hr
 } from './Platform';
-import { Row, Col, HorizontalSpacer } from './Lib';
+import { Row, Col } from './Lib';
 
 export default function ShowPlaylist({ style, playlist, onClose = f => f, spotify = null, userPlaylist = false }) {
   const [editing, setEditing] = useState(false);
@@ -48,54 +48,58 @@ export default function ShowPlaylist({ style, playlist, onClose = f => f, spotif
     <Card style={style}>
       <Row style={{ flexWrap: 'wrap', justifyContent: 'space-between', paddingBottom: 15 }} surface={true} >
         <Col surface={true}>
-          <Row style={{ justifyContent: 'flex-start' }} surface={true}>
-            {(spotify && spotify.loggedIn()) ?
-              <>
-                {spinner ?
-                  <Spinner animation='border' size='md' /> :
-                  <FaCloudUploadAlt size='25'
-                    className='link'
-                    data-toggle="tooltip"
-                    title="Upload to Spotify"
-                    onClick={handleUpload}
-                  />}
-                <HorizontalSpacer />
-              </> : <></>
-            }
-            {playlistUrl ?
-              <Link h4
-                url={playlistUrl}
-                text={playlistName}
-              /> :
-              <Text onClick={() => { if (userPlaylist) setEditing(true); }}>
-                {editing ?
-                  <View style={{ width: 200 }}>
-                    <TextInput
-                      value={playlistName}
-                      onChange={event => setPlaylistName(event.target.value)}
-                      onChangeText={value => setPlaylistName(value)}
-                      onBlur={handleUpdate}
-                      onKeyUp={event => {
-                        if (event.key === 'Enter') {
-                          handleUpdate();
-                        }
-                      }}
+          {editing ?
+            <View style={{ width: 200 }}>
+              <TextInput
+                value={playlistName}
+                onChange={event => setPlaylistName(event.target.value)}
+                onChangeText={value => setPlaylistName(value)}
+                onBlur={handleUpdate}
+                onKeyUp={event => {
+                  if (event.key === 'Enter') {
+                    handleUpdate();
+                  }
+                }}
+              />
+            </View> :
+            <Text h4>
+              {(spotify && spotify.loggedIn()) ?
+                <>
+                  {spinner ?
+                    <Spinner animation='border' size='md' /> :
+                    <FaCloudUploadAlt size='25'
+                      className='link'
+                      data-toggle="tooltip"
+                      title="Upload to Spotify"
+                      onClick={handleUpload}
                     />
-                  </View> :
-                  <Row surface={true}>
-                    <Text h4>{playlistName}</Text>
+                  }
+                  {' '}
+                </> : <></>
+              }
+              {playlistUrl ?
+                <Link
+                  url={playlistUrl}
+                  text={playlistName}
+                /> :
+                <>
+                  <Text
+                    onClick={() => {
+                      if (userPlaylist) setEditing(true);
+                    }}
+                  >{playlistName}
                     {userPlaylist ?
                       <>
-                        <HorizontalSpacer />
+                        {' '}
                         <FaPen size='15' className='link' />
                       </> :
                       <></>
                     }
-                  </Row>
-                }
-              </Text>
-            }
-          </Row>
+                  </Text>
+                </>
+              }
+            </Text>
+          }
           {(playlist.creativity !== undefined && playlist.noise !== undefined) ?
             <Text h6><Small className='text-muted'>
               creativity {Math.round(playlist.creativity * 100)}%
@@ -124,30 +128,11 @@ export default function ShowPlaylist({ style, playlist, onClose = f => f, spotif
           </Row>
         </Col>
       </Row>
-      {
-        /*
-        {playlistUrl ?
-          <iframe
-            title={playlistId}
-            src={'https://open.spotify.com/embed/playlist/' + playlistId}
-            width='100%'
-            height={80 + 50 * playlist.track_ids.length}
-            frameBorder='0'
-            allowtransparency='true'
-            allow='encrypted-media'
-          /> :
-        */
-      }
-      <Playlist {...playlist} />
-      {
-        /*
-        }
-        */
-      }
+      <Playlist {...playlist} playlist_id={playlistId} />
       {userPlaylist ?
         <>
           <Hr />
-          <Row style={{ justifyContent: 'space-between'  }} surface={true} >
+          <Row style={{ justifyContent: 'space-between' }} surface={true} >
             <FaBackward
               size='25'
               className='link'

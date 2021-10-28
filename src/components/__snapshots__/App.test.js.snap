@@ -159,9 +159,6 @@ exports[`app routing 1`] = `
         >
           <div
             style="display: flex; flex-direction: row; align-items: center; justify-content: space-evenly;"
-          />
-          <div
-            style="display: flex; flex-direction: row; align-items: center; justify-content: space-evenly;"
           >
             <input
               placeholder="Search..."
@@ -562,6 +559,9 @@ exports[`app routing 2`] = `
     <div
       style="margin-top: 10px;"
     />
+    <div
+      style="margin-top: 10px;"
+    />
     <span
       class="link"
       style="text-align: center;"
@@ -885,6 +885,9 @@ exports[`app routing 3`] = `
     <div
       style="margin-top: 10px;"
     />
+    <div
+      style="margin-top: 10px;"
+    />
     <span
       class="link"
       style="text-align: center;"
@@ -1205,6 +1208,9 @@ exports[`app routing 4`] = `
         Most uploaded playlists
       </h4>
     </span>
+    <div
+      style="margin-top: 10px;"
+    />
     <div
       style="margin-top: 10px;"
     />
@@ -1563,6 +1569,9 @@ exports[`app routing 5`] = `
           value=""
         />
       </div>
+      <div
+        style="margin-top: 10px;"
+      />
     </div>
   </div>
   <div

@@ -2,19 +2,26 @@
   "expo": {
     "name": "Deej-A.I.",
     "slug": "DeejAI",
+    "icon": "./public/android-chrome-512x512.png",
+    "splash": {
+      "image": "./public/android-chrome-512x512.png",
+      "backgroundColor": "#222222"
+    },
     "entryPoint": "./src/index.native.js",
     "scheme": "deejai",
-    "version": "2.0.1",
+    "version": "2.2.6",
     "userInterfaceStyle": "dark",
     "backgroundColor": "#000000",
     "android": {
-      "package": "online.deejai",
-      "versionCode": 1
+      "package": "online.deejai.www",
+      "versionCode": 11,
+      "permissions": ["INTERNET"]
     }, 
     "ios": {
       "bundleIdentifier": "online.deej-ai",
-      "buildNumber": "1",
-      "supportsTablet": true
+      "buildNumber": "3",
+      "supportsTablet": true,
+      "icon": "./public/ios-512x512.png"
     }
   }
 }

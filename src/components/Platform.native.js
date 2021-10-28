@@ -11,7 +11,7 @@ const MD_ICON = require('react-native-vector-icons').MaterialIcons;
 const FA_ICON = require('react-native-vector-icons').FontAwesome5;
 
 export { Card };
-export { TextInput };
+export { TextInput, Image };
 
 export function ReactJSOnly(props) {
   return <></>;
@@ -133,7 +133,7 @@ export function Link(props) {
         {...props}
         style={{
           color: colors.accent,
-          backgroundColor: colors.surface,
+          backgroundColor: props.surface ? colors.surface : colors.background,
           textDecorationLine: 'underline',
           ...props.style
         }}

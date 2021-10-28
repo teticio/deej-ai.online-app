@@ -1,12 +1,12 @@
 import React, { useState, useEffect, useReducer } from 'react';
-import ShowPlaylists from './ShowPlaylists';
 import { ReactJSOnly, Card, Text, TextInput, FaSearch } from './Platform';
 import { Row, HorizontalSpacer, VerticalSpacer } from './Lib';
+import ShowPlaylists from './ShowPlaylists';
 
 export async function searchPlaylists(searchString, maxItems) {
   const response = await fetch(`${process.env.REACT_APP_API_URL}/search_playlists` +
-    '?string=' + encodeURIComponent(searchString) +
-    '&max_items=' + encodeURIComponent(maxItems));
+    `?string=${encodeURIComponent(searchString)}` +
+    `&max_items=${encodeURIComponent(maxItems)}`);
   const playlists = await response.json();
   playlists.forEach((playlist, i) => {
     playlists[i].track_ids = JSON.parse(playlist.track_ids)
@@ -55,6 +55,7 @@ export default function SearchPlaylists({ spotify, numPlaylists = 4 }) {
               <Text>{searchString}</Text>
             }
           </Row>
+          <VerticalSpacer />
         </Card>
       </>
     );

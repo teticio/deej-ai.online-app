@@ -1,10 +1,10 @@
 import React from 'react';
-import { FlatList } from 'react-native';
+import { FlatList, RefreshControl } from 'react-native';
 import { Card } from './Platform';
 import { VerticalSpacer } from './Lib';
 import ShowPlaylist from './ShowPlaylist';
 
-export default function ShowPlaylists({ playlists, spotify = null, header = null }) {
+export default function ShowPlaylists({ playlists, spotify = null, header = null, onRefresh = null }) {
   const data = playlists.map((playlist, i) => {
     return {
       id: String(i),
@@ -40,6 +40,12 @@ export default function ShowPlaylists({ playlists, spotify = null, header = null
       data={data}
       renderItem={renderItem}
       keyExtractor={item => item.id}
+      refreshControl={
+        <RefreshControl
+          refreshing={false}
+          onRefresh={onRefresh}
+        />
+      }
     />
   );
 }

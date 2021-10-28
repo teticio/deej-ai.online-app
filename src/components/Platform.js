@@ -83,7 +83,7 @@ export function Select(props) {
 }
 
 export function Option(props) {
-  return <option {...props} />;
+  return <option {...props}>{props.label}</option>;
 }
 
 export function Ul(props) {
@@ -101,4 +101,8 @@ export function IFrame(props) {
       {...props}
     />
   );
+}
+
+export function Image(props) {
+  return <img alt='alt' src={props.source} {...props} />;
 }
