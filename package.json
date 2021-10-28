@@ -6,6 +6,10 @@
   "main": "src/electron.js",
   "homepage": "./",
   "private": true,
+  "author": {
+    "name": "Robert Dargavel Smith",
+    "email": "teticio@gmail.com"
+  },
   "dependencies": {
     "@react-native-community/slider": "^4.1.7",
     "@react-native-picker/picker": "^2.1.0",
@@ -102,7 +106,8 @@
   "config": {
     "forge": {
       "packagerConfig": {
-        "icon": "src/icons/icon"
+        "icon": "src/icons/icon",
+        "ignore": "(node_modules\/@unimodules|node_modules\/react-native|node_modules\/expo-file-system|node_modules\/ws)"
       },
       "makers": [
         {
@@ -119,15 +124,10 @@
         },
         {
           "name": "@electron-forge/maker-deb",
-          "config": {
-            "options": {
-              "maintainer": "Robert Dargavel Smith",
-              "homepage": "https://deej-ai.online"
-            }
-          }
+          "config": {}
         },
         {
-          "name": "@electron-forge/maker-snap",
+          "name": "@electron-forge/maker-rpm",
           "config": {}
         }
       ]
