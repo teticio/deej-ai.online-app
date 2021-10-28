@@ -5,3 +5,4 @@ sqlalchemy
 aiohttp
 aiofiles
 librosa
+fastapi_cache
