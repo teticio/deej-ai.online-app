@@ -107,6 +107,7 @@
     "forge": {
       "packagerConfig": {
         "icon": "src/icons/icon",
+        "asar": true,
         "ignore": "(node_modules\/@unimodules|node_modules\/react-native|node_modules\/expo-file-system|node_modules\/ws)"
       },
       "makers": [
