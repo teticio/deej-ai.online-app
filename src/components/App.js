@@ -1,7 +1,7 @@
 import React, { useState, useEffect, createElement } from 'react';
 import { Routes, Route, useNavigate } from 'react-router-dom';
 import { Container, Text } from './Platform';
-import { getHashParams, usePersistedState, VerticalSpacer } from './Lib';
+import { getHashParams, usePersistedState, VerticalSpacer, isElectron } from './Lib';
 import Banner from './Banner';
 import Footer from './Footer';
 import Spotify from './Spotify';
@@ -26,10 +26,6 @@ export default function App() {
     waypoints, setWaypoints, size, setSize, creativity, setCreativity,
     noise, setNoise, playlist, setPlaylist, spotify, navigate, 4
   );
-  // If running on Electron avoid not found for initial route
-  if (navigator.userAgent.toLowerCase().indexOf(' electron/') > -1) {
-    routes['*'] = routes['/'];
-  }
 
   function Screen({ element, title, params }) {
     return (
@@ -56,7 +52,8 @@ export default function App() {
     <ErrorBoundary>
       <Banner loggedIn={loggedIn} onSelect={route => {
         if (route === '/login') {
-          window.location.href = `${process.env.REACT_APP_API_URL}/login?state=${window.location.pathname}`;
+          let state = isElectron()? window.location.hash.substring(1): window.location.pathname;
+          window.location.href = `${process.env.REACT_APP_API_URL}/login?state=${state}`;
           setLoggedIn(spotify.loggedIn());
         } else if (route === '/logout') {
           spotify.logOut();
