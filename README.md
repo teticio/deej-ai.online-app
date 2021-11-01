@@ -92,3 +92,4 @@ Electron is a great way to build and distribute JavaScript applications for the 
 ```
 yarn make
 ```
+Initially, I attempted to use the same ```package.json``` file for everything: ReactJS, React Native and Electron. It turned out to be very complicated to ensure that Electron packaged everything up correctly without interfering with React. It seems much neater to create a specific ```package.json``` file in a separate folder ```electron``` which has only the minimal ```node_modules``` needed - which are very few as the application has already been packaged with Webpack.

@@ -1,0 +1,65 @@
+{
+  "name": "deejai",
+  "description": "Automatically generate playlists based on how the music sounds",
+  "license": "GPL-3.0",
+  "version": "1.2.7",
+  "main": "./src/index.js",
+  "private": true,
+  "author": {
+    "name": "Robert Dargavel Smith",
+    "email": "teticio@gmail.com"
+  },
+  "scripts": {
+    "start": "electron-forge start",
+    "package": "electron-forge package",
+    "make": "electron-forge make",
+    "publish": "electron-forge publish",
+    "lint": "echo \"No linting configured\""
+  },
+  "keywords": [],
+  "config": {
+    "forge": {
+      "packagerConfig": {
+        "icon": "../src/icons/icon",
+        "asar": true,
+        "extraResource": "../build/"
+      },
+      "makers": [
+        {
+          "name": "@electron-forge/maker-squirrel",
+          "config": {
+            "loadingGif": "../src/images/45.gif"
+          }
+        },
+        {
+          "name": "@electron-forge/maker-dmg",
+          "config": {
+            "background": "../public/ios-512x512.png"
+          }
+        },
+        {
+          "name": "@electron-forge/maker-deb",
+          "config": {}
+        },
+        {
+          "name": "@electron-forge/maker-rpm",
+          "config": {}
+        }
+      ]
+    }
+  },
+  "dependencies": {
+    "electron-is-dev": "^2.0.0",
+    "electron-squirrel-startup": "^1.0.0"
+  },
+  "devDependencies": {
+    "@electron-forge/cli": "^6.0.0-beta.61",
+    "@electron-forge/maker-deb": "^6.0.0-beta.61",
+    "@electron-forge/maker-rpm": "^6.0.0-beta.61",
+    "@electron-forge/maker-snap": "^6.0.0-beta.61",
+    "@electron-forge/maker-squirrel": "^6.0.0-beta.61",
+    "@electron-forge/maker-zip": "^6.0.0-beta.61",
+    "electron": "^15.3.0",
+    "electron-devtools-installer": "^3.2.0"
+  }
+}

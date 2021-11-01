@@ -3,13 +3,12 @@
   "description": "Automatically generate playlists based on how the music sounds",
   "license": "GPL-3.0",
   "version": "1.2.7",
-  "main": "src/electron.js",
-  "homepage": "./",
   "private": true,
   "author": {
     "name": "Robert Dargavel Smith",
     "email": "teticio@gmail.com"
   },
+  "homepage": "./",
   "dependencies": {
     "@react-native-community/slider": "^4.1.7",
     "@react-native-picker/picker": "^2.1.0",
@@ -69,8 +68,8 @@
     "ios": "expo start --ios",
     "web": "expo start --web",
     "eject-native": "expo eject",
-    "electron": "electron-forge start",
-    "make": "react-scripts build && electron-forge make"
+    "electron": "cd electron && electron-forge start",
+    "make": "react-scripts build && cd electron && electron-forge make"
   },
   "eslintConfig": {
     "extends": [
@@ -93,45 +92,6 @@
   "proxy": "http://localhost:8000",
   "devDependencies": {
     "@babel/core": "^7.9.0",
-    "@electron-forge/cli": "^6.0.0-beta.61",
-    "@electron-forge/maker-deb": "^6.0.0-beta.61",
-    "@electron-forge/maker-rpm": "^6.0.0-beta.61",
-    "@electron-forge/maker-snap": "^6.0.0-beta.61",
-    "@electron-forge/maker-squirrel": "^6.0.0-beta.61",
-    "@electron-forge/maker-zip": "^6.0.0-beta.61",
-    "electron": "^15.3.0",
-    "electron-devtools-installer": "^3.2.0",
     "react-test-renderer": "^17.0.2"
-  },
-  "config": {
-    "forge": {
-      "packagerConfig": {
-        "icon": "src/icons/icon",
-        "asar": true,
-        "ignore": "(node_modules\/@unimodules|node_modules\/react-native|node_modules\/expo-file-system|node_modules\/ws)"
-      },
-      "makers": [
-        {
-          "name": "@electron-forge/maker-squirrel",
-          "config": {
-            "loadingGif": "src/images/45.gif"
-          }
-        },
-        {
-          "name": "@electron-forge/maker-zip",
-          "platforms": [
-            "darwin"
-          ]
-        },
-        {
-          "name": "@electron-forge/maker-deb",
-          "config": {}
-        },
-        {
-          "name": "@electron-forge/maker-rpm",
-          "config": {}
-        }
-      ]
-    }
   }
 }
