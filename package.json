@@ -1,7 +1,7 @@
 {
   "name": "deejai",
   "description": "Automatically generate playlists based on how the music sounds",
-  "license": "GPL-3.0",
+  "license": "GPL-3.0-or-later",
   "version": "1.2.7",
   "private": true,
   "author": {
