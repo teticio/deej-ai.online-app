@@ -44,6 +44,15 @@
         {
           "name": "@electron-forge/maker-rpm",
           "config": {}
+        },
+        {
+          "name": "@davidwinter/electron-forge-maker-snap",
+          "config": {
+            "categories": [
+              "Music"
+            ],
+            "description": "Discover new music using Artificial Intelligence to automatically generate playlists based on how the music sounds. Create your own musical journey that smoothly 'joins the dots' between the songs that you choose (for example, from Mozart to Motörhead). Try playing around with the creativity parameter."
+          }
         }
       ]
     }
@@ -53,13 +62,13 @@
     "electron-squirrel-startup": "^1.0.0"
   },
   "devDependencies": {
+    "@davidwinter/electron-forge-maker-snap": "^2.0.7",
     "@electron-forge/cli": "^6.0.0-beta.61",
     "@electron-forge/maker-deb": "^6.0.0-beta.61",
+    "@electron-forge/maker-dmg": "^6.0.0-beta.61",
     "@electron-forge/maker-rpm": "^6.0.0-beta.61",
-    "@electron-forge/maker-snap": "^6.0.0-beta.61",
     "@electron-forge/maker-squirrel": "^6.0.0-beta.61",
     "@electron-forge/maker-zip": "^6.0.0-beta.61",
-    "@electron-forge/maker-dmg": "^6.0.0-beta.61",
     "electron": "^15.3.0",
     "electron-devtools-installer": "^3.2.0"
   }
