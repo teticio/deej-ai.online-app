@@ -88,7 +88,7 @@ expo build:ios
 
 ## Electron
 
-Electron is a great way to build and distribute JavaScript applications for the desktop (Windows, Mac, Linux). VSCode is a good example of just what can be achieved. To build the application for your platform, type
+Electron is a great way to build and distribute JavaScript applications for the desktop (Windows, Mac, Linux) - Visual Studio Code is a good example of just what can be achieved. To build the application for your platform, type
 ```
 yarn make
 ```
