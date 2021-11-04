@@ -22,7 +22,9 @@
       "packagerConfig": {
         "icon": "../src/icons/icon",
         "asar": true,
-        "extraResource": "../build/"
+        "extraResource": "../build/",
+        "appBundleId": "online.deej-ai",
+        "appCategoryType": "public.app-category.music"
       },
       "makers": [
         {
@@ -36,6 +38,11 @@
           "config": {
             "background": "../public/ios-512x512.png"
           }
+        },
+        {
+          "name": "@electron-forge/maker-zip",
+          "platforms": ["darwin"],
+          "config": {}
         },
         {
           "name": "@electron-forge/maker-deb",
