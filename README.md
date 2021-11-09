@@ -15,6 +15,7 @@ This is the source code for my webpage which is hosted at https://deej-ai.online
 * Client-side caching with service workers and server-side caching using Redis.
 * PWA (Progressive Web App) that can be installed on the desktop.
 * Automated unit tests and linting with Travis CI and / or GitHub Actions.
+* Electron desktop app ready to deploy to Snap, Windows and Mac App Stores.
 
 ---
 ## Installation

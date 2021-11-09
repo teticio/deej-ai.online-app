@@ -28,8 +28,8 @@ class Playlist(Base):
 
     @staticmethod
     def hash_it(target):
-        """Generate unique hash based on playlist name, user_id, playlist_id, av_rating,
-           num_ratings, track_ids and waypoints
+        """Generate unique hash based on playlist name, user_id, playlist_id,
+           track_ids and waypoints
 
         Args:
             target (models.Playlist): [description]
