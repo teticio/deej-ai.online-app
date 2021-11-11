@@ -1,6 +1,8 @@
 import React from 'react';
-import GoogleBadge from '../images/google-play-badge.png'
-import AppleBadge from '../images/download-on-the-app-store.png'
+import SnapBadge from '../images/snap-store-black.png';
+import GoogleBadge from '../images/google-play-badge.png';
+import AppleBadge from '../images/download-on-the-app-store.png';
+import WindowsBadge from '../images/windows-store.png';
 import { ReactJSOnly, Text, Link, FaPlus, FaForward, FaCloudUploadAlt, FaSpotify, FaCog } from './Platform';
 import { B, I, VerticalSpacer, Row } from './Lib';
 
@@ -53,7 +55,12 @@ export default function About() {
       </Text>
       <ReactJSOnly>
         <VerticalSpacer px={15} />
-        <Row>
+        <Row style={{ flexWrap: 'wrap' }}>
+          <Link style={{ width: 120, height: 40 }}
+            url='https://snapcraft.io/deejai'
+            source={SnapBadge}
+            alt='Get it from the Snap Store'
+          />
           <Link style={{ width: 150, height: 60 }}
             url='https://play.google.com/store/apps/details?id=online.deejai.www&pcampaignid=MKT-Other-global-all-co-prtnr-py-PartBadge-Mar2515-1'
             source={GoogleBadge}
@@ -63,6 +70,11 @@ export default function About() {
             url='https://apps.apple.com/us/app/deej-a-i/id1529860910?mt=8'
             source={AppleBadge}
             alt='Get it on App Store'
+          />
+          <Link style={{ width: 120, height: 40 }}
+            url='https://www.microsoft.com/en-gb/p/deejai/9nbj2qk6q8b8?activetab=pivot:overviewtab'
+            source={WindowsBadge}
+            alt='Get it from Microsoft'
           />
         </Row>
       </ReactJSOnly>

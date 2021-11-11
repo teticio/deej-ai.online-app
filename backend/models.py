@@ -44,5 +44,4 @@ class Playlist(Base):
     def __repr__(self):
         """Pretty print playlist object.
         """
-        return "<Playlist(id='%d', name='%s', hash='%s')>" % (
-            self.id, self.name, self.hash)
+        return f'<Playlist(id={self.id}, name={self.name}, hash={self.hash})>'
