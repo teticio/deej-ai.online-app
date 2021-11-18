@@ -2062,8 +2062,25 @@ exports[`app routing 6`] = `
       style="margin-top: 15px;"
     />
     <div
-      style="display: flex; flex-direction: row; align-items: center; justify-content: space-evenly;"
+      style="display: flex; flex-direction: row; align-items: center; justify-content: space-evenly; flex-wrap: wrap;"
     >
+      <a
+        alt="Get it from the Snap Store"
+        href="https://snapcraft.io/deejai"
+        rel="noopener noreferrer"
+        source="snap-store-black.png"
+        style="width: 120px; height: 40px;"
+        target="_blank"
+        url="https://snapcraft.io/deejai"
+      >
+        <img
+          alt="Get it from the Snap Store"
+          source="snap-store-black.png"
+          src="snap-store-black.png"
+          style="width: 120px; height: 40px;"
+          url="https://snapcraft.io/deejai"
+        />
+      </a>
       <a
         alt="Get it on Google Play"
         href="https://play.google.com/store/apps/details?id=online.deejai.www&pcampaignid=MKT-Other-global-all-co-prtnr-py-PartBadge-Mar2515-1"
@@ -2096,6 +2113,23 @@ exports[`app routing 6`] = `
           src="download-on-the-app-store.png"
           style="width: 120px; height: 40px;"
           url="https://apps.apple.com/us/app/deej-a-i/id1529860910?mt=8"
+        />
+      </a>
+      <a
+        alt="Get it from Microsoft"
+        href="https://www.microsoft.com/en-gb/p/deejai/9nbj2qk6q8b8?activetab=pivot:overviewtab"
+        rel="noopener noreferrer"
+        source="windows-store.png"
+        style="width: 120px; height: 40px;"
+        target="_blank"
+        url="https://www.microsoft.com/en-gb/p/deejai/9nbj2qk6q8b8?activetab=pivot:overviewtab"
+      >
+        <img
+          alt="Get it from Microsoft"
+          source="windows-store.png"
+          src="windows-store.png"
+          style="width: 120px; height: 40px;"
+          url="https://www.microsoft.com/en-gb/p/deejai/9nbj2qk6q8b8?activetab=pivot:overviewtab"
         />
       </a>
     </div>
