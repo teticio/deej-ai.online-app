@@ -72,11 +72,11 @@ will return an external IP for the Elastic Load Balancer (ELB). You will need to
 
 ## Amazon ECS on AWS Fargate
 
-You can also deploy the application as what I call a "serverless server" on AWS Fargate. It is "serverless" in the sense that you don't need to provision a server, but "serverful" in that it runs a Fargate task 24x7. The advantages are that you don't have to worry about patching your EC2 instances and it is very easy to stop and start at the click of a button. Running
+You can also deploy the application as what I call a "serverless server" on AWS Fargate. It is "serverless" in the sense that you don't need to provision a server, but "serverful" in that it runs a Fargate task 24x7. The advantages are that you don't have to worry about patching your EC2 instances and it is very easy to update or restart at the click of a button. Running
 ```
 terraform apply -var="domain=<Your external webpage domain>"
 ```
-in the `terraform` directory will create a VPC and Fargate ECS cluster and point your website to an Application Load Balancer. It currently uses a single Docker image running just the FastAPI server (without any databases). Ideally, the playlist database would be a persistent AWS instance living outside the cluster.
+in the `terraform` directory will create a VPC and Fargate ECS cluster and point your website to an Application Load Balancer. It currently uses a single Docker image running just the FastAPI server with persistent EFS storage. An advantage of Fargate is that you can use spot instances which are about 70% cheaper than on-demand ones and are supposedly only interrupted about 5% of the time.
 
 (While I was developing this script, my `terraform.tfstate` got in a bit of a state, so I had to destroy all the resources it had created by hand. I found it oddly reminiscent of trying to open one of those Japanese puzzle boxes as it would only let me delete the resources in exactly the right order.)
 

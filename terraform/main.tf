@@ -1,14 +1,34 @@
 data "aws_region" "current" {}
 
-resource "aws_ecs_cluster" "deejai" {
-  name = "deejai"
+resource "aws_ecs_cluster" "this" {
+  name               = "deejai"
+  capacity_providers = ["FARGATE_SPOT", "FARGATE"]
+
+  default_capacity_provider_strategy {
+    capacity_provider = "FARGATE_SPOT"
+  }
+  
+  tags = {
+    Name = var.tag
+  }
+}
+
+resource "aws_efs_access_point" "this" {
+  file_system_id = aws_efs_file_system.this.id
 
   tags = {
     Name = var.tag
   }
 }
 
-resource "aws_cloudwatch_log_group" "deejai" {
+resource "aws_efs_mount_target" "this" {
+  count           = length(aws_subnet.private.*.id)
+  file_system_id  = aws_efs_file_system.this.id
+  subnet_id       = element(aws_subnet.private.*.id, count.index)
+  security_groups = [aws_security_group.efs.id]
+}
+
+resource "aws_cloudwatch_log_group" "this" {
   name = "/ecs/deejai"
 
   tags = {
@@ -16,15 +36,15 @@ resource "aws_cloudwatch_log_group" "deejai" {
   }
 }
 
-resource "aws_ecs_service" "deejai" {
+resource "aws_ecs_service" "this" {
   name            = "deejai"
-  task_definition = aws_ecs_task_definition.deejai.arn
-  cluster         = aws_ecs_cluster.deejai.id
+  task_definition = aws_ecs_task_definition.this.arn
+  cluster         = aws_ecs_cluster.this.id
   launch_type     = "FARGATE"
   desired_count   = 1
 
   load_balancer {
-    target_group_arn = aws_lb_target_group.deejai.arn
+    target_group_arn = aws_lb_target_group.this.arn
     container_name   = "deejai"
     container_port   = "8000"
   }
@@ -35,7 +55,7 @@ resource "aws_ecs_service" "deejai" {
 
     security_groups = [
       aws_security_group.egress_all.id,
-      aws_security_group.ingress_api.id,
+      aws_security_group.ingress_api.id
     ]
   }
 
@@ -44,7 +64,15 @@ resource "aws_ecs_service" "deejai" {
   }
 }
 
-resource "aws_ecs_task_definition" "deejai" {
+resource "aws_efs_file_system" "this" {
+  creation_token = "deejai"
+
+  tags = {
+    Name = var.tag
+  }
+}
+
+resource "aws_ecs_task_definition" "this" {
   family = "deejai"
 
   container_definitions = <<EOF
@@ -67,6 +95,10 @@ resource "aws_ecs_task_definition" "deejai" {
     {
       "name": "NO_CACHE",
       "value": "1"
+    },
+    {
+      "name": "SQLALCHEMY_DATABASE_URL",
+      "value": "sqlite:////mnt/efs/deejai.db"
     }
   ],
   "portMappings": [{
@@ -79,11 +111,24 @@ resource "aws_ecs_task_definition" "deejai" {
       "awslogs-group": "/ecs/deejai",
       "awslogs-stream-prefix": "ecs"
     }
-  }
+  },
+  "mountPoints": [{
+    "sourceVolume": "${aws_efs_file_system.this.creation_token}",
+    "containerPath": "/mnt/efs",
+    "readOnly": false
+  }]
 }]
   EOF
 
-  execution_role_arn       = aws_iam_role.deejai_task_execution_role.arn
+  volume {
+    name = "deejai"
+    efs_volume_configuration {
+      file_system_id = aws_efs_file_system.this.id
+      root_directory = "/"
+    }
+  }
+
+  execution_role_arn       = aws_iam_role.task_execution_role.arn
   cpu                      = 1024
   memory                   = 2048
   requires_compatibilities = ["FARGATE"]
@@ -94,7 +139,7 @@ resource "aws_ecs_task_definition" "deejai" {
   }
 }
 
-resource "aws_iam_role" "deejai_task_execution_role" {
+resource "aws_iam_role" "task_execution_role" {
   name               = "deejai-task-execution-role"
   assume_role_policy = data.aws_iam_policy_document.ecs_task_assume_role.json
 
@@ -119,11 +164,11 @@ data "aws_iam_policy" "ecs_task_execution_role" {
 }
 
 resource "aws_iam_role_policy_attachment" "ecs_task_execution_role" {
-  role       = aws_iam_role.deejai_task_execution_role.name
+  role       = aws_iam_role.task_execution_role.name
   policy_arn = data.aws_iam_policy.ecs_task_execution_role.arn
 }
 
-resource "aws_lb_target_group" "deejai" {
+resource "aws_lb_target_group" "this" {
   name        = "deejai"
   port        = 8000
   protocol    = "HTTP"
@@ -137,14 +182,14 @@ resource "aws_lb_target_group" "deejai" {
     unhealthy_threshold = 10
   }
 
-  depends_on = [aws_alb.deejai]
+  depends_on = [aws_alb.this]
 
   tags = {
     Name = var.tag
   }
 }
 
-resource "aws_alb" "deejai" {
+resource "aws_alb" "this" {
   name               = "deejai"
   internal           = false
   load_balancer_type = "application"
@@ -164,7 +209,7 @@ resource "aws_alb" "deejai" {
 }
 
 resource "aws_alb_listener" "http" {
-  load_balancer_arn = aws_alb.deejai.arn
+  load_balancer_arn = aws_alb.this.arn
   port              = "80"
   protocol          = "HTTP"
 
@@ -183,12 +228,12 @@ resource "aws_alb_listener" "http" {
   }
 }
 
-data "aws_route53_zone" "deejai" {
+data "aws_route53_zone" "this" {
   name         = var.hosted_zone
   private_zone = false
 }
 
-resource "aws_acm_certificate" "deejai" {
+resource "aws_acm_certificate" "this" {
   domain_name       = var.domain
   validation_method = "DNS"
 
@@ -197,9 +242,9 @@ resource "aws_acm_certificate" "deejai" {
   }
 }
 
-resource "aws_route53_record" "deejai" {
+resource "aws_route53_record" "this" {
   for_each = {
-    for dvo in aws_acm_certificate.deejai.domain_validation_options : dvo.domain_name => {
+    for dvo in aws_acm_certificate.this.domain_validation_options : dvo.domain_name => {
       name   = dvo.resource_record_name
       record = dvo.resource_record_value
       type   = dvo.resource_record_type
@@ -211,23 +256,23 @@ resource "aws_route53_record" "deejai" {
   records         = [each.value.record]
   ttl             = 60
   type            = each.value.type
-  zone_id         = data.aws_route53_zone.deejai.zone_id
+  zone_id         = data.aws_route53_zone.this.zone_id
 }
 
-resource "aws_acm_certificate_validation" "deejai" {
-  certificate_arn         = aws_acm_certificate.deejai.arn
-  validation_record_fqdns = [for record in aws_route53_record.deejai : record.fqdn]
+resource "aws_acm_certificate_validation" "this" {
+  certificate_arn         = aws_acm_certificate.this.arn
+  validation_record_fqdns = [for record in aws_route53_record.this : record.fqdn]
 }
 
 resource "aws_alb_listener" "https" {
-  load_balancer_arn = aws_alb.deejai.arn
+  load_balancer_arn = aws_alb.this.arn
   port              = "443"
   protocol          = "HTTPS"
-  certificate_arn   = aws_acm_certificate_validation.deejai.certificate_arn
+  certificate_arn   = aws_acm_certificate_validation.this.certificate_arn
 
   default_action {
     type             = "forward"
-    target_group_arn = aws_lb_target_group.deejai.arn
+    target_group_arn = aws_lb_target_group.this.arn
   }
 
   tags = {
@@ -236,14 +281,14 @@ resource "aws_alb_listener" "https" {
 }
 
 resource "aws_route53_record" "www" {
-  zone_id         = data.aws_route53_zone.deejai.zone_id
+  zone_id         = data.aws_route53_zone.this.zone_id
   name            = var.domain
   type            = "A"
   allow_overwrite = true
 
   alias {
     evaluate_target_health = true
-    name                   = aws_alb.deejai.dns_name
-    zone_id                = aws_alb.deejai.zone_id
+    name                   = aws_alb.this.dns_name
+    zone_id                = aws_alb.this.zone_id
   }
 }

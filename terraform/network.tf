@@ -1,7 +1,8 @@
 data "aws_availability_zones" "az" {}
 
 resource "aws_vpc" "app_vpc" {
-  cidr_block = "10.0.0.0/16"
+  cidr_block           = "10.0.0.0/16"
+  enable_dns_hostnames = true
 
   tags = {
     Name = var.tag
@@ -156,6 +157,29 @@ resource "aws_security_group" "ingress_api" {
     from_port   = 8000
     to_port     = 8000
     protocol    = "TCP"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
+  tags = {
+    Name = var.tag
+  }
+}
+
+resource "aws_security_group" "efs" {
+  name   = "efs"
+  vpc_id = aws_vpc.app_vpc.id
+
+  ingress {
+    from_port   = 2049
+    to_port     = 2049
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
+  egress {
+    from_port   = 0
+    to_port     = 0
+    protocol    = "-1"
     cidr_blocks = ["0.0.0.0/0"]
   }
 
