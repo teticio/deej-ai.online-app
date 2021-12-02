@@ -100,3 +100,6 @@ credentials.py
 server.log
 out/
 output/
+
+.terraform*
+terraform.*
