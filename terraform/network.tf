@@ -1,6 +1,6 @@
 data "aws_availability_zones" "az" {}
 
-resource "aws_vpc" "app_vpc" {
+resource "aws_vpc" "this" {
   cidr_block           = "10.0.0.0/16"
   enable_dns_hostnames = true
 
@@ -10,7 +10,7 @@ resource "aws_vpc" "app_vpc" {
 }
 
 resource "aws_subnet" "public" {
-  vpc_id            = aws_vpc.app_vpc.id
+  vpc_id            = aws_vpc.this.id
   count             = length(data.aws_availability_zones.az.names)
   cidr_block        = "10.0.${10 + count.index}.0/24"
   availability_zone = data.aws_availability_zones.az.names[count.index]
@@ -21,7 +21,7 @@ resource "aws_subnet" "public" {
 }
 
 resource "aws_subnet" "private" {
-  vpc_id            = aws_vpc.app_vpc.id
+  vpc_id            = aws_vpc.this.id
   count             = length(data.aws_availability_zones.az.names)
   cidr_block        = "10.0.${20 + count.index}.0/24"
   availability_zone = data.aws_availability_zones.az.names[count.index]
@@ -32,7 +32,7 @@ resource "aws_subnet" "private" {
 }
 
 resource "aws_route_table" "public" {
-  vpc_id = aws_vpc.app_vpc.id
+  vpc_id = aws_vpc.this.id
 
   tags = {
     Name = var.tag
@@ -40,7 +40,7 @@ resource "aws_route_table" "public" {
 }
 
 resource "aws_route_table" "private" {
-  vpc_id = aws_vpc.app_vpc.id
+  vpc_id = aws_vpc.this.id
 
   tags = {
     Name = var.tag
@@ -69,7 +69,7 @@ resource "aws_eip" "nat" {
 }
 
 resource "aws_internet_gateway" "igw" {
-  vpc_id = aws_vpc.app_vpc.id
+  vpc_id = aws_vpc.this.id
 
   tags = {
     Name = var.tag
@@ -103,7 +103,7 @@ resource "aws_route" "private_ngw" {
 
 resource "aws_security_group" "http" {
   name   = "http"
-  vpc_id = aws_vpc.app_vpc.id
+  vpc_id = aws_vpc.this.id
 
   ingress {
     from_port   = 80
@@ -119,7 +119,7 @@ resource "aws_security_group" "http" {
 
 resource "aws_security_group" "https" {
   name   = "https"
-  vpc_id = aws_vpc.app_vpc.id
+  vpc_id = aws_vpc.this.id
 
   ingress {
     from_port   = 443
@@ -135,7 +135,7 @@ resource "aws_security_group" "https" {
 
 resource "aws_security_group" "egress_all" {
   name   = "egress_all"
-  vpc_id = aws_vpc.app_vpc.id
+  vpc_id = aws_vpc.this.id
 
   egress {
     from_port   = 0
@@ -151,7 +151,7 @@ resource "aws_security_group" "egress_all" {
 
 resource "aws_security_group" "ingress_api" {
   name   = "ingress_api"
-  vpc_id = aws_vpc.app_vpc.id
+  vpc_id = aws_vpc.this.id
 
   ingress {
     from_port   = 8000
@@ -167,7 +167,7 @@ resource "aws_security_group" "ingress_api" {
 
 resource "aws_security_group" "efs" {
   name   = "efs"
-  vpc_id = aws_vpc.app_vpc.id
+  vpc_id = aws_vpc.this.id
 
   ingress {
     from_port   = 2049

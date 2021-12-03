@@ -173,7 +173,7 @@ resource "aws_lb_target_group" "this" {
   port        = 8000
   protocol    = "HTTP"
   target_type = "ip"
-  vpc_id      = aws_vpc.app_vpc.id
+  vpc_id      = aws_vpc.this.id
 
   health_check {
     enabled             = true
