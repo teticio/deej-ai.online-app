@@ -22,10 +22,14 @@ resource "aws_efs_access_point" "this" {
 }
 
 resource "aws_efs_mount_target" "this" {
-  count           = length(aws_subnet.private.*.id)
-  file_system_id  = aws_efs_file_system.this.id
-  subnet_id       = element(aws_subnet.private.*.id, count.index)
-  security_groups = [aws_security_group.efs.id]
+  count          = length(aws_subnet.private.*.id)
+  file_system_id = aws_efs_file_system.this.id
+  subnet_id      = element(aws_subnet.private.*.id, count.index)
+
+  security_groups = [
+    aws_security_group.efs.id,
+    aws_security_group.egress_all.id
+  ]
 }
 
 resource "aws_cloudwatch_log_group" "this" {
