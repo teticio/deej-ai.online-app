@@ -7,7 +7,7 @@ resource "aws_ecs_cluster" "this" {
   default_capacity_provider_strategy {
     capacity_provider = "FARGATE_SPOT"
   }
-  
+
   tags = {
     Name = var.tag
   }
