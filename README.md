@@ -76,7 +76,7 @@ You can also deploy the application as what I call a "serverless server" on AWS 
 ```
 terraform apply -var="domain=<Your external webpage domain>"
 ```
-in the `terraform` directory will create a VPC and Fargate ECS cluster and point your website to an Application Load Balancer. It currently uses a single Docker image running just the FastAPI server with persistent EFS storage. An advantage of Fargate is that you can use spot instances which are about 70% cheaper than on-demand ones and are supposedly only interrupted about 5% of the time.
+in the `terraform` directory will create a VPC and Fargate ECS cluster and point your website to an Application Load Balancer. It currently uses a single Docker image running just the FastAPI server with persistent EFS storage. An advantage of Fargate is that you can use spot instances which are up to 70% cheaper than on-demand ones and are supposedly only interrupted about 5% of the time.
 
 (While I was developing this script, my `terraform.tfstate` got in a bit of a state, so I had to destroy all the resources it had created by hand. I found it oddly reminiscent of trying to open one of those Japanese puzzle boxes as it would only let me delete the resources in exactly the right order.)
 
