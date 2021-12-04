@@ -1,3 +1,4 @@
+#!/usr/bin/env bash
 export NAME=deejai.${1-teticio.co.uk}
 export KOPS_STATE_STORE=s3://clusters.${1-teticio.co.uk}
 export AWS_REGION=${2-us-east-1}

@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/usr/bin/env bash
 helm uninstall deejai -n deejai
 kubectl delete namespace deejai
 helm upgrade \
