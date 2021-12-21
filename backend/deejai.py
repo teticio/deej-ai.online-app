@@ -285,6 +285,6 @@ class DeejAI:
             return ids
         except Exception as error:  # pylint: disable=broad-except
             logging.error(error)
-            if os.path.exists(f'./{playlist_id}.mp3'):
-                os.remove(f'./{playlist_id}.mp3')
+            if os.path.exists(f'{playlist_id}.{extension}'):
+                os.remove(f'{playlist_id}.{extension}')
             return []
