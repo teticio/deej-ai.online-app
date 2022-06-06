@@ -5,4 +5,7 @@ sqlalchemy
 aiohttp
 aiofiles
 librosa
+pymysql
+sqlalchemy-utils
+beautifulsoup4
 fastapi-cache2
