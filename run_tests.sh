@@ -4,6 +4,6 @@ pipenv run flake8 . --count --exit-zero --max-complexity=10 --max-line-length=12
 export SQLALCHEMY_DATABASE_URL="sqlite:///:memory:" && \
 export CUDA_VISIBLE_DEVICES="" && \
 export NO_CACHE='1' && \
-pipenv run "pytest backend" &&\
+pipenv run pytest backend &&\
 export CI=true && \
 yarn test

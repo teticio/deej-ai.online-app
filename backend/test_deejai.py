@@ -136,9 +136,9 @@ def test_search_similar():
                 'track_id': '1v3fyyGJRlblbobabiXxIs',
                 'track': 'Latifah - On My Way'
             }, {
-                'track_id': '3jWfGOOUffq51fWGQdPV68',
-                'track': 'Achille Lauro - Non sei come me'
-            }, {
                 'track_id': '2HR9Ih2IjpGEQ3YZl7aRUQ',
                 'track': 'Jeano - Abow'
+            }, {
+                'track_id': '3jWfGOOUffq51fWGQdPV68',
+                'track': 'Achille Lauro - Non sei come me'
             }]
