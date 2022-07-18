@@ -17,6 +17,7 @@ chardet==4.0.0
 charset-normalizer==2.0.7
 clang==5.0
 click==8.0.3
+cryptography==37.0.4
 decorator==5.1.0
 fastapi==0.70.0
 fastapi-cache2==0.1.6
@@ -67,7 +68,7 @@ starlette==0.16.0
 tensorboard==2.6.0
 tensorboard-data-server==0.6.1
 tensorboard-plugin-wit==1.8.0
-tensorflow==2.6.0
+https://github.com/KumaTea/tensorflow-aarch64/releases/download/v2.6/tensorflow-2.6.0-cp38-cp38-manylinux_2_17_aarch64.manylinux2014_aarch64.whl
 tensorflow-estimator==2.6.0
 termcolor==1.1.0
 threadpoolctl==3.0.0
