@@ -5,6 +5,14 @@ This is the source code for my webpage which is hosted at https://deej-ai.online
 ![Deej-A.I.](screenshot.png)
 
 ---
+## TL;DR
+```
+git clone https://github.com/teticio/deej-ai.online-app.git
+cd deej-ai.online
+make help
+```
+
+---
 ## Technical features
 
 * FastAPI backend server that handles calls to TensorFlow deep learning models, serves web content, manages the database (SQL, SQLite, etc.) and takes care of the Spotify authentication flow.
@@ -17,7 +25,6 @@ This is the source code for my webpage which is hosted at https://deej-ai.online
 * Automated unit tests and linting with Travis CI and / or GitHub Actions.
 * Electron desktop app ready to deploy to Snap, Windows and Mac App Stores.
 
----
 ## Installation
 
 In order to run this, you will need to create a `credentials.py` file in the `backend` directory with your Spotify Developer API credentials, which can be obtained from https://developer.spotify.com/dashboard/login.

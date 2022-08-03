@@ -12,8 +12,10 @@ def download_file_from_google_drive(file_id, destination, size):
     Args:
         file_id (str): Google Drive file id.
         destination (str): Download destination.
+        size (int): Size of file in bytes.
     """
     if os.path.isfile(destination) and os.path.getsize(destination) == size:
+        print(f'{destination} already exists')
         return
     print(f'Downloading {destination}')
     url = 'https://docs.google.com/uc?export=download'
@@ -64,6 +66,7 @@ if __name__ == '__main__':
                                     'speccy_model', 170408640)
 
     if not os.path.exists(os.path.join('backend', 'credentials.py')):
+        print('Created dummy credentials file in backend/credentials.py')
         with open(os.path.join('backend', 'credentials.py'),
                   'wt',
                   encoding='utf8') as _file:
