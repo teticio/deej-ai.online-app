@@ -42,7 +42,7 @@ export default function About() {
       </Text>
       <VerticalSpacer px={15} />
       <Text h5>
-        This was my Masters in Deep Learning projects
+        This was my Masters in Deep Learning project
         at <Link
           url='https://www.mbitschool.com/'
           text='MBIT School'
