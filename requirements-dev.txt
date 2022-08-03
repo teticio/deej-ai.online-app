@@ -1,11 +1,3 @@
-fastapi
-tensorflow
-uvicorn
-sqlalchemy
-aiohttp
-aiofiles
-librosa
-fastapi-cache2
 yapf
 pytest
 pylint
