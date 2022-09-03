@@ -45,6 +45,7 @@ else:
     def cache(**kwargs):  # pylint: disable=unused-argument
         """Override cache decorator
         """
+
         def do_nothing(func):
             """Don't cache
             """
@@ -62,6 +63,8 @@ REDIS_NAMESPACE = os.environ.get('REDIS_NAMESPACE', 'deejai')
 models.Base.metadata.create_all(bind=engine)
 
 deejai = DeejAI()
+with open('playlist.html', 'rt', encoding='utf8') as file:
+    playlist_widget = file.read()
 app = FastAPI(docs_url=os.environ.get('DOCS_URL', None),
               redoc_url=os.environ.get('REDOC_URL', None))
 
@@ -108,6 +111,7 @@ async def startup():
 class HTMLCoder(JsonCoder):
     """Cache HTMLResponse.
     """
+
     @classmethod
     def decode(cls, value):
         """Decode HTMLResponse.
@@ -139,6 +143,7 @@ app.add_middleware(
 class EndpointFilter(logging.Filter):  # pylint: disable=too-few-public-methods
     """Filter out endpoints (e.g. /healthz) from logging
     """
+
     def filter(self, record: logging.LogRecord) -> bool:
         return record.getMessage().find('/healthz') == -1
 
@@ -307,10 +312,10 @@ async def get_track_widget(track_id):
         except aiohttp.ClientError as error:
             raise HTTPException(status_code=400, detail=str(error)) from error
     soup = BeautifulSoup(text, 'html.parser')
-    tag = soup.find(id="resource")
-    track = json.loads(urllib.parse.unquote(tag.string))
-    track['preview_url'] = deejai.urls.get(track_id, '')
-    tag.string.replace_with(urllib.parse.quote(json.dumps(track)))
+    #tag = soup.find(id="resource")
+    #track = json.loads(urllib.parse.unquote(tag.string))
+    #track['preview_url'] = deejai.urls.get(track_id, '')
+    #tag.string.replace_with(urllib.parse.quote(json.dumps(track)))
     return str(soup)
 
 
@@ -341,8 +346,9 @@ async def track_widget(track_id: str):
     Returns:
         str: HTML which can be embedded in an iframe.
     """
-    html = await get_track_widget(track_id)
-    return HTMLResponse(content=html, status_code=200)
+    #html = await get_track_widget(track_id)
+    #return HTMLResponse(content=html, status_code=200)
+    return await make_playlist_widget(f'["{track_id}"]')
 
 
 @app.get('/api/v1/playlist_widget')
@@ -377,18 +383,42 @@ async def make_playlist_widget(track_ids, waypoints='[]', playlist_id=''):
                 text = await response.text()
         except aiohttp.ClientError as error:
             raise HTTPException(status_code=400, detail=str(error)) from error
+    image_url = re.findall(r'(https://i\.scdn\.co/image/[a-z0-9]*)', text)[0]
+    dominant_color = re.findall(r'--background-color:(#[A-F0-9]{1,6})',
+                                text)[0]
+    text = playlist_widget
     soup = BeautifulSoup(text, 'html.parser')
     tag = soup.find(id="resource")
     track = json.loads(urllib.parse.unquote(tag.string))
     if playlist_id == "":
         playlist_id = "2p8cnjuIgVpsWln5HfbqTk"
     playlist = {
-        'images': track['album']['images'],
+        'images': [
+            {
+                'height': 640,
+                'width': 640,
+                'url': image_url
+            },
+            {
+                'height': 300,
+                'width': 300,
+                'url': image_url
+            },
+            {
+                'height': 64,
+                'width': 64,
+                'url': image_url
+            },
+        ],
         'tracks': {},
-        'type': 'playlist',
-        'uri': f'spotify:playlist:{playlist_id}',
-        'href': f'https://api.spotify.com/v1/playlist/{playlist_id}',
-        'dominantColor': track['dominantColor']
+        'type':
+        'playlist',
+        'uri':
+        f'spotify:playlist:{playlist_id}',
+        'href':
+        f'https://api.spotify.com/v1/playlist/{playlist_id}',
+        'dominantColor':
+        dominant_color
     }
     playlist['tracks']['items'] = []
     for track_id in track_ids:
@@ -695,6 +725,7 @@ class _StaticFiles(StaticFiles):
     """Hack because starlette StaticFiles returns PlainTextReponse instead of Exception
        in case of 404
     """
+
     async def get_response(self, path: str, scope: Scope) -> Response:
         response = await super().get_response(path, scope)
         if response.status_code == 404:
