@@ -13,7 +13,7 @@ test: ## run tests locally
 download: ## download model artifacts
 	pipenv run python download.py
 
-build: ## build docker file
+docker: ## build docker file
 	./build_docker.sh
 
 k8s: ## install helm chart on kubernetes
