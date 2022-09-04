@@ -286,39 +286,6 @@ async def get_access_token(request: Request):
     return HTMLResponse(content=text, status_code=200)
 
 
-async def get_track_widget(track_id):
-    """Get Spotify track widget.
-
-    Args:
-        track_id (str): Spotify track ID.
-
-    Returns:
-        str: HTML as text.
-    """
-    headers = {
-        'User-Agent':
-        'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) '
-        'Chrome/92.0.4515.159 Safari/537.36'
-    }
-    async with aiohttp.ClientSession() as session:
-        try:
-            async with session.get(
-                    f'https://open.spotify.com/embed/track/{track_id}',
-                    headers=headers) as response:
-                if response.status != 200:
-                    raise HTTPException(status_code=response.status,
-                                        detail=response.reason)
-                text = await response.text()
-        except aiohttp.ClientError as error:
-            raise HTTPException(status_code=400, detail=str(error)) from error
-    soup = BeautifulSoup(text, 'html.parser')
-    #tag = soup.find(id="resource")
-    #track = json.loads(urllib.parse.unquote(tag.string))
-    #track['preview_url'] = deejai.urls.get(track_id, '')
-    #tag.string.replace_with(urllib.parse.quote(json.dumps(track)))
-    return str(soup)
-
-
 @app.get('/api/v1/widget')
 @cache(namespace=REDIS_NAMESPACE, expire=24 * 60 * 60)
 async def widget(track_id: str):
@@ -331,8 +298,7 @@ async def widget(track_id: str):
     Returns:
         str: Base64 encoded HTML which can be embedded in an iframe.
     """
-    html = await get_track_widget(track_id)
-    return b64encode(html.encode('ascii'))
+    return await make_playlist_widget(f'["{track_id}"]')
 
 
 @app.get('/api/v1/track_widget')
@@ -346,8 +312,6 @@ async def track_widget(track_id: str):
     Returns:
         str: HTML which can be embedded in an iframe.
     """
-    #html = await get_track_widget(track_id)
-    #return HTMLResponse(content=html, status_code=200)
     return await make_playlist_widget(f'["{track_id}"]')
 
 
@@ -724,12 +688,15 @@ async def custom_http_exception_handler(request, exc):
 class _StaticFiles(StaticFiles):
     """Hack because starlette StaticFiles returns PlainTextReponse instead of Exception
        in case of 404
+       Also handle gzipped responses for js and css files
     """
 
     async def get_response(self, path: str, scope: Scope) -> Response:
         response = await super().get_response(path, scope)
         if response.status_code == 404:
             raise StarletteHTTPException(404, "Not found")
+        if path[-3:] == '.js' or path[-4:] == '.css':
+            response.headers['Content-Encoding'] = 'gzip'
         return response
 
 

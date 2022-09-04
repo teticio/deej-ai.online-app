@@ -21,6 +21,7 @@ yapf = "*"
 pytest = "*"
 pylint = "*"
 flake8 = "*"
+ipykernel = "*"
 
 [requires]
 python_version = "3.8"
