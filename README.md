@@ -53,7 +53,7 @@ and
 ```
 make run
 ```
-(In Windows, you will either have to run these commands in a Git Bash shell or adapt the scripts as appropriate). As a final step, you can then set up a reverse proxy to `http://localhost:8000/`.)
+(In Windows, you will either have to run these commands in a Git Bash shell or adapt the scripts as appropriate). As a final step, you can then set up a reverse proxy to `http://localhost:8000/`.
 
 ## Deployment on a Kubernetes cluster with Helm
 
