@@ -77,6 +77,7 @@ if __name__ == '__main__':
                   'wt',
                   encoding='utf8') as _file:
             _file.write("""# pylint: disable=missing-module-docstring
+# flake8: noqa
 # This file is also "sourced" from bash, so do not add spaces around "="
 SPOTIFY_CLIENT_ID='<Your client ID>'
 SPOTIFY_CLIENT_SECRET='<Your secret>'
