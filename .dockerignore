@@ -8,3 +8,4 @@ build
 deejai.db
 deejai-test.db
 server.log
+backend/credentials.py

@@ -93,6 +93,14 @@ resource "aws_ecs_task_definition" "this" {
       "value": "https://${var.domain}/api/v1"
     },
     {
+      "name": "SPOTIFY_CLIENT_ID",
+      "value": "${chomp(var.SPOTIFY_CLIENT_ID)}"
+    },
+    {
+      "name": "SPOTIFY_CLIENT_SECRET",
+      "value": "${chomp(var.SPOTIFY_CLIENT_SECRET)}"
+    },
+    {
       "name": "SPOTIFY_REDIRECT_URI",
       "value": "https://${var.domain}/api/v1/callback"
     },

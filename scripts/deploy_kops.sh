@@ -33,6 +33,7 @@ helm upgrade \
   --set installCRDs=true
   
 # install deejai chart
+export $(grep -v '^#' backend/credentials.py | xargs)
 helm upgrade \
   --install deejai helm-chart/deejai \
   --create-namespace \
@@ -40,6 +41,8 @@ helm upgrade \
   --values helm-chart/deejai/values.yaml \
   --set domain=${1-teticio.co.uk} \
   --set url=https://${1-teticio.co.uk} \
+  --set spotifyClientId=$SPOTIFY_CLIENT_ID \
+  --set spotifyClientSecret=$SPOTIFY_CLIENT_SECRET \
   --set ingress.enabled=true \
   --set letsencrypt.enabled=true \
   --set letsencrypt.email=teticio@gmail.com \

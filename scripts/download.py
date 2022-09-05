@@ -54,23 +54,31 @@ def save_response_content(response, destination):
 
 
 if __name__ == '__main__':
+    os.makedirs('model', exist_ok=True)
     download_file_from_google_drive('1Mg924qqF3iDgVW5w34m6Zaki5fNBdfSy',
-                                    'spotifytovec.p', 157907310)
+                                    os.path.join('model', 'spotifytovec.p'),
+                                    157907310)
     download_file_from_google_drive('1geEALPQTRBNUvkpI08B-oN4vsIiDTb5I',
-                                    'tracktovec.p', 157907310)
+                                    os.path.join('model', 'tracktovec.p'),
+                                    157907310)
     download_file_from_google_drive('1Qre4Lkym1n5UTpAveNl5ffxlaAmH1ntS',
-                                    'spotify_tracks.p', 23264992)
+                                    os.path.join('model', 'spotify_tracks.p'),
+                                    23264992)
     download_file_from_google_drive('1tLT_wmATWMC5UU-kERLsUNNcz0Vo19J3',
-                                    'spotify_urls.p', 43335116)
+                                    os.path.join('model', 'spotify_urls.p'),
+                                    43335116)
     download_file_from_google_drive('1LM1WW1GCGKeFD1AAHS8ijNwahqH4r4xV',
-                                    'speccy_model', 170408640)
+                                    os.path.join('model', 'speccy_model'),
+                                    170408640)
 
     if not os.path.exists(os.path.join('backend', 'credentials.py')):
         print('Created dummy credentials file in backend/credentials.py')
         with open(os.path.join('backend', 'credentials.py'),
                   'wt',
                   encoding='utf8') as _file:
-            _file.write("""CLIENT_ID = '<Your client ID>'
-CLIENT_SECRET = '<Your secret>'
-REDIRECT_URL = '<Your external webpage URL>/api/v1/callback'
+            _file.write("""# pylint: disable=missing-module-docstring
+# This file is also "sourced" from bash, so do not add spaces around "="
+SPOTIFY_CLIENT_ID='<Your client ID>'
+SPOTIFY_CLIENT_SECRET='<Your secret>'
+SPOTIFY_REDIRECT_URI='<Your external webpage URL>/api/v1/callback'
 """)

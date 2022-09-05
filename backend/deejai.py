@@ -27,22 +27,22 @@ class DeejAI:
     HOP_LENGTH = 512
 
     def __init__(self):
-        with open('spotifytovec.p', 'rb') as file:
+        with open(os.path.join('model', 'spotifytovec.p'), 'rb') as file:
             mp3tovecs = pickle.load(file)
         mp3tovecs = dict(
             zip(mp3tovecs.keys(), [
                 mp3tovecs[_] / np.linalg.norm(mp3tovecs[_]) for _ in mp3tovecs
             ]))
-        with open('tracktovec.p', 'rb') as file:
+        with open(os.path.join('model', 'tracktovec.p'), 'rb') as file:
             tracktovecs = pickle.load(file)
         tracktovecs = dict(
             zip(tracktovecs.keys(), [
                 tracktovecs[_] / np.linalg.norm(tracktovecs[_])
                 for _ in tracktovecs
             ]))
-        with open('spotify_tracks.p', 'rb') as file:
+        with open(os.path.join('model', 'spotify_tracks.p'), 'rb') as file:
             self.tracks = pickle.load(file)
-        with open('spotify_urls.p', 'rb') as file:
+        with open(os.path.join('model', 'spotify_urls.p'), 'rb') as file:
             self.urls = pickle.load(file)
         self.track_ids = list(mp3tovecs)
         self.track_indices = dict(
@@ -52,7 +52,7 @@ class DeejAI:
         del mp3tovecs, tracktovecs
         if 'HACKINTOSH' not in os.environ:
             self.model = load_model(
-                'speccy_model',
+                os.path.join('model', 'speccy_model'),
                 custom_objects={
                     'cosine_proximity':
                     tf.compat.v1.keras.losses.cosine_proximity
@@ -73,6 +73,7 @@ class DeejAI:
             string (str): Search string.
             max_items (int, optional): Maximum number of tracks to return. Defaults to 100.
         """
+
         def _search():
             tracks = self.tracks
             search_string = re.sub(r'([^\s\w]|_)+', '', string.lower()).split()
@@ -231,6 +232,7 @@ class DeejAI:
     async def get_similar_vec(self, track_url, max_items=10):
         """Most similar to MP3 given by URL.
         """
+
         def _get_similar_vec():
             y, sr = librosa.load(f'{playlist_id}.{extension}', mono=True)
             os.remove(f'{playlist_id}.{extension}')

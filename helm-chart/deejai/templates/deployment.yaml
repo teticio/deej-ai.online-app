@@ -65,6 +65,10 @@ spec:
               value: {{ .Values.app.url }}
             - name: REACT_APP_API_URL
               value: $(APP_URL)/api/v1
+            - name: SPOTIFY_CLIENT_ID
+              value: {{ .Values.spotifyClientId }}
+            - name: SPOTIFY_CLIENT_SECRET
+              value: {{ .Values.spotifyClientSecret }}
             - name: SPOTIFY_REDIRECT_URI
               value: $(REACT_APP_API_URL)/callback
           ports:

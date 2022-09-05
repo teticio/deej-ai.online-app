@@ -34,9 +34,25 @@ from bs4 import BeautifulSoup
 
 from . import models  # pylint: disable=relative-beyond-top-level
 from . import schemas  # pylint: disable=relative-beyond-top-level
-from . import credentials  # pylint: disable=relative-beyond-top-level
 from .deejai import DeejAI  # pylint: disable=relative-beyond-top-level
 from .database import SessionLocal, engine  # pylint: disable=relative-beyond-top-level
+
+try:
+    from . import credentials  # pylint: disable=relative-beyond-top-level
+    if 'SPOTIFY_REDIRECT_URI' in os.environ:
+        credentials.SPOTIFY_REDIRECT_URI = os.environ['SPOTIFY_REDIRECT_URI']
+except ImportError:
+
+    class credentials:  # pylint: disable=invalid-name
+        """Spotify credentials
+        """
+        SPOTIFY_CLIENT_ID = os.environ['SPOTIFY_CLIENT_ID']
+        SPOTIFY_CLIENT_SECRET = os.environ['SPOTIFY_CLIENT_SECRET']
+        SPOTIFY_REDIRECT_URI = os.environ['SPOTIFY_REDIRECT_URI']
+
+
+REDIS_URL = os.environ.get('REDIS_URL', 'redis://localhost')
+REDIS_NAMESPACE = os.environ.get('REDIS_NAMESPACE', 'deejai')
 
 if 'NO_CACHE' not in os.environ:
     from fastapi_cache.decorator import cache  # pylint: disable=ungrouped-imports
@@ -54,16 +70,11 @@ else:
         return do_nothing
 
 
-credentials.REDIRECT_URL = os.environ.get('SPOTIFY_REDIRECT_URI',
-                                          credentials.REDIRECT_URL)
-REDIS_URL = os.environ.get('REDIS_URL', 'redis://localhost')
-REDIS_NAMESPACE = os.environ.get('REDIS_NAMESPACE', 'deejai')
-
 # Create tables if necessary
 models.Base.metadata.create_all(bind=engine)
 
 deejai = DeejAI()
-with open('playlist.html', 'rt', encoding='utf8') as file:
+with open('widget/playlist.html', 'rt', encoding='utf8') as file:
     playlist_widget = file.read()
 app = FastAPI(docs_url=os.environ.get('DOCS_URL', None),
               redoc_url=os.environ.get('REDOC_URL', None))
@@ -175,9 +186,9 @@ async def spotify_login(state: Optional[str] = None):
     scope = 'playlist-modify-public user-read-currently-playing'
     body = {
         'response_type': 'code',
-        'client_id': credentials.CLIENT_ID,
+        'client_id': credentials.SPOTIFY_CLIENT_ID,
         'scope': scope,
-        'redirect_uri': credentials.REDIRECT_URL,
+        'redirect_uri': credentials.SPOTIFY_REDIRECT_URI,
     }
     if state:
         body['state'] = state
@@ -199,14 +210,14 @@ async def spotify_callback(code: str, state: Optional[str] = '/'):
     """
     data = {
         'code': code,
-        'redirect_uri': credentials.REDIRECT_URL,
+        'redirect_uri': credentials.SPOTIFY_REDIRECT_URI,
         'grant_type': 'authorization_code'
     }
     headers = {
         'Authorization':
-        'Basic ' +
-        b64encode(f'{credentials.CLIENT_ID}:{credentials.CLIENT_SECRET}'.
-                  encode('utf-8')).decode('utf-8')
+        'Basic ' + b64encode(
+            f'{credentials.SPOTIFY_CLIENT_ID}:{credentials.SPOTIFY_CLIENT_SECRET}'
+            .encode('utf-8')).decode('utf-8')
     }
     async with aiohttp.ClientSession() as session:
         try:
@@ -245,9 +256,9 @@ async def spotify_refresh_token(refresh_token: str):
     data = {'refresh_token': refresh_token, 'grant_type': 'refresh_token'}
     headers = {
         'Authorization':
-        'Basic ' +
-        b64encode(f'{credentials.CLIENT_ID}:{credentials.CLIENT_SECRET}'.
-                  encode('utf-8')).decode('utf-8')
+        'Basic ' + b64encode(
+            f'{credentials.SPOTIFY_CLIENT_ID}:{credentials.SPOTIFY_CLIENT_SECRET}'
+            .encode('utf-8')).decode('utf-8')
     }
     async with aiohttp.ClientSession() as session:
         try:
@@ -695,7 +706,8 @@ class _StaticFiles(StaticFiles):
         response = await super().get_response(path, scope)
         if response.status_code == 404:
             raise StarletteHTTPException(404, "Not found")
-        if path[-3:] == '.js' or path[-4:] == '.css':
+        if (path[-3:] == '.js'
+                or path[-4:] == '.css') and path[:7] != '/static':
             response.headers['Content-Encoding'] = 'gzip'
         return response
 
