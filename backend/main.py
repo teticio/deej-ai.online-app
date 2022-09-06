@@ -707,7 +707,7 @@ class _StaticFiles(StaticFiles):
         if response.status_code == 404:
             raise StarletteHTTPException(404, "Not found")
         if (path[-3:] == '.js'
-                or path[-4:] == '.css') and path[:7] != '/static':
+                or path[-4:] == '.css') and 'static' not in path:
             response.headers['Content-Encoding'] = 'gzip'
         return response
 
