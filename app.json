@@ -15,13 +15,20 @@
     "android": {
       "package": "online.deejai.www",
       "versionCode": 12,
-      "permissions": ["INTERNET"]
-    }, 
+      "permissions": [
+        "INTERNET"
+      ]
+    },
     "ios": {
       "bundleIdentifier": "online.deej-ai",
-      "buildNumber": "2",
+      "buildNumber": "3",
       "supportsTablet": true,
       "icon": "./public/ios-512x512.png"
+    },
+    "extra": {
+      "eas": {
+        "projectId": "3027f7dd-4a29-4e62-a343-9f473cf94d36"
+      }
     }
   }
 }
