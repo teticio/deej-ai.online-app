@@ -7,9 +7,8 @@
       "image": "./public/android-chrome-512x512.png",
       "backgroundColor": "#222222"
     },
-    "entryPoint": "./src/index.native.js",
     "scheme": "deejai",
-    "version": "2.2.7",
+    "version": "2.2.8",
     "userInterfaceStyle": "dark",
     "backgroundColor": "#000000",
     "android": {
