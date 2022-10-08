@@ -1,3 +1,5 @@
+import React, { useState } from 'react';
+
 import {
   FaPlus, FaForward, FaBackward, FaCloudUploadAlt,
   FaPen, FaSpotify, FaCog, FaSearch, FaTimes
@@ -95,8 +97,14 @@ export function Li(props) {
 }
 
 export function IFrame(props) {
+  const [visibility, setVisibility] = useState('hidden');
+
   return (
     <iframe
+      style={{
+        visibility: visibility
+      }}
+      onLoad={() => setVisibility('visible')}
       title={props.title}
       {...props}
     />

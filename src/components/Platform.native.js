@@ -1,5 +1,5 @@
-import 'react-native-gesture-handler';
 import React, { useCallback, Component, createContext, Children, cloneElement } from 'react';
+import 'react-native-gesture-handler';
 import { Linking, Alert, Image, View as VIEW, ScrollView as SCROLL_VIEW, ActivityIndicator } from 'react-native';
 import { Text as TEXT } from "react-native-elements";
 import { Picker } from '@react-native-picker/picker';
