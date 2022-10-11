@@ -8,7 +8,7 @@
       "backgroundColor": "#222222"
     },
     "scheme": "deejai",
-    "version": "2.2.10",
+    "version": "2.2.11",
     "userInterfaceStyle": "dark",
     "backgroundColor": "#000000",
     "android": {
@@ -20,7 +20,7 @@
     },
     "ios": {
       "bundleIdentifier": "online.deej-ai",
-      "buildNumber": "3",
+      "buildNumber": "1",
       "supportsTablet": true,
       "icon": "./public/ios-512x512.png"
     },
