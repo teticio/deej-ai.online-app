@@ -11,7 +11,7 @@ export const getRoutes = (
   waypoints, setWaypoints,
   size, setSize,
   creativity, setCreativity,
-  noise, setNoise, 
+  noise, setNoise,
   playlist, setPlaylist,
   spotify, navigate, numPlaylists
 ) => {
@@ -33,6 +33,8 @@ export const getRoutes = (
         setWaypoints(waypoints);
         navigate('/settings');
       }
+    },
+    '/login': {
     },
     '/playlist': {
       element: ShowPlaylist,

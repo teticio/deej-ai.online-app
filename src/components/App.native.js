@@ -1,5 +1,6 @@
 import React, { useState, createElement, useEffect } from 'react';
 import { Linking, SafeAreaView } from 'react-native';
+import { WebView } from 'react-native-webview';
 import { useNavigation } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { useTheme } from 'react-native-paper';
@@ -48,13 +49,15 @@ export default function App(props) {
                 createElement(props.route.params.element, props.route.params) : <></>
               }
             </View> :
-            <ScrollView style={{ height: '100%' }}>
-              <View style={{ padding: 15 }}>
-                {props.route.params ?
-                  createElement(props.route.params.element, props.route.params) : <></>
-                }
-              </View>
-            </ScrollView>
+            ['/login'].includes(props.route.name) ?
+              <WebView source={{ uri: `${process.env.REACT_APP_API_URL}/login?state=deejai://` }} /> :
+              <ScrollView style={{ height: '100%' }}>
+                <View style={{ padding: 15 }}>
+                  {props.route.params ?
+                    createElement(props.route.params.element, props.route.params) : <></>
+                  }
+                </View>
+              </ScrollView>
           }
         </SafeAreaView>
       </>
@@ -73,9 +76,7 @@ export default function App(props) {
   }, [route]);
 
   const handleSelect = async route => {
-    if (route === '/login') {
-      await Linking.openURL(`${process.env.REACT_APP_API_URL}/login?state=deejai://`);
-    } else if (route === '/logout') {
+    if (route === '/logout') {
       spotify.logOut();
       setLoggedIn(false);
     } else {
