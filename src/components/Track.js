@@ -8,10 +8,6 @@ export default function Track({ track_id }) {
     <IFrame
       title={track_id}
       width='100%'
-      height={80}
-      style={{
-        visibility: visibility
-      }}
       onLoad={() => setVisibility('visible')}
       src={`${process.env.REACT_APP_API_URL}/track_widget` +
         `?track_id=${encodeURIComponent(track_id)}`
