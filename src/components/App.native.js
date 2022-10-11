@@ -1,5 +1,5 @@
 import React, { useState, createElement, useEffect } from 'react';
-import { Linking, SafeAreaView } from 'react-native';
+import { /*Linking,*/ SafeAreaView } from 'react-native';
 import { WebView } from 'react-native-webview';
 import { useNavigation } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
@@ -23,7 +23,9 @@ export default function App(props) {
   const [creativity, setCreativity] = usePersistedState('creativity', 0.5);
   const [noise, setNoise] = usePersistedState('noise', 0);
   const [route, navigate] = useState('/');
-  const _navigate = useNavigation().navigate;
+  const navigation = useNavigation();
+  const _navigate = navigation.navigate;
+  const [prevRoute, setPrevRoute] = useState('/');
   const routes = getRoutes(
     waypoints, setWaypoints, size, setSize, creativity, setCreativity,
     noise, setNoise, playlist, setPlaylist, spotify, navigate, 20
@@ -50,7 +52,20 @@ export default function App(props) {
               }
             </View> :
             ['/login'].includes(props.route.name) ?
-              <WebView source={{ uri: `${process.env.REACT_APP_API_URL}/login?state=deejai://` }} /> :
+              <WebView
+                onShouldStartLoadWithRequest={(event) => {
+                  // intercept access token
+                  if (event.url.includes('#access_token=')) {
+                    const params = getHashParams(event.url.substring(event.url.indexOf('#') + 1));
+                    setSpotify(new Spotify(params));
+                    setLoggedIn(spotify.loggedIn());
+                    navigate(params.route);
+                    return false;
+                  }
+                  return true;
+                }}
+                source={{ uri: `${process.env.REACT_APP_API_URL}/login?state=${prevRoute}` }}
+              /> :
               <ScrollView style={{ height: '100%' }}>
                 <View style={{ padding: 15 }}>
                   {props.route.params ?
@@ -64,13 +79,14 @@ export default function App(props) {
     );
   }
 
-  Linking.addEventListener('url', event => {
-    const params = getHashParams(event.url.substring(event.url.indexOf('?') + 1));
-    setSpotify(new Spotify(params));
-    setLoggedIn(spotify.loggedIn());
-  });
+  //Linking.addEventListener('url', event => {
+  //  const params = getHashParams(event.url.substring(event.url.indexOf('?') + 1));
+  //  setSpotify(new Spotify(params));
+  //  setLoggedIn(spotify.loggedIn());
+  //});
 
   useEffect(() => {
+    setPrevRoute(navigation.getCurrentRoute().name);
     _navigate(route, routes[route]);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [route]);
