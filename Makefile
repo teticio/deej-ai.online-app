@@ -8,7 +8,7 @@ install: ## install dependencies locally
 
 .PHONY: run
 run: ## run locally
-	tmux new-session -d -s "deejai" scripts/run.sh
+	scripts/run.sh
 
 .PHONY: test
 test: ## run tests locally
