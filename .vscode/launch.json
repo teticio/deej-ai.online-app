@@ -30,6 +30,7 @@
       "type": "python",
       "request": "launch",
       "env": {
+        "CUDA_VISIBLE_DEVICES": "",
         "APP_URL": "http://localhost:3000",
         "REDIS_NAMESPACE": "deejai-dev", // If we do cache, use a separate namespace
         "NO_CACHE": "1", // Disable caching
@@ -38,6 +39,7 @@
       },
       "osx": {
         "env": {
+          "CUDA_VISIBLE_DEVICES": "",
           "APP_URL": "http://localhost:3000",
           "REDIS_NAMESPACE": "deejai-dev", // If we do cache, use a separate namespace
           "NO_CACHE": "1", // Disable caching
