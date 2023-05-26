@@ -38,7 +38,7 @@ jobs:
         flake8 . --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics --exclude=node_modules
     - name: Test with pytest and yarn
       run: |
-        yarn --openssl-legacy-provider build
+        yarn build --openssl-legacy-provider
         # unfortunately have to retry this as downloads sometimes break
         python scripts/download.py
         python scripts/download.py
