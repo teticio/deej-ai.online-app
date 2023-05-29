@@ -245,29 +245,22 @@ class DeejAI:
                                                hop_length=self.HOP_LENGTH,
                                                n_mels=n_mels,
                                                fmax=sr / 2)
-            # Hack because Spotify samples are a shade under 30s
-            x = np.ndarray(shape=(S.shape[1] // slice_size + 1, n_mels,
+            x = np.ndarray(shape=(S.shape[1] // slice_size, n_mels,
                                   slice_size, 1),
                            dtype=float)
             for slice_ in range(S.shape[1] // slice_size):
                 log_S = librosa.power_to_db(
                     S[:, slice_ * slice_size:(slice_ + 1) * slice_size],
-                    ref=np.max)
+                    ref=float(self.N_FFT // 2))
                 if np.max(log_S) - np.min(log_S) != 0:
                     log_S = (log_S - np.min(log_S)) / (np.max(log_S) -
                                                        np.min(log_S))
                 x[slice_, :, :, 0] = log_S
-            # Hack because Spotify samples are a shade under 30s
-            log_S = librosa.power_to_db(S[:, -slice_size:], ref=np.max)
-            if np.max(log_S) - np.min(log_S) != 0:
-                log_S = (log_S - np.min(log_S)) / (np.max(log_S) -
-                                                   np.min(log_S))
-            x[-1, :, :, 0] = log_S
             return self.model.predict(x)
 
         playlist_id = str(uuid.uuid4())
-        n_mels = self.model.layers[0].input_shape[0][1]
-        slice_size = self.model.layers[0].input_shape[0][2]
+        n_mels = self.model.inputs[0].shape[1]
+        slice_size = self.model.inputs[0].shape[2]
 
         try:
             response = requests.get(track_url, allow_redirects=True)
