@@ -47,6 +47,10 @@ class DeejAI:
         self.track_ids = list(mp3tovecs)
         self.track_indices = dict(
             map(lambda x: (x[1], x[0]), enumerate(mp3tovecs)))
+        self.preprocessed_tracks = {
+            track_id: set(re.sub(r'([^\s\w]|_)+', '', track.lower()).split())
+            for track_id, track in self.tracks.items()
+        }
         self.mp3tovecs = np.array([[mp3tovecs[_], tracktovecs[_]]
                                    for _ in mp3tovecs])
         del mp3tovecs, tracktovecs
@@ -75,14 +79,13 @@ class DeejAI:
         """
 
         def _search():
-            tracks = self.tracks
-            search_string = re.sub(r'([^\s\w]|_)+', '', string.lower()).split()
+            search_string = set(
+                re.sub(r'([^\s\w]|_)+', '', string.lower()).split())
             ids = sorted([
-                track for track in tracks if all(
-                    word in re.sub(r'([^\s\w]|_)+', '', tracks[track].lower())
-                    for word in search_string)
+                track for track in self.preprocessed_tracks
+                if search_string.issubset(self.preprocessed_tracks[track])
             ],
-                         key=lambda x: tracks[x])[:max_items]
+                         key=lambda x: self.tracks[x])[:max_items]
             return ids
 
         return await run_in_threadpool(_search)
