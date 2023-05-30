@@ -48,7 +48,7 @@ class DeejAI:
         self.track_indices = dict(
             map(lambda x: (x[1], x[0]), enumerate(mp3tovecs)))
         self.preprocessed_tracks = {
-            track_id: set(re.sub(r'([^\s\w]|_)+', '', track.lower()).split())
+            track_id: re.sub(r'([^\s\w]|_)+', '', track.lower())
             for track_id, track in self.tracks.items()
         }
         self.mp3tovecs = np.array([[mp3tovecs[_], tracktovecs[_]]
@@ -82,8 +82,9 @@ class DeejAI:
             search_string = set(
                 re.sub(r'([^\s\w]|_)+', '', string.lower()).split())
             ids = sorted([
-                track for track in self.preprocessed_tracks
-                if search_string.issubset(self.preprocessed_tracks[track])
+                track for track, preprocessed_track in
+                self.preprocessed_tracks.items()
+                if all(word in preprocessed_track for word in search_string)
             ],
                          key=lambda x: self.tracks[x])[:max_items]
             return ids
@@ -245,8 +246,8 @@ class DeejAI:
                                                hop_length=self.HOP_LENGTH,
                                                n_mels=n_mels,
                                                fmax=sr / 2)
-            x = np.ndarray(shape=(S.shape[1] // slice_size, n_mels,
-                                  slice_size, 1),
+            x = np.ndarray(shape=(S.shape[1] // slice_size, n_mels, slice_size,
+                                  1),
                            dtype=float)
             for slice_ in range(S.shape[1] // slice_size):
                 log_S = librosa.power_to_db(
