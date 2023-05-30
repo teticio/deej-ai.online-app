@@ -50,6 +50,7 @@ class DeejAI:
         self.preprocessed_tracks = {
             track_id: re.sub(r'([^\s\w]|_)+', '', track.lower())
             for track_id, track in self.tracks.items()
+            if track_id in mp3tovecs
         }
         self.mp3tovecs = np.array([[mp3tovecs[_], tracktovecs[_]]
                                    for _ in mp3tovecs])
