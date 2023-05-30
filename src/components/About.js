@@ -11,8 +11,8 @@ export default function About() {
     <>
       <Text h5 data-testid='blurb'>
         <B>Deej-A.I.</B> uses artificial intelligence to automatically
-        generate playlists of tracks that go well together. It was trained using hundreds of thousands of
-        Spotify tracks and user playlists.
+        generate playlists of tracks that go well together. It was trained using a million Spotify tracks
+        and user playlists.
       </Text>
       <VerticalSpacer px={15} />
       <Text h5>

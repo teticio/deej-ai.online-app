@@ -1897,7 +1897,7 @@ exports[`app routing 6`] = `
         >
           Deej-A.I.
         </span>
-         uses artificial intelligence to automatically generate playlists of tracks that go well together. It was trained using hundreds of thousands of Spotify tracks and user playlists.
+         uses artificial intelligence to automatically generate playlists of tracks that go well together. It was trained using a million Spotify tracks and user playlists.
       </h5>
     </span>
     <div
