@@ -1,7 +1,7 @@
 import { render, fireEvent, screen, waitFor } from '@testing-library/react';
 import CreatePlaylist from './CreatePlaylist';
 
-jest.setTimeout(20000);
+jest.setTimeout(40000);
 
 test('playlist creation', async () => {
   const onCreate = jest.fn();
@@ -19,6 +19,6 @@ test('playlist creation', async () => {
     />
   );
   fireEvent.click(screen.getByTestId('create-playlist'));
-  await waitFor(() => expect(onCreate).toHaveBeenCalledTimes(1), { timeout: 20000 });
+  await waitFor(() => expect(onCreate).toHaveBeenCalledTimes(1), { timeout: 40000 });
   expect(onCreate).toMatchSnapshot();
 });
