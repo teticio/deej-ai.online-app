@@ -16,12 +16,12 @@ def test_playlist_1():
     new_playlist = schemas.NewPlaylist(
         track_ids=["1O0xeZrBDbq7HPREdmYUYK", "1b7LMtXCXGc2EwOIplI35z"])
     assert asyncio.run(main.generate_playlist(new_playlist))['track_ids'] == [
-        "1O0xeZrBDbq7HPREdmYUYK", "6Y0ed41KYLRnJJyYGGaDgY",
-        "5yrsBzgHkfu2idkl2ILQis", "6yXcmVKGjFofPWvW9ustQX",
-        "1DKyFVzIh1oa1fFnEmTkIl", "6b8hjwuGl1H9o5ZbrHJcpJ",
-        "5qRJD1yaLJ5s0J3JpbgnwA", "6kotXaSQaGYxE62hVpdHWu",
-        "4lrQv8z3qq1Rl8bsc0Qy0y", "2nmaEzFZrSm2aMLtfJDzyG",
-        "3PPDUkGHUJx2bxct6A3PBy", "1b7LMtXCXGc2EwOIplI35z"
+        '1O0xeZrBDbq7HPREdmYUYK', '0JyCyKN7bG2z4EHN09nciG',
+        '1CAO7hiNOxJRPW4nFv2aRO', '0moQVPOSwTaTeFFaRPH7ap',
+        '4XcUADpOth9Wroq5EVMFJq', '23ObLnkIhZaM41ML4Hyg8u',
+        '3QLRbcPezeE6FP5KRM1EvM', '38llcrfX1arUqrEe0DRRzW',
+        '7pLPpTvMosiIheeOOr13TZ', '3bJdTkdwntcf7PT3NiUHKH',
+        '6wXjxDLgVU6xHlupqiIAf3', '1b7LMtXCXGc2EwOIplI35z'
     ]
 
 
@@ -32,16 +32,16 @@ def test_playlist_2():
                                        size=20,
                                        creativity=0.1)
     assert asyncio.run(main.generate_playlist(new_playlist))['track_ids'] == [
-        '7dEYcnW1YSBpiKofefCFCf', '7u9szLn7CWcWtiYcRLy0Ab',
-        '34QkdRnLmpTp3GemmSXPkz', '0sQ9MCD0ichtBCSi8Khn3h',
-        '0hwEeMnAgwEvClAXOl3Sgh', '63Iv8NhccFc2qXgIsrDo4Q',
-        '1gMDcG1YDw5Ib1BS8Op9S3', '2hq28hLmCPFxg2FamW6KA3',
-        '6K6rqLZ7PBDx3PNA4snQzK', '6ODS67X5qVcK29FnNoFdDh',
-        '0SzvtL65Itcs1wZrQI7hf6', '0drokAUhKfiMnu20UKQnFZ',
-        '7uoRp3NMtZORvxOI16Vr4u', '4x8vLLF0UI953H5Z0p2Rwo',
-        '0ZRroF8QnXbmEb1VRcqZnR', '3HdrN4xHTPhxQGdTSo2spQ',
-        '0jikR0eJKtOF504fKD2tyi', '41QEnBlGuGnos5no5qGKBy',
-        '4tXRVDlgAhxuEmsxuW4oiQ', '4fGz81hlNLXwzO3L8GGaop'
+        '7dEYcnW1YSBpiKofefCFCf', '5A4SGrOG20WpDhndWggzWC',
+        '6FUxwe1CaTVbYodFSnBspP', '0tYXk4VOpa03GoZFDGXj28',
+        '4bRQh0iVgAXnKgdWfTVDsd', '6LrPl1nylKSnNC1QZfKt6P',
+        '5gR4tgz8hWNxOOKP4S2082', '1PlQoMb3iPgnBz0cp0lbAI',
+        '0QgGueWsvOXjq3AnNRvTGq', '013h5m8bGW9opdh0vJf2Nv',
+        '3TvWfyDcfNMBawO353CWgO', '7iTLhXr4Rs0RU1k2JEFTzZ',
+        '0NHwaZ5w79FzhEUT9wzIXw', '5GbXS6bOXtjCbQUtw4hW82',
+        '2DBK1d7wWcGTOtZCZ1Llzc', '5HMJupBqcCBfCmvP5Nc1lQ',
+        '56KPYkBUA0GWxUQwMTJlNU', '76Fd8M61yOmMMTmMhKEUTh',
+        '0cYK4Ddcrv9RFAV3wfUtwZ', '5JBmP6qfn4L83A13m1i2u3'
     ]
 
 
@@ -50,19 +50,19 @@ def test_search():
     """
     assert asyncio.run(main.search_tracks(string='hello', max_items=3)) == [{
         'track_id':
-        '6BbTfV6NXacNelIcVLXu9t',
+        '0tbhCoiQz53REV3AUZz7TX',
         'track':
-        '1takejay - Hello'
+        '!!! - Hello? Is This Thing On?'
     }, {
         'track_id':
-        '4EtaPmMHMtjcx3FJhKzbZv',
+        '2VaBYo1q2A9kHEIGit0FT8',
         'track':
-        '86 - Peng Ting Hello'
+        '!!! - Hello? Is This Thing On? (Thomas N’ Eric’s Rub and Tug Throwdown) - Mixed'
     }, {
         'track_id':
-        '6g0v0NzLaCtvqDSwWny6CV',
+        '5yaH9nq2cEqeIXbiamL0fW',
         'track':
-        'A Day To Remember - You Had Me @ Hello'
+        '3mmy - Hello Cat'
     }]
 
 
@@ -78,11 +78,11 @@ def test_add_playlist():
                                         new_playlist['track_ids']))
     main.create_playlist(new_playlist, db)
     assert (main.get_latest_playlists(1, db)[0].track_ids == json.dumps([
-        '7dEYcnW1YSBpiKofefCFCf', '66LPSGwq2MKuFLSjAnclmg',
-        '1Ulk1RYwszH5PliccyN5pF', '3ayr466SicYLcMRSCuiOSL',
-        '6ijkogEt87TOoFEUdTpYxD', '2hq28hLmCPFxg2FamW6KA3',
-        '4ClVhgWezpuyGhACLGBkEA', '0SzvtL65Itcs1wZrQI7hf6',
-        '5bPjleBV2VtjRnc0ogJ5ib', '4tXRVDlgAhxuEmsxuW4oiQ'
+        "7dEYcnW1YSBpiKofefCFCf", "5A4SGrOG20WpDhndWggzWC",
+        "6FUxwe1CaTVbYodFSnBspP", "0tYXk4VOpa03GoZFDGXj28",
+        "4bRQh0iVgAXnKgdWfTVDsd", "6LrPl1nylKSnNC1QZfKt6P",
+        "1PlQoMb3iPgnBz0cp0lbAI", "5gR4tgz8hWNxOOKP4S2082",
+        "013h5m8bGW9opdh0vJf2Nv", "0QgGueWsvOXjq3AnNRvTGq"
     ]))
 
 
@@ -110,35 +110,37 @@ def test_search_similar():
             '/04b28b12174a4c4448486070962dae74494c0f70?'
             'cid=194086cb37be48ebb45b9ba4ce4c5936',
             max_items=10)) == [{
-                'track_id': '1a9SiOELQS7YsBQwdEPMuq',
-                'track': 'Luis Fonsi - Despacito'
+                'track_id': '5nX5RLzxc6nw5SpGWl181Q',
+                'track': 'Gabriel Valim - Piradinha'
             }, {
-                'track_id': '6rPO02ozF3bM7NnOV4h6s2',
-                'track': 'Luis Fonsi - Despacito - Remix'
+                'track_id': '1Lq0pUsuUCLo5mQeN0diri',
+                'track': 'SOPHIA - Wenn Du die Augen schließt'
             }, {
-                'track_id': '5AgTL2WmiCvoObA8fpncKs',
-                'track': 'Luis Fonsi - Despacito'
-            }, {
-                'track_id': '7dx0Funwrd0LRvquDFQ8fv',
-                'track': 'Cali Y El Dandee - Lumbra'
+                'track_id': '1BBNX3VBikQkDdNMJ201kk',
+                'track': 'MONSTA X - Addicted'
             }, {
                 'track_id':
-                '7CUYHcu0RnbOnMz4RuN07w',
+                '0rT8WoLQoffQ7PCzyHfODo',
                 'track':
-                'Luis Fonsi - Despacito (Featuring Daddy Yankee)'
+                'Krishane - Drunk and Incapable (feat. Melissa Steel)'
             }, {
-                'track_id': '2YFOm3hznEzQsIMmEwGyUg',
-                'track': 'Leon - Legalna'
+                'track_id': '0VU0MRGBccIjJXAz1qkhH2',
+                'track': 'Sharon Doorson - Fail In Love'
             }, {
-                'track_id': '1tJw60G9KHl7fYVdQ2JDgo',
-                'track': 'J Balvin - Ginza - Remix'
+                'track_id': '3oIhthYPSKwAwJLA8JClkV',
+                'track': 'Astrid S - Such A Boy'
             }, {
-                'track_id': '1v3fyyGJRlblbobabiXxIs',
-                'track': 'Latifah - On My Way'
+                'track_id': '2zwfcpAhmR6mSTR9FumAWJ',
+                'track': 'VIXX - Love Me Do'
             }, {
-                'track_id': '3jWfGOOUffq51fWGQdPV68',
-                'track': 'Achille Lauro - Non sei come me'
+                'track_id': '6qHdlBWxA5bSPFRV65FYxy',
+                'track': 'David Bisbal - Amor Amé'
             }, {
-                'track_id': '2HR9Ih2IjpGEQ3YZl7aRUQ',
-                'track': 'Jeano - Abow'
+                'track_id':
+                '76yv2Tw0YoHamH32IsIip8',
+                'track':
+                'DA Uzi - On se reverra plus (feat. Gazo)'
+            }, {
+                'track_id': '5ypYKylUQ53SD6z7OsxQ5s',
+                'track': 'Tigergutt - Kids'
             }]
