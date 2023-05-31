@@ -57,19 +57,19 @@ if __name__ == '__main__':
     os.makedirs('model', exist_ok=True)
     download_file_from_google_drive('1Mg924qqF3iDgVW5w34m6Zaki5fNBdfSy',
                                     os.path.join('model', 'spotifytovec.p'),
-                                    157907310)
+                                    824315752)
     download_file_from_google_drive('1geEALPQTRBNUvkpI08B-oN4vsIiDTb5I',
                                     os.path.join('model', 'tracktovec.p'),
-                                    157907310)
+                                    438330031)
     download_file_from_google_drive('1Qre4Lkym1n5UTpAveNl5ffxlaAmH1ntS',
                                     os.path.join('model', 'spotify_tracks.p'),
-                                    23264992)
+                                    69208997)
     download_file_from_google_drive('1tLT_wmATWMC5UU-kERLsUNNcz0Vo19J3',
                                     os.path.join('model', 'spotify_urls.p'),
-                                    43335116)
+                                    155088622)
     download_file_from_google_drive('1LM1WW1GCGKeFD1AAHS8ijNwahqH4r4xV',
                                     os.path.join('model', 'speccy_model'),
-                                    170408640)
+                                    170401888)
 
     if not os.path.exists(os.path.join('backend', 'credentials.py')):
         print('Created dummy credentials file in backend/credentials.py')
