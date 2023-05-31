@@ -104,43 +104,44 @@ def test_update_playlist():
 def test_search_similar():
     """Test searching for a similar sounding track.
     """
+    print(
+        main.search_similar_tracks(url='https://p.scdn.co/mp3-preview'
+                                   '/04b28b12174a4c4448486070962dae74494c0f70?'
+                                   'cid=194086cb37be48ebb45b9ba4ce4c5936',
+                                   max_items=10))
     assert asyncio.run(
         main.search_similar_tracks(
             url='https://p.scdn.co/mp3-preview'
             '/04b28b12174a4c4448486070962dae74494c0f70?'
             'cid=194086cb37be48ebb45b9ba4ce4c5936',
             max_items=10)) == [{
-                'track_id': '5nX5RLzxc6nw5SpGWl181Q',
-                'track': 'Gabriel Valim - Piradinha'
+                'track': 'Emily Roberts - In This Together',
+                'track_id': '4vSVqPMIHi0Brmv3uS0UJF'
             }, {
-                'track_id': '1Lq0pUsuUCLo5mQeN0diri',
-                'track': 'SOPHIA - Wenn Du die Augen schließt'
+                'track': 'Luis Fonsi - Despacito',
+                'track_id': '6habFhsOp2NvshLv26DqMb'
             }, {
-                'track_id': '1BBNX3VBikQkDdNMJ201kk',
-                'track': 'MONSTA X - Addicted'
+                'track': 'Morgan Sulele - Seriøst (feat. Admiral P)',
+                'track_id': '6nIoVkKodp1UX5rHQvqE5G'
             }, {
-                'track_id':
-                '0rT8WoLQoffQ7PCzyHfODo',
-                'track':
-                'Krishane - Drunk and Incapable (feat. Melissa Steel)'
+                'track': 'Alexandra Joner - Bottoms Up',
+                'track_id': '0zpv4XzaN6uMEBAIZvD9dz'
             }, {
-                'track_id': '0VU0MRGBccIjJXAz1qkhH2',
-                'track': 'Sharon Doorson - Fail In Love'
+                'track': 'NGHTMRE - Wrist',
+                'track_id': '616cbA6RE0erFWHfzbYj5g'
             }, {
-                'track_id': '3oIhthYPSKwAwJLA8JClkV',
-                'track': 'Astrid S - Such A Boy'
+                'track': 'Lt. Stitchie - Dem No Good',
+                'track_id': '4UehXb6021WcsH3HfNFrYs'
             }, {
-                'track_id': '2zwfcpAhmR6mSTR9FumAWJ',
-                'track': 'VIXX - Love Me Do'
+                'track': 'Daniel Blume - Kardashian',
+                'track_id': '5sJWJ132Ya4i2xR5cW0B6a'
             }, {
-                'track_id': '6qHdlBWxA5bSPFRV65FYxy',
-                'track': 'David Bisbal - Amor Amé'
+                'track': 'Michael Calfan - Body',
+                'track_id': '4hFyPSsdp4d7ywbxxknKqo'
             }, {
-                'track_id':
-                '76yv2Tw0YoHamH32IsIip8',
-                'track':
-                'DA Uzi - On se reverra plus (feat. Gazo)'
+                'track': 'Mikkel Christiansen - Eros',
+                'track_id': '6NzGy8DGiOr1O7qlngdUWr'
             }, {
-                'track_id': '5ypYKylUQ53SD6z7OsxQ5s',
-                'track': 'Tigergutt - Kids'
+                'track': 'Byz - Karatefylla 2.0 - Radio Version',
+                'track_id': '7ADKspOjo3n2nC6azfWLZX'
             }]
