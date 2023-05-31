@@ -38,7 +38,8 @@ export default function About() {
         then tracks are chosen with similar sound, energy, mood and instrumentation. It does this by
         simply "listening" and not using any information about the tracks themselves. If creativity
         is set to 0%, then tracks are selected based on similar artists ("Spotify users also included in
-        their playlists..."). You can use the <I>noise</I> setting to add a bit of randomness.
+        their playlists..."). It can be interesting to use a value of 99%, which is enough to keep the playlist
+        grounded. You can use the <I>noise</I> setting to add a bit of randomness.
       </Text>
       <VerticalSpacer px={15} />
       <Text h5>
