@@ -44,5 +44,5 @@ jobs:
         python scripts/download.py
         python scripts/download.py
         APP_URL=http://localhost:3000 NO_CACHE=1 uvicorn backend.main:app --port=8001 &
-        pytest backend
+        SQLALCHEMY_DATABASE_URL="sqlite:///:memory:" NO_CACHE=1 pytest backend
         yarn test
