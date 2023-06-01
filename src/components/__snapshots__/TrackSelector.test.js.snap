@@ -4,251 +4,803 @@ exports[`track search 1`] = `
 Array [
   <option
     data-testid="track"
+    label="Big Audio Dynamite - James Brown"
+    style="width: 100%;"
+    value="0W2Xfl0t9JojDut31fFvs1"
+  >
+    Big Audio Dynamite - James Brown
+  </option>,
+  <option
+    data-testid="track"
+    label="Buckshot LeFonque - James Brown (Part 1 & 2)"
+    style="width: 100%;"
+    value="6iw1VpCXjpVaAIdb4e161Y"
+  >
+    Buckshot LeFonque - James Brown (Part 1 & 2)
+  </option>,
+  <option
+    data-testid="track"
+    label="CDM Project - James Brown Is Dead"
+    style="width: 100%;"
+    value="0Ajc88nXry0PKM4TQ8BMVK"
+  >
+    CDM Project - James Brown Is Dead
+  </option>,
+  <option
+    data-testid="track"
+    label="Cabaret Voltaire - James Brown - 7'' Version"
+    style="width: 100%;"
+    value="6nrlVurPMroxw67sa5rwXp"
+  >
+    Cabaret Voltaire - James Brown - 7'' Version
+  </option>,
+  <option
+    data-testid="track"
     label="Cage The Elephant - James Brown"
     style="width: 100%;"
-    value="21QIUV4JxFRym3XDhUxO52"
+    value="7wqGNKgDuDsOSLbWQgrqqK"
   >
     Cage The Elephant - James Brown
   </option>,
   <option
     data-testid="track"
-    label="James Brown & The Famous Flames - I Got You (I Feel Good)"
+    label="Dead Ghosts - James Brown"
     style="width: 100%;"
-    value="0rTkE0FmT4zT2xL6GXwosU"
+    value="1VqaHymy5iE0YkplavnBK1"
   >
-    James Brown & The Famous Flames - I Got You (I Feel Good)
+    Dead Ghosts - James Brown
   </option>,
   <option
     data-testid="track"
-    label="James Brown & The Famous Flames - It's A Man's, Man's, Man's World"
+    label="Down Town James Brown - Shout Out to Bannon (In Color) [feat. Down Town James Brown]"
     style="width: 100%;"
-    value="3SQ9Hb9rfpJ02AWfaOPhpy"
+    value="6DhoulOjVAkT579SabmnTj"
   >
-    James Brown & The Famous Flames - It's A Man's, Man's, Man's World
+    Down Town James Brown - Shout Out to Bannon (In Color) [feat. Down Town James Brown]
   </option>,
   <option
     data-testid="track"
-    label="James Brown - Cold Sweat"
+    label="JAMESBROWNSHON - D.O.A."
     style="width: 100%;"
-    value="7Aroy5dZs3mY2cFEWexlcG"
+    value="1SA0NwZDHbLj69FmHrGoQp"
   >
-    James Brown - Cold Sweat
+    JAMESBROWNSHON - D.O.A.
   </option>,
   <option
     data-testid="track"
-    label="James Brown - Get Up (I Feel Like Being A) Sex Machine - Pt. 1 & 2"
+    label="JAMESBROWNSHON - REBIRTH"
     style="width: 100%;"
-    value="7gJLBHI6q2ca0JzfNHwXjm"
+    value="1VZNm7TKaiwz0w1BOU1BfN"
   >
-    James Brown - Get Up (I Feel Like Being A) Sex Machine - Pt. 1 & 2
+    JAMESBROWNSHON - REBIRTH
   </option>,
   <option
     data-testid="track"
-    label="James Brown - Get Up (I Feel Like Being A) Sex Machine - Pt. 1 & 2"
+    label="James Brown & The Famous Flames - Ain't That A Groove - Single Version"
     style="width: 100%;"
-    value="295ZWWZXJtTpjY4BA4fQJt"
+    value="1ycqgxaKISGBeZjN9n2HY7"
   >
-    James Brown - Get Up (I Feel Like Being A) Sex Machine - Pt. 1 & 2
+    James Brown & The Famous Flames - Ain't That A Groove - Single Version
   </option>,
   <option
     data-testid="track"
-    label="James Brown - Get Up (I Feel Like Being A) Sex Machine - Pt. 1 & 2"
+    label="James Brown & The Famous Flames - America Is My Home - Pt. 1"
     style="width: 100%;"
-    value="0tERCb22oQgVKNZmp9Lmyj"
+    value="2pgEabdcVmCfEbhd5MnKJ7"
   >
-    James Brown - Get Up (I Feel Like Being A) Sex Machine - Pt. 1 & 2
+    James Brown & The Famous Flames - America Is My Home - Pt. 1
   </option>,
   <option
     data-testid="track"
-    label="James Brown - Get Up Offa That Thing"
+    label="James Brown & The Famous Flames - Baby You're Right"
     style="width: 100%;"
-    value="2q8eudK0r9ImgCB1XhFfxG"
+    value="5WSG0pIDnY9ba67KgH8RHy"
   >
-    James Brown - Get Up Offa That Thing
+    James Brown & The Famous Flames - Baby You're Right
   </option>,
   <option
     data-testid="track"
-    label="James Brown - Get Up Offa That Thing"
+    label="James Brown & The Famous Flames - Bewildered"
     style="width: 100%;"
-    value="16Wqad0VEQP195srPEIThY"
+    value="3yEJaav55jS4ZVImqiJP6r"
   >
-    James Brown - Get Up Offa That Thing
+    James Brown & The Famous Flames - Bewildered
   </option>,
   <option
     data-testid="track"
-    label="James Brown - Get Up Offa That Thing"
+    label="James Brown & The Famous Flames - Bring It Up - Live At The Apollo Theater, 1967"
     style="width: 100%;"
-    value="3whRKAOlJ0M3banzcChvQv"
+    value="5XmJpUKK9SYm4GQr1tJQBD"
   >
-    James Brown - Get Up Offa That Thing
+    James Brown & The Famous Flames - Bring It Up - Live At The Apollo Theater, 1967
   </option>,
   <option
     data-testid="track"
-    label="James Brown - I Got The Feelin'"
+    label="James Brown & The Famous Flames - Can You Feel It Part. 1"
     style="width: 100%;"
-    value="3UPWHgwMFfpE7dIWubNIXr"
+    value="05QOwaI3MGt3QQSgzhvWVi"
   >
-    James Brown - I Got The Feelin'
+    James Brown & The Famous Flames - Can You Feel It Part. 1
   </option>,
   <option
     data-testid="track"
-    label="James Brown - I Got You (I Feel Good)"
+    label="James Brown & The Famous Flames - Cold Sweat"
     style="width: 100%;"
-    value="6yqThFsiJG2jUEA6jdhruE"
+    value="3GWM2gYAWWBrrh1h9F8DEc"
   >
-    James Brown - I Got You (I Feel Good)
+    James Brown & The Famous Flames - Cold Sweat
   </option>,
   <option
     data-testid="track"
-    label="James Brown - It's A Man's, Man's, Man's World"
+    label="James Brown & The Famous Flames - Cold Sweat - Live At The Apollo Theater, 1967"
     style="width: 100%;"
-    value="2hXpZ5RZtDvOFK92CSUq1E"
+    value="3m7ZLxNcsEYpejqbalJSFd"
   >
-    James Brown - It's A Man's, Man's, Man's World
+    James Brown & The Famous Flames - Cold Sweat - Live At The Apollo Theater, 1967
   </option>,
   <option
     data-testid="track"
-    label="James Brown - It's a Man's, Man's, Man's World"
+    label="James Brown & The Famous Flames - Cold Sweat - Live At The Apollo Theater/1967"
     style="width: 100%;"
-    value="5rsnq2h3OLOg1FnW8m1trx"
+    value="0XNWm3l0bzEIGyXY5lUKTG"
   >
-    James Brown - It's a Man's, Man's, Man's World
+    James Brown & The Famous Flames - Cold Sweat - Live At The Apollo Theater/1967
   </option>,
   <option
     data-testid="track"
-    label="James Brown - Living In America"
+    label="James Brown & The Famous Flames - Cold Sweat Part 1"
     style="width: 100%;"
-    value="6EmlQzYEiU4v3HAfyCyUJ5"
+    value="39PqVnxzNG1O9So8nE55CS"
   >
-    James Brown - Living In America
+    James Brown & The Famous Flames - Cold Sweat Part 1
   </option>,
   <option
     data-testid="track"
-    label="James Brown - Living in America"
+    label="James Brown & The Famous Flames - Cold Sweat Part 2"
     style="width: 100%;"
-    value="6i6ETV4DCuhLtnlZ6Xlypd"
+    value="3KRXXr7mpl1sqmmZaUNBho"
   >
-    James Brown - Living in America
+    James Brown & The Famous Flames - Cold Sweat Part 2
   </option>,
   <option
     data-testid="track"
-    label="James Brown - Living in America"
+    label="James Brown & The Famous Flames - Come Over Here"
     style="width: 100%;"
-    value="4Y5yjzs9FFw5qIgfZBd43I"
+    value="4oiS8u6gpXugKgnLCGH7eX"
   >
-    James Brown - Living in America
+    James Brown & The Famous Flames - Come Over Here
   </option>,
   <option
     data-testid="track"
-    label="James Brown - Papa's Got A Brand New Bag - Pt. 1"
+    label="James Brown & The Famous Flames - Dancin Little Thing"
     style="width: 100%;"
-    value="0T7ph5mpPbRTaIk5jCz0sC"
+    value="4dz4XApSDu9TRias28vh5o"
   >
-    James Brown - Papa's Got A Brand New Bag - Pt. 1
+    James Brown & The Famous Flames - Dancin Little Thing
   </option>,
   <option
     data-testid="track"
-    label="James Brown - People Get Up And Drive Your Funky Soul"
+    label="James Brown & The Famous Flames - Fever"
     style="width: 100%;"
-    value="7FqcsBx3azfOg1gAJkAXje"
+    value="4PB7El6Pt5yvn5Q0uW9DKi"
   >
-    James Brown - People Get Up And Drive Your Funky Soul
+    James Brown & The Famous Flames - Fever
   </option>,
   <option
     data-testid="track"
-    label="James Brown - People Get Up And Drive Your Funky Soul - Remix"
+    label="James Brown & The Famous Flames - Fine Old Foxy Self"
     style="width: 100%;"
-    value="58iP9J86ksOPwbo0pWOafk"
+    value="1R6rrawHHYOF0m1lkAk5or"
   >
-    James Brown - People Get Up And Drive Your Funky Soul - Remix
+    James Brown & The Famous Flames - Fine Old Foxy Self
   </option>,
   <option
     data-testid="track"
-    label="James Brown - Please Please Please"
+    label="James Brown & The Famous Flames - Funky Soul #1"
     style="width: 100%;"
-    value="1KqWKHh36bJG96CCFUcqiT"
+    value="2qjDyjdJ23waFeYeyv8GAL"
   >
-    James Brown - Please Please Please
+    James Brown & The Famous Flames - Funky Soul #1
   </option>,
   <option
     data-testid="track"
-    label="James Brown - Sexmachine (Part 1 And 2)"
+    label="James Brown & The Famous Flames - Get It Together, Pt. 1 - Single Version"
     style="width: 100%;"
-    value="5wWLhUJdb1Ebb01gGHIa38"
+    value="6nVtveQZy1W0nEy0icjwKW"
   >
-    James Brown - Sexmachine (Part 1 And 2)
+    James Brown & The Famous Flames - Get It Together, Pt. 1 - Single Version
   </option>,
   <option
     data-testid="track"
-    label="James Brown - The Boss"
+    label="James Brown & The Famous Flames - Good Good Lovin'"
     style="width: 100%;"
-    value="6LzjgzpVl0hB3YrBU1b8Z1"
+    value="1oco0s2AKvqDbKEfPbmOKS"
   >
-    James Brown - The Boss
+    James Brown & The Famous Flames - Good Good Lovin'
   </option>,
   <option
     data-testid="track"
-    label="James Brown - The Boss"
+    label="James Brown & The Famous Flames - Good Rockin' Tonight"
     style="width: 100%;"
-    value="6Mg17BebEPPQiu628sGJGC"
+    value="0Vn2GvjEECwcjoMdmDYU7K"
   >
-    James Brown - The Boss
+    James Brown & The Famous Flames - Good Rockin' Tonight
   </option>,
   <option
     data-testid="track"
-    label="James Brown - The Payback"
+    label="James Brown & The Famous Flames - Have Mercy Baby"
     style="width: 100%;"
-    value="6SaOWdixuJbg010zPmwjOw"
+    value="5C94uTWvgOeUYbdPTUTGpk"
   >
-    James Brown - The Payback
+    James Brown & The Famous Flames - Have Mercy Baby
   </option>,
   <option
     data-testid="track"
-    label="James Brown - The Payback"
+    label="James Brown & The Famous Flames - I Can't Help It (I Just Do-Do-Do)"
     style="width: 100%;"
-    value="5OcyX5eg7VrJuI833qOCUc"
+    value="10Yo58FUYLVZkTlQZaeRIi"
   >
-    James Brown - The Payback
+    James Brown & The Famous Flames - I Can't Help It (I Just Do-Do-Do)
   </option>,
   <option
     data-testid="track"
-    label="James Brown - The Payback - Part 1"
+    label="James Brown & The Famous Flames - I Feel All Right - Live At The Apollo Theater, 1967"
     style="width: 100%;"
-    value="0E4Tb9UvOHgI5v59yG50Wm"
+    value="0tKU4PZ9apzB0D35jloITc"
   >
-    James Brown - The Payback - Part 1
+    James Brown & The Famous Flames - I Feel All Right - Live At The Apollo Theater, 1967
   </option>,
   <option
     data-testid="track"
-    label="James Brown - Try Me"
+    label="James Brown & The Famous Flames - I Guess I'll Have To Cry, Cry, Cry - Single Version"
     style="width: 100%;"
-    value="6bs9zxCTiAzYXsE7dEBrF5"
+    value="0lF4vTTszEImpNoqM75bnV"
   >
-    James Brown - Try Me
+    James Brown & The Famous Flames - I Guess I'll Have To Cry, Cry, Cry - Single Version
   </option>,
   <option
     data-testid="track"
-    label="James Brown - Unchained (The Payback / Untouchable)"
+    label="James Brown & The Famous Flames - I Know It's True"
     style="width: 100%;"
-    value="47Zqlw3jmibtVPy8usPjBj"
+    value="3JFsHnmpFyKUeDRJKNDdOr"
   >
-    James Brown - Unchained (The Payback / Untouchable)
+    James Brown & The Famous Flames - I Know It's True
   </option>,
   <option
     data-testid="track"
-    label="L.A. Style - James Brown Is Dead (Original Mix)"
+    label="James Brown & The Famous Flames - I Love You Yes I Do"
     style="width: 100%;"
-    value="5EEsZl9wCWtPHXoi9I9PY7"
+    value="4ZTAYG9AneqXtkLJOkjX65"
   >
-    L.A. Style - James Brown Is Dead (Original Mix)
+    James Brown & The Famous Flames - I Love You Yes I Do
   </option>,
   <option
     data-testid="track"
-    label="Tower Of Power - Diggin' On James Brown"
+    label="James Brown & The Famous Flames - I Loves You Porgy"
     style="width: 100%;"
-    value="0tIUC7pNotlR2fxrpNcEMb"
+    value="0GtdYrT66RxaWQJ2S8BNXZ"
   >
-    Tower Of Power - Diggin' On James Brown
+    James Brown & The Famous Flames - I Loves You Porgy
+  </option>,
+  <option
+    data-testid="track"
+    label="James Brown & The Famous Flames - I Want To Be Around - Live At The Apollo Theater, 1967"
+    style="width: 100%;"
+    value="77wO41BV9Fe1lLhiSVsIJU"
+  >
+    James Brown & The Famous Flames - I Want To Be Around - Live At The Apollo Theater, 1967
+  </option>,
+  <option
+    data-testid="track"
+    label="James Brown & The Famous Flames - I'll Go Crazy"
+    style="width: 100%;"
+    value="4Qcjd9oQjWfbihYK7oievR"
+  >
+    James Brown & The Famous Flames - I'll Go Crazy
+  </option>,
+  <option
+    data-testid="track"
+    label="James Brown & The Famous Flames - I'll Go Crazy - Live At The Apollo Theater/1962"
+    style="width: 100%;"
+    value="153J5eghdnigwe9E2bmq4F"
+  >
+    James Brown & The Famous Flames - I'll Go Crazy - Live At The Apollo Theater/1962
+  </option>,
+  <option
+    data-testid="track"
+    label="James Brown & The Famous Flames - I'll Never Never Let You Go"
+    style="width: 100%;"
+    value="4pIfO7RR6M2NMhgP1TqaGm"
+  >
+    James Brown & The Famous Flames - I'll Never Never Let You Go
+  </option>,
+  <option
+    data-testid="track"
+    label="James Brown & The Famous Flames - Introduction - Live At The Apollo Theater, 1967"
+    style="width: 100%;"
+    value="0zABhslnUyCOm6PlV6X8LJ"
+  >
+    James Brown & The Famous Flames - Introduction - Live At The Apollo Theater, 1967
+  </option>,
+  <option
+    data-testid="track"
+    label="James Brown & The Famous Flames - Is It Yes Or Is It No?"
+    style="width: 100%;"
+    value="0Rl0uAVTKl4eCjkSdsXGPr"
+  >
+    James Brown & The Famous Flames - Is It Yes Or Is It No?
+  </option>,
+  <option
+    data-testid="track"
+    label="James Brown & The Famous Flames - It Was You"
+    style="width: 100%;"
+    value="7c8Y2IZrsmExMxCm7bVCqB"
+  >
+    James Brown & The Famous Flames - It Was You
+  </option>,
+  <option
+    data-testid="track"
+    label="James Brown & The Famous Flames - Just You And Me Darling"
+    style="width: 100%;"
+    value="4X7F1qVi8u0GczEJRRw8Kt"
+  >
+    James Brown & The Famous Flames - Just You And Me Darling
+  </option>,
+  <option
+    data-testid="track"
+    label="James Brown & The Famous Flames - Kansas City"
+    style="width: 100%;"
+    value="3cdRD7U1JQ8GQWhrqo6pKc"
+  >
+    James Brown & The Famous Flames - Kansas City
+  </option>,
+  <option
+    data-testid="track"
+    label="James Brown & The Famous Flames - Kansas City - Live At The Apollo Theater, 1967"
+    style="width: 100%;"
+    value="4UnF0EOHBJOFNtynLa26ba"
+  >
+    James Brown & The Famous Flames - Kansas City - Live At The Apollo Theater, 1967
+  </option>,
+  <option
+    data-testid="track"
+    label="James Brown & The Famous Flames - Let Yourself Go - Live At The Apollo Theater, 1967"
+    style="width: 100%;"
+    value="5Fw86IXdNhRyDaY45PzeRx"
+  >
+    James Brown & The Famous Flames - Let Yourself Go - Live At The Apollo Theater, 1967
+  </option>,
+  <option
+    data-testid="track"
+    label="James Brown & The Famous Flames - Let Yourself Go - Single Version"
+    style="width: 100%;"
+    value="25MiBXxvGP83bXMT0Qvm3u"
+  >
+    James Brown & The Famous Flames - Let Yourself Go - Single Version
+  </option>,
+  <option
+    data-testid="track"
+    label="James Brown & The Famous Flames - Licking Stick - Licking Stick, Pt. 1 - Single Version"
+    style="width: 100%;"
+    value="5OQWWLldqXV6oBoWrtntWy"
+  >
+    James Brown & The Famous Flames - Licking Stick - Licking Stick, Pt. 1 - Single Version
+  </option>,
+  <option
+    data-testid="track"
+    label="James Brown & The Famous Flames - Love Don't Love Nobody"
+    style="width: 100%;"
+    value="6Cz1CqwHCuAW3lf1jv1KDc"
+  >
+    James Brown & The Famous Flames - Love Don't Love Nobody
+  </option>,
+  <option
+    data-testid="track"
+    label="James Brown & The Famous Flames - Maybe Good Maybe Bad - Pt. 1"
+    style="width: 100%;"
+    value="1J78rA17nGXpxypsj9aWMo"
+  >
+    James Brown & The Famous Flames - Maybe Good Maybe Bad - Pt. 1
+  </option>,
+  <option
+    data-testid="track"
+    label="James Brown & The Famous Flames - Maybe Good Maybe Bad - Pt. 2"
+    style="width: 100%;"
+    value="11UNC0jYJf7bSVESSAYgA7"
+  >
+    James Brown & The Famous Flames - Maybe Good Maybe Bad - Pt. 2
+  </option>,
+  <option
+    data-testid="track"
+    label="James Brown & The Famous Flames - Maybe The Last Time - Single Version"
+    style="width: 100%;"
+    value="4jWLN0vV8WB2IvodhwGLso"
+  >
+    James Brown & The Famous Flames - Maybe The Last Time - Single Version
+  </option>,
+  <option
+    data-testid="track"
+    label="James Brown & The Famous Flames - Money Won't Change You - Pt. 1"
+    style="width: 100%;"
+    value="1Sntns0HFP6Ns9WCW6OLCO"
+  >
+    James Brown & The Famous Flames - Money Won't Change You - Pt. 1
+  </option>,
+  <option
+    data-testid="track"
+    label="James Brown & The Famous Flames - Nature Boy"
+    style="width: 100%;"
+    value="4jx1aRdx9vYZJbvIQd2AfV"
+  >
+    James Brown & The Famous Flames - Nature Boy
+  </option>,
+  <option
+    data-testid="track"
+    label="James Brown & The Famous Flames - Night Train"
+    style="width: 100%;"
+    value="2qMySltCEWiukiYj4nJAsI"
+  >
+    James Brown & The Famous Flames - Night Train
+  </option>,
+  <option
+    data-testid="track"
+    label="James Brown & The Famous Flames - Night Train - Instrumental"
+    style="width: 100%;"
+    value="6oebEl470l1jhat7KW86QF"
+  >
+    James Brown & The Famous Flames - Night Train - Instrumental
+  </option>,
+  <option
+    data-testid="track"
+    label="James Brown & The Famous Flames - Night Train - Live At The Apollo Theater/1962"
+    style="width: 100%;"
+    value="4ooIiw1NxkCeBYHGNHkcSz"
+  >
+    James Brown & The Famous Flames - Night Train - Live At The Apollo Theater/1962
+  </option>,
+  <option
+    data-testid="track"
+    label="James Brown & The Famous Flames - Papa's Got A Brand New Bag - Pt. 1"
+    style="width: 100%;"
+    value="6qsaEadyD2FpKnT1cGT5ei"
+  >
+    James Brown & The Famous Flames - Papa's Got A Brand New Bag - Pt. 1
+  </option>,
+  <option
+    data-testid="track"
+    label="James Brown & The Famous Flames - Please, Please, Please"
+    style="width: 100%;"
+    value="5s6DOElzncE6h3kr2UjaUM"
+  >
+    James Brown & The Famous Flames - Please, Please, Please
+  </option>,
+  <option
+    data-testid="track"
+    label="James Brown & The Famous Flames - Please, Please, Please - Live At The Apollo Theater, 1967"
+    style="width: 100%;"
+    value="2q5Y9D0LoO7MMqNQFd5Xye"
+  >
+    James Brown & The Famous Flames - Please, Please, Please - Live At The Apollo Theater, 1967
+  </option>,
+  <option
+    data-testid="track"
+    label="James Brown & The Famous Flames - Prisoner Of Love"
+    style="width: 100%;"
+    value="56cYRV3uLR7OuvZ7fES9mr"
+  >
+    James Brown & The Famous Flames - Prisoner Of Love
+  </option>,
+  <option
+    data-testid="track"
+    label="James Brown & The Famous Flames - Signed, Sealed And Delivered"
+    style="width: 100%;"
+    value="7dG6P37TfRETdEhekh9t1T"
+  >
+    James Brown & The Famous Flames - Signed, Sealed And Delivered
+  </option>,
+  <option
+    data-testid="track"
+    label="James Brown & The Famous Flames - So Long"
+    style="width: 100%;"
+    value="6DhflHOcDAzWsQZiv39gG4"
+  >
+    James Brown & The Famous Flames - So Long
+  </option>,
+  <option
+    data-testid="track"
+    label="James Brown & The Famous Flames - Stone Fox"
+    style="width: 100%;"
+    value="28Xw9MsozAuReW4XXQv1mi"
+  >
+    James Brown & The Famous Flames - Stone Fox
+  </option>,
+  <option
+    data-testid="track"
+    label="James Brown & The Famous Flames - Suds"
+    style="width: 100%;"
+    value="5FuBv8lwHYsqUKDYA0rks6"
+  >
+    James Brown & The Famous Flames - Suds
+  </option>,
+  <option
+    data-testid="track"
+    label="James Brown & The Famous Flames - Tell Me That You Love Me - Live In Tampa, Florida/1966"
+    style="width: 100%;"
+    value="2dadEDzM591voTWRbtfCRW"
+  >
+    James Brown & The Famous Flames - Tell Me That You Love Me - Live In Tampa, Florida/1966
+  </option>,
+  <option
+    data-testid="track"
+    label="James Brown & The Famous Flames - Tell Me What I Did Wrong"
+    style="width: 100%;"
+    value="0DuVTXKRZtHPMSQuPVqSjV"
+  >
+    James Brown & The Famous Flames - Tell Me What I Did Wrong
+  </option>,
+  <option
+    data-testid="track"
+    label="James Brown & The Famous Flames - Tell Me What You're Gonna Do"
+    style="width: 100%;"
+    value="53j79kGVHJ8Pn65folz9Gx"
+  >
+    James Brown & The Famous Flames - Tell Me What You're Gonna Do
+  </option>,
+  <option
+    data-testid="track"
+    label="James Brown & The Famous Flames - That's Life - Live At The Apollo Theater, 1967"
+    style="width: 100%;"
+    value="0jA9aoNAGU3J9YX0fEUZXO"
+  >
+    James Brown & The Famous Flames - That's Life - Live At The Apollo Theater, 1967
+  </option>,
+  <option
+    data-testid="track"
+    label="James Brown & The Famous Flames - The Bells"
+    style="width: 100%;"
+    value="3x4fGKJ2z4uSxMtzsWtRcN"
+  >
+    James Brown & The Famous Flames - The Bells
+  </option>,
+  <option
+    data-testid="track"
+    label="James Brown & The Famous Flames - The Soul Of J.B."
+    style="width: 100%;"
+    value="7qirB1EXNvIacptDfPgZlO"
+  >
+    James Brown & The Famous Flames - The Soul Of J.B.
+  </option>,
+  <option
+    data-testid="track"
+    label="James Brown & The Famous Flames - There Was A Time - Kenny Dope Remix"
+    style="width: 100%;"
+    value="2sAWLmLGNXNXWtCw2iwanG"
+  >
+    James Brown & The Famous Flames - There Was A Time - Kenny Dope Remix
+  </option>,
+  <option
+    data-testid="track"
+    label="James Brown & The Famous Flames - There Was A Time - Live At The Apollo Theater, 1967"
+    style="width: 100%;"
+    value="1AdeNennIIOU9u0ku3GJhq"
+  >
+    James Brown & The Famous Flames - There Was A Time - Live At The Apollo Theater, 1967
+  </option>,
+  <option
+    data-testid="track"
+    label="James Brown & The Famous Flames - There Was A Time - Live At The Apollo Theater/1967"
+    style="width: 100%;"
+    value="1NAIlRHOyqXyXoJfDzVxAM"
+  >
+    James Brown & The Famous Flames - There Was A Time - Live At The Apollo Theater/1967
+  </option>,
+  <option
+    data-testid="track"
+    label="James Brown & The Famous Flames - There Was A Time - Single Version"
+    style="width: 100%;"
+    value="69pavEV5HSJ81FHQhVB7Rh"
+  >
+    James Brown & The Famous Flames - There Was A Time - Single Version
+  </option>,
+  <option
+    data-testid="track"
+    label="James Brown & The Famous Flames - Think"
+    style="width: 100%;"
+    value="5CUpG7mTYvHYlk3xSLwl6z"
+  >
+    James Brown & The Famous Flames - Think
+  </option>,
+  <option
+    data-testid="track"
+    label="James Brown & The Famous Flames - Think - Live At The Apollo Theater, 1967"
+    style="width: 100%;"
+    value="1tu2EExhbbpWgSyjlr8zqO"
+  >
+    James Brown & The Famous Flames - Think - Live At The Apollo Theater, 1967
+  </option>,
+  <option
+    data-testid="track"
+    label="James Brown & The Famous Flames - Try Me"
+    style="width: 100%;"
+    value="4Kp31ydhTX1l4g84HiTWD5"
+  >
+    James Brown & The Famous Flames - Try Me
+  </option>,
+  <option
+    data-testid="track"
+    label="James Brown & The Famous Flames - Waiting In Vain"
+    style="width: 100%;"
+    value="3oZYKyhnO2jCXx7nlEZfFo"
+  >
+    James Brown & The Famous Flames - Waiting In Vain
+  </option>,
+  <option
+    data-testid="track"
+    label="James Brown & The Famous Flames - Why Do You Do Me"
+    style="width: 100%;"
+    value="3jTsBg0EXjy68BPYHS6nr3"
+  >
+    James Brown & The Famous Flames - Why Do You Do Me
+  </option>,
+  <option
+    data-testid="track"
+    label="James Brown & The Famous Flames - You Don't Have To Go"
+    style="width: 100%;"
+    value="5pFIkUvYv7sUhzr9kQHffB"
+  >
+    James Brown & The Famous Flames - You Don't Have To Go
+  </option>,
+  <option
+    data-testid="track"
+    label="James Brown - (Call Me) Super Bad - Live At The Apollo Theater/1971"
+    style="width: 100%;"
+    value="24RmswVU7lx44vLuUr8XVE"
+  >
+    James Brown - (Call Me) Super Bad - Live At The Apollo Theater/1971
+  </option>,
+  <option
+    data-testid="track"
+    label="James Brown - (Do The) Mashed Potatoes"
+    style="width: 100%;"
+    value="2D4tlQD8aakDkHIXFD2fgB"
+  >
+    James Brown - (Do The) Mashed Potatoes
+  </option>,
+  <option
+    data-testid="track"
+    label="James Brown - (I Love You) For Sentimental Reasons"
+    style="width: 100%;"
+    value="3nHZ5A2i4IWuq8CS7axlcw"
+  >
+    James Brown - (I Love You) For Sentimental Reasons
+  </option>,
+  <option
+    data-testid="track"
+    label="James Brown - A Lonely Little Boy Around One Little Christmas Toy"
+    style="width: 100%;"
+    value="24Wcp1NpZFypHC0jNfT6uh"
+  >
+    James Brown - A Lonely Little Boy Around One Little Christmas Toy
+  </option>,
+  <option
+    data-testid="track"
+    label="James Brown - A Man Has To Go Back To The Crossroads"
+    style="width: 100%;"
+    value="7p415IRibZ87XMpi7dP4t5"
+  >
+    James Brown - A Man Has To Go Back To The Crossroads
+  </option>,
+  <option
+    data-testid="track"
+    label="James Brown - After You Done It"
+    style="width: 100%;"
+    value="5UWFAZ7wouWv0ajejs2Zo1"
+  >
+    James Brown - After You Done It
+  </option>,
+  <option
+    data-testid="track"
+    label="James Brown - Ain't It A Groove"
+    style="width: 100%;"
+    value="0htRiWIhrVGRFIcAJ3mdig"
+  >
+    James Brown - Ain't It A Groove
+  </option>,
+  <option
+    data-testid="track"
+    label="James Brown - Ain't It Funky Now"
+    style="width: 100%;"
+    value="7gImcT0qaPEheW7BH8eL5z"
+  >
+    James Brown - Ain't It Funky Now
+  </option>,
+  <option
+    data-testid="track"
+    label="James Brown - Ain't It Funky Now (Parts 1 and 2)"
+    style="width: 100%;"
+    value="5pDntFG2pviuYB1d9XB0sj"
+  >
+    James Brown - Ain't It Funky Now (Parts 1 and 2)
+  </option>,
+  <option
+    data-testid="track"
+    label="James Brown - Ain't It Funky Now - Pt. 1"
+    style="width: 100%;"
+    value="0VQIPd8Id9vtu5SYIDiR3K"
+  >
+    James Brown - Ain't It Funky Now - Pt. 1
+  </option>,
+  <option
+    data-testid="track"
+    label="James Brown - Ain't It Funky Now - Pt. 2"
+    style="width: 100%;"
+    value="2jxh8ujq4OIZoVmosiZzuL"
+  >
+    James Brown - Ain't It Funky Now - Pt. 2
+  </option>,
+  <option
+    data-testid="track"
+    label="James Brown - Ain't Nobody Here But Us Chickens"
+    style="width: 100%;"
+    value="1kjavlyQXLxxJdVNgF2Z5M"
+  >
+    James Brown - Ain't Nobody Here But Us Chickens
+  </option>,
+  <option
+    data-testid="track"
+    label="James Brown - Ain't That A Groove"
+    style="width: 100%;"
+    value="3At7yUbLImAz2Olx99WFWD"
+  >
+    James Brown - Ain't That A Groove
+  </option>,
+  <option
+    data-testid="track"
+    label="James Brown - All The Way"
+    style="width: 100%;"
+    value="1AvnuOV52VVq8rDLUbpWWn"
+  >
+    James Brown - All The Way
+  </option>,
+  <option
+    data-testid="track"
+    label="James Brown - And I Do Just What I Want"
+    style="width: 100%;"
+    value="1oojUd6tM6n6Sd9oAoHcTI"
+  >
+    James Brown - And I Do Just What I Want
+  </option>,
+  <option
+    data-testid="track"
+    label="James Brown - Any Day Now"
+    style="width: 100%;"
+    value="43RDM6Bl311F43jpCphq0W"
+  >
+    James Brown - Any Day Now
+  </option>,
+  <option
+    data-testid="track"
+    label="James Brown - Are We Really Dancing"
+    style="width: 100%;"
+    value="6xHguFxSEjQygFarqza9fz"
+  >
+    James Brown - Are We Really Dancing
+  </option>,
+  <option
+    data-testid="track"
+    label="James Brown - Baby Cries Over The Ocean"
+    style="width: 100%;"
+    value="5Q3Ohy9NuZGbkouTAxyZns"
+  >
+    James Brown - Baby Cries Over The Ocean
+  </option>,
+  <option
+    data-testid="track"
+    label="James Brown - Baby Here I Come"
+    style="width: 100%;"
+    value="3Lr56iYsvyOK66WLa2y0Oh"
+  >
+    James Brown - Baby Here I Come
   </option>,
 ]
 `;

@@ -104,11 +104,6 @@ def test_update_playlist():
 def test_search_similar():
     """Test searching for a similar sounding track.
     """
-    print(
-        main.search_similar_tracks(url='https://p.scdn.co/mp3-preview'
-                                   '/04b28b12174a4c4448486070962dae74494c0f70?'
-                                   'cid=194086cb37be48ebb45b9ba4ce4c5936',
-                                   max_items=10))
     assert asyncio.run(
         main.search_similar_tracks(
             url='https://p.scdn.co/mp3-preview'
