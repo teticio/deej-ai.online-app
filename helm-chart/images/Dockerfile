@@ -11,7 +11,7 @@ RUN apt update && \
 # Install specific version of NodeJS
 RUN mkdir /usr/local/nvm
 ENV NVM_DIR /usr/local/nvm
-ENV NODE_VERSION 16.13.1
+ENV NODE_VERSION 18.16.0
 RUN curl https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.1/install.sh | bash && \
     . $NVM_DIR/nvm.sh && \
     nvm install $NODE_VERSION && \
