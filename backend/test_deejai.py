@@ -128,15 +128,15 @@ def test_search_similar():
                 'track': 'Lt. Stitchie - Dem No Good',
                 'track_id': '4UehXb6021WcsH3HfNFrYs'
             }, {
-                'track': 'Daniel Blume - Kardashian',
-                'track_id': '5sJWJ132Ya4i2xR5cW0B6a'
-            }, {
                 'track': 'Michael Calfan - Body',
                 'track_id': '4hFyPSsdp4d7ywbxxknKqo'
             }, {
-                'track': 'Mikkel Christiansen - Eros',
-                'track_id': '6NzGy8DGiOr1O7qlngdUWr'
+                'track': 'Daniel Blume - Kardashian',
+                'track_id': '5sJWJ132Ya4i2xR5cW0B6a'
             }, {
-                'track': 'Byz - Karatefylla 2.0 - Radio Version',
-                'track_id': '7ADKspOjo3n2nC6azfWLZX'
+                'track': 'Rihanna - Phresh Out The Runway',
+                'track_id': '2qJeiWIZhb3FqREoDPPFPu'
+            }, {
+                'track': 'Lali - Sin Querer Queriendo (feat. Mau y Ricky)',
+                'track_id': '5rUNrHC5b0oYanaw370Ncz'
             }]
