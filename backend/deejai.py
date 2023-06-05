@@ -13,6 +13,7 @@ import librosa
 import requests
 import numpy as np
 from starlette.concurrency import run_in_threadpool
+from unidecode import unidecode
 
 # can't get tensorflow to work on Hackintosh due to missing AVX support
 if 'HACKINTOSH' not in os.environ:
@@ -48,7 +49,7 @@ class DeejAI:
         self.track_indices = dict(
             map(lambda x: (x[1], x[0]), enumerate(mp3tovecs)))
         self.preprocessed_tracks = {
-            track_id: re.sub(r'([^\s\w]|_)+', '', track.lower())
+            track_id: re.sub(r'([^\s\w]|_)+', '', unidecode(track).lower())
             for track_id, track in self.tracks.items()
             if track_id in mp3tovecs
         }
@@ -71,17 +72,17 @@ class DeejAI:
         """
         return self.tracks
 
-    async def search(self, string, max_items=100):
+    async def search(self, string, max_items=250):
         """Find all tracks with artist or title containing all words in string.
 
         Args:
             string (str): Search string.
-            max_items (int, optional): Maximum number of tracks to return. Defaults to 100.
+            max_items (int, optional): Maximum number of tracks to return. Defaults to 250.
         """
 
         def _search():
             search_string = set(
-                re.sub(r'([^\s\w]|_)+', '', string.lower()).split())
+                re.sub(r'([^\s\w]|_)+', '', unidecode(string).lower()).split())
             ids = sorted([
                 track for track, preprocessed_track in
                 self.preprocessed_tracks.items()

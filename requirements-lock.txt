@@ -72,6 +72,7 @@ tensorflow-estimator==2.6.0
 termcolor==1.1.0
 threadpoolctl==3.0.0
 typing-extensions==3.7.4.3
+unidecode==1.3.6
 urllib3==1.26.7
 uvicorn==0.15.0
 Werkzeug==2.0.2

@@ -1,4 +1,4 @@
-export default async function search(searchString, maxItems = 100) {
+export default async function search(searchString, maxItems = 250) {
   const response = await fetch(`${process.env.REACT_APP_API_URL}/search` +
     `?string=${encodeURIComponent(searchString)}` +
     `&max_items=${encodeURIComponent(maxItems)}`);
