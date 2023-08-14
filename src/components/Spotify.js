@@ -74,10 +74,15 @@ export default class Spotify extends SpotifyWebApi {
         description: 'Created by Deej-A.I. https://deej-ai.online'
       });
     }
-    await this.replaceTracksInPlaylist(
-      playlist.id,
-      track_ids.map(track_id => `spotify:track:${track_id}`)
-    );
+    // Spotify limits the number of tracks that can be added in one call to 100
+    const chunks = [];
+    for (let i = 0; i < track_ids.length; i += 100) {
+      chunks.push(track_ids.slice(i, i + 100).map(track_id => `spotify:track:${track_id}`));
+    }
+    await this.replaceTracksInPlaylist(playlist.id, chunks[0]);
+    for (let i = 1; i < chunks.length; i++) {
+      await this.addTracksToPlaylist(playlist.id, chunks[i]);
+    }
     return playlist;
   }
 }
