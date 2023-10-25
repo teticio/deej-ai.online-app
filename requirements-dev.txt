@@ -2,3 +2,4 @@ yapf
 pytest
 pylint
 flake8
+Unidecode
