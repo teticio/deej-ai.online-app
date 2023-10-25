@@ -57,7 +57,7 @@ if __name__ == '__main__':
     os.makedirs('model', exist_ok=True)
     download_file_from_google_drive('1Mg924qqF3iDgVW5w34m6Zaki5fNBdfSy',
                                     os.path.join('model', 'spotifytovec.p'),
-                                    824315752)
+                                    824046049)
     download_file_from_google_drive('1geEALPQTRBNUvkpI08B-oN4vsIiDTb5I',
                                     os.path.join('model', 'tracktovec.p'),
                                     438330031)
