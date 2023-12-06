@@ -10,11 +10,13 @@ uvicorn = "*"
 sqlalchemy = "*"
 aiohttp = "*"
 aiofiles = "*"
+aioredis = "*"
 librosa = "*"
 pymysql = "*"
 sqlalchemy-utils = "*"
 beautifulsoup4 = "*"
 fastapi-cache2 = {extras = ["redis"], version = "*"}
+unidecode = "*"
 
 [dev-packages]
 yapf = "*"

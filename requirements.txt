@@ -4,6 +4,7 @@ uvicorn
 sqlalchemy
 aiohttp
 aiofiles
+aioredis
 librosa
 pymysql
 sqlalchemy-utils
