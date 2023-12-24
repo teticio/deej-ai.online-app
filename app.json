@@ -1,6 +1,6 @@
 {
   "expo": {
-    "name": "Deej-A.I.",
+    "name": "DeejAI",
     "slug": "DeejAI",
     "icon": "./public/android-chrome-512x512.png",
     "splash": {
@@ -8,12 +8,12 @@
       "backgroundColor": "#222222"
     },
     "scheme": "deejai",
-    "version": "2.2.11",
+    "version": "2.2.13",
     "userInterfaceStyle": "dark",
     "backgroundColor": "#000000",
     "android": {
       "package": "online.deejai.www",
-      "versionCode": 12,
+      "versionCode": 14,
       "permissions": [
         "INTERNET"
       ]

@@ -3,7 +3,7 @@ import React from 'react';
 import { LogBox } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import * as Linking from 'expo-linking';
-import { DarkTheme, Provider as PaperProvider } from 'react-native-paper';
+import { MD3DarkTheme as DarkTheme, Provider as PaperProvider } from 'react-native-paper';
 import App from './components/App';
 
 LogBox.ignoreLogs([
