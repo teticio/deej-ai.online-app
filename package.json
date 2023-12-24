@@ -10,6 +10,7 @@
   },
   "homepage": "./",
   "dependencies": {
+    "@babel/plugin-proposal-private-property-in-object": "^7.21.11",
     "@electron-forge/cli": "^6.1.1",
     "@react-native-community/slider": "4.4.2",
     "@react-native-picker/picker": "2.4.10",
@@ -32,6 +33,7 @@
     "history": "^5.3.0",
     "localStorage": "^1.0.4",
     "react": "18.2.0",
+    "react-app-rewired": "^2.2.1",
     "react-bootstrap": "^2.7.4",
     "react-dom": "18.2.0",
     "react-icons": "^4.9.0",
@@ -64,9 +66,9 @@
     "workbox-streams": "^6.6.0"
   },
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
+    "start": "react-app-rewired start",
+    "build": "react-app-rewired build",
+    "test": "react-app-rewired test",
     "eject": "react-scripts eject",
     "bundle:ios": "react-native bundle --entry-file index.js --platform ios --dev false --bundle-output ios/main.jsbundle --assets-dest ios",
     "start-native": "expo start",
@@ -75,7 +77,7 @@
     "web": "expo start --web",
     "eject-native": "expo eject",
     "electron": "cd electron && electron-forge start",
-    "make": "react-scripts build && cd electron && electron-forge make"
+    "make": "react-app-rewired build && cd electron && electron-forge make"
   },
   "eslintConfig": {
     "extends": [
