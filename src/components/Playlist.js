@@ -1,9 +1,17 @@
 //import 'react-native-get-random-values';
 import { v4 as uuidv4 } from 'uuid';
-import("expo-standard-web-crypto").then(({ polyfillWebCrypto }) => {
-  polyfillWebCrypto();
-}).catch(error => {});
 import { IFrame } from './Platform';
+
+function loadWebCrypto() {
+  import("expo-standard-web-crypto")
+    .then(({ polyfillWebCrypto }) => {
+      polyfillWebCrypto();
+    })
+    .catch(error => {
+    });
+}
+
+loadWebCrypto();
 
 export default function Playlist({ track_ids = [], waypoints = [], playlist_id = '' }) {
   const height = 80 + 50 * track_ids.length;
