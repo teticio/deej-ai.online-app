@@ -3,6 +3,8 @@
 import os
 import requests
 
+from bs4 import BeautifulSoup
+
 CHUNK_SIZE = 32768
 
 
@@ -18,39 +20,25 @@ def download_file_from_google_drive(file_id, destination, size):
         print(f'{destination} already exists')
         return
     print(f'Downloading {destination}')
-    url = 'https://docs.google.com/uc?export=download'
     session = requests.Session()
-    response = session.get(url,
-                           params={
-                               'id': file_id,
-                               'confirm': 't'
-                           },
-                           stream=True)
-    token = get_confirm_token(response)
-    if token:
-        params = {'id': file_id, 'confirm': token}
+    url = 'https://docs.google.com/uc'
+    params = {'export': 'dowloand', 'id': file_id, 'confirm': 't'}
+    response = session.get(url, params=params, stream=True)
+
+    soup = BeautifulSoup(response.text, 'html.parser')
+    form = soup.find('form')
+    if form:
+        url = form['action']
+        inputs = form.find_all('input')
+        params = {input['name']: input.get('value', '') for input in inputs if input.get('name')}
         response = session.get(url, params=params, stream=True)
-    save_response_content(response, destination)
-    if not os.path.isfile(destination) or os.path.getsize(destination) != size:
-        print('Download failed')
 
-
-def get_confirm_token(response):
-    """Get confirmation token.
-    """
-    for key, value in response.cookies.items():
-        if key.startswith('download_warning'):
-            return value
-    return None
-
-
-def save_response_content(response, destination):
-    """Save response content.
-    """
     with open(destination, 'wb') as file:
         for chunk in response.iter_content(CHUNK_SIZE):
             if chunk:  # Filter out keep-alive new chunks
                 file.write(chunk)
+    if not os.path.isfile(destination) or os.path.getsize(destination) != size:
+        print('Download failed')
 
 
 if __name__ == '__main__':
