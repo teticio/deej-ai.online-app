@@ -25,9 +25,9 @@ def download_file_from_google_drive(file_id, destination, size):
     params = {'export': 'dowloand', 'id': file_id, 'confirm': 't'}
     response = session.get(url, params=params, stream=True)
 
-    soup = BeautifulSoup(response.text, 'html.parser')
-    form = soup.find('form')
-    if form:
+    if 'text/html' in response.headers.get('Content-Type'):
+        soup = BeautifulSoup(response.text, 'html.parser')
+        form = soup.find('form')
         url = form['action']
         inputs = form.find_all('input')
         params = {input['name']: input.get('value', '') for input in inputs if input.get('name')}
