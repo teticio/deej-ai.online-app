@@ -359,7 +359,7 @@ async def make_playlist_widget(track_ids, waypoints='[]', playlist_id=''):
         except aiohttp.ClientError as error:
             raise HTTPException(status_code=400, detail=str(error)) from error
     image_url = re.findall(r'(https://i\.scdn\.co/image/[a-z0-9]*)', text)[0]
-    dominant_color = re.findall(r'--background-color:(#[A-F0-9]{1,6})', text)
+    dominant_color = re.findall(r'"backgroundColor":"(#[A-F0-9]{1,6})"', text)
     dominant_color = dominant_color[0] if len(dominant_color) > 0 else '#000000'
     text = playlist_widget
     soup = BeautifulSoup(text, 'html.parser')
