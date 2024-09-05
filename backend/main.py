@@ -127,6 +127,8 @@ class HTMLCoder(JsonCoder):
     def decode(cls, value):
         """Decode HTMLResponse.
         """
+        if isinstance(value, str):
+            value = value.encode("utf-8")
         response = JsonCoder.decode(value)
         return HTMLResponse(content=response['body'],
                             status_code=response['status_code'])
