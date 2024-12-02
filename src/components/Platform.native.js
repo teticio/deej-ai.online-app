@@ -41,7 +41,7 @@ export function Text(props) {
       {...props}
       style={{
         color: props.className === 'link' ? colors.accent :
-          props.className === 'text-muted' || props.className === 'link-muted' ? colors.disabled :
+          props.className === 'text-muted' || props.className === 'link-muted' ? colors.primary :
             colors.primary,
         ...props.style,
       }}
@@ -58,7 +58,7 @@ export function Small(props) {
       style={{
         fontSize: 12,
         color: props.className === 'link' ? colors.accent :
-          props.className === 'text-muted' || props.className === 'link-muted' ? colors.disabled :
+          props.className === 'text-muted' || props.className === 'link-muted' ? colors.primary :
             colors.primary,
         ...props.style,
       }}
@@ -180,7 +180,7 @@ export function FaIcon(props) {
         name={props.name}
         size={Number(props.size ? props.size : 15)}
         color={props.className === 'link' ? colors.accent :
-          props.className === 'text-muted' || props.className === 'link-muted' ? colors.disabled :
+          props.className === 'text-muted' || props.className === 'link-muted' ? colors.primary :
             colors.primary}
       ></FA_ICON >
     </Text>
@@ -232,7 +232,7 @@ export function MdIcon(props) {
         name={props.name}
         size={Number(props.size ? props.size : 15)}
         color={props.className === 'link' ? colors.accent :
-          props.className === 'text-muted' || props.className === 'link-muted' ? colors.disabled :
+          props.className === 'text-muted' || props.className === 'link-muted' ? colors.primary :
             colors.primary}
       ></MD_ICON >
     </Text>
@@ -428,7 +428,6 @@ export function IFrame(props) {
         ...props.style
       }}
       {...props}
-      androidLayerType='software'
       source={props.srcdoc ? {
         'html': props.srcdoc
       } : {

@@ -13,7 +13,7 @@
     "backgroundColor": "#000000",
     "android": {
       "package": "online.deejai.www",
-      "versionCode": 14,
+      "versionCode": 17,
       "permissions": [
         "INTERNET"
       ]
@@ -28,6 +28,18 @@
       "eas": {
         "projectId": "3027f7dd-4a29-4e62-a343-9f473cf94d36"
       }
-    }
+    },
+    "plugins": [
+      [
+        "expo-build-properties",
+        {
+          "android": {
+            "compileSdkVersion": 34,
+            "targetSdkVersion": 34,
+            "buildToolsVersion": "34.0.0"
+          }
+        }
+      ]
+    ]
   }
 }
