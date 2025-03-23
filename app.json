@@ -8,12 +8,12 @@
       "backgroundColor": "#222222"
     },
     "scheme": "deejai",
-    "version": "2.2.13",
+    "version": "2.2.14",
     "userInterfaceStyle": "dark",
     "backgroundColor": "#000000",
     "android": {
       "package": "online.deejai.www",
-      "versionCode": 17,
+      "versionCode": 18,
       "permissions": [
         "INTERNET"
       ]

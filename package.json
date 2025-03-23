@@ -69,7 +69,7 @@
     "workbox-streams": "^6.6.0"
   },
   "scripts": {
-    "start": "expo start --dev-client",
+    "start": "react-app-rewired start",
     "build": "react-app-rewired build",
     "test": "react-app-rewired test",
     "eject": "react-scripts eject",

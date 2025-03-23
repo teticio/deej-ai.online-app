@@ -280,23 +280,24 @@ async def spotify_refresh_token(refresh_token: str):
 async def get_access_token(request: Request):
     """Proxy
     """
-    headers = {
-        'User-Agent':
-        'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) '
-        'Chrome/92.0.4515.159 Safari/537.36'
-    }
-    async with aiohttp.ClientSession() as session:
-        try:
-            async with session.get(
-                    f'https://open.spotify.com/get_access_token?{request.query_params}',
-                    headers=headers) as response:
-                if response.status != 200:
-                    raise HTTPException(status_code=response.status,
-                                        detail=response.reason)
-                text = await response.text()
-        except aiohttp.ClientError as error:
-            raise HTTPException(status_code=400, detail=str(error)) from error
-    return HTMLResponse(content=text, status_code=200)
+    # headers = {
+    #     'User-Agent':
+    #     'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) '
+    #     'Chrome/92.0.4515.159 Safari/537.36'
+    # }
+    # async with aiohttp.ClientSession() as session:
+    #     try:
+    #         async with session.get(
+    #                 f'https://open.spotify.com/get_access_token?{request.query_params}',
+    #                 headers=headers) as response:
+    #             if response.status != 200:
+    #                 raise HTTPException(status_code=response.status,
+    #                                     detail=response.reason)
+    #             text = await response.text()
+    #     except aiohttp.ClientError as error:
+    #         raise HTTPException(status_code=400, detail=str(error)) from error
+    # return HTMLResponse(content=text, status_code=200)
+    raise HTTPException(status_code=400)
 
 
 @app.get('/api/v1/widget')

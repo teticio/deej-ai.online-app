@@ -50,7 +50,7 @@ export default function About() {
         />
         . If you want to learn about it works, check out
         this <Link
-          url='https://towardsdatascience.com/create-automatic-playlists-by-using-deep-learning-to-listen-to-the-music-b72836c24ce2'
+          url='https://medium.com/towards-data-science/create-automatic-playlists-by-using-deep-learning-to-listen-to-the-music-b72836c24ce2'
           text='article'
         />.
       </Text>
