@@ -18,6 +18,10 @@ test: ## run tests locally
 download: ## download model artifacts
 	pipenv run python scripts/download.py
 
+.PHONY: regenerate_jepa_embeddings
+regenerate_jepa_embeddings: ## regenerate local JEPA embeddings from sibling repo
+	pipenv run python scripts/regenerate_jepa_embeddings.py
+
 .PHONY: docker
 docker: ## build docker file
 	scripts/build_docker.sh

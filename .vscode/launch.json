@@ -35,7 +35,9 @@
         "REDIS_NAMESPACE": "deejai-dev", // If we do cache, use a separate namespace
         "NO_CACHE": "1", // Disable caching
         "DOCS_URL": "/docs",
-        "REDOC_URL": "/redoc"
+        "REDOC_URL": "/redoc",
+        "EMBEDDINGS_MODEL": "jepa",
+        "HACKINTOSH": "1"
       },
       "osx": {
         "env": {
@@ -45,6 +47,7 @@
           "NO_CACHE": "1", // Disable caching
           "DOCS_URL": "/docs",
           "REDOC_URL": "/redoc",
+          "EMBEDDINGS_MODEL": "jepa",
           "HACKINTOSH": "1" // I don't have a real Macintosh
         }
       },

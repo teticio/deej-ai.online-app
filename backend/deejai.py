@@ -27,36 +27,113 @@ class DeejAI:
     N_FFT = 2048
     HOP_LENGTH = 512
 
+    @staticmethod
+    def _normalize_vectors(vectors):
+        """Normalize non-zero vectors in a mapping."""
+        return {
+            k: v / np.linalg.norm(v)
+            for k, v in vectors.items() if np.linalg.norm(v) > 0
+        }
+
+    @staticmethod
+    def _load_jepa_embeddings():
+        """Load JEPA embeddings from the preferred local format."""
+        npy_path = os.path.join('model', 'jepa.npy')
+        if os.path.exists(npy_path):
+            return np.load(npy_path, allow_pickle=True).item()
+
+        npz_path = os.path.join('model', 'jepa.npz')
+        if os.path.exists(npz_path):
+            with np.load(npz_path, allow_pickle=False) as data:
+                track_ids = data['track_ids'].astype(str)
+                vectors = data['embeddings'].astype(np.float32, copy=False)
+                return {
+                    track_id: vectors[index]
+                    for index, track_id in enumerate(track_ids)
+                }
+
+        legacy_npz_path = os.path.join('model', 'embeddings.npz')
+        if os.path.exists(legacy_npz_path):
+            with np.load(legacy_npz_path, allow_pickle=False) as data:
+                track_ids = data['track_ids'].astype(str)
+                vectors = data['embeddings'].astype(np.float32, copy=False)
+                return {
+                    track_id: vectors[index]
+                    for index, track_id in enumerate(track_ids)
+                }
+
+        return np.load(os.path.join('model', 'embeddings.npy'),
+                       allow_pickle=True).item()
+
+    @staticmethod
+    def _choose_candidate(candidates, noise):
+        """Choose from scored candidates using `noise` as temperature."""
+        if noise <= 0:
+            return candidates[0][0]
+        k = min(len(candidates), max(2, int(1 + noise * 25)))
+        weights = np.array([score for _, score in candidates[:k]],
+                           dtype=np.float64)
+        weights = np.exp((weights - weights.max()) / max(noise, 1e-6))
+        weights = weights / weights.sum()
+        return candidates[int(np.random.choice(k, p=weights))][0]
+
     def __init__(self):
-        with open(os.path.join('model', 'spotifytovec.p'), 'rb') as file:
-            mp3tovecs = pickle.load(file)
-        mp3tovecs = dict(
-            zip(mp3tovecs.keys(), [
-                mp3tovecs[_] / np.linalg.norm(mp3tovecs[_]) for _ in mp3tovecs
-            ]))
-        with open(os.path.join('model', 'tracktovec.p'), 'rb') as file:
-            tracktovecs = pickle.load(file)
-        tracktovecs = dict(
-            zip(tracktovecs.keys(), [
-                tracktovecs[_] / np.linalg.norm(tracktovecs[_])
-                for _ in tracktovecs
-            ]))
+        self.embeddings_model = os.environ.get('EMBEDDINGS_MODEL',
+                                               'jepa').lower()
         with open(os.path.join('model', 'spotify_tracks.p'), 'rb') as file:
             self.tracks = pickle.load(file)
         with open(os.path.join('model', 'spotify_urls.p'), 'rb') as file:
             self.urls = pickle.load(file)
-        self.track_ids = list(mp3tovecs)
-        self.track_indices = dict(
-            map(lambda x: (x[1], x[0]), enumerate(mp3tovecs)))
+
+        with open(os.path.join('model', 'tracktovec.p'), 'rb') as file:
+            tracktovecs = pickle.load(file)
+        tracktovecs = self._normalize_vectors(tracktovecs)
+
+        use_audio_model = 'HACKINTOSH' not in os.environ
+        audio = None
+        if self.embeddings_model != 'jepa' or use_audio_model:
+            # spotifytovec is the embedding space produced by speccy_model.
+            with open(os.path.join('model', 'spotifytovec.p'), 'rb') as file:
+                audio = pickle.load(file)
+            audio = self._normalize_vectors(audio)
+
+        if self.embeddings_model == 'jepa':
+            logging.info('Loading JEPA embeddings as primary channel')
+            primary = self._load_jepa_embeddings()
+            primary = self._normalize_vectors(primary)
+        else:
+            primary = audio
+
+        # Restrict to tracks present in all spaces we need.
+        self.track_ids = [k for k in primary if k in tracktovecs]
+        if audio is not None:
+            self.track_ids = [k for k in self.track_ids if k in audio]
+        self.track_indices = {k: i for i, k in enumerate(self.track_ids)}
+        # Two parallel arrays — one per channel — so that channels with
+        # different embedding dimensions (e.g. 384-d JEPA + 100-d tracktovec)
+        # can be blended via the `creativity` weight in `most_similar`.
+        primary_arr = np.stack([primary[k] for k in self.track_ids]).astype(
+            np.float32)
+        track_arr = np.stack([tracktovecs[k] for k in self.track_ids]).astype(
+            np.float32)
+        self.mp3tovecs = [primary_arr, track_arr]
+        # Dedicated array aligned to self.track_ids for audio-similarity search.
+        self.audio_vecs = None
+        if audio is not None and self.embeddings_model == 'jepa':
+            self.audio_vecs = np.stack(
+                [audio[k] for k in self.track_ids]).astype(np.float32)
+        elif self.embeddings_model != 'jepa':
+            self.audio_vecs = primary_arr  # same data as channel 0
+        del primary, tracktovecs, audio, primary_arr, track_arr
+
         self.preprocessed_tracks = {
             track_id: re.sub(r'([^\s\w]|_)+', '', unidecode(track).lower())
             for track_id, track in self.tracks.items()
-            if track_id in mp3tovecs
+            if track_id in self.track_indices
         }
-        self.mp3tovecs = np.array([[mp3tovecs[_], tracktovecs[_]]
-                                   for _ in mp3tovecs])
-        del mp3tovecs, tracktovecs
-        if 'HACKINTOSH' not in os.environ:
+
+        self.model = None
+        if use_audio_model:
             self.model = load_model(
                 os.path.join('model', 'speccy_model'),
                 custom_objects={
@@ -117,60 +194,77 @@ class DeejAI:
                                         size=size,
                                         noise=noise)
 
-    async def most_similar(  # pylint: disable=too-many-arguments
+    async def most_similar(  # pylint: disable=too-many-arguments,unused-argument
             self,
             mp3tovecs,
             weights,
             positive=iter(()),
             negative=iter(()),
             noise=0,
-            vecs=None):
+            vecs=None,
+            return_scores=False):
         """Most similar IDs.
+
+        `mp3tovecs` is a list of per-channel arrays, each of shape (N, dim_j).
+        Channels may have different embedding dimensions.
         """
-        mp3_vecs_i = np.array([
-            weights[j] *
-            np.sum([mp3tovecs[i, j]
-                    for i in positive] + [-mp3tovecs[i, j] for i in negative],
-                   axis=0) for j in range(len(weights))
-        ])
-        if vecs is not None:
-            mp3_vecs_i += np.sum(vecs, axis=0)
-        if noise != 0:
-            for mp3_vec_i in mp3_vecs_i:
-                mp3_vec_i += np.random.normal(
-                    0, noise * np.linalg.norm(mp3_vec_i), mp3tovecs.shape[2])
-        result = list(
-            np.argsort(
-                np.tensordot(mp3tovecs, mp3_vecs_i, axes=((1, 2), (0, 1)))))
+        positive = list(positive)
+        negative = list(negative)
+        n_tracks = mp3tovecs[0].shape[0]
+        scores = np.zeros(n_tracks, dtype=np.float64)
+        for j, weight in enumerate(weights):
+            channel = mp3tovecs[j]
+            target = np.zeros(channel.shape[1], dtype=np.float64)
+            if positive:
+                target += np.sum(channel[positive], axis=0)
+            if negative:
+                target -= np.sum(channel[negative], axis=0)
+            if vecs is not None:
+                target += np.sum([v[j] for v in vecs], axis=0)
+            scores += weight * (channel @ target)
+        result = list(np.argsort(scores))
         for i in negative:
             del result[result.index(i)]
         result.reverse()
         for i in positive:
             del result[result.index(i)]
+        if return_scores:
+            return [(i, scores[i]) for i in result]
         return result
 
-    async def most_similar_by_vec(  # pylint: disable=too-many-arguments
+    async def most_similar_by_vec(  # pylint: disable=too-many-arguments,unused-argument
             self,
             mp3tovecs,
             weights,
             positives=iter(()),
             negatives=iter(()),
-            noise=0):
+            noise=0,
+            return_scores=False):
         """Most similar IDs by vector.
+
+        `mp3tovecs` is a list of per-channel arrays. `positives` / `negatives`
+        are lists per channel of vectors with matching channel dimension.
         """
-        mp3_vecs_i = np.array([
-            weights[j] * np.sum(positives[j] if positives else [] +
-                                -negatives[j] if negatives else [],
-                                axis=0) for j in range(len(weights))
-        ])
-        if noise != 0:
-            for mp3_vec_i in mp3_vecs_i:
-                mp3_vec_i += np.random.normal(
-                    0, noise * np.linalg.norm(mp3_vec_i), mp3tovecs.shape[2])
-        result = list(
-            np.argsort(
-                -np.tensordot(mp3tovecs, mp3_vecs_i, axes=((1, 2), (0, 1)))))
+        positives = list(positives) if positives else []
+        negatives = list(negatives) if negatives else []
+        n_tracks = mp3tovecs[0].shape[0]
+        scores = np.zeros(n_tracks, dtype=np.float64)
+        for j, weight in enumerate(weights):
+            channel = mp3tovecs[j]
+            target = np.zeros(channel.shape[1], dtype=np.float64)
+            if positives:
+                target += np.sum(positives[j], axis=0)
+            if negatives:
+                target -= np.sum(negatives[j], axis=0)
+            scores += weight * (channel @ target)
+        result = list(np.argsort(-scores))
+        if return_scores:
+            return [(i, scores[i]) for i in result]
         return result
+
+    def _track_vec(self, idx):
+        """Per-channel vectors for a track index: list of arrays, one per channel."""
+        return [channel[idx] for channel in self.mp3tovecs]
 
     async def join_the_dots(self, weights, ids, size=5, noise=0):
         """Generate playlist that joins the dots between given waypoints.
@@ -178,9 +272,9 @@ class DeejAI:
         playlist = []
         playlist_tracks = [self.tracks[_] for _ in ids]
         end = start = ids[0]
-        start_vec = self.mp3tovecs[self.track_indices[start]]
+        start_vec = self._track_vec(self.track_indices[start])
         for end in ids[1:]:
-            end_vec = self.mp3tovecs[self.track_indices[end]]
+            end_vec = self._track_vec(self.track_indices[end])
             playlist.append(start)
             for i in range(size):
                 candidates = await self.most_similar_by_vec(
@@ -188,8 +282,10 @@ class DeejAI:
                     weights, [[(size - i) / (size + 1) * start_vec[k] +
                                (i + 1) / (size + 1) * end_vec[k]]
                               for k in range(len(weights))],
-                    noise=noise)
-                for candidate in candidates:
+                    noise=noise,
+                    return_scores=True)
+                valid_candidates = []
+                for candidate, score in candidates:
                     track_id = self.track_ids[candidate]
                     if track_id not in playlist + ids and self.tracks[
                             track_id] not in playlist_tracks and self.tracks[
@@ -197,7 +293,9 @@ class DeejAI:
                                           find(' - ')] != self.tracks[playlist[
                                               -1]][:self.tracks[playlist[-1]].
                                                    find(' - ')]:
-                        break
+                        valid_candidates.append((candidate, score))
+                candidate = self._choose_candidate(valid_candidates, noise)
+                track_id = self.track_ids[candidate]
                 playlist.append(track_id)
             start = end
             start_vec = end_vec
@@ -220,8 +318,10 @@ class DeejAI:
                 self.mp3tovecs,
                 weights,
                 positive=playlist_indices[-lookback:],
-                noise=noise)
-            for candidate in candidates:
+                noise=noise,
+                return_scores=True)
+            valid_candidates = []
+            for candidate, score in candidates:
                 track_id = self.track_ids[candidate]
                 if track_id not in playlist and self.tracks[
                         track_id] not in playlist_tracks and self.tracks[
@@ -229,7 +329,9 @@ class DeejAI:
                                       find(' - ')] != self.tracks[playlist[
                                           -1]][:self.tracks[playlist[-1]].
                                                find(' - ')]:
-                    break
+                    valid_candidates.append((candidate, score))
+            candidate = self._choose_candidate(valid_candidates, noise)
+            track_id = self.track_ids[candidate]
             playlist.append(track_id)
             playlist_tracks.append(self.tracks[track_id])
             playlist_indices.append(candidate)  # pylint: disable=undefined-loop-variable
@@ -237,7 +339,13 @@ class DeejAI:
 
     async def get_similar_vec(self, track_url, max_items=10):
         """Most similar to MP3 given by URL.
+
+        Compares against `self.audio_vecs` (the spotifytovec / mp3tovec
+        space) regardless of `EMBEDDINGS_MODEL`, since speccy_model produces
+        embeddings in that space.
         """
+        if self.model is None or self.audio_vecs is None:
+            return []
 
         def _get_similar_vec():
             y, sr = librosa.load(f'{playlist_id}.{extension}', mono=True)
@@ -278,7 +386,7 @@ class DeejAI:
                                    length=131072)
             vecs = await run_in_threadpool(_get_similar_vec)
             candidates = await self.most_similar_by_vec(
-                self.mp3tovecs[:, np.newaxis, 0, :], [1], [vecs])
+                [self.audio_vecs], [1], [vecs])
             ids = [
                 self.track_ids[candidate]
                 for candidate in candidates[0:max_items]
