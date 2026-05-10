@@ -64,24 +64,34 @@ def output_paths(prefix):
             prefix.with_name(f'{prefix.name}_vectors.npy'))
 
 
-def ensure_safe_paths(source, prefix, force):
-    """Validate source/output paths and protect the source artifact."""
+def ensure_safe_paths(source, prefix):
+    """Validate source path, create output dir, protect source from overwrite."""
     if not source.exists():
         raise FileNotFoundError(f'Source embeddings file does not exist: {source}')
 
     prefix.parent.mkdir(parents=True, exist_ok=True)
 
     for output in output_paths(prefix):
-        if output.exists() and not output.is_symlink() and not force:
-            raise FileExistsError(
-                f'Output already exists and is not a symlink: {output}\n'
-                'Pass --force to replace it.')
-
         if (output.exists() and not output.is_symlink()
                 and source.resolve() == output.resolve()):
             raise ValueError(
                 f'Output resolves to the source artifact: {output}\n'
                 'Refusing to overwrite the original JEPA file.')
+
+
+def outputs_blocked(prefix, force):
+    """Return a representative output path if the full output set is intact, else None.
+
+    Only blocks when every paired output file exists as a regular (non-symlink) file —
+    so removing one file of the pair forces the whole set to be regenerated.
+    """
+    if force:
+        return None
+    outputs = output_paths(prefix)
+    for output in outputs:
+        if not output.exists() or output.is_symlink():
+            return None
+    return outputs[0]
 
 
 def normalize_array(vectors):
@@ -154,21 +164,16 @@ def load_pickle_store(source):
     return track_ids, vectors
 
 
-def ensure_replaceable(prefix, force):
-    """Protect existing array outputs unless --force was passed."""
-    for output in output_paths(prefix):
-        if output.exists() and not output.is_symlink() and not force:
-            raise FileExistsError(
-                f'Output already exists and is not a symlink: {output}\n'
-                'Pass --force to replace it.')
-
-
 def save_pickle_store(source, prefix, force):
     """Convert a local pickled embedding dict into compact array files."""
-    ensure_replaceable(prefix, force)
     track_ids, vectors = load_pickle_store(source)
     if track_ids is None:
         return None, None
+    blocked = outputs_blocked(prefix, force)
+    if blocked is not None:
+        print(f'Warning: {blocked} already exists; skipping write. '
+              'Pass --force to overwrite.')
+        return track_ids, vectors
     save_array_store(track_ids, vectors, prefix)
     return track_ids, vectors
 
@@ -189,28 +194,36 @@ def main():
         output_prefix = ROOT / output_prefix
     source_python = source_python_for(source, args.source_python)
 
-    ensure_safe_paths(source, output_prefix, args.force)
-    if not source_python.exists():
-        raise FileNotFoundError(
-            f'Source Python executable does not exist: {source_python}')
+    ensure_safe_paths(source, output_prefix)
 
-    bridge = output_prefix.with_name(f'.{output_prefix.name}.bridge.npz')
-    try:
-        print(f'Reading source with {source_python}')
-        print(f'Source: {source}')
-        print(f'Writing temporary bridge: {bridge}')
-        export_bridge(source, bridge, source_python)
-        print(f'Replacing local JEPA arrays: {output_prefix}_*.npy')
-        jepa_ids = save_local_embeddings(bridge, output_prefix)
-    finally:
-        if bridge.exists():
-            bridge.unlink()
+    blocked = outputs_blocked(output_prefix, args.force)
+    if blocked is not None:
+        print(f'Warning: {blocked} already exists; skipping JEPA export. '
+              'Pass --force to overwrite.')
+        ids_path, _ = output_paths(output_prefix)
+        jepa_ids = (np.load(ids_path, allow_pickle=False).astype(str)
+                    if ids_path.exists() else None)
+    else:
+        if not source_python.exists():
+            raise FileNotFoundError(
+                f'Source Python executable does not exist: {source_python}')
+        bridge = output_prefix.with_name(f'.{output_prefix.name}.bridge.npz')
+        try:
+            print(f'Reading source with {source_python}')
+            print(f'Source: {source}')
+            print(f'Writing temporary bridge: {bridge}')
+            export_bridge(source, bridge, source_python)
+            print(f'Replacing local JEPA arrays: {output_prefix}_*.npy')
+            jepa_ids = save_local_embeddings(bridge, output_prefix)
+        finally:
+            if bridge.exists():
+                bridge.unlink()
 
     print('Replacing local tracktovec arrays')
     track_ids, track_vecs = save_pickle_store(ROOT / 'model' / 'tracktovec.p',
                                               ROOT / 'model' / 'tracktovec',
                                               args.force)
-    if track_ids is not None:
+    if track_ids is not None and jepa_ids is not None:
         print('Replacing JEPA-aligned tracktovec vectors')
         save_aligned_vectors(track_ids, track_vecs, jepa_ids,
                              ROOT / 'model' / 'jepa_tracktovec_vectors.npy')
@@ -218,11 +231,11 @@ def main():
     audio_ids, audio_vecs = save_pickle_store(ROOT / 'model' / 'spotifytovec.p',
                                               ROOT / 'model' / 'spotifytovec',
                                               args.force)
-    if audio_ids is not None:
+    if audio_ids is not None and jepa_ids is not None:
         print('Replacing JEPA-aligned spotifytovec vectors')
         save_aligned_vectors(audio_ids, audio_vecs, jepa_ids,
                              ROOT / 'model' / 'jepa_spotifytovec_vectors.npy')
-    print('Done. Original source artifact was not modified.')
+    print('Done.')
 
 
 if __name__ == '__main__':

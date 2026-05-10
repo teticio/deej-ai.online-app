@@ -29,66 +29,14 @@ class DeejAI:
     HOP_LENGTH = 512
     MODEL_DIR = Path('model')
 
-    @staticmethod
-    def _normalize_vectors(vectors):
-        """Normalize non-zero vectors in a mapping."""
-        return {
-            k: v / np.linalg.norm(v)
-            for k, v in vectors.items() if np.linalg.norm(v) > 0
-        }
-
-    @staticmethod
-    def _normalize_array(vectors):
-        """Normalize an embedding matrix without changing zero rows."""
-        norms = np.linalg.norm(vectors, axis=1, keepdims=True)
-        return vectors / np.maximum(norms, 1e-8)
-
     @classmethod
-    def _load_vector_store(cls, name, legacy_pickle=None, mmap=True):
-        """Load an embedding store as IDs plus a row-aligned matrix."""
-        ids_path = cls.MODEL_DIR / f'{name}_ids.npy'
-        vectors_path = cls.MODEL_DIR / f'{name}_vectors.npy'
-        if ids_path.exists() and vectors_path.exists():
-            mmap_mode = 'r' if mmap else None
-            ids = np.load(ids_path, allow_pickle=False)
-            vectors = np.load(vectors_path,
-                              allow_pickle=False,
-                              mmap_mode=mmap_mode)
-            return ids.astype(str), vectors
-
-        npz_path = cls.MODEL_DIR / f'{name}.npz'
-        if os.path.exists(npz_path):
-            with np.load(npz_path, allow_pickle=False) as data:
-                track_ids = data['track_ids'].astype(str)
-                vectors = data['embeddings'].astype(np.float32, copy=False)
-                return track_ids, vectors
-
-        legacy_npz_path = cls.MODEL_DIR / 'embeddings.npz'
-        if os.path.exists(legacy_npz_path):
-            with np.load(legacy_npz_path, allow_pickle=False) as data:
-                track_ids = data['track_ids'].astype(str)
-                vectors = data['embeddings'].astype(np.float32, copy=False)
-                return track_ids, vectors
-
-        if legacy_pickle is None:
-            legacy_pickle = cls.MODEL_DIR / f'{name}.p'
-        else:
-            legacy_pickle = Path(legacy_pickle)
-
-        if not legacy_pickle.exists() and name == 'jepa':
-            legacy_pickle = cls.MODEL_DIR / 'embeddings.npy'
-
-        if legacy_pickle.suffix == '.npy':
-            data = np.load(legacy_pickle, allow_pickle=True).item()
-        else:
-            with legacy_pickle.open('rb') as file:
-                data = pickle.load(file)
-        ids = np.asarray(list(data), dtype=str)
-        vectors = np.stack([data[track_id]
-                            for track_id in ids]).astype(np.float32,
-                                                         copy=False)
-        vectors = cls._normalize_array(vectors).astype(np.float32, copy=False)
-        return ids, vectors
+    def _load_vector_store(cls, name):
+        """Load an embedding store as IDs plus a memory-mapped vector matrix."""
+        ids = np.load(cls.MODEL_DIR / f'{name}_ids.npy', allow_pickle=False)
+        vectors = np.load(cls.MODEL_DIR / f'{name}_vectors.npy',
+                          allow_pickle=False,
+                          mmap_mode='r')
+        return ids.astype(str), vectors
 
     @staticmethod
     def _choose_candidate(candidates, noise):
@@ -113,15 +61,11 @@ class DeejAI:
         return source_vectors[[indices[track_id] for track_id in target_ids]]
 
     @classmethod
-    def _load_aligned_vectors(cls, name, expected_rows):
+    def _load_aligned_vectors(cls, name):
         """Load vectors already aligned to the active track ID order."""
-        path = cls.MODEL_DIR / f'{name}_vectors.npy'
-        if not path.exists():
-            return None
-        vectors = np.load(path, allow_pickle=False, mmap_mode='r')
-        if vectors.shape[0] != expected_rows:
-            return None
-        return vectors
+        return np.load(cls.MODEL_DIR / f'{name}_vectors.npy',
+                       allow_pickle=False,
+                       mmap_mode='r')
 
     @staticmethod
     def _valid_candidate(track_id, tracks, playlist, playlist_tracks,
@@ -162,28 +106,14 @@ class DeejAI:
 
         if self.embeddings_model == 'jepa':
             logging.info('Loading JEPA embeddings as primary channel')
-            primary_ids, primary_vecs = self._load_vector_store(
-                'jepa', legacy_pickle=self.MODEL_DIR / 'jepa.npy')
+            primary_ids, primary_vecs = self._load_vector_store('jepa')
             self.track_ids = [str(track_id) for track_id in primary_ids]
-            track_arr = self._load_aligned_vectors('jepa_tracktovec',
-                                                   len(self.track_ids))
-            if track_arr is None:
-                track_ids, track_vecs = self._load_vector_store(
-                    'tracktovec',
-                    legacy_pickle=self.MODEL_DIR / 'tracktovec.p')
-                track_id_set = set(track_ids)
-                self.track_ids = [
-                    track_id for track_id in self.track_ids
-                    if track_id in track_id_set
-                ]
-                track_arr = self._aligned_vectors(track_ids, track_vecs,
-                                                  self.track_ids)
+            track_arr = self._load_aligned_vectors('jepa_tracktovec')
+            if use_audio_model:
+                self.audio_vecs = self._load_aligned_vectors('jepa_spotifytovec')
         else:
-            track_ids, track_vecs = self._load_vector_store(
-                'tracktovec', legacy_pickle=self.MODEL_DIR / 'tracktovec.p')
-            primary_ids, primary_vecs = self._load_vector_store(
-                'spotifytovec',
-                legacy_pickle=self.MODEL_DIR / 'spotifytovec.p')
+            track_ids, track_vecs = self._load_vector_store('tracktovec')
+            primary_ids, primary_vecs = self._load_vector_store('spotifytovec')
             track_id_set = set(track_ids)
             self.track_ids = [
                 str(track_id) for track_id in primary_ids
@@ -202,15 +132,6 @@ class DeejAI:
         self.mp3tovecs = [primary_arr, track_arr]
         if self.embeddings_model != 'jepa':
             self.audio_vecs = primary_arr  # same data as channel 0
-        elif use_audio_model:
-            self.audio_vecs = self._load_aligned_vectors(
-                'jepa_spotifytovec', len(self.track_ids))
-            if self.audio_vecs is None:
-                audio_ids, audio_vecs = self._load_vector_store(
-                    'spotifytovec',
-                    legacy_pickle=self.MODEL_DIR / 'spotifytovec.p')
-                self.audio_vecs = self._aligned_vectors(
-                    audio_ids, audio_vecs, self.track_ids)
 
         self.preprocessed_tracks = {
             track_id: re.sub(r'([^\s\w]|_)+', '', unidecode(track).lower())
