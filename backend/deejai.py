@@ -7,6 +7,7 @@ import pickle
 import random
 import shutil
 import logging
+from pathlib import Path
 from io import BytesIO
 
 import librosa
@@ -26,6 +27,7 @@ class DeejAI:
     """
     N_FFT = 2048
     HOP_LENGTH = 512
+    MODEL_DIR = Path('model')
 
     @staticmethod
     def _normalize_vectors(vectors):
@@ -36,34 +38,57 @@ class DeejAI:
         }
 
     @staticmethod
-    def _load_jepa_embeddings():
-        """Load JEPA embeddings from the preferred local format."""
-        npy_path = os.path.join('model', 'jepa.npy')
-        if os.path.exists(npy_path):
-            return np.load(npy_path, allow_pickle=True).item()
+    def _normalize_array(vectors):
+        """Normalize an embedding matrix without changing zero rows."""
+        norms = np.linalg.norm(vectors, axis=1, keepdims=True)
+        return vectors / np.maximum(norms, 1e-8)
 
-        npz_path = os.path.join('model', 'jepa.npz')
+    @classmethod
+    def _load_vector_store(cls, name, legacy_pickle=None, mmap=True):
+        """Load an embedding store as IDs plus a row-aligned matrix."""
+        ids_path = cls.MODEL_DIR / f'{name}_ids.npy'
+        vectors_path = cls.MODEL_DIR / f'{name}_vectors.npy'
+        if ids_path.exists() and vectors_path.exists():
+            mmap_mode = 'r' if mmap else None
+            ids = np.load(ids_path, allow_pickle=False)
+            vectors = np.load(vectors_path,
+                              allow_pickle=False,
+                              mmap_mode=mmap_mode)
+            return ids.astype(str), vectors
+
+        npz_path = cls.MODEL_DIR / f'{name}.npz'
         if os.path.exists(npz_path):
             with np.load(npz_path, allow_pickle=False) as data:
                 track_ids = data['track_ids'].astype(str)
                 vectors = data['embeddings'].astype(np.float32, copy=False)
-                return {
-                    track_id: vectors[index]
-                    for index, track_id in enumerate(track_ids)
-                }
+                return track_ids, vectors
 
-        legacy_npz_path = os.path.join('model', 'embeddings.npz')
+        legacy_npz_path = cls.MODEL_DIR / 'embeddings.npz'
         if os.path.exists(legacy_npz_path):
             with np.load(legacy_npz_path, allow_pickle=False) as data:
                 track_ids = data['track_ids'].astype(str)
                 vectors = data['embeddings'].astype(np.float32, copy=False)
-                return {
-                    track_id: vectors[index]
-                    for index, track_id in enumerate(track_ids)
-                }
+                return track_ids, vectors
 
-        return np.load(os.path.join('model', 'embeddings.npy'),
-                       allow_pickle=True).item()
+        if legacy_pickle is None:
+            legacy_pickle = cls.MODEL_DIR / f'{name}.p'
+        else:
+            legacy_pickle = Path(legacy_pickle)
+
+        if not legacy_pickle.exists() and name == 'jepa':
+            legacy_pickle = cls.MODEL_DIR / 'embeddings.npy'
+
+        if legacy_pickle.suffix == '.npy':
+            data = np.load(legacy_pickle, allow_pickle=True).item()
+        else:
+            with legacy_pickle.open('rb') as file:
+                data = pickle.load(file)
+        ids = np.asarray(list(data), dtype=str)
+        vectors = np.stack([data[track_id]
+                            for track_id in ids]).astype(np.float32,
+                                                         copy=False)
+        vectors = cls._normalize_array(vectors).astype(np.float32, copy=False)
+        return ids, vectors
 
     @staticmethod
     def _choose_candidate(candidates, noise):
@@ -77,6 +102,51 @@ class DeejAI:
         weights = weights / weights.sum()
         return candidates[int(np.random.choice(k, p=weights))][0]
 
+    @staticmethod
+    def _aligned_vectors(source_ids, source_vectors, target_ids):
+        """Return vectors ordered like target_ids, avoiding copies when possible."""
+        if len(source_ids) == len(target_ids) and np.array_equal(
+                source_ids, target_ids):
+            return source_vectors
+
+        indices = {track_id: index for index, track_id in enumerate(source_ids)}
+        return source_vectors[[indices[track_id] for track_id in target_ids]]
+
+    @classmethod
+    def _load_aligned_vectors(cls, name, expected_rows):
+        """Load vectors already aligned to the active track ID order."""
+        path = cls.MODEL_DIR / f'{name}_vectors.npy'
+        if not path.exists():
+            return None
+        vectors = np.load(path, allow_pickle=False, mmap_mode='r')
+        if vectors.shape[0] != expected_rows:
+            return None
+        return vectors
+
+    @staticmethod
+    def _valid_candidate(track_id, tracks, playlist, playlist_tracks,
+                         blocked_ids):
+        """Check playlist-level duplicate and artist constraints."""
+        if track_id in blocked_ids or tracks[track_id] in playlist_tracks:
+            return False
+        last_track = tracks[playlist[-1]]
+        track = tracks[track_id]
+        return track[:track.find(' - ')] != last_track[:last_track.find(' - ')]
+
+    def _candidate_pool(self, ranked, scores, playlist, playlist_tracks,
+                        blocked_ids, noise):
+        """Collect only as many valid ranked candidates as temperature can use."""
+        needed = 1 if noise <= 0 else max(2, int(1 + noise * 25))
+        pool = []
+        for candidate in ranked:
+            track_id = self.track_ids[int(candidate)]
+            if self._valid_candidate(track_id, self.tracks, playlist,
+                                     playlist_tracks, blocked_ids):
+                pool.append((int(candidate), scores[int(candidate)]))
+                if len(pool) >= needed:
+                    break
+        return pool
+
     def __init__(self):
         self.embeddings_model = os.environ.get('EMBEDDINGS_MODEL',
                                                'jepa').lower()
@@ -85,46 +155,62 @@ class DeejAI:
         with open(os.path.join('model', 'spotify_urls.p'), 'rb') as file:
             self.urls = pickle.load(file)
 
-        with open(os.path.join('model', 'tracktovec.p'), 'rb') as file:
-            tracktovecs = pickle.load(file)
-        tracktovecs = self._normalize_vectors(tracktovecs)
+        self.model = None
+        self.audio_vecs = None
 
         use_audio_model = 'HACKINTOSH' not in os.environ
-        audio = None
-        if self.embeddings_model != 'jepa' or use_audio_model:
-            # spotifytovec is the embedding space produced by speccy_model.
-            with open(os.path.join('model', 'spotifytovec.p'), 'rb') as file:
-                audio = pickle.load(file)
-            audio = self._normalize_vectors(audio)
 
         if self.embeddings_model == 'jepa':
             logging.info('Loading JEPA embeddings as primary channel')
-            primary = self._load_jepa_embeddings()
-            primary = self._normalize_vectors(primary)
+            primary_ids, primary_vecs = self._load_vector_store(
+                'jepa', legacy_pickle=self.MODEL_DIR / 'jepa.npy')
+            self.track_ids = [str(track_id) for track_id in primary_ids]
+            track_arr = self._load_aligned_vectors('jepa_tracktovec',
+                                                   len(self.track_ids))
+            if track_arr is None:
+                track_ids, track_vecs = self._load_vector_store(
+                    'tracktovec',
+                    legacy_pickle=self.MODEL_DIR / 'tracktovec.p')
+                track_id_set = set(track_ids)
+                self.track_ids = [
+                    track_id for track_id in self.track_ids
+                    if track_id in track_id_set
+                ]
+                track_arr = self._aligned_vectors(track_ids, track_vecs,
+                                                  self.track_ids)
         else:
-            primary = audio
+            track_ids, track_vecs = self._load_vector_store(
+                'tracktovec', legacy_pickle=self.MODEL_DIR / 'tracktovec.p')
+            primary_ids, primary_vecs = self._load_vector_store(
+                'spotifytovec',
+                legacy_pickle=self.MODEL_DIR / 'spotifytovec.p')
+            track_id_set = set(track_ids)
+            self.track_ids = [
+                str(track_id) for track_id in primary_ids
+                if track_id in track_id_set
+            ]
+            track_arr = self._aligned_vectors(track_ids, track_vecs,
+                                              self.track_ids)
 
-        # Restrict to tracks present in all spaces we need.
-        self.track_ids = [k for k in primary if k in tracktovecs]
-        if audio is not None:
-            self.track_ids = [k for k in self.track_ids if k in audio]
         self.track_indices = {k: i for i, k in enumerate(self.track_ids)}
+
         # Two parallel arrays — one per channel — so that channels with
         # different embedding dimensions (e.g. 384-d JEPA + 100-d tracktovec)
         # can be blended via the `creativity` weight in `most_similar`.
-        primary_arr = np.stack([primary[k] for k in self.track_ids]).astype(
-            np.float32)
-        track_arr = np.stack([tracktovecs[k] for k in self.track_ids]).astype(
-            np.float32)
+        primary_arr = self._aligned_vectors(primary_ids, primary_vecs,
+                                            self.track_ids)
         self.mp3tovecs = [primary_arr, track_arr]
-        # Dedicated array aligned to self.track_ids for audio-similarity search.
-        self.audio_vecs = None
-        if audio is not None and self.embeddings_model == 'jepa':
-            self.audio_vecs = np.stack(
-                [audio[k] for k in self.track_ids]).astype(np.float32)
-        elif self.embeddings_model != 'jepa':
+        if self.embeddings_model != 'jepa':
             self.audio_vecs = primary_arr  # same data as channel 0
-        del primary, tracktovecs, audio, primary_arr, track_arr
+        elif use_audio_model:
+            self.audio_vecs = self._load_aligned_vectors(
+                'jepa_spotifytovec', len(self.track_ids))
+            if self.audio_vecs is None:
+                audio_ids, audio_vecs = self._load_vector_store(
+                    'spotifytovec',
+                    legacy_pickle=self.MODEL_DIR / 'spotifytovec.p')
+                self.audio_vecs = self._aligned_vectors(
+                    audio_ids, audio_vecs, self.track_ids)
 
         self.preprocessed_tracks = {
             track_id: re.sub(r'([^\s\w]|_)+', '', unidecode(track).lower())
@@ -132,7 +218,6 @@ class DeejAI:
             if track_id in self.track_indices
         }
 
-        self.model = None
         if use_audio_model:
             self.model = load_model(
                 os.path.join('model', 'speccy_model'),
@@ -140,6 +225,8 @@ class DeejAI:
                     'cosine_proximity':
                     tf.compat.v1.keras.losses.cosine_proximity
                 })
+
+        del primary_ids, primary_vecs, primary_arr, track_arr
 
     def get_tracks(self):
         """Get tracks.
@@ -211,10 +298,10 @@ class DeejAI:
         positive = list(positive)
         negative = list(negative)
         n_tracks = mp3tovecs[0].shape[0]
-        scores = np.zeros(n_tracks, dtype=np.float64)
+        scores = np.zeros(n_tracks, dtype=np.float32)
         for j, weight in enumerate(weights):
             channel = mp3tovecs[j]
-            target = np.zeros(channel.shape[1], dtype=np.float64)
+            target = np.zeros(channel.shape[1], dtype=np.float32)
             if positive:
                 target += np.sum(channel[positive], axis=0)
             if negative:
@@ -222,15 +309,13 @@ class DeejAI:
             if vecs is not None:
                 target += np.sum([v[j] for v in vecs], axis=0)
             scores += weight * (channel @ target)
-        result = list(np.argsort(scores))
-        for i in negative:
-            del result[result.index(i)]
-        result.reverse()
-        for i in positive:
-            del result[result.index(i)]
+        result = np.argsort(scores)[::-1]
+        excluded = set(positive + negative)
+        if excluded:
+            result = result[~np.isin(result, list(excluded))]
         if return_scores:
-            return [(i, scores[i]) for i in result]
-        return result
+            return result, scores
+        return result.tolist()
 
     async def most_similar_by_vec(  # pylint: disable=too-many-arguments,unused-argument
             self,
@@ -248,19 +333,19 @@ class DeejAI:
         positives = list(positives) if positives else []
         negatives = list(negatives) if negatives else []
         n_tracks = mp3tovecs[0].shape[0]
-        scores = np.zeros(n_tracks, dtype=np.float64)
+        scores = np.zeros(n_tracks, dtype=np.float32)
         for j, weight in enumerate(weights):
             channel = mp3tovecs[j]
-            target = np.zeros(channel.shape[1], dtype=np.float64)
+            target = np.zeros(channel.shape[1], dtype=np.float32)
             if positives:
                 target += np.sum(positives[j], axis=0)
             if negatives:
                 target -= np.sum(negatives[j], axis=0)
             scores += weight * (channel @ target)
-        result = list(np.argsort(-scores))
+        result = np.argsort(-scores)
         if return_scores:
-            return [(i, scores[i]) for i in result]
-        return result
+            return result, scores
+        return result.tolist()
 
     def _track_vec(self, idx):
         """Per-channel vectors for a track index: list of arrays, one per channel."""
@@ -270,7 +355,8 @@ class DeejAI:
         """Generate playlist that joins the dots between given waypoints.
         """
         playlist = []
-        playlist_tracks = [self.tracks[_] for _ in ids]
+        playlist_tracks = {self.tracks[_] for _ in ids}
+        blocked_ids = set(ids)
         end = start = ids[0]
         start_vec = self._track_vec(self.track_indices[start])
         for end in ids[1:]:
@@ -284,19 +370,15 @@ class DeejAI:
                               for k in range(len(weights))],
                     noise=noise,
                     return_scores=True)
-                valid_candidates = []
-                for candidate, score in candidates:
-                    track_id = self.track_ids[candidate]
-                    if track_id not in playlist + ids and self.tracks[
-                            track_id] not in playlist_tracks and self.tracks[
-                                track_id][:self.tracks[track_id].
-                                          find(' - ')] != self.tracks[playlist[
-                                              -1]][:self.tracks[playlist[-1]].
-                                                   find(' - ')]:
-                        valid_candidates.append((candidate, score))
-                candidate = self._choose_candidate(valid_candidates, noise)
+                ranked, scores = candidates
+                candidate = self._choose_candidate(
+                    self._candidate_pool(ranked, scores, playlist,
+                                         playlist_tracks, blocked_ids, noise),
+                    noise)
                 track_id = self.track_ids[candidate]
                 playlist.append(track_id)
+                playlist_tracks.add(self.tracks[track_id])
+                blocked_ids.add(track_id)
             start = end
             start_vec = end_vec
         playlist.append(end)
@@ -311,7 +393,8 @@ class DeejAI:
             noise=0):
         """Generate playlist starting from seed track(s).
         """
-        playlist_tracks = [self.tracks[_] for _ in playlist]
+        playlist_tracks = {self.tracks[_] for _ in playlist}
+        blocked_ids = set(playlist)
         playlist_indices = [self.track_indices[_] for _ in playlist]
         for _ in range(len(playlist), size):
             candidates = await self.most_similar(
@@ -320,20 +403,15 @@ class DeejAI:
                 positive=playlist_indices[-lookback:],
                 noise=noise,
                 return_scores=True)
-            valid_candidates = []
-            for candidate, score in candidates:
-                track_id = self.track_ids[candidate]
-                if track_id not in playlist and self.tracks[
-                        track_id] not in playlist_tracks and self.tracks[
-                            track_id][:self.tracks[track_id].
-                                      find(' - ')] != self.tracks[playlist[
-                                          -1]][:self.tracks[playlist[-1]].
-                                               find(' - ')]:
-                    valid_candidates.append((candidate, score))
-            candidate = self._choose_candidate(valid_candidates, noise)
+            ranked, scores = candidates
+            candidate = self._choose_candidate(
+                self._candidate_pool(ranked, scores, playlist,
+                                     playlist_tracks, blocked_ids, noise),
+                noise)
             track_id = self.track_ids[candidate]
             playlist.append(track_id)
-            playlist_tracks.append(self.tracks[track_id])
+            playlist_tracks.add(self.tracks[track_id])
+            blocked_ids.add(track_id)
             playlist_indices.append(candidate)  # pylint: disable=undefined-loop-variable
         return playlist
 
